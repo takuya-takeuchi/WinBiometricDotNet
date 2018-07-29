@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4011A92D-1064-4209-8443-8D0A292F8EF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinBiometricDotNet", "sources\WinBiometricDotNet\WinBiometricDotNet.csproj", "{769F29E5-2778-4D05-A841-79633A9CD147}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{A417F340-6BF3-4E3D-A2D7-524F097434FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrameworkTester", "examples\FrameworkTester\FrameworkTester.csproj", "{019372F1-1888-4253-B3B9-9EE5EFDF15B5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{769F29E5-2778-4D05-A841-79633A9CD147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{769F29E5-2778-4D05-A841-79633A9CD147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{769F29E5-2778-4D05-A841-79633A9CD147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{769F29E5-2778-4D05-A841-79633A9CD147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019372F1-1888-4253-B3B9-9EE5EFDF15B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019372F1-1888-4253-B3B9-9EE5EFDF15B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019372F1-1888-4253-B3B9-9EE5EFDF15B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019372F1-1888-4253-B3B9-9EE5EFDF15B5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{769F29E5-2778-4D05-A841-79633A9CD147} = {4011A92D-1064-4209-8443-8D0A292F8EF8}
+		{019372F1-1888-4253-B3B9-9EE5EFDF15B5} = {A417F340-6BF3-4E3D-A2D7-524F097434FB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F162973-A013-4E17-9336-552A31A46A74}
+	EndGlobalSection
+EndGlobal
