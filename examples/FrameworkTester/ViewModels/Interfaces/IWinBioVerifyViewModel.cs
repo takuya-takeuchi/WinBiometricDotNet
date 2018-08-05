@@ -13,7 +13,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        uint RejectDetail
+        RejectDetails RejectDetail
         {
             get;
         }

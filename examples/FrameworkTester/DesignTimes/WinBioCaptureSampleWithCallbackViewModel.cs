@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media.Imaging;
 using FrameworkTester.ViewModels.Interfaces;
+using WinBiometricDotNet;
 
 namespace FrameworkTester.DesignTimes
 {
@@ -48,7 +49,7 @@ namespace FrameworkTester.DesignTimes
             set;
         }
 
-        public uint RejectDetail
+        public RejectDetails RejectDetail
         {
             get;
         }

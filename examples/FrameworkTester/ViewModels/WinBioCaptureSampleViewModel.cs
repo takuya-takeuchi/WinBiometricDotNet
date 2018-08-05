@@ -210,9 +210,9 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioCaptureSample";
 
-        private uint _RejectDetail;
+        private RejectDetails _RejectDetail;
 
-        public uint RejectDetail
+        public RejectDetails RejectDetail
         {
             get
             {

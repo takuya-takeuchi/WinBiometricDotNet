@@ -340,13 +340,15 @@ namespace WinBiometricDotNet
                     ThrowWinBiometricException(hr);
                     break;
                 case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                    // retrun unitId and rejectDetail
+                    break;
                 case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
                 case SafeNativeMethods.WINBIO_E_NO_MATCH:
                     ThrowWinBiometricException(ConvertErrorCodeToString(hr));
                     break;
             }
 
-            return new VerifyResult(match, unitId, rejectDetail);
+            return new VerifyResult(match, unitId, (RejectDetails)rejectDetail);
         }
 
         #region Helpers
@@ -430,7 +432,7 @@ namespace WinBiometricDotNet
                                                                             IntPtr sampleSize,
                                                                             WINBIO_REJECT_DETAIL rejectDetail)
         {
-            var result = new CaptureSampleResult(unitId, status, rejectDetail, (uint)sampleSize);
+            var result = new CaptureSampleResult(unitId, status, (RejectDetails)rejectDetail, (uint)sampleSize);
             if (sample != null)
             {
                 var tmp = (UIntPtr)((ulong)sample + sample->StandardDataBlock.Offset);
@@ -1212,5 +1214,6 @@ namespace WinBiometricDotNet
         #endregion
 
     }
+
 
 }

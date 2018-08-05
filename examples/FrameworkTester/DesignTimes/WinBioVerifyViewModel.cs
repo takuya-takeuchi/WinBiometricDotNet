@@ -14,7 +14,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public uint RejectDetail
+        public RejectDetails RejectDetail
         {
             get;
         }

@@ -48,6 +48,7 @@ namespace FrameworkTester.ViewModels
 
                     try
                     {
+                        this.Result = "WAIT";
                         var result = this._Service.Verify(this.CurrentUnit, this.SelectedFingerPosition);
                         this.Result = "OK";
 
@@ -81,9 +82,9 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioVerify";
 
-        private uint _RejectDetail;
+        private RejectDetails _RejectDetail;
 
-        public uint RejectDetail
+        public RejectDetails RejectDetail
         {
             get
             {

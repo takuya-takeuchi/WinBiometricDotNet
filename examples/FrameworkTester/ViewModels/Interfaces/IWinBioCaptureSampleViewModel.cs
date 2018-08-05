@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media.Imaging;
+using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels.Interfaces
 {
@@ -41,7 +42,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        uint RejectDetail
+        RejectDetails RejectDetail
         {
             get;
         }
