@@ -3,11 +3,11 @@
 namespace FrameworkTester.Views
 {
     /// <summary>
-    /// WinBioReleaseFocus.xaml の相互作用ロジック
+    /// WinBioEnumDatabases.xaml の相互作用ロジック
     /// </summary>
-    public partial class WinBioReleaseFocus : Page
+    public partial class WinBioEnumDatabases : Page
     {
-        public WinBioReleaseFocus()
+        public WinBioEnumDatabases()
         {
             InitializeComponent();
         }

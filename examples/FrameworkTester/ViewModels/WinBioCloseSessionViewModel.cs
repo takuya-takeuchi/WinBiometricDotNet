@@ -2,14 +2,13 @@
 using System.Windows;
 using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioCloseSessionViewModel : ViewModelBase, IWinBioCloseSessionViewModel
+    public sealed class WinBioCloseSessionViewModel : WinBioViewModel, IWinBioCloseSessionViewModel
     {
 
         #region Fields
@@ -31,7 +30,7 @@ namespace FrameworkTester.ViewModels
 
         private RelayCommand _ExecuteCommand;
 
-        public RelayCommand ExecuteCommand
+        public override RelayCommand ExecuteCommand
         {
             get
             {
@@ -51,22 +50,7 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public string Name => "WinBioCloseSession";
-
-        private string _Result;
-
-        public string Result
-        {
-            get
-            {
-                return this._Result;
-            }
-            private set
-            {
-                this._Result = value;
-                this.RaisePropertyChanged();
-            }
-        }
+        public override string Name => "WinBioCloseSession";
 
         #endregion
 

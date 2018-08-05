@@ -16,24 +16,14 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        public WinBiometricException(int hresult, string message) :
-            base(message)
+        public WinBiometricException(string message)
+            : base(message)
         {
-            var lpMsgBuf = IntPtr.Zero;
-            var dwFlag = SafeNativeMethods.FORMAT_MESSAGE_ALLOCATE_BUFFER | SafeNativeMethods.FORMAT_MESSAGE_FROM_SYSTEM | SafeNativeMethods.FORMAT_MESSAGE_IGNORE_INSERTS;
-            var dwChars = SafeNativeMethods.FormatMessage(dwFlag,
-                                                          IntPtr.Zero,
-                                                          (uint)hresult,
-                                                          0,
-                                                          ref lpMsgBuf,
-                                                          0,
-                                                          null);
-            if (dwChars != 0)
-            {
-                var sRet = Marshal.PtrToStringAnsi(lpMsgBuf);
-                SafeNativeMethods.LocalFree(lpMsgBuf);
-            }
+        }
 
+        public WinBiometricException(int hresult) :
+            base(ToMessage(hresult))
+        {
             this.HResult = hresult;
         }
 
@@ -44,13 +34,32 @@ namespace WinBiometricDotNet
 
         #region Methods
 
-        #region Overrids
-        #endregion
-
-        #region Event Handlers
-        #endregion
-
         #region Helpers
+
+        private static string ToMessage(int hresult)
+        {
+            var dwFlag = SafeNativeMethods.FORMAT_MESSAGE_ALLOCATE_BUFFER | SafeNativeMethods.FORMAT_MESSAGE_FROM_SYSTEM | SafeNativeMethods.FORMAT_MESSAGE_IGNORE_INSERTS;
+            var dwChars = SafeNativeMethods.FormatMessage(dwFlag,
+                                                          IntPtr.Zero,
+                                                          (uint)hresult,
+                                                          0,
+                                                          out var lpMsgBuf,
+                                                          0,
+                                                          null);
+
+            var message = "";
+            if (dwChars != 0)
+            {
+                message = Marshal.PtrToStringAnsi(lpMsgBuf);
+                SafeNativeMethods.LocalFree(lpMsgBuf);
+            }
+
+            // Remove tail new line and line feed
+            message = System.Text.RegularExpressions.Regex.Replace(message, "[\r\n]+$", "");
+
+            return message;
+        }
+
         #endregion
 
         #endregion

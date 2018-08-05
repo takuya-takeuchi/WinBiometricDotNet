@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
+using WinBiometricDotNet.Helpers;
 using WinBiometricDotNet.Interop;
+
+using HRESULT = System.Int32;
 
 using WINBIO_BIOMETRIC_SENSOR_SUBTYPE = System.UInt32;
 using WINBIO_BIOMETRIC_SUBTYPE = System.Byte;
@@ -112,18 +117,83 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
-        public static IEnumerable<BiometricUnit> EnumBiometricUnits(BiometricType biometricType = BiometricType.Fingerprint)
+        public static Guid CreateDatabase(BiometricUnit unit)
         {
-            var hr = SafeNativeMethods.WinBioEnumBiometricUnits((uint)biometricType,
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            var guid = Guid.NewGuid();
+            CreateDatabase(unit, guid);
+            return guid;
+        }
+
+        public static void CreateDatabase(BiometricUnit unit, Guid guid)
+        {
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            unsafe
+            {
+                if (IsDatabaseInstalled(guid, out var dataFormat))
+                    throw new ArgumentException();
+
+                var unitSchema = Converter.ConvertFrom(unit);
+                var hr = CreateCompatibleConfiguration(ref unitSchema, out var configuration);
+                if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    var message = ConvertErrorCodeToString(hr);
+                    throw new WinBiometricException(message);
+                }
+
+                var storageSchema = new SafeNativeMethods.WINBIO_STORAGE_SCHEMA
+                {
+                    DatabaseId = guid,
+                    DataFormat = configuration.DataFormat,
+                    Attributes = configuration.DatabaseAttributes
+                };
+
+                hr = RegisterDatabase(storageSchema);
+                if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    var message = ConvertErrorCodeToString(hr);
+                    throw new WinBiometricException(message);
+                }
+            }
+        }
+
+        public static IEnumerable<BiometricDatabase> EnumBiometricDatabases(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            var databases = new List<BiometricDatabase>();
+
+            unsafe
+            {
+                var hr = SafeNativeMethods.WinBioEnumDatabases((uint)biometricTypes,
+                                                               out var storageArray,
+                                                               out var storageCount);
+
+                ThrowWinBiometricException(hr);
+
+                var array = MarshalArray<SafeNativeMethods.WINBIO_STORAGE_SCHEMA>(storageArray, (int)storageCount);
+                for (int index = 0, count = (int)storageCount; index < count; ++index)
+                    databases.Add(new BiometricDatabase(array[index]));
+
+                if (storageArray != IntPtr.Zero)
+                    SafeNativeMethods.WinBioFree((IntPtr)storageArray);
+            }
+
+            return databases;
+        }
+
+        public static IEnumerable<BiometricUnit> EnumBiometricUnits(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            var hr = SafeNativeMethods.WinBioEnumBiometricUnits((uint)biometricTypes,
                                                                 out var unitSchemaArray,
                                                                 out var unitCount);
 
             ThrowWinBiometricException(hr);
 
             foreach (var schema in unitSchemaArray)
-            {
                 yield return new BiometricUnit(schema);
-            }
         }
 
         public static Session OpenSession()
@@ -152,7 +222,75 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static void RemoveDatabase(BiometricUnit unit, Guid databaseId)
+        {
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            if (databaseId == Guid.Empty)
+                throw new ArgumentException();
+
+            if (!IsDatabaseInstalled(databaseId, out var dataFormat))
+                throw new ArgumentException();
+
+            var unitSchema = Converter.ConvertFrom(unit);
+            var hr = UnregisterPrivateConfiguration(unitSchema, databaseId, out var configRemoved);
+            if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
+            {
+                var message = ConvertErrorCodeToString(hr);
+                throw new WinBiometricException(message);
+            }
+
+            hr = UnregisterDatabase(databaseId);
+            if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
+            {
+                var message = ConvertErrorCodeToString(hr);
+                throw new WinBiometricException(message);
+            }
+        }
+
         #region Helpers
+
+        private static string ConvertErrorCodeToString(int errorCode)
+        {
+            var lpMsgBuf = IntPtr.Zero;
+            var messageLength = 0u;
+            var systemPathSize = SafeNativeMethods.GetSystemWindowsDirectory(null, 0);
+            var systemPath = new StringBuilder((int)systemPathSize);
+            systemPathSize = SafeNativeMethods.GetSystemWindowsDirectory(systemPath, systemPathSize);
+
+            var libraryPath = System.IO.Path.Combine(systemPath.ToString(), @"\system32\winbio.dll");
+
+            var winbioLibrary = SafeNativeMethods.LoadLibraryExW(libraryPath,
+                                                                 SafeNativeMethods.NULL,
+                                                                 SafeNativeMethods.LOAD_LIBRARY_AS_DATAFILE |
+                                                                 SafeNativeMethods.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
+            if (winbioLibrary != IntPtr.Zero)
+            {
+                var dwFlag = SafeNativeMethods.FORMAT_MESSAGE_ALLOCATE_BUFFER |
+                             SafeNativeMethods.FORMAT_MESSAGE_FROM_HMODULE |
+                             SafeNativeMethods.FORMAT_MESSAGE_FROM_SYSTEM;
+                messageLength = SafeNativeMethods.FormatMessage(dwFlag,
+                                                                winbioLibrary,
+                                                                (uint)errorCode,
+                                                                0,
+                                                                out lpMsgBuf,
+                                                                0,
+                                                                null);
+
+                SafeNativeMethods.FreeLibrary(winbioLibrary);
+                winbioLibrary = IntPtr.Zero;
+            }
+
+            string message = null;
+            if (messageLength > 0)
+                message = Marshal.PtrToStringAuto(lpMsgBuf);
+
+            SafeNativeMethods.LocalFree(lpMsgBuf);
+
+            // Caller must release buffer with LocalFree()
+            return message;
+        }
 
         private static OperationStatus ConvertToOperationStatus(int operationStatus)
         {
@@ -174,6 +312,13 @@ namespace WinBiometricDotNet
             }
 
             return status;
+        }
+
+        private static bool ConvertUuidToString(Guid uuid, out StringBuilder uuidStringBuffer, [In] bool includeBraces)
+        {
+            var str = includeBraces ? $"{{{uuid}}}" : uuid.ToString();
+            uuidStringBuffer = new StringBuilder(str);
+            return true;
         }
 
         private static unsafe CaptureSampleResult CreateCaptureSampleResult(WINBIO_UNIT_ID unitId,
@@ -207,31 +352,637 @@ namespace WinBiometricDotNet
             return result;
         }
 
+        private static unsafe HRESULT CreateCompatibleConfiguration(ref SafeNativeMethods.WINBIO_UNIT_SCHEMA unitSchema, out PoolConfiguration configuration)
+        {
+            configuration = new PoolConfiguration();
+            IntPtr storageArray;
+            var hr = SafeNativeMethods.WinBioEnumDatabases(SafeNativeMethods.WINBIO_TYPE_FINGERPRINT,
+                                                           out storageArray,
+                                                           out var storageCount);
+
+            if (SafeNativeMethods.Macros.FAILED(hr))
+                return hr;
+
+            var regPath = $"{@"System\CurrentControlSet\\Enum\"}{unitSchema.DeviceInstanceId}{@"\Device Parameters\WinBio\Configurations"}";
+            var regStatus = SafeNativeMethods.RegOpenKeyExW(SafeNativeMethods.HKEY_LOCAL_MACHINE,
+                                                            regPath,
+                                                            0,
+                                                            SafeNativeMethods.KEY_READ,
+                                                            out var configListKey);
+
+            if (regStatus != SafeNativeMethods.ERROR_SUCCESS)
+            {
+                if (storageArray != IntPtr.Zero)
+                    SafeNativeMethods.WinBioFree((IntPtr)storageArray);
+
+                storageCount = SafeNativeMethods.NULL;
+                return SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)regStatus);
+            }
+
+            uint subkeyIndex = 0;
+            for (; ; )
+            {
+                string sensorAdapter = null;
+                string engineAdapter = null;
+                string storageAdapter = null;
+
+                hr = SafeNativeMethods.S_OK;
+
+                var sensorMode = IntPtr.Zero;
+                var configFlags = 0u;
+                var systemSensor = IntPtr.Zero;
+                var dataFormat = Guid.Empty;
+                var attributes = 0u;
+                var subkeyName = new StringBuilder(SafeNativeMethods.MAX_PATH);
+                var lpReserved = IntPtr.Zero;
+                var lpcClass = IntPtr.Zero;
+                var subkeyNameLength = (uint)SafeNativeMethods.MAX_PATH;
+
+                regStatus = SafeNativeMethods.RegEnumKeyExW(configListKey,
+                                                            subkeyIndex,
+                                                            subkeyName,
+                                                            ref subkeyNameLength,
+                                                            lpReserved,
+                                                            null,
+                                                            lpcClass,
+                                                            out var lpftLastWriteTime);
+
+                if (regStatus != SafeNativeMethods.ERROR_SUCCESS)
+                {
+                    hr = regStatus == SafeNativeMethods.ERROR_NO_MORE_ITEMS ?
+                                      SafeNativeMethods.S_OK : SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)regStatus);
+                    break;
+                }
+
+                if (IsKeyNameNumeric(subkeyName, subkeyNameLength))
+                {
+                    var configKeyPath = $"{regPath}\\{subkeyName}";
+                    hr = SafeNativeMethods.RegOpenKeyExW(SafeNativeMethods.HKEY_LOCAL_MACHINE,
+                                                         configKeyPath,
+                                                         0,
+                                                         SafeNativeMethods.KEY_READ,
+                                                         out var configKey);
+
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                    if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                    {
+                        /*
+                            Extract values in this configuration
+                                SensorMode              - REG_DWORD
+                                SystemSensor            - REG_DWORD
+                                DatabaseId              - REG_SZ
+                                SensorAdapterBinary     - REG_SZ
+                                EngineAdapterBinary     - REG_SZ
+                                StorageAdapterBinary    - REG_SZ
+                        */
+                        var dataSize = (UInt32)Marshal.SizeOf(sensorMode);
+                        hr = SafeNativeMethods.RegGetValueW(configKey,
+                                                            null,
+                                                            "SensorMode",
+                                                            SafeNativeMethods.RRF_RT_REG_DWORD,
+                                                            out var pdwType,
+                                                            out sensorMode,
+                                                            ref dataSize);
+
+                        hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                        if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                        {
+                            switch ((uint)sensorMode)
+                            {
+                                case SafeNativeMethods.WINBIO_SENSOR_BASIC_MODE:
+                                    configFlags = SafeNativeMethods.WINBIO_FLAG_BASIC;
+                                    break;
+                                case SafeNativeMethods.WINBIO_SENSOR_ADVANCED_MODE:
+                                    configFlags = SafeNativeMethods.WINBIO_FLAG_ADVANCED;
+                                    break;
+                                default:
+                                    configFlags = SafeNativeMethods.WINBIO_FLAG_DEFAULT;
+                                    break;
+                            }
+                        }
+
+                        if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                        {
+                            dataSize = (UInt32)Marshal.SizeOf(systemSensor);
+                            hr = SafeNativeMethods.RegGetValueW(configKey,
+                                                                null,
+                                                                "SystemSensor",
+                                                                SafeNativeMethods.RRF_RT_REG_DWORD,
+                                                                out pdwType,
+                                                                out systemSensor,
+                                                                ref dataSize);
+
+                            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                        }
+
+                        if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                        {
+                            dataSize = 40 * 2;
+                            var pvData = Marshal.AllocHGlobal((int)dataSize);
+                            hr = SafeNativeMethods.RegGetValueW(configKey,
+                                                                null,
+                                                                "DatabaseId",
+                                                                SafeNativeMethods.RRF_RT_REG_SZ,
+                                                                out pdwType,
+                                                                pvData,
+                                                                ref dataSize);
+
+                            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                            if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                            {
+                                // convert string to GUID and find that GUID 
+                                // in database list; capture corresponding 
+                                // data-format GUID
+                                var databaseIdString = Marshal.PtrToStringAuto(pvData);
+                                var uuidString = new StringBuilder(databaseIdString);
+                                var databaseIdGuid = new Guid(uuidString.ToString());
+
+                                if (!FindInstalledDatabase(storageArray, (uint)storageCount, databaseIdGuid, out var tmp))
+                                    hr = SafeNativeMethods.WINBIO_E_DATABASE_CANT_FIND;
+                            }
+
+                            Marshal.FreeHGlobal(pvData);
+                        }
+
+                        if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                        {
+                            dataSize = SafeNativeMethods.MAX_PATH * 2;
+                            var pvData = Marshal.AllocHGlobal((int)dataSize);
+                            hr = SafeNativeMethods.RegGetValueW(configKey,
+                                                                null,
+                                                                "SensorAdapterBinary",
+                                                                SafeNativeMethods.RRF_RT_REG_SZ,
+                                                                out pdwType,
+                                                                pvData,
+                                                                ref dataSize);
+
+                            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                            if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                                sensorAdapter = Marshal.PtrToStringAuto(pvData);
+
+                            Marshal.FreeHGlobal(pvData);
+                        }
+
+                        if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                        {
+                            dataSize = SafeNativeMethods.MAX_PATH * 2;
+                            var pvData = Marshal.AllocHGlobal((int)dataSize);
+                            hr = SafeNativeMethods.RegGetValueW(configKey,
+                                                                null,
+                                                                "EngineAdapterBinary",
+                                                                SafeNativeMethods.RRF_RT_REG_SZ,
+                                                                out pdwType,
+                                                                pvData,
+                                                                ref dataSize);
+
+                            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                            if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                                engineAdapter = Marshal.PtrToStringAuto(pvData);
+
+                            Marshal.FreeHGlobal(pvData);
+                        }
+
+                        if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                        {
+                            dataSize = SafeNativeMethods.MAX_PATH * 2;
+                            var pvData = Marshal.AllocHGlobal((int)dataSize);
+                            hr = SafeNativeMethods.RegGetValueW(configKey,
+                                                                null,
+                                                                "StorageAdapterBinary",
+                                                                SafeNativeMethods.RRF_RT_REG_SZ,
+                                                                out pdwType,
+                                                                pvData,
+                                                                ref dataSize);
+
+                            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                            if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                                storageAdapter = Marshal.PtrToStringAuto(pvData);
+
+                            Marshal.FreeHGlobal(pvData);
+                        }
+
+                        SafeNativeMethods.RegCloseKey(configKey);
+                        configKey = UIntPtr.Zero;
+                    }
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    if (systemSensor != (IntPtr)SafeNativeMethods.FALSE)
+                    {
+                        // copy results to output structure - we only want this
+                        // one if it's a derived from a system sensor config
+                        configuration.ConfigurationFlags = configFlags;
+                        configuration.DatabaseAttributes = attributes;
+                        configuration.DataFormat = dataFormat;
+                        configuration.SensorAdapter = sensorAdapter;
+                        configuration.EngineAdapter = engineAdapter;
+                        configuration.StorageAdapter = storageAdapter;
+                        break;
+                    }
+
+                    ++subkeyIndex;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            SafeNativeMethods.RegCloseKey(configListKey);
+            configListKey = UIntPtr.Zero;
+
+            if (storageArray != IntPtr.Zero)
+                SafeNativeMethods.WinBioFree((IntPtr)storageArray);
+
+            return hr;
+        }
+
+        private static unsafe bool FindInstalledDatabase(IntPtr storageArray, uint storageCount, Guid databaseId, out SafeNativeMethods.WINBIO_STORAGE_SCHEMA result)
+        {
+            result = default(SafeNativeMethods.WINBIO_STORAGE_SCHEMA);
+
+            var array = MarshalArray<SafeNativeMethods.WINBIO_STORAGE_SCHEMA>(storageArray, (int)storageCount);
+            for (int index = 0, count = (int)storageCount; index < count; ++index)
+            {
+                if (array[index].DatabaseId != databaseId)
+                    continue;
+
+                result = array[index];
+                return true;
+            }
+
+            return false;
+        }
+
+        private static bool IsDatabaseInstalled(Guid databaseId, out Guid dataFormat)
+        {
+            var storageArray = IntPtr.Zero;
+
+            try
+            {
+                var hr = SafeNativeMethods.WinBioEnumDatabases(SafeNativeMethods.WINBIO_TYPE_FINGERPRINT,
+                                                               out storageArray,
+                                                               out var storageCount);
+
+                if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
+                    return false;
+
+                var count = (uint)storageCount;
+                if (count == 0)
+                    return false;
+
+                return IsDatabaseInstalled(storageArray, count, databaseId, out dataFormat);
+            }
+            finally
+            {
+                if (storageArray != IntPtr.Zero)
+                    SafeNativeMethods.WinBioFree(storageArray);
+            }
+        }
+
+        private static bool IsDatabaseInstalled(IntPtr storageArray, uint storageCount, Guid databaseId, out Guid dataFormat)
+        {
+            unsafe
+            {
+                if (!FindInstalledDatabase(storageArray, storageCount, databaseId, out var result))
+                    return false;
+
+                dataFormat = result.DataFormat;
+                return true;
+            }
+        }
+
+        private static bool IsKeyNameNumeric(StringBuilder keyName, UInt32 keyNameLength)
+        {
+            if (keyNameLength == 0)
+                return false;
+
+            for (var i = 0; i < keyNameLength; ++i)
+                if (!char.IsDigit(keyName[i]))
+                    return false;
+
+            return true;
+        }
+
+        private static T[] MarshalArray<T>(IntPtr pointer, int count)
+        {
+            if (pointer == IntPtr.Zero)
+                return null;
+
+            var offset = pointer;
+            var data = new T[count];
+            var type = typeof(T);
+            if (type.IsEnum)
+                type = type.GetEnumUnderlyingType();
+
+            for (var i = 0; i < count; i++)
+            {
+                data[i] = (T)Marshal.PtrToStructure(offset, type);
+                offset += Marshal.SizeOf(type);
+            }
+
+            return data;
+        }
+
+        private static unsafe HRESULT RegisterDatabase(SafeNativeMethods.WINBIO_STORAGE_SCHEMA storageSchema)
+        {
+            /*
+                HKLM\System\CurrentControlSet\Services\WbioSrvc\Databases\{guid} -- NOTE THE CURLY BRACES
+                    Attributes          - SafeNativeMethods.REG_DWORD
+                    AutoCreate          - SafeNativeMethods.REG_DWORD (1)
+                    AutoName            - SafeNativeMethods.REG_DWORD (1)     -- this is reset to zero when the service creates the DB
+                    BiometricType       - SafeNativeMethods.REG_DWORD (8)     -- WINBIO_TYPE_FINGERPRINT
+                    ConnectionString    - REG_SZ ""
+                    Filepath            - REG_SZ ""         -- set by service
+                    Format              - REG_SZ "guid"     -- NOTE: *NO* CURLY BRACES
+                    InitialSize         - SafeNativeMethods.REG_DWORD (32)
+            */
+            if (!ConvertUuidToString(storageSchema.DatabaseId, out var databaseKeyName, true))
+                return SafeNativeMethods.E_INVALIDARG;
+
+            if (!ConvertUuidToString(storageSchema.DataFormat, out var dataFormat, false))
+                return SafeNativeMethods.E_INVALIDARG;
+
+            var hr = SafeNativeMethods.RegOpenKeyExW(SafeNativeMethods.HKEY_LOCAL_MACHINE,
+                                                     @"System\CurrentControlSet\Services\WbioSrvc\Databases",
+                                                     0,
+                                                     SafeNativeMethods.KEY_WRITE,
+                                                     out var databaseListKey);
+
+            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+            if (SafeNativeMethods.Macros.FAILED(hr))
+                return hr;
+
+            hr = SafeNativeMethods.RegCreateKeyExW(databaseListKey,
+                                                   databaseKeyName.ToString(),
+                                                   0,
+                                                   null,
+                                                   SafeNativeMethods.REG_OPTION_NON_VOLATILE,
+                                                   SafeNativeMethods.KEY_WRITE,
+                                                   null,
+                                                   out var newDatabaseKey,
+                                                   out var keyDisposition);
+
+            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+            if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+            {
+                if (keyDisposition == SafeNativeMethods.REG_OPENED_EXISTING_KEY)
+                {
+                    hr = SafeNativeMethods.WINBIO_E_DATABASE_ALREADY_EXISTS;
+                }
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "Attributes",
+                                                          0,
+                                                          SafeNativeMethods.REG_DWORD,
+                                                          (IntPtr)(&storageSchema.Attributes),
+                                                          (uint)Marshal.SizeOf(storageSchema.Attributes));
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    UInt32 autoCreate = 1;
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "AutoCreate",
+                                                          0,
+                                                          SafeNativeMethods.REG_DWORD,
+                                                          (IntPtr)(&autoCreate),
+                                                          (uint)Marshal.SizeOf(autoCreate));
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    UInt32 autoName = 1;
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "AutoName",
+                                                          0,
+                                                          SafeNativeMethods.REG_DWORD,
+                                                          (IntPtr)(&autoName),
+                                                          (uint)Marshal.SizeOf(autoName));
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    UInt32 biometricType = SafeNativeMethods.WINBIO_TYPE_FINGERPRINT;
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "BiometricType",
+                                                          0,
+                                                          SafeNativeMethods.REG_DWORD,
+                                                          (IntPtr)(&biometricType),
+                                                          (uint)Marshal.SizeOf(biometricType));
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    var lpData = Marshal.StringToHGlobalAuto("");
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "ConnectionString",
+                                                          0,
+                                                          SafeNativeMethods.REG_SZ,
+                                                          lpData,
+                                                          2); // (uint)Marshal.SizeOf(WCHAR)
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+
+                    Marshal.FreeHGlobal(lpData);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    var lpData = Marshal.StringToHGlobalAuto("");
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "FilePath",
+                                                          0,
+                                                          SafeNativeMethods.REG_SZ,
+                                                          lpData,
+                                                          2); // (uint)Marshal.SizeOf(WCHAR)
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+
+                    Marshal.FreeHGlobal(lpData);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    var lpData = Marshal.StringToHGlobalAuto(dataFormat.ToString());
+                    var cbData = (uint)(dataFormat.Length + 1) * 2;
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "Format",
+                                                          0,
+                                                          SafeNativeMethods.REG_SZ,
+                                                          lpData,
+                                                          cbData);
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+
+                    Marshal.FreeHGlobal(lpData);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    var initialSize = 32;
+                    hr = SafeNativeMethods.RegSetValueExW(newDatabaseKey,
+                                                          "InitialSize",
+                                                          0,
+                                                          SafeNativeMethods.REG_DWORD,
+                                                          (IntPtr)(&initialSize),
+                                                          (uint)Marshal.SizeOf(initialSize));
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                }
+
+                SafeNativeMethods.RegCloseKey(newDatabaseKey);
+            }
+
+            SafeNativeMethods.RegCloseKey(databaseListKey);
+            return hr;
+        }
+
         private static void ThrowWinBiometricException(int hresult)
         {
             if (!SafeNativeMethods.Macros.FAILED(hresult))
                 return;
-            
-            var lpMsgBuf = IntPtr.Zero;
-            var dwFlag = SafeNativeMethods.FORMAT_MESSAGE_ALLOCATE_BUFFER | SafeNativeMethods.FORMAT_MESSAGE_FROM_SYSTEM | SafeNativeMethods.FORMAT_MESSAGE_IGNORE_INSERTS;
-            var dwChars = SafeNativeMethods.FormatMessage(dwFlag,
-                                                          IntPtr.Zero,
-                                                          (uint)hresult,
-                                                          0,
-                                                          ref lpMsgBuf,
-                                                          0,
-                                                          null);
-            string message = "";
-            if (dwChars != 0)
+
+            throw new WinBiometricException(hresult);
+        }
+
+        private static int UnregisterDatabase(Guid databaseId)
+        {
+            if (!ConvertUuidToString(databaseId, out var databaseKeyName, true))
+                return SafeNativeMethods.E_INVALIDARG;
+
+            var hr = SafeNativeMethods.WinBioEnumDatabases(SafeNativeMethods.WINBIO_TYPE_FINGERPRINT, out var storageSchemaArray, out var storageCount);
+            if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
+                return hr;
+
+            if (!FindInstalledDatabase(storageSchemaArray, (uint)storageCount, databaseId, out var storageSchema))
+                hr = SafeNativeMethods.WINBIO_E_DATABASE_CANT_FIND;
+
+            hr = SafeNativeMethods.RegOpenKeyExW(SafeNativeMethods.HKEY_LOCAL_MACHINE,
+                                                 @"System\CurrentControlSet\Services\WbioSrvc\Databases",
+                                                 0,
+                                                 SafeNativeMethods.KEY_WRITE,
+                                                 out var databaseListKey);
+
+            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+            if (SafeNativeMethods.Macros.SUCCEEDED(hr))
             {
-                message = Marshal.PtrToStringAnsi(lpMsgBuf) ?? "";
-                SafeNativeMethods.LocalFree(lpMsgBuf);
+                hr = SafeNativeMethods.RegDeleteKeyExW(databaseListKey,
+                                                       databaseKeyName.ToString(),
+                                                       SafeNativeMethods.KEY_WOW64_64KEY,
+                                                       0);
+
+                hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                {
+                    var database = new BiometricDatabase(storageSchema);
+                    if (File.Exists(database.FilePath))
+                    {
+                        try
+                        {
+                            File.Delete(database.FilePath);
+                        }
+                        catch(Exception e)
+                        {
+                            hr = e.HResult;
+                        }
+                    }
+                }
+
+                SafeNativeMethods.RegCloseKey(databaseListKey);
+                databaseListKey = UIntPtr.Zero;
             }
 
-            // 末尾の改行を削除
-            message = System.Text.RegularExpressions.Regex.Replace(message, "[\r\n]+$", "");
+            SafeNativeMethods.WinBioFree(storageSchemaArray);
 
-            throw new WinBiometricException(hresult, message);
+            return hr;
+        }
+
+        private static HRESULT UnregisterPrivateConfiguration(SafeNativeMethods.WINBIO_UNIT_SCHEMA unitSchema, Guid databaseId, out bool configurationRemoved)
+        {
+            configurationRemoved = false;
+
+            var targetDatabaseId = new StringBuilder(40);
+            if (!ConvertUuidToString(databaseId, out targetDatabaseId, false))
+                return SafeNativeMethods.E_INVALIDARG;
+
+            var regPath = $"{@"System\CurrentControlSet\\Enum\"}{unitSchema.DeviceInstanceId}{@"\Device Parameters\WinBio\Configurations"}";
+            var hr = SafeNativeMethods.RegOpenKeyExW(SafeNativeMethods.HKEY_LOCAL_MACHINE,
+                                                     regPath,
+                                                     0,
+                                                     SafeNativeMethods.KEY_READ | SafeNativeMethods.KEY_WRITE,
+                                                     out var configListKey);
+
+            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+            if (SafeNativeMethods.Macros.FAILED(hr))
+                return hr;
+
+            var removed = false;
+            uint subkeyIndex = 0;
+            for (; ; )
+            {
+                hr = SafeNativeMethods.S_OK;
+
+                var configKeyName = new StringBuilder(SafeNativeMethods.MAX_PATH);
+                var configKeyNameLength = (uint)configKeyName.Capacity;
+                var regStatus = SafeNativeMethods.RegEnumKeyExW(configListKey,
+                                                                subkeyIndex,
+                                                                configKeyName,
+                                                                ref configKeyNameLength,
+                                                                IntPtr.Zero,
+                                                                null,
+                                                                IntPtr.Zero,
+                                                                out _);
+                if (regStatus != SafeNativeMethods.ERROR_SUCCESS)
+                {
+                    hr = regStatus == SafeNativeMethods.ERROR_NO_MORE_ITEMS ?
+                                      SafeNativeMethods.S_OK : SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)regStatus);
+                    break;
+                }
+
+                if (IsKeyNameNumeric(configKeyName, configKeyNameLength))
+                {
+                    var dataSize = (uint)40 * 2;
+                    var pvData = Marshal.AllocHGlobal((int)dataSize);
+                    hr = SafeNativeMethods.RegGetValueW(configListKey,
+                                                        configKeyName.ToString(),
+                                                        "DatabaseId",
+                                                        SafeNativeMethods.RRF_RT_REG_SZ,
+                                                        out _,
+                                                        pvData,
+                                                        ref dataSize);
+
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                    if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                    {
+                        var configDatabaseId = Marshal.PtrToStringAuto(pvData);
+                        if (string.Equals(configDatabaseId, targetDatabaseId.ToString(), StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            hr = SafeNativeMethods.RegDeleteKeyExW(configListKey,
+                                                                   configKeyName.ToString(),
+                                                                   SafeNativeMethods.KEY_WOW64_64KEY,
+                                                                   0);
+                            hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)hr);
+                            if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                                removed = true;
+                        }
+                    }
+
+                    Marshal.FreeHGlobal(pvData);
+                }
+
+                if (SafeNativeMethods.Macros.SUCCEEDED(hr))
+                    ++subkeyIndex;
+                else
+                    break;
+            }
+
+            SafeNativeMethods.RegCloseKey(configListKey);
+            configListKey = UIntPtr.Zero;
+            configurationRemoved = removed;
+            return hr;
         }
 
         #endregion

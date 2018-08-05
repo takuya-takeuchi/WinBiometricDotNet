@@ -27,7 +27,7 @@ Windows Bitometric Framework .NET wrapper
 |WinBioEnrollDiscard||
 |WinBioEnrollSelect||
 |WinBioEnumBiometricUnits|✓|
-|WinBioEnumDatabases||
+|WinBioEnumDatabases|✓|
 |WinBioEnumEnrollments||
 |WinBioEnumServiceProviders||
 |WinBioFree|✓|
