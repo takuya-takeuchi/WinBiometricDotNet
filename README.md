@@ -1,4 +1,5 @@
-# WinBiometric.Net
+# ![Alt text](nuget/fingerprint32.png "WinBiometric.Net") WinBiometric.Net
+
 Windows Bitometric Framework .NET wrapper
 
 ## Support API
