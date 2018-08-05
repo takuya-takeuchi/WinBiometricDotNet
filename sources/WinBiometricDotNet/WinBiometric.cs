@@ -279,6 +279,40 @@ namespace WinBiometricDotNet
             }
         }
 
+        public static VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            var hr = GetCurrentUserIdentity(out var identity);
+            if (hr != 0)
+                ThrowWinBiometricException(hr);
+
+            hr = SafeNativeMethods.WinBioVerify(session.Handle,
+                                                ref identity,
+                                                (WINBIO_BIOMETRIC_SUBTYPE)position,
+                                                out var unitId,
+                                                out var match,
+                                                out var rejectDetail);
+            switch (hr)
+            {
+                case SafeNativeMethods.E_HANDLE:
+                case SafeNativeMethods.E_INVALIDARG:
+                case SafeNativeMethods.E_POINTER:
+                    ThrowWinBiometricException(hr);
+                    break;
+                case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
+                case SafeNativeMethods.WINBIO_E_NO_MATCH:
+                    ThrowWinBiometricException(ConvertErrorCodeToString(hr));
+                    break;
+            }
+
+            return new VerifyResult(match, unitId, rejectDetail);
+        }
+
         #region Helpers
 
         private static string ConvertErrorCodeToString(int errorCode)
@@ -289,7 +323,7 @@ namespace WinBiometricDotNet
             var systemPath = new StringBuilder((int)systemPathSize);
             systemPathSize = SafeNativeMethods.GetSystemWindowsDirectory(systemPath, systemPathSize);
 
-            var libraryPath = System.IO.Path.Combine(systemPath.ToString(), @"\system32\winbio.dll");
+            var libraryPath = System.IO.Path.Combine(systemPath.ToString(), @"system32\winbio.dll");
 
             var winbioLibrary = SafeNativeMethods.LoadLibraryExW(libraryPath,
                                                                  SafeNativeMethods.NULL,
@@ -313,8 +347,11 @@ namespace WinBiometricDotNet
             }
 
             string message = null;
-            if (messageLength > 0)
-                message = Marshal.PtrToStringAuto(lpMsgBuf);
+            unsafe
+            {
+                if (messageLength > 0)
+                    message = Encoding.Default.GetString((byte*) lpMsgBuf, (int) messageLength);
+            }
 
             SafeNativeMethods.LocalFree(lpMsgBuf);
 
@@ -957,6 +994,11 @@ namespace WinBiometricDotNet
                 return;
 
             throw new WinBiometricException(hresult);
+        }
+
+        private static void ThrowWinBiometricException(string message)
+        {
+            throw new WinBiometricException(message);
         }
 
         private static int UnregisterDatabase(Guid databaseId)

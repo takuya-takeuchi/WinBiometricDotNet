@@ -77,9 +77,13 @@ namespace WinBiometricDotNet.Interop
 
         public const int E_ACCESSDENIED = unchecked((int)0x80070005);
 
+        public const int E_HANDLE = unchecked((int)0x80070006);
+
         public const int E_INVALIDARG = unchecked((int)0x80070057);
 
         public const int E_OUTOFMEMORY = unchecked((int)0x8007000E);
+
+        public const int E_POINTER = unchecked((int)0x80004003);
 
         public const uint FORMAT_MESSAGE_ALLOCATE_BUFFER = 0x00000100;
 
@@ -5492,7 +5496,7 @@ namespace WinBiometricDotNet.Interop
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
         public static extern unsafe HRESULT WinBioVerify([In] WINBIO_SESSION_HANDLE SessionHandle,
-                                                         [In] WINBIO_IDENTITY* Identity,
+                                                         [In] ref WINBIO_IDENTITY Identity,
                                                          [In] WINBIO_BIOMETRIC_SUBTYPE SubFactor,
                                                          [Out] out WINBIO_UNIT_ID UnitId,
                                                          [Out] out BOOLEAN Match,

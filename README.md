@@ -54,6 +54,6 @@ Windows Bitometric Framework .NET wrapper
 |WinBioSetProperty||
 |WinBioUnlockUnit||
 |WinBioUnregisterEventMonitor||
-|WinBioVerify||
+|WinBioVerify|✓|
 |WinBioVerifyWithCallback||
 |WinBioWait||

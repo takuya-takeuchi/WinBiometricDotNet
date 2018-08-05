@@ -32,6 +32,8 @@ namespace FrameworkTester.Services.Interfaces
 
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
 
+        VerifyResult Verify(BiometricUnit unit, FingerPosition position);
+
     }
 
 }

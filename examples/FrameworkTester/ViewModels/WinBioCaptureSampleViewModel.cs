@@ -147,10 +147,10 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        var ressult = this._Service.CaptureSample();
+                        var result = this._Service.CaptureSample();
                         this.Result = "OK";
 
-                        switch (ressult.OperationStatus)
+                        switch (result.OperationStatus)
                         {
                             case OperationStatus.OK:
                                 this.Result = "OK";
@@ -166,11 +166,11 @@ namespace FrameworkTester.ViewModels
                                 break;
                         }
 
-                        this.RejectDetail = ressult.RejectDetail;
-                        this.SampleSize = ressult.SampleSize;
-                        this.UnitId = ressult.UnitId;
+                        this.RejectDetail = result.RejectDetail;
+                        this.SampleSize = result.SampleSize;
+                        this.UnitId = result.UnitId;
 
-                        var captureSample = ressult.Sample;
+                        var captureSample = result.Sample;
                         if (captureSample != null)
                         {
                             var image = BitmapSourceHelper.ToBitmapSource(captureSample.Image,

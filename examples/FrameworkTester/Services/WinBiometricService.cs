@@ -128,6 +128,17 @@ namespace FrameworkTester.Services
             WinBiometric.RemoveDatabase(unit, databaseId);
         }
 
+        public VerifyResult Verify(BiometricUnit unit, FingerPosition position)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            return WinBiometric.Verify(this._Session, unit, position);
+        }
+
         #region Overrids
         #endregion
 
