@@ -34,6 +34,8 @@ namespace FrameworkTester.Services.Interfaces
 
         VerifyResult Verify(BiometricUnit unit, FingerPosition position);
 
+        void VerifyWithCallback(BiometricUnit unit, FingerPosition position);
+
     }
 
 }

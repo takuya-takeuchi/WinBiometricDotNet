@@ -46,6 +46,8 @@ namespace WinBiometricDotNet
 
         public static event SampleCapturedHandler SampleCaptured;
 
+        public static event VerifyHandler Verified;
+
         #endregion
 
         #region Fields
@@ -332,6 +334,8 @@ namespace WinBiometricDotNet
                                                 out var unitId,
                                                 out var match,
                                                 out var rejectDetail);
+
+            var status = OperationStatus.OK;
             switch (hr)
             {
                 case SafeNativeMethods.E_HANDLE:
@@ -341,14 +345,39 @@ namespace WinBiometricDotNet
                     break;
                 case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
                     // retrun unitId and rejectDetail
+                    status = OperationStatus.BadCapture;
+                    ThrowWinBiometricException(ConvertErrorCodeToString(hr));
                     break;
                 case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
+                    ThrowWinBiometricException(ConvertErrorCodeToString(hr));
+                    break;
                 case SafeNativeMethods.WINBIO_E_NO_MATCH:
+                    status = OperationStatus.NoMatch;
                     ThrowWinBiometricException(ConvertErrorCodeToString(hr));
                     break;
             }
 
-            return new VerifyResult(match, unitId, (RejectDetails)rejectDetail);
+            return new VerifyResult(match, unitId, status, (RejectDetails)rejectDetail);
+        }
+        
+        public static void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            var hr = GetCurrentUserIdentity(out var identity);
+            if (hr != 0)
+                ThrowWinBiometricException(hr);
+
+            hr = SafeNativeMethods.WinBioVerifyWithCallback(session.Handle,
+                                                            ref identity,
+                                                            (WINBIO_BIOMETRIC_SUBTYPE)position,
+                                                            VerifyCallback,
+                                                            IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
         }
 
         #region Helpers
@@ -404,6 +433,9 @@ namespace WinBiometricDotNet
             {
                 switch (operationStatus)
                 {
+                    case SafeNativeMethods.WINBIO_E_NO_MATCH:
+                        status = OperationStatus.NoMatch;
+                        break;
                     case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
                         status = OperationStatus.BadCapture;
                         break;
@@ -1206,6 +1238,22 @@ namespace WinBiometricDotNet
                     SafeNativeMethods.WinBioFree((IntPtr)sample);
                     sample = null;
                 }
+            }
+        }
+        
+        private static unsafe void VerifyCallback(IntPtr verifyCallbackContext,
+                                                  HRESULT operationStatus,
+                                                  WINBIO_UNIT_ID unitId,
+                                                  bool match,
+                                                  WINBIO_REJECT_DETAIL rejectDetail)
+        {
+            var status = ConvertToOperationStatus(operationStatus);
+
+            var @event = Verified;
+            if (@event != null)
+            {
+                var args = new VerifyEventArgs(new VerifyResult(match, unitId, status, (RejectDetails)rejectDetail));
+                @event.Invoke(null, args);
             }
         }
 

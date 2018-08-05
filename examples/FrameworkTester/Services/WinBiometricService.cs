@@ -13,6 +13,8 @@ namespace FrameworkTester.Services
 
         public static event SampleCapturedHandler SampleCaptured;
 
+        public static event VerifyHandler Verified;
+
         #endregion
 
         #region Fields
@@ -139,13 +141,21 @@ namespace FrameworkTester.Services
             return WinBiometric.Verify(this._Session, unit, position);
         }
 
+        public void VerifyWithCallback(BiometricUnit unit, FingerPosition position)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            WinBiometric.Verified -= Verified;
+            WinBiometric.Verified += Verified;
+
+            WinBiometric.VerifyWithCallback(this._Session, unit, position);
+        }
+
         #region Overrids
-        #endregion
-
-        #region Event Handlers
-        #endregion
-
-        #region Helpers
         #endregion
 
         #endregion

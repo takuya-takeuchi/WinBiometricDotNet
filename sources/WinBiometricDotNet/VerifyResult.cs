@@ -6,10 +6,11 @@
 
         #region Constructors
 
-        internal VerifyResult(bool match, uint unitId, RejectDetails rejectDetail)
+        internal VerifyResult(bool match, uint unitId, OperationStatus operationStatus, RejectDetails rejectDetail)
         {
             this.IsMatch = match;
             this.UnitId = unitId;
+            this.OperationStatus = operationStatus;
             this.RejectDetail = rejectDetail;
         }
 
@@ -18,6 +19,11 @@
         #region Properties
 
         public bool IsMatch
+        {
+            get;
+        }
+
+        public OperationStatus OperationStatus
         {
             get;
         }

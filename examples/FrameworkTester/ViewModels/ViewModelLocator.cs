@@ -78,6 +78,7 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IWinBioOpenSessionViewModel>(() => new WinBioOpenSessionViewModel(), true);
             SimpleIoc.Default.Register<IWinBioReleaseFocusViewModel>(() => new WinBioReleaseFocusViewModel(), true);
             SimpleIoc.Default.Register<IWinBioVerifyViewModel>(() => new WinBioVerifyViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioVerifyWithCallbackViewModel>(() => new WinBioVerifyWithCallbackViewModel(), true);
         }
 
         public IMainViewModel Main
@@ -105,6 +106,8 @@ namespace FrameworkTester.ViewModels
         public IWinBioOpenSessionViewModel WinBioOpenSession => ServiceLocator.Current.GetInstance<IWinBioOpenSessionViewModel>();
 
         public IWinBioVerifyViewModel WinBioVerify => ServiceLocator.Current.GetInstance<IWinBioVerifyViewModel>();
+
+        public IWinBioVerifyWithCallbackViewModel WinBioVerifyWithCallback => ServiceLocator.Current.GetInstance<IWinBioVerifyWithCallbackViewModel>();
 
         public IWinBioReleaseFocusViewModel ReleaseFocus => ServiceLocator.Current.GetInstance<IWinBioReleaseFocusViewModel>();
 

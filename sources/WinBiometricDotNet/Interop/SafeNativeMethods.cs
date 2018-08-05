@@ -5549,7 +5549,7 @@ namespace WinBiometricDotNet.Interop
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
         public static extern unsafe HRESULT WinBioVerifyWithCallback([In] WINBIO_SESSION_HANDLE SessionHandle,
-                                                                     [In] WINBIO_IDENTITY* Identity,
+                                                                     [In] ref WINBIO_IDENTITY Identity,
                                                                      [In] WINBIO_BIOMETRIC_SUBTYPE SubFactor,
                                                                      [In] WINBIO_VERIFY_CALLBACK VerifyCallback,
                                                                      [In] PVOID VerifyCallbackContext);
