@@ -138,7 +138,25 @@ namespace WinBiometricDotNet
                 if (IsDatabaseInstalled(guid, out var dataFormat))
                     throw new ArgumentException();
 
-                var unitSchema = Converter.ConvertFrom(unit);
+                var unitSchema = new SafeNativeMethods.WINBIO_UNIT_SCHEMA
+                {
+                    Description = unit.Description,
+                    DeviceInstanceId = unit.DeviceInstanceId,
+                    Manufacturer = unit.Manufacturer,
+                    Model = unit.Model,
+                    SerialNumber = unit.SerialNumber,
+                    SensorSubType = (WINBIO_BIOMETRIC_SENSOR_SUBTYPE)unit.SensorSubType,
+                    BiometricFactor = (WINBIO_BIOMETRIC_TYPE)unit.BiometricFactor,
+                    Capabilities = (WINBIO_CAPABILITIES)unit.Capabilities,
+                    PoolType = (WINBIO_POOL_TYPE)unit.PoolType,
+                    UnitId = (WINBIO_UNIT_ID)unit.UnitId,
+                    FirmwareVersion = new SafeNativeMethods.WINBIO_VERSION
+                    {
+                        MinorVersion = unit.FirmwareVersion.MinorVersion,
+                        MajorVersion = unit.FirmwareVersion.MajorVersion
+                    }
+                };
+
                 var hr = CreateCompatibleConfiguration(ref unitSchema, out var configuration);
                 if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
                 {
@@ -263,7 +281,25 @@ namespace WinBiometricDotNet
             if (!IsDatabaseInstalled(databaseId, out var dataFormat))
                 throw new ArgumentException();
 
-            var unitSchema = Converter.ConvertFrom(unit);
+            var unitSchema = new SafeNativeMethods.WINBIO_UNIT_SCHEMA
+            {
+                Description = unit.Description,
+                DeviceInstanceId = unit.DeviceInstanceId,
+                Manufacturer = unit.Manufacturer,
+                Model = unit.Model,
+                SerialNumber = unit.SerialNumber,
+                SensorSubType = (WINBIO_BIOMETRIC_SENSOR_SUBTYPE)unit.SensorSubType,
+                BiometricFactor = (WINBIO_BIOMETRIC_TYPE)unit.BiometricFactor,
+                Capabilities = (WINBIO_CAPABILITIES)unit.Capabilities,
+                PoolType = (WINBIO_POOL_TYPE)unit.PoolType,
+                UnitId = (WINBIO_UNIT_ID)unit.UnitId,
+                FirmwareVersion = new SafeNativeMethods.WINBIO_VERSION
+                {
+                    MinorVersion = unit.FirmwareVersion.MinorVersion,
+                    MajorVersion = unit.FirmwareVersion.MajorVersion
+                }
+            };
+
             var hr = UnregisterPrivateConfiguration(unitSchema, databaseId, out var configRemoved);
             if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
             {
@@ -1174,40 +1210,6 @@ namespace WinBiometricDotNet
         #endregion
 
         #endregion
-
-    }
-
-    internal static class Converter
-    {
-
-        public static SafeNativeMethods.WINBIO_VERSION ConvertFrom(BiometricUnitVersion source)
-        {
-            var dst = new SafeNativeMethods.WINBIO_VERSION
-            {
-                MinorVersion = source.MinorVersion,
-                MajorVersion = source.MajorVersion
-            };
-            return dst;
-        }
-
-        public static SafeNativeMethods.WINBIO_UNIT_SCHEMA ConvertFrom(BiometricUnit source)
-        {
-            var dst = new SafeNativeMethods.WINBIO_UNIT_SCHEMA
-            {
-                Description = source.Description,
-                DeviceInstanceId = source.DeviceInstanceId,
-                Manufacturer = source.Manufacturer,
-                Model = source.Model,
-                SerialNumber = source.SerialNumber,
-                SensorSubType = (WINBIO_BIOMETRIC_SENSOR_SUBTYPE)source.SensorSubType,
-                BiometricFactor = (WINBIO_BIOMETRIC_TYPE)source.BiometricFactor,
-                Capabilities = (WINBIO_CAPABILITIES)source.Capabilities,
-                PoolType = (WINBIO_POOL_TYPE)source.PoolType,
-                UnitId = (WINBIO_UNIT_ID)source.UnitId,
-                FirmwareVersion = ConvertFrom(source.FirmwareVersion)
-            };
-            return dst;
-        }
 
     }
 
