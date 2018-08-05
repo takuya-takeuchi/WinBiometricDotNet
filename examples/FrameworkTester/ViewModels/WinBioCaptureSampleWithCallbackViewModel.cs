@@ -4,7 +4,6 @@ using System.Windows.Media.Imaging;
 using FrameworkTester.Helpers;
 using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
@@ -12,7 +11,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioCaptureSampleWithCallbackViewModel : ViewModelBase, IWinBioCaptureSampleWithCallbackViewModel
+    public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioViewModel, IWinBioCaptureSampleWithCallbackViewModel
     {
 
         #region Fields
@@ -140,7 +139,7 @@ namespace FrameworkTester.ViewModels
 
         private RelayCommand _ExecuteCommand;
 
-        public RelayCommand ExecuteCommand
+        public override RelayCommand ExecuteCommand
         {
             get
             {
@@ -175,26 +174,11 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public string Name => "WinBioCaptureSampleWithCallback";
+        public override string Name => "WinBioCaptureSampleWithCallback";
 
-        private string _Result;
+        private RejectDetails _RejectDetail;
 
-        public string Result
-        {
-            get
-            {
-                return this._Result;
-            }
-            private set
-            {
-                this._Result = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private uint _RejectDetail;
-
-        public uint RejectDetail
+        public RejectDetails RejectDetail
         {
             get
             {

@@ -74,17 +74,27 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DesignTimes\WinBioAcquireFocusViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioVerifyWithCallbackViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioVerifyViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioEnumEnrollmentsViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioEnumDatabasesViewModel.cs" />
     <Compile Include="DesignTimes\WinBioReleaseFocusViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioViewModel.cs" />
     <Compile Include="Helpers\BitmapSourceHelper.cs" />
     <Compile Include="Services\DispatcherService.cs" />
     <Compile Include="Services\FrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IDispatcherService.cs" />
     <Compile Include="Services\Interfaces\IFrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IWinBiometricService.cs" />
+    <Compile Include="Services\WinBiometricService.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioVerifyWithCallbackViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioVerifyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCaptureSampleViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCaptureSampleWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCloseSessionViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioEnumEnrollmentsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioEnumDatabasesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioReleaseFocusViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAcquireFocusViewModel.cs" />
@@ -95,6 +105,10 @@
     <Compile Include="DesignTimes\WinBioCloseSessionViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioOpenSessionViewModel.cs" />
+    <Compile Include="ViewModels\WinBioVerifyWithCallbackViewModel.cs" />
+    <Compile Include="ViewModels\WinBioVerifyViewModel.cs" />
+    <Compile Include="ViewModels\WinBioEnumEnrollmentsViewModel.cs" />
+    <Compile Include="ViewModels\WinBioEnumDatabasesViewModel.cs" />
     <Compile Include="ViewModels\WinBioReleaseFocusViewModel.cs" />
     <Compile Include="ViewModels\WinBioAcquireFocusViewModel.cs" />
     <Compile Include="ViewModels\WinBioOpenSessionViewModel.cs" />
@@ -104,8 +118,15 @@
     <Compile Include="ViewModels\WinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\WinBioViewModel.cs" />
     <Compile Include="Views\WinBioAcquireFocus.xaml.cs">
       <DependentUpon>WinBioAcquireFocus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioVerifyWithCallback.xaml.cs">
+      <DependentUpon>WinBioVerifyWithCallback.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioVerify.xaml.cs">
+      <DependentUpon>WinBioVerify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioCaptureSample.xaml.cs">
       <DependentUpon>WinBioCaptureSample.xaml</DependentUpon>
@@ -118,6 +139,12 @@
     </Compile>
     <Compile Include="Views\WinBioEnumBiometricUnits.xaml.cs">
       <DependentUpon>WinBioEnumBiometricUnits.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioEnumDatabases.xaml.cs">
+      <DependentUpon>WinBioEnumDatabases.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioEnumEnrollments.xaml.cs">
+      <DependentUpon>WinBioEnumEnrollments.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioOpenSession.xaml.cs">
       <DependentUpon>WinBioOpenSession.xaml</DependentUpon>
@@ -141,6 +168,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\WinBioVerifyWithCallback.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioVerify.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WinBioCaptureSample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,6 +189,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WinBioEnumBiometricUnits.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WinBioEnumDatabases.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WinBioEnumEnrollments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

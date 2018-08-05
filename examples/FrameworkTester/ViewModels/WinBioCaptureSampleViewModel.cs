@@ -4,7 +4,6 @@ using System.Windows.Media.Imaging;
 using FrameworkTester.Helpers;
 using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
@@ -12,7 +11,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioCaptureSampleViewModel : ViewModelBase, IWinBioCaptureSampleViewModel
+    public sealed class WinBioCaptureSampleViewModel : WinBioViewModel, IWinBioCaptureSampleViewModel
     {
 
         #region Fields
@@ -139,7 +138,7 @@ namespace FrameworkTester.ViewModels
 
         private RelayCommand _ExecuteCommand;
 
-        public RelayCommand ExecuteCommand
+        public override RelayCommand ExecuteCommand
         {
             get
             {
@@ -148,10 +147,10 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        var ressult = this._Service.CaptureSample();
+                        var result = this._Service.CaptureSample();
                         this.Result = "OK";
 
-                        switch (ressult.OperationStatus)
+                        switch (result.OperationStatus)
                         {
                             case OperationStatus.OK:
                                 this.Result = "OK";
@@ -167,11 +166,11 @@ namespace FrameworkTester.ViewModels
                                 break;
                         }
 
-                        this.RejectDetail = ressult.RejectDetail;
-                        this.SampleSize = ressult.SampleSize;
-                        this.UnitId = ressult.UnitId;
+                        this.RejectDetail = result.RejectDetail;
+                        this.SampleSize = result.SampleSize;
+                        this.UnitId = result.UnitId;
 
-                        var captureSample = ressult.Sample;
+                        var captureSample = result.Sample;
                         if (captureSample != null)
                         {
                             var image = BitmapSourceHelper.ToBitmapSource(captureSample.Image,
@@ -209,26 +208,11 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public string Name => "WinBioCaptureSample";
+        public override string Name => "WinBioCaptureSample";
 
-        private string _Result;
+        private RejectDetails _RejectDetail;
 
-        public string Result
-        {
-            get
-            {
-                return this._Result;
-            }
-            private set
-            {
-                this._Result = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private uint _RejectDetail;
-
-        public uint RejectDetail
+        public RejectDetails RejectDetail
         {
             get
             {

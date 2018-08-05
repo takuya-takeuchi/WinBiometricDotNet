@@ -8,11 +8,20 @@ namespace WinBiometricDotNet.Interop
     using BOOLEAN = Boolean;
     using BYTE = Byte;
     using DWORD = UInt32;
+    using HANDLE = IntPtr;
+    using HMODULE = IntPtr;
     using HRESULT = Int32;
+    using HKEY = UIntPtr;
     using HWND = IntPtr;
     using LONGLONG = Int64;
+    using LONG = Int32;
+    using LPCTSTR = System.String;
+    using LPTSTR = System.Text.StringBuilder;
+    using LPVOID = IntPtr;
+    using PHKEY = UIntPtr;
     using PUCHAR = IntPtr;
     using PVOID = IntPtr;
+    using REGSAM = UInt32;
     using SIZE_T = IntPtr;
     using UCHAR = Byte;
     using UINT = UInt32;
@@ -56,9 +65,25 @@ namespace WinBiometricDotNet.Interop
 
         #region Constants
 
+        /// <summary>
+        /// The operation completed successfully.
+        /// </summary>
+        public const int ERROR_SUCCESS = 0;
+
+        /// <summary>
+        /// No more data is available.
+        /// </summary>
+        public const int ERROR_NO_MORE_ITEMS = 259;
+
         public const int E_ACCESSDENIED = unchecked((int)0x80070005);
 
+        public const int E_HANDLE = unchecked((int)0x80070006);
+
+        public const int E_INVALIDARG = unchecked((int)0x80070057);
+
         public const int E_OUTOFMEMORY = unchecked((int)0x8007000E);
+
+        public const int E_POINTER = unchecked((int)0x80004003);
 
         public const uint FORMAT_MESSAGE_ALLOCATE_BUFFER = 0x00000100;
 
@@ -71,6 +96,358 @@ namespace WinBiometricDotNet.Interop
         public const uint FORMAT_MESSAGE_FROM_HMODULE = 0x00000800;
 
         public const uint FORMAT_MESSAGE_FROM_STRING = 0x00000400;
+
+        public const int MAX_PATH = 260;
+
+        public static IntPtr NULL = IntPtr.Zero;
+
+        public const int S_OK = unchecked((int)0x00000000);
+
+        public const int TRUE = 1;
+
+        public const int FALSE = 0;
+
+        #region Access Token
+
+        /// <summary>
+        /// Required to delete the object.
+        /// </summary>
+        public const int DELETE = 0x00010000;
+
+        /// <summary>
+        /// Required to read the DACL and ownership information for the object. For access to the system access control list (SACL), see ACCESS_SYSTEM_SECURITY later in this table.
+        /// </summary>
+        public const int READ_CONTROL = 0x00020000;
+
+        /// <summary>
+        /// test
+        /// </summary>
+        public const int SYNCHRONIZE = 0x00100000;
+
+        /// <summary>
+        /// Required to change the DACL information for the object.
+        /// </summary>
+        public const int WRITE_DAC = 0x00040000;
+
+        /// <summary>
+        /// Required to change the ownership information in the object's security descriptor (SECURITY_DESCRIPTOR).
+        /// </summary>
+        public const int WRITE_OWNER = 0x00080000;
+
+        /// <summary>
+        /// Required to get or set the SACL in an object's ACL. The operating system grants this right to the new token only if the SE_SECURITY_NAME privilege is enabled in the access token of the calling thread.
+        /// </summary>
+        public const int ACCESS_SYSTEM_SECURITY = 0x01000000;
+
+        /// <summary>
+        /// Currently defined to equal READ_CONTROL.
+        /// </summary>
+        public const int STANDARD_RIGHTS_EXECUTE = READ_CONTROL;
+
+        /// <summary>
+        /// Combines DELETE, READ_CONTROL, WRITE_DAC, and WRITE_OWNER access.
+        /// </summary>
+        public const int STANDARD_RIGHTS_REQUIRED = 0x000F0000;
+
+        /// <summary>
+        /// Combines DELETE, READ_CONTROL, WRITE_DAC, WRITE_OWNER, and SYNCHRONIZE access. However, the SYNCHRONIZE value is not applicable to token objects. Thus, STANDARD_RIGHTS_ALL has a functionally equivalent to STANDARD_RIGHTS_REQUIRED.
+        /// </summary>
+        public const int STANDARD_RIGHTS_ALL = 0x001F0000;
+
+        /// <summary>
+        /// Required to change the default owner, primary group, or DACL of an access token.
+        /// </summary>
+        public const int TOKEN_ADJUST_DEFAULT = 0x0080;
+
+        /// <summary>
+        /// Required to adjust the attributes of the groups in an access token.
+        /// </summary>
+        public const int TOKEN_ADJUST_GROUPS = 0x0040;
+
+        /// <summary>
+        /// Required to enable or disable the privileges in an access token.
+        /// </summary>
+        public const int TOKEN_ADJUST_PRIVILEGES = 0x0020;
+
+        /// <summary>
+        /// Required to adjust the session ID (SID) of an access token. The operating system grants this right to the new token only if the SE_TCB_NAME privilege is enabled in the access token of the calling thread.
+        /// </summary>
+        public const int TOKEN_ADJUST_SESSIONID = 0x0100;
+
+        /// <summary>
+        /// Required to attach a primary token to a process. The operating system grants this right to the new token only if the SE_ASSIGNPRIMARYTOKEN_NAME privilege is enabled in the access token of the calling thread.
+        /// </summary>
+        public const int TOKEN_ASSIGN_PRIMARY = 0x0001;
+
+        /// <summary>
+        /// Required to duplicate an access token. Note that the givenExistingTokenHandle token must contain this right in order to successfully use this routine.
+        /// </summary>
+        public const int TOKEN_DUPLICATE = 0x0002;
+
+        /// <summary>
+        /// Combines STANDARD_RIGHTS_EXECUTE and TOKEN_IMPERSONATE.
+        /// </summary>
+        public const int TOKEN_EXECUTE = STANDARD_RIGHTS_EXECUTE;
+
+        /// <summary>
+        /// Required to attach an impersonation access token to a process.
+        /// </summary>
+        public const int TOKEN_IMPERSONATE = 0x0004;
+
+        /// <summary>
+        /// Required to query an access token.
+        /// </summary>
+        public const int TOKEN_QUERY = 0x0008;
+
+        /// <summary>
+        /// Required to query the source of an access token.
+        /// </summary>
+        public const int TOKEN_QUERY_SOURCE = 0x0010;
+
+        /// <summary>
+        /// Combines STANDARD_RIGHTS_READ and TOKEN_QUERY.
+        /// </summary>
+        public const int TOKEN_READ = STANDARD_RIGHTS_READ | TOKEN_QUERY;
+
+        /// <summary>
+        /// Combines STANDARD_RIGHTS_WRITE, TOKEN_ADJUST_PRIVILEGES, TOKEN_ADJUST_GROUPS, and TOKEN_ADJUST_DEFAULT.
+        /// </summary>
+        public const int TOKEN_WRITE = STANDARD_RIGHTS_WRITE | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT;
+
+        /// <summary>
+        /// Combines all possible token access permissions for a token.
+        /// </summary>
+        public const int TOKEN_ALL_ACCESS = TOKEN_ALL_ACCESS_P | TOKEN_ADJUST_SESSIONID;
+
+        /// <summary>
+        /// test
+        /// </summary>
+        public const int TOKEN_ALL_ACCESS_P = STANDARD_RIGHTS_REQUIRED | TOKEN_ASSIGN_PRIMARY | TOKEN_DUPLICATE | TOKEN_IMPERSONATE | TOKEN_QUERY | TOKEN_QUERY_SOURCE | TOKEN_ADJUST_PRIVILEGES | TOKEN_ADJUST_GROUPS | TOKEN_ADJUST_DEFAULT;
+
+        #endregion
+
+        #region Registry
+
+        /// <summary>
+        /// Permission to query subkey data.
+        /// </summary>
+        public const int KEY_QUERY_VALUE = (0x0001);
+
+        /// <summary>
+        /// Permission to set subkey data.
+        /// </summary>
+        public const int KEY_SET_VALUE = (0x0002);
+
+        /// <summary>
+        /// Permission to create subkeys.
+        /// </summary>
+        public const int KEY_CREATE_SUB_KEY = (0x0004);
+
+        /// <summary>
+        /// Permission to enumerate subkeys.
+        /// </summary>
+        public const int KEY_ENUMERATE_SUB_KEYS = (0x0008);
+
+        /// <summary>
+        /// Permission for change notification.
+        /// </summary>
+        public const int KEY_NOTIFY = (0x0010);
+
+        /// <summary>
+        /// Permission to create a symbolic link.
+        /// </summary>
+        public const int KEY_CREATE_LINK = (0x0020);
+
+        /// <summary>
+        /// Access a 32-bit key from either a 32-bit or 64-bit application.
+        /// </summary>
+        public const int KEY_WOW64_32KEY = (0x0200);
+
+        /// <summary>
+        /// Access a 64-bit key from either a 32-bit or 64-bit application.
+        /// </summary>
+        public const int KEY_WOW64_64KEY = (0x0100);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int KEY_WOW64_RES = (0x0300);
+
+        /// <summary>
+        /// Combination of <see cref="KEY_QUERY_VALUE"/>, <see cref="KEY_ENUMERATE_SUB_KEYS"/>, and <see cref="KEY_NOTIFY"/> access.
+        /// </summary>
+        public const int KEY_READ = ((STANDARD_RIGHTS_READ | KEY_QUERY_VALUE | KEY_ENUMERATE_SUB_KEYS | KEY_NOTIFY) & (~SYNCHRONIZE));
+
+        /// <summary>
+        /// Combination of <see cref="KEY_SET_VALUE"/> and <see cref="KEY_CREATE_SUB_KEY"/> access.
+        /// </summary>
+        public const int KEY_WRITE = ((STANDARD_RIGHTS_WRITE | KEY_SET_VALUE | KEY_CREATE_SUB_KEY) & (~SYNCHRONIZE));
+
+        /// <summary>
+        /// Permission for read access.
+        /// </summary>
+        public const int KEY_EXECUTE = ((KEY_READ) & (~SYNCHRONIZE));
+
+        /// <summary>
+        /// Combination of <see cref="KEY_QUERY_VALUE"/>, <see cref="KEY_ENUMERATE_SUB_KEYS"/>, <see cref="KEY_NOTIFY"/>, <see cref="KEY_CREATE_SUB_KEY"/>, <see cref="KEY_CREATE_LINK"/>, and <see cref="KEY_SET_VALUE"/> access.
+        /// </summary>
+        public const int KEY_ALL_ACCESS = ((STANDARD_RIGHTS_ALL |
+                                          KEY_QUERY_VALUE |
+                                          KEY_SET_VALUE |
+                                          KEY_CREATE_SUB_KEY |
+                                          KEY_ENUMERATE_SUB_KEYS |
+                                          KEY_NOTIFY |
+                                          KEY_CREATE_LINK)
+                                          &
+                                         (~SYNCHRONIZE));
+
+        public const int REG_OPTION_RESERVED = (0x00000000);   // Parameter is reserved
+
+        public const int REG_OPTION_NON_VOLATILE = (0x00000000);  // Key is preserved when system is rebooted
+
+        public const int REG_OPTION_VOLATILE = (0x00000001);  // Key is not preserved when system is rebooted
+
+        public const int REG_OPTION_CREATE_LINK = (0x00000002);  // Created key is a symbolic link
+
+        public const int REG_OPTION_BACKUP_RESTORE = (0x00000004); // open for backup or restore special access rules privilege required
+
+        public const int REG_OPTION_OPEN_LINK = (0x00000008); // Open symbolic link
+
+        public const int REG_LEGAL_OPTION =
+                        (REG_OPTION_RESERVED |
+                         REG_OPTION_NON_VOLATILE |
+                         REG_OPTION_VOLATILE |
+                         REG_OPTION_CREATE_LINK |
+                         REG_OPTION_BACKUP_RESTORE |
+                         REG_OPTION_OPEN_LINK);
+
+        public const int REG_OPEN_LEGAL_OPTION =
+                        (REG_OPTION_RESERVED |
+                         REG_OPTION_BACKUP_RESTORE |
+                         REG_OPTION_OPEN_LINK);
+
+        /// <summary>
+        /// No type restriction.
+        /// </summary>
+        public const uint RRF_RT_ANY = 0x0000ffff;
+
+        /// <summary>
+        /// Restrict type to 32-bit <see cref="RRF_RT_REG_BINARY"/> | <see cref="RRF_RT_REG_DWORD"/>.
+        /// </summary>
+        public const uint RRF_RT_DWORD = 0x00000018;
+
+        /// <summary>
+        /// Restrict type to 64-bit <see cref="RRF_RT_REG_BINARY"/> | <see cref="RRF_RT_REG_DWORD"/>.
+        /// </summary>
+        public const uint RRF_RT_QWORD = 0x00000048;
+
+        /// <summary>
+        /// Restrict type to <see cref="REG_BINARY"/>.
+        /// </summary>
+        public const uint RRF_RT_REG_BINARY = 0x00000008;
+
+        /// <summary>
+        /// Restrict type to <see cref="REG_DWORD"/>.
+        /// </summary>
+        public const uint RRF_RT_REG_DWORD = 0x00000010;
+
+        /// <summary>
+        /// Restrict type to <see cref="REG_EXPAND_SZ"/>.
+        /// </summary>
+        public const uint RRF_RT_REG_EXPAND_SZ = 0x00000004;
+
+        /// <summary>
+        /// Restrict type to <see cref="REG_MULTI_SZ"/>.
+        /// </summary>
+        public const uint RRF_RT_REG_MULTI_SZ = 0x00000020;
+
+        /// <summary>
+        /// Restrict type to <see cref="REG_NONE"/>.
+        /// </summary>
+        public const uint RRF_RT_REG_NONE = 0x00000001;
+
+        /// <summary>
+        /// Restrict type to <see cref="REG_QWORD"/>.
+        /// </summary>
+        public const uint RRF_RT_REG_QWORD = 0x00000040;
+
+        /// <summary>
+        /// Restrict type to <see cref="REG_SZ"/>.
+        /// </summary>
+        public const uint RRF_RT_REG_SZ = 0x00000002;
+
+        /// <summary>
+        /// The key did not exist and was created.
+        /// </summary>
+        public const uint REG_CREATED_NEW_KEY = 0x00000001;
+
+        /// <summary>
+        /// The key existed and was simply opened without being changed.
+        /// </summary>
+        public const uint REG_OPENED_EXISTING_KEY = 0x00000002;
+
+        /// <summary>
+        /// Binary data in any form.
+        /// </summary>
+        public const int REG_BINARY = 3;
+
+        /// <summary>
+        /// A 32-bit number.
+        /// </summary>
+        public const int REG_DWORD = 4;
+
+        /// <summary>
+        /// <para>A 32-bit number in little-endian format.</para>
+        /// <para>Windows is designed to run on little-endian computer architectures. Therefore, this value is defined as <see cref="REG_DWORD"/> in the Windows header files.</para>
+        /// </summary>
+        public const int REG_DWORD_LITTLE_ENDIAN = 4;
+
+        /// <summary>
+        /// <para>A 32-bit number in big-endian format.</para>
+        /// <para>Some UNIX systems support big-endian architectures.</para>
+        /// </summary>
+        public const int REG_DWORD_BIG_ENDIAN = 4;
+
+        /// <summary>
+        /// A null-terminated string that contains unexpanded references to environment variables (for example, "%PATH%"). It will be a Unicode or ANSI string depending on whether you use the Unicode or ANSI functions. To expand the environment variable references, use the <see cref="ExpandEnvironmentStrings"/> function.
+        /// </summary>
+        public const int REG_EXPAND_SZ = 2;
+
+        /// <summary>
+        /// A null-terminated Unicode string that contains the target path of a symbolic link that was created by calling the <see cref="RegCreateKeyEx"/> function with <see cref="REG_OPTION_CREATE_LINK"/>.
+        /// </summary>
+        public const int REG_LINK = 6;
+
+        /// <summary>
+        /// <para>A sequence of null-terminated strings, terminated by an empty string (\0).</para>
+        /// <para>The following is an example:</para>
+        /// <para>String1\0String2\0String3\0LastString\0\0</para>
+        /// <para>The first \0 terminates the first string, the second to the last \0 terminates the last string, and the final \0 terminates the sequence. Note that the final terminator must be factored into the length of the string.</para>
+        /// </summary>
+        public const int REG_MULTI_SZ = 7;
+
+        /// <summary>
+        /// No defined value type.
+        /// </summary>
+        public const int REG_NONE = 0;
+
+        /// <summary>
+        /// A 64-bit number.
+        /// </summary>
+        public const int REG_QWORD = 11;
+
+        /// <summary>
+        /// <para>A 64-bit number in little-endian format.</para>
+        /// <para>Windows is designed to run on little-endian computer architectures. Therefore, this value is defined as <see cref="REG_QWORD"/> in the Windows header files.</para>
+        /// </summary>
+        public const int REG_QWORD_LITTLE_ENDIAN = 11;
+
+        /// <summary>
+        /// A null-terminated string. This will be either a Unicode or an ANSI string, depending on whether you use the Unicode or ANSI functions.
+        /// </summary>
+        public const int REG_SZ = 1;
+
+        #endregion
 
         #region BIO_UNIT Constants
 
@@ -384,6 +761,95 @@ namespace WinBiometricDotNet.Interop
 
         #endregion
 
+        #region File Access Rights Constants
+
+        /// <summary>
+        /// For a directory, the right to create a file in the directory.
+        /// </summary>
+        public const int FILE_ADD_FILE = 2;
+
+        /// <summary>
+        /// For a directory, the right to create a subdirectory.
+        /// </summary>
+        public const int FILE_ADD_SUBDIRECTORY = 4;
+
+        /// <summary>
+        /// All possible access rights for a file.
+        /// </summary>
+        public const int FILE_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED | SYNCHRONIZE | 0x1FF);
+
+        /// <summary>
+        /// For a file object, the right to append data to the file. (For local files, write operations will not overwrite existing data if this flag is specified without <see cref="FILE_WRITE_DATA"/>.) For a directory object, the right to create a subdirectory (<see cref="FILE_ADD_SUBDIRECTORY"/>).
+        /// </summary>
+        public const int FILE_APPEND_DATA = 4;
+
+        /// <summary>
+        /// For a named pipe, the right to create a pipe.
+        /// </summary>
+        public const int FILE_CREATE_PIPE_INSTANCE = 4;
+
+        /// <summary>
+        /// For a directory, the right to delete a directory and all the files it contains, including read-only files.
+        /// </summary>
+        public const int FILE_DELETE_CHILD = 0x40;
+
+        /// <summary>
+        /// For a native code file, the right to execute the file. This access right given to scripts may cause the script to be executable, depending on the script interpreter.
+        /// </summary>
+        public const int FILE_EXECUTE = 0x20;
+
+        /// <summary>
+        /// For a directory, the right to list the contents of the directory.
+        /// </summary>
+        public const int FILE_LIST_DIRECTORY = 1;
+
+        /// <summary>
+        /// The right to read file attributes.
+        /// </summary>
+        public const int FILE_READ_ATTRIBUTES = 0x80;
+
+        /// <summary>
+        /// For a file object, the right to read the corresponding file data. For a directory object, the right to read the corresponding directory data.
+        /// </summary>
+        public const int FILE_READ_DATA = 1;
+
+        /// <summary>
+        /// The right to read extended file attributes.
+        /// </summary>
+        public const int FILE_READ_EA = 8;
+
+        /// <summary>
+        /// For a directory, the right to traverse the directory. By default, users are assigned the <see cref="BYPASS_TRAVERSE_CHECKING"/> privilege, which ignores the <see cref="FILE_TRAVERSE"/> access right. See the remarks in File Security and Access Rights for more information.
+        /// </summary>
+        public const int FILE_TRAVERSE = 0x20;
+
+        /// <summary>
+        /// The right to write file attributes.
+        /// </summary>
+        public const int FILE_WRITE_ATTRIBUTES = 0x100;
+
+        /// <summary>
+        /// For a file object, the right to write data to the file. For a directory object, the right to create a file in the directory (<see cref="FILE_ADD_FILE"/>).
+        /// </summary>
+        public const int FILE_WRITE_DATA = 2;
+
+        /// <summary>
+        /// The right to write extended file attributes.
+        /// </summary>
+        public const int FILE_WRITE_EA = 0x10;
+
+        /// <summary>
+        /// Includes READ_CONTROL, which is the right to read the information in the file or directory object's security descriptor. This does not include the information in the SACL.
+        /// </summary>
+        public const int STANDARD_RIGHTS_READ = READ_CONTROL;
+
+        /// <summary>
+        /// Same as STANDARD_RIGHTS_READ.
+        /// </summary>
+        public const int STANDARD_RIGHTS_WRITE = STANDARD_RIGHTS_READ;
+
+        #endregion
+
         #region General Constants
 
         /// <summary>
@@ -400,6 +866,130 @@ namespace WinBiometricDotNet.Interop
         /// The maximum number of bytes in a single biometric data capture.
         /// </summary>
         public const int WINBIO_MAX_SAMPLE_BUFFER_SIZE = 0x7FFFFFFF;
+
+        #endregion
+
+        #region LoadLibrary
+
+        /// <summary>
+        /// <para>If this value is used, the system maps the file into the calling process's virtual address space as if it were a data file. Nothing is done to execute or prepare to execute the mapped file. Therefore, you cannot call functions like <see cref="GetModuleFileName"/>, <see cref="GetModuleHandle"/> or <see cref="GetProcAddress"/> with this DLL. Using this value causes writes to read-only memory to raise an access violation. Use this flag when you want to load a DLL only to extract messages or resources from it.</para>
+        /// <para>This value can be used with <see cref="LOAD_LIBRARY_AS_IMAGE_RESOURCE"/>. For more information, see Remarks.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_AS_DATAFILE = 0x00000002;
+
+        /// <summary>
+        /// <para>Similar to <see cref="LOAD_LIBRARY_AS_DATAFILE"/>, except that the DLL file is opened with exclusive write access for the calling process. Other processes cannot open the DLL file for write access while it is in use. However, the DLL can still be opened by other processes.</para>
+        /// <para>This value can be used with <see cref="LOAD_LIBRARY_AS_IMAGE_RESOURCE"/>. For more information, see Remarks.</para>
+        /// <para>Windows Server 2003 and Windows XP:  This value is not supported until Windows Vista.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE = 0x00000040;
+
+        /// <summary>
+        /// <para>If this value is used, the system maps the file into the process's virtual address space as an image file. However, the loader does not load the static imports or perform the other usual initialization steps. Use this flag when you want to load a DLL only to extract messages or resources from it.</para>
+        /// <para>Unless the application depends on the file having the in-memory layout of an image, this value should be used with either <see cref="LOAD_LIBRARY_AS_DATAFILE_EXCLUSIVE"/> or <see cref="LOAD_LIBRARY_AS_DATAFILE"/>. For more information, see the Remarks section.</para>
+        /// <para>Windows Server 2003 and Windows XP:  This value is not supported until Windows Vista.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_AS_IMAGE_RESOURCE = 0x00000020;
+
+        /// <summary>
+        /// <para>If this value is used, the application's installation directory is searched for the DLL and its dependencies. Directories in the standard search path are not searched. This value cannot be combined with <see cref="LOAD_WITH_ALTERED_SEARCH_PATH"/>.</para>
+        /// <para>Windows 7, Windows Server 2008 R2, Windows Vista, and Windows Server 2008:  This value requires KB2533623 to be installed.</para>
+        /// <para>Windows Server 2003 and Windows XP:  This value is not supported.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_SEARCH_APPLICATION_DIR = 0x00000200;
+
+        /// <summary>
+        /// <para>This value is a combination of <see cref="LOAD_LIBRARY_SEARCH_APPLICATION_DIR"/>, <see cref="LOAD_LIBRARY_SEARCH_SYSTEM32"/>, and <see cref="LOAD_LIBRARY_SEARCH_USER_DIRS"/>. Directories in the standard search path are not searched. This value cannot be combined with <see cref="LOAD_WITH_ALTERED_SEARCH_PATH"/>.</para>
+        /// <para>This value represents the recommended maximum number of directories an application should include in its DLL search path.</para>
+        /// <para>Windows 7, Windows Server 2008 R2, Windows Vista, and Windows Server 2008:  This value requires KB2533623 to be installed.</para>
+        /// <para>Windows Server 2003 and Windows XP:  This value is not supported.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_SEARCH_DEFAULT_DIRS = 0x00001000;
+
+        /// <summary>
+        /// <para>If this value is used, the directory that contains the DLL is temporarily added to the beginning of the list of directories that are searched for the DLL's dependencies. Directories in the standard search path are not searched.</para>
+        /// <para>The <paramref name="lpFileName"/> parameter must specify a fully qualified path. This value cannot be combined with <see cref="LOAD_WITH_ALTERED_SEARCH_PATH"/>.</para>
+        /// <para>For example, if Lib2.dll is a dependency of C:\Dir1\Lib1.dll, loading Lib1.dll with this value causes the system to search for Lib2.dll only in C:\Dir1. To search for Lib2.dll in C:\Dir1 and all of the directories in the DLL search path, combine this value with <see cref="LOAD_LIBRARY_DEFAULT_DIRS"/>.</para>
+        /// <para>Windows 7, Windows Server 2008 R2, Windows Vista, and Windows Server 2008:  This value requires KB2533623 to be installed.</para>
+        /// <para>Windows Server 2003 and Windows XP:  This value is not supported.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_SEARCH_DLL_LOAD_DIR = 0x00000100;
+
+        /// <summary>
+        /// <para>If this value is used, %windows%\system32 is searched for the DLL and its dependencies. Directories in the standard search path are not searched. This value cannot be combined with <see cref="LOAD_WITH_ALTERED_SEARCH_PATH"/>.</para>
+        /// <para>Windows 7, Windows Server 2008 R2, Windows Vista, and Windows Server 2008:  This value requires KB2533623 to be installed.</para>
+        /// <para>Windows Server 2003 and Windows XP:  This value is not supported.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_SEARCH_SYSTEM32 = 0x00000800;
+
+        /// <summary>
+        /// <para>If this value is used, directories added using the <see cref="AddDllDirectory"/> or the <see cref="SetDllDirectory"/> function are searched for the DLL and its dependencies. If more than one directory has been added, the order in which the directories are searched is unspecified. Directories in the standard search path are not searched. This value cannot be combined with <see cref="LOAD_WITH_ALTERED_SEARCH_PATH"/>.</para>
+        /// <para>Windows 7, Windows Server 2008 R2, Windows Vista, and Windows Server 2008:  This value requires KB2533623 to be installed.</para>
+        /// <para>Windows Server 2003 and Windows XP:  This value is not supported.</para>
+        /// </summary>
+        public static uint LOAD_LIBRARY_SEARCH_USER_DIRS = 0x00000400;
+
+        #endregion
+
+        #region Predefined Keys
+
+        /// <summary>
+        /// <para>Registry entries subordinate to this key define types (or classes) of documents and the properties associated with those types. Shell and COM applications use the information stored under this key.</para>
+        /// <para>This key also provides backward compatibility with the Windows 3.1 registration database by storing information for DDE and OLE support. File viewers and user interface extensions store their OLE class identifiers in <see cref="HKEY_CLASSES_ROOT"/>, and in-process servers are registered in this key.</para>
+        /// <para>This handle should not be used in a service or an application that impersonates different users.</para>
+        /// <para>For more information, see <see cref="HKEY_CLASSES_ROOT"/>.</para>
+        /// </summary>
+        public readonly static HKEY HKEY_CLASSES_ROOT = new UIntPtr(0x80000000);
+
+        /// <summary>
+        /// <para>Contains information about the current hardware profile of the local computer system. The information under <see cref="HKEY_CURRENT_CONFIG"/> describes only the differences between the current hardware configuration and the standard configuration. Information about the standard hardware configuration is stored under the Software and System keys of <see cref="HKEY_LOCAL_MACHINE"/>.</para>
+        /// <para><see cref="HKEY_CURRENT_CONFIG"/> is an alias for HKEY_LOCAL_MACHINE\System\CurrentControlSet\Hardware Profiles\Current.</para>
+        /// <para>For more information, see <see cref="HKEY_CURRENT_CONFIG"/>.</para>
+        /// </summary>
+        public readonly static HKEY HKEY_CURRENT_CONFIG = new UIntPtr(0x80000005);
+
+        /// <summary>
+        /// <para>Registry entries subordinate to this key define the preferences of the current user. These preferences include the settings of environment variables, data about program groups, colors, printers, network connections, and application preferences. This key makes it easier to establish the current user's settings; the key maps to the current user's branch in HKEY_USERS. In <see cref="HKEY_CURRENT_USER"/>, software vendors store the current user-specific preferences to be used within their applications. Microsoft, for example, creates the HKEY_CURRENT_USER\Software\Microsoft key for its applications to use, with each application creating its own subkey under the Microsoft key.</para>
+        /// <para>The mapping between <see cref="HKEY_CURRENT_USER"/> and HKEY_USERS is per process and is established the first time the process references <see cref="HKEY_CURRENT_USER"/>. The mapping is based on the security context of the first thread to reference <see cref="HKEY_CURRENT_USER"/>. If this security context does not have a registry hive loaded in <see cref="HKEY_USERS"/>, the mapping is established with HKEY_USERS\.Default. After this mapping is established it persists, even if the security context of the thread changes.</para>
+        /// <para>All registry entries in <see cref="HKEY_CURRENT_USER"/> except those under HKEY_CURRENT_USER\Software\Classes are included in the per-user registry portion of a roaming user profile. To exclude other entries from a roaming user profile, store them in <see cref="HKEY_CURRENT_USER_LOCAL_SETTINGS"/>.</para>
+        /// <para>This handle should not be used in a service or an application that impersonates different users. Instead, call the <see cref="RegOpenCurrentUser"/> function.</para>
+        /// <para>For more information, see <see cref="HKEY_CURRENT_USER"/>.</para>
+        /// </summary>
+        public readonly static HKEY HKEY_CURRENT_USER = new UIntPtr(0x80000001);
+
+        /// <summary>
+        /// <para>Registry entries subordinate to this key define preferences of the current user that are local to the machine. These entries are not included in the per-user registry portion of a roaming user profile.</para>
+        /// <para>Windows Server 2008, Windows Vista, Windows Server 2003, and Windows XP/2000:  This key is supported starting with Windows 7 and Windows Server 2008 R2.</para>
+        /// </summary>
+        public readonly static HKEY HKEY_CURRENT_USER_LOCAL_SETTINGS = new UIntPtr(0x80000007);
+
+        /// <summary>
+        /// <para>Registry entries subordinate to this key define the physical state of the computer, including data about the bus type, system memory, and installed hardware and software. It contains subkeys that hold current configuration data, including Plug and Play information (the Enum branch, which includes a complete list of all hardware that has ever been on the system), network logon preferences, network security information, software-related information (such as server names and the location of the server), and other system information.</para>
+        /// <para>For more information, see <see cref="HKEY_LOCAL_MACHINE"/>.</para>
+        /// </summary>
+        public readonly static HKEY HKEY_LOCAL_MACHINE = new UIntPtr(0x80000002);
+
+        /// <summary>
+        /// Registry entries subordinate to this key allow you to access performance data. The data is not actually stored in the registry; the registry functions cause the system to collect the data from its source.
+        /// </summary>
+        public readonly static HKEY HKEY_PERFORMANCE_DATA = new UIntPtr(0x80000004);
+
+        /// <summary>
+        /// <para>Registry entries subordinate to this key reference the text strings that describe counters in the local language of the area in which the computer system is running. These entries are not available to Regedit.exe and Regedt32.exe.</para>
+        /// <para>Windows 2000:  This key is not supported.</para>
+        /// </summary>
+        public readonly static HKEY HKEY_PERFORMANCE_NLSTEXT = new UIntPtr(0x80000060);
+
+        /// <summary>
+        /// <para>Registry entries subordinate to this key reference the text strings that describe counters in US English. These entries are not available to Regedit.exe and Regedt32.exe.</para>
+        /// <para>Windows 2000:  This key is not supported.</para>
+        /// </summary>
+        public readonly static HKEY HKEY_PERFORMANCE_TEXT = new UIntPtr(0x80000050);
+
+        /// <summary>
+        /// Registry entries subordinate to this key define the default user configuration for new users on the local computer and the user configuration for the current user.
+        /// </summary>
+        public readonly static HKEY HKEY_USERS = new UIntPtr(0x80000003);
 
         #endregion
 
@@ -1630,6 +2220,227 @@ namespace WinBiometricDotNet.Interop
         #region Enumerations
 
         /// <summary>
+        /// <para>The <see cref="TOKEN_INFORMATION_CLASS"/> enumeration contains values that specify the type of information being assigned to or retrieved from an access token.</para>
+        /// <para>The <see cref="GetTokenInformation"/> function uses these values to indicate the type of token information to retrieve.</para>
+        /// <para>The <see cref="SetTokenInformation"/> function uses these values to set the token information.</para>
+        /// </summary>
+        public enum TOKEN_INFORMATION_CLASS
+        {
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_USER"/> structure that contains the user account of the token.
+            /// </summary>
+            TokenUser = 1,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the group accounts associated with the token.
+            /// </summary>
+            TokenGroups,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_PRIVILEGES"/> structure that contains the privileges of the token.
+            /// </summary>
+            TokenPrivileges,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_OWNER"/> structure that contains the default owner security identifier (SID) for newly created objects.
+            /// </summary>
+            TokenOwner,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_PRIMARY_GROUP"/> structure that contains the default primary group SID for newly created objects.
+            /// </summary>
+            TokenPrimaryGroup,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_DEFAULT_DACL"/> structure that contains the default DACL for newly created objects.
+            /// </summary>
+            TokenDefaultDacl,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_SOURCE"/> structure that contains the source of the token. <see cref="TOKEN_QUERY_SOURCE"/> access is needed to retrieve this information.
+            /// </summary>
+            TokenSource,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_TYPE"/> value that indicates whether the token is a primary or impersonation token.
+            /// </summary>
+            TokenType,
+
+            /// <summary>
+            /// The buffer receives a SECURITY_IMPERSONATION_LEVEL value that indicates the impersonation level of the token. If the access token is not an impersonation token, the function fails.
+            /// </summary>
+            TokenImpersonationLevel,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_STATISTICS"/> structure that contains various token statistics.
+            /// </summary>
+            TokenStatistics,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the list of restricting SIDs in a restricted token.
+            /// </summary>
+            TokenRestrictedSids,
+
+            /// <summary>
+            /// <para>The buffer receives a DWORD value that indicates the Terminal Services session identifier that is associated with the token.</para>
+            /// <para>If the token is associated with the terminal server client session, the session identifier is nonzero.</para>
+            /// <para>Windows Server 2003 and Windows XP:  If the token is associated with the terminal server console session, the session identifier is zero.</para>
+            /// <para>In a non-Terminal Services environment, the session identifier is zero.</para>
+            /// <para>If TokenSessionId is set with <see cref="SetTokenInformation"/>, the application must have the Act As Part Of the Operating System privilege, and the application must be enabled to set the session ID in a token.</para>
+            /// </summary>
+            TokenSessionId,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS_AND_PRIVILEGES"/> structure that contains the user SID, the group accounts, the restricted SIDs, and the authentication ID associated with the token.
+            /// </summary>
+            TokenGroupsAndPrivileges,
+
+            /// <summary>
+            /// Reserved.
+            /// </summary>
+            TokenSessionReference,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token includes the SANDBOX_INERT flag.
+            /// </summary>
+            TokenSandBoxInert,
+
+            /// <summary>
+            /// Reserved.
+            /// </summary>
+            TokenAuditPolicy,
+
+            /// <summary>
+            /// <para>The buffer receives a <see cref="TOKEN_ORIGIN"/> value.</para>
+            /// <para>If the token resulted from a logon that used explicit credentials, such as passing a name, domain, and password to the LogonUser function, then the <see cref="TOKEN_ORIGIN"/> structure will contain the ID of the logon session that created it.</para>
+            /// <para>If the token resulted from network authentication, such as a call to <see cref="AcceptSecurityContext"/> or a call to <see cref="LogonUser"/> with dwLogonType set to <see cref="LOGON32_LOGON_NETWORK"/> or <see cref="LOGON32_LOGON_NETWORK_CLEARTEXT"/>, then this value will be zero.</para>
+            /// </summary>
+            TokenOrigin,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_ELEVATION_TYPE"/> value that specifies the elevation level of the token.
+            /// </summary>
+            TokenElevationType,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_LINKED_TOKEN"/> structure that contains a handle to another token that is linked to this token.
+            /// </summary>
+            TokenLinkedToken,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_ELEVATION"/> structure that specifies whether the token is elevated.
+            /// </summary>
+            TokenElevation,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token has ever been filtered.
+            /// </summary>
+            TokenHasRestrictions,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_ACCESS_INFORMATION"/> structure that specifies security information contained in the token.
+            /// </summary>
+            TokenAccessInformation,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if virtualization is allowed for the token.
+            /// </summary>
+            TokenVirtualizationAllowed,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if virtualization is enabled for the token.
+            /// </summary>
+            TokenVirtualizationEnabled,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_MANDATORY_LABEL"/> structure that specifies the token's integrity level.
+            /// </summary>
+            TokenIntegrityLevel,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token has the UIAccess flag set.
+            /// </summary>
+            TokenUIAccess,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_MANDATORY_POLICY"/> structure that specifies the token's mandatory integrity policy.
+            /// </summary>
+            TokenMandatoryPolicy,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that specifies the token's logon SID.
+            /// </summary>
+            TokenLogonSid,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token is an app container token. Any callers who check the TokenIsAppContainer and have it return 0 should also verify that the caller token is not an identify level impersonation token. If the current token is not an app container but is an identity level token, you should return AccessDenied.
+            /// </summary>
+            TokenIsAppContainer,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the capabilities associated with the token.
+            /// </summary>
+            TokenCapabilities,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_APPCONTAINER_INFORMATION"/> structure that contains the AppContainerSid associated with the token. If the token is not associated with an app container, the TokenAppContainer member of the <see cref="TOKEN_APPCONTAINER_INFORMATION"/> structure points to NULL.
+            /// </summary>
+            TokenAppContainerSid,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that includes the app container number for the token. For tokens that are not app container tokens, this value is zero.
+            /// </summary>
+            TokenAppContainerNumber,
+
+            /// <summary>
+            /// The buffer receives a <see cref="CLAIM_SECURITY_ATTRIBUTES_INFORMATION"/> structure that contains the user claims associated with the token.
+            /// </summary>
+            TokenUserClaimAttributes,
+
+            /// <summary>
+            /// The buffer receives a <see cref="CLAIM_SECURITY_ATTRIBUTES_INFORMATION"/> structure that contains the device claims associated with the token.
+            /// </summary>
+            TokenDeviceClaimAttributes,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenRestrictedUserClaimAttributes,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenRestrictedDeviceClaimAttributes,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the device groups that are associated with the token.
+            /// </summary>
+            TokenDeviceGroups,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the restricted device groups that are associated with the token.
+            /// </summary>
+            TokenRestrictedDeviceGroups,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenSecurityAttributes,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenIsRestricted,
+
+            /// <summary>
+            /// The maximum value for this enumeration.
+            /// </summary>
+            MaxTokenInfoClass,
+
+        }
+
+        /// <summary>
         /// Defines constants that specify how completion notifications for asynchronous operations are to be delivered to the client application. This enumeration is used by the <see cref="WinBioAsyncOpenFramework"/> and <see cref="WinBioAsyncOpenSession"/> functions.
         /// </summary>
         public enum WINBIO_ASYNC_NOTIFICATION_METHOD
@@ -1721,12 +2532,667 @@ namespace WinBiometricDotNet.Interop
         #region Methods
 
         [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        public static extern bool CloseHandle(IntPtr hObject);
+
+        /// <summary>
+        /// The <see cref="CopySid"/> function copies a security identifier (SID) to a buffer.
+        /// </summary>
+        /// <param name="nDestinationSidLength">Specifies the length, in bytes, of the buffer receiving the copy of the SID.</param>
+        /// <param name="pDestinationSid">A pointer to a buffer that receives a copy of the source SID structure.</param>
+        /// <param name="pSourceSid">A pointer to a SID structure that the function copies to the buffer pointed to by the pDestinationSid parameter.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Auto)]
+        public static extern BOOL CopySid([In]  DWORD nDestinationSidLength,
+                                          [Out] IntPtr pDestinationSid,
+                                          [In]  IntPtr pSourceSid);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport("kernel32.dll", SetLastError = true)]
-        public static extern uint FormatMessage(uint dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, ref IntPtr lpBuffer, uint nSize, string[] Arguments);
+        public static extern uint FormatMessage(uint dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, out IntPtr lpBuffer, uint nSize, string[] Arguments);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true, SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        public static extern BOOL FreeLibrary(HMODULE hModule);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("kernel32", ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
+        public static extern IntPtr GetCurrentProcess();
+
+        /// <summary>
+        /// The <see cref="GetLengthSid"/> function returns the length, in bytes, of a valid security identifier (SID).
+        /// </summary>
+        /// <param name="pSid">A pointer to the SID structure whose length is returned. The structure is assumed to be valid.</param>
+        /// <returns>
+        /// <para>If the SID structure is valid, the return value is the length, in bytes, of the SID structure.</para>
+        /// <para>If the SID structure is not valid, the return value is undefined. Before calling <see cref="GetLengthSid"/>, pass the SID to the <see cref="IsValidSid"/> function to verify that the SID is valid.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Auto)]
+        public static extern DWORD GetLengthSid([In]  IntPtr pSid);
+
+        /// <summary>
+        /// <para>The <see cref="GetTokenInformation"/> function retrieves a specified type of information about an access token. The calling process must have appropriate access rights to obtain the information.</para>
+        /// <para>To determine if a user is a member of a specific group, use the <see cref="CheckTokenMembership"/> function. To determine group membership for app container tokens, use the <see cref="CheckTokenMembershipEx"/> function.</para>
+        /// </summary>
+        /// <param name="TokenHandle"></param>
+        /// <param name="TokenInformationClass"></param>
+        /// <param name="TokenInformation"></param>
+        /// <param name="TokenInformationLength"></param>
+        /// <param name="ReturnLength">
+        /// <para>A pointer to a variable that receives the number of bytes needed for the buffer pointed to by the TokenInformation parameter. If this value is larger than the value specified in the TokenInformationLength parameter, the function fails and stores no data in the buffer.</para>
+        /// <para>If the value of the TokenInformationClass parameter is <see cref="TokenDefaultDacl"/> and the token has no default DACL, the function sets the variable pointed to by ReturnLength to sizeof(<see cref="TOKEN_DEFAULT_DACL"/>) and sets the DefaultDacl member of the <see cref="TOKEN_DEFAULT_DACL"/> structure to NULL.</para>
+        /// </param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi)]
+        public static extern BOOL GetTokenInformation([In]  HANDLE TokenHandle,
+                                                      [In]  TOKEN_INFORMATION_CLASS TokenInformationClass,
+                                                      [Out] IntPtr TokenInformation,
+                                                      [In]  DWORD TokenInformationLength,
+                                                      [Out] out DWORD ReturnLength);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi)]
+        public static extern UINT GetSystemWindowsDirectory([Out] LPTSTR lpBuffer, [In] UINT uSize);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, ExactSpelling = true, SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        public static extern HMODULE LoadLibraryExW([In] LPCTSTR lpFileName, HANDLE hFile, [In] DWORD dwFlags);
 
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr LocalFree(IntPtr hMem);
+
+        /// <summary>
+        /// The <see cref="OpenProcessToken"/> function opens the access token associated with a process.
+        /// </summary>
+        /// <param name="ProcessHandle">A handle to the process whose access token is opened. The process must have the <see cref="PROCESS_QUERY_INFORMATION"/> access permission.</param>
+        /// <param name="DesiredAccess">
+        /// <para>Specifies an access mask that specifies the requested types of access to the access token. These requested access types are compared with the discretionary access control list (DACL) of the token to determine which accesses are granted or denied.</para>
+        /// <para>For a list of access rights for access tokens, see Access Rights for Access-Token Objects.</para>
+        /// </param>
+        /// <param name="TokenHandle">A pointer to a handle that identifies the newly opened access token when the function returns.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        public static extern BOOL OpenProcessToken([In]  HANDLE ProcessHandle,
+                                                   [In]  DWORD DesiredAccess,
+                                                   [Out] out HANDLE TokenHandle);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi)]
+        public static extern LONG RegCloseKey([In] HKEY hKey);
+
+        /// <summary>
+        /// <para>Creates the specified registry key. If the key already exists, the function opens it. Note that key names are not case sensitive.</para>
+        /// <para>To perform transacted registry operations on a key, call the <see cref="RegCreateKeyTransacted"/> function.</para>
+        /// <para>Applications that back up or restore system state including system files and registry hives should use the Volume Shadow Copy Service instead of the registry functions.</para>
+        /// </summary>
+        /// <param name="hKey">
+        /// <para>A handle to an open registry key. The calling process must have <see cref="KEY_CREATE_SUB_KEY"/> access to the key. For more information, see Registry Key Security and Access Rights.</para>
+        /// <para>Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <paramref name="hKey"/> was opened with a <paramref name="samDesired"/> of <see cref="KEY_READ"/>, it can be used in operations that modify the registry if allowed by its security descriptor.</para>
+        /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/> or <see cref="RegOpenKeyEx"/> function, or it can be one of the following predefined keys:</para>
+        /// <para><paramref name="HKEY_CLASSES_ROOT"/></para>
+        /// <para><paramref name="HKEY_CURRENT_CONFIG"/></para>
+        /// <para><paramref name="HKEY_CURRENT_USER"/></para>
+        /// <para><paramref name="HKEY_LOCAL_MACHINE"/></para>
+        /// <para><paramref name="HKEY_USERS"/></para>
+        /// </param>
+        /// <param name="lpSubKey">
+        /// <para>The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <paramref name="hKey"/> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see Structure of the Registry.</para>
+        /// <para>If <paramref name="lpSubKey"/> is a pointer to an empty string, <paramref name="phkResult"/> receives a new handle to the key specified by hKey.</para>
+        /// <para>This parameter cannot be NULL.</para>
+        /// </param>
+        /// <param name="Reserved">This parameter is reserved and must be zero.</param>
+        /// <param name="lpClass">The user-defined class type of this key. This parameter may be ignored. This parameter can be NULL.</param>
+        /// <param name="dwOptions">
+        /// <para>This parameter can be one of the following values.</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><para><see cref="REG_OPTION_BACKUP_RESTORE"/></para><para>0x00000004L</para></term>
+        /// <description>
+        /// <para>If this flag is set, the function ignores the <paramref name="samDesired"/> parameter and attempts to open the key with the access required to backup or restore the key. If the calling thread has the <see cref="SE_BACKUP_NAME"/> privilege enabled, the key is opened with the <see cref="ACCESS_SYSTEM_SECURITY"/> and <see cref="KEY_READ"/> access rights. If the calling thread has the <see cref="SE_RESTORE_NAME"/> privilege enabled, beginning with Windows Vista, the key is opened with the <see cref="ACCESS_SYSTEM_SECURITY"/>, <see cref="DELETE"/> and <see cref="KEY_WRITE"/> access rights. If both privileges are enabled, the key has the combined access rights for both privileges. For more information, see Running with Special Privileges.</para>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="REG_OPTION_CREATE_LINK"/></para><para>0x00000002L</para></term>
+        /// <description>
+        /// <para>Note  Registry symbolic links should only be used for for application compatibility when absolutely necessary.</para>
+        /// <para>This key is a symbolic link. The target path is assigned to the L"SymbolicLinkValue" value of the key. The target path must be an absolute registry path.</para>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="REG_OPTION_NON_VOLATILE"/></para><para>0x00000000L</para></term>
+        /// <description>
+        /// <para>This key is not volatile; this is the default. The information is stored in a file and is p<paramref name="reserved"/> when the system is restarted. The <see cref="RegSaveKey"/> function saves keys that are not volatile.</para>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="REG_OPTION_VOLATILE"/></para><para>0x00000001L</para></term>
+        /// <description>
+        /// <para>All keys created by the function are volatile. The information is stored in memory and is not p<paramref name="reserved"/> when the corresponding registry hive is unloaded. For <see cref="<paramref name="HKEY"/>_LOCAL_MACHINE"/>, this occurs only when the system initiates a full shutdown. For registry keys loaded by the <see cref="RegLoadKey"/> function, this occurs when the corresponding <see cref="RegUnLoadKey"/> is performed. The <see cref="RegSaveKey"/> function does not save volatile keys. This flag is ignored for keys that already exist.</para>
+        /// <para>Note  On a user selected shutdown, a fast startup shutdown is the default behavior for the system.</para>
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <param name="samDesired">A mask that specifies the access rights for the key to be created. For more information, see Registry Key Security and Access Rights.</param>
+        /// <param name="lpSecurityAttributes">
+        /// <para>A pointer to a <see cref="SECURITY_ATTRIBUTES"/> structure that determines whether the returned handle can be inherited by child processes. If lpSecurityAttributes is NULL, the handle cannot be inherited.</para>
+        /// <para>The lpSecurityDescriptor member of the structure specifies a security descriptor for the new key. If <paramref name="lpSecurityAttributes"/> is NULL, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.</para>
+        /// </param>
+        /// <param name="phkResult">A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the <see cref="RegCloseKey"/> function after you have finished using the handle.</param>
+        /// <param name="lpdwDisposition">
+        /// <para>A pointer to a variable that receives one of the following disposition values.</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><para><see cref="REG_CREATED_NEW_KEY"/></para><para>0x00000001L</para></term>
+        /// <description>
+        /// <para>The key did not exist and was created.</para>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="REG_OPENED_EXISTING_KEY"/></para><para>0x00000002L</para></term>
+        /// <description>
+        /// <para>The key existed and was simply opened without being changed.</para>
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is <see cref="ERROR_SUCCESS"/>.</para>
+        /// <para>If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <see cref="FormatMessage"/> function with the <see cref="FORMAT_MESSAGE_FROM_SYSTEM"/> flag to get a generic description of the error.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+        public static unsafe extern LONG RegCreateKeyExW([In] HKEY hKey,
+                                                         [In] LPCTSTR lpSubKey,
+                                                         DWORD Reserved,
+                                                         [In] LPTSTR lpClass,
+                                                         [In] DWORD dwOptions,
+                                                         [In] REGSAM samDesired,
+                                                         [In] SECURITY_ATTRIBUTES* lpSecurityAttributes,
+                                                         [Out] out PHKEY phkResult,
+                                                         [Out] out DWORD lpdwDisposition);
+
+        /// <summary>
+        /// <para>Deletes a subkey and its values from the specified platform-specific view of the registry. Note that key names are not case sensitive.</para>
+        /// <para>To delete a subkey as a transacted operation, call the <see cref="RegDeleteKeyTransacted"/> function.</para>
+        /// </summary>
+        /// <param name="hKey"></param>
+        /// <param name="lpSubKey">
+        /// <para>The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <paramref name="hKey"/> parameter.</para>
+        /// <para>The function opens the subkey with the DELETE access right.</para>
+        /// <para>Key names are not case sensitive.</para>
+        /// <para>The value of this parameter cannot be NULL.</para> 
+        /// </param>
+        /// <param name="samDesired">
+        /// <para>An access mask the specifies the platform-specific view of the registry.</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><para><see cref="KEY_WOW64_32KEY"/></para><para>0x0200</para></term>
+        /// <description>Delete the key from the 32-bit registry view.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="KEY_WOW64_64KEY"/></para><para>0x0100</para></term>
+        /// <description>Delete the key from the 64-bit registry view.</description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <param name="Reserved">This parameter is reserved and must be zero.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is <see cref="ERROR_SUCCESS"/>.</para>
+        /// <para>If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <see cref="FormatMessage"/> function with the <see cref="FORMAT_MESSAGE_FROM_SYSTEM"/> flag to get a generic description of the error.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+        public static extern LONG RegDeleteKeyExW([In] HKEY hKey,
+                                                  [In] LPCTSTR lpSubKey,
+                                                  [In] REGSAM samDesired,
+                                                  DWORD Reserved);
+
+        /// <summary>
+        /// Enumerates the subkeys of the specified open registry key. The function retrieves information about one subkey each time it is called.
+        /// </summary>
+        /// <param name="hKey">
+        /// <para>A handle to an open registry key. The key must have been opened with the <see cref="KEY_ENUMERATE_SUB_KEYS"/> access right. For more information, see Registry Key Security and Access Rights.</para>
+        /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
+        /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
+        /// <para><see cref="HKEY_CURRENT_CONFIG"/></para>
+        /// <para><see cref="HKEY_CURRENT_USER"/></para>
+        /// <para><see cref="HKEY_LOCAL_MACHINE"/></para>
+        /// <para><see cref="HKEY_PERFORMANCE_DATA"/></para>
+        /// <para><see cref="HKEY_USERS"/></para>
+        /// </param>
+        /// <param name="dwIndex">
+        /// <para>The index of the subkey to retrieve. This parameter should be zero for the first call to the <see cref="RegEnumKeyEx"/> function and then incremented for subsequent calls.</para>
+        /// <para>Because subkeys are not ordered, any new subkey will have an arbitrary index. This means that the function may return subkeys in any order.</para>
+        /// </param>
+        /// <param name="lpName">
+        /// <para>A pointer to a buffer that receives the name of the subkey, including the terminating null character. The function copies only the name of the subkey, not the full key hierarchy, to the buffer. If the function fails, no information is copied to this buffer.</para>
+        /// <para>For more information, see Registry Element Size Limits.</para>
+        /// </param>
+        /// <param name="lpcName">
+        /// <para>A pointer to a variable that specifies the size of the buffer specified by the <paramref name="lpName"/> parameter, in characters. This size should include the terminating null character. If the function succeeds, the variable pointed to by <paramref name="lpcName"/> contains the number of characters stored in the buffer, not including the terminating null character.</para>
+        /// <para>To determine the required buffer size, use the <see cref="RegQueryInfoKey"/> function to determine the size of the largest subkey for the key identified by the <paramref name="hKey"/> parameter.</para>
+        /// </param>
+        /// <param name="lpReserved">This parameter is reserved and must be NULL.</param>
+        /// <param name="lpClass">A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be NULL.</param>
+        /// <param name="lpcClass">A pointer to a variable that specifies the size of the buffer specified by the <paramref name="lpClass"/> parameter, in characters. The size should include the terminating null character. If the function succeeds, <paramref name="lpcClass"/> contains the number of characters stored in the buffer, not including the terminating null character. This parameter can be NULL only if <paramref name="lpClass"/> is NULL.</param>
+        /// <param name="lpftLastWriteTime">A pointer to <see cref="FILETIME"/> structure that receives the time at which the enumerated subkey was last written. This parameter can be NULL.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is <see cref="ERROR_SUCCESS"/>.</para>
+        /// <para>If the function fails, the return value is a system error code. If there are no more subkeys available, the function returns <see cref="ERROR_NO_MORE_ITEMS"/>.</para>
+        /// <para>If the lpName buffer is too small to receive the name of the key, the function returns <see cref="ERROR_MORE_DATA"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+        public static extern LONG RegEnumKeyExW([In] HKEY hKey,
+                                                [In] DWORD dwIndex,
+                                                [Out] LPTSTR lpName,
+                                                ref DWORD lpcName,
+                                                IntPtr lpReserved,
+                                                LPTSTR lpClass,
+                                                IntPtr lpcClass,
+                                                [Out] out FILETIME lpftLastWriteTime);
+
+        /// <summary>
+        /// Retrieves the type and data for the specified registry value.
+        /// </summary>
+        /// <param name="hkey">
+        /// <para>A handle to an open <see cref="registry"/> key. The key must have been opened with the <see cref="KEY_QUERY_VALUE"/> access right. For more information, see <see cref="Registry"/> Key Security and Access Rights.</para>
+        /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
+        /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
+        /// <para><see cref="HKEY_CURRENT_CONFIG"/></para>
+        /// <para><see cref="HKEY_CURRENT_USER"/></para>
+        /// <para><see cref="HKEY_LOCAL_MACHINE"/></para>
+        /// <para><see cref="HKEY_PERFORMANCE_DATA"/></para>
+        /// <para><see cref="HKEY_PERFORMANCE_NLSTEXT"/></para>
+        /// <para><see cref="HKEY_PERFORMANCE_TEXT"/></para>
+        /// <para><see cref="HKEY_USERS"/></para>
+        /// </param>
+        /// <param name="lpSubKey">
+        /// <para>The name of the registry key. This key must be a subkey of the key specified by the <paramref name="hkey"/> parameter.</para>
+        /// <para>Key names are not case sensitive.</para>
+        /// </param>
+        /// <param name="lpValue">
+        /// <para>The name of the registry value.</para>
+        /// <para>If this parameter is NULL or an empty string, "", the function retrieves the type and data for the key's unnamed or default value, if any.</para>
+        /// <para>For more information, see Registry Element Size Limits.</para>
+        /// <para>Keys do not automatically have an unnamed or default value. Unnamed values can be of any type.</para>
+        /// </param>
+        /// <param name="dwFlags">
+        /// <para>The flags that restrict the data type of value to be queried. If the data type of the value does not meet this criteria, the function fails. This parameter can be one or more of the following values.</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_ANY"/></para><para>0x0000ffff</para></term>
+        /// <description>No type restriction.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_DWORD"/></para><para>0x00000018</para></term>
+        /// <description>Restrict type to 32-bit RRF_RT_REG_BINARY | RRF_RT_REG_DWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_QWORD"/></para><para>0x00000048</para></term>
+        /// <description>Restrict type to 64-bit RRF_RT_REG_BINARY | RRF_RT_REG_DWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_BINARY"/></para><para>0x00000008</para></term>
+        /// <description>Restrict type to REG_BINARY.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_DWORD"/></para><para>0x00000010</para></term>
+        /// <description>Restrict type to REG_DWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_EXPAND_SZ"/></para><para>0x00000004</para></term>
+        /// <description>Restrict type to REG_EXPAND_SZ.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_MULTI_SZ"/></para><para>0x00000020</para></term>
+        /// <description>Restrict type to REG_MULTI_SZ.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_NONE"/></para><para>0x00000001</para></term>
+        /// <description>Restrict type to REG_NONE.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_QWORD"/></para><para>0x00000040</para></term>
+        /// <description>Restrict type to REG_QWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_SZ"/></para><para>0x00000002</para></term>
+        /// <description>Restrict type to REG_SZ.</description>
+        /// </item>
+        /// </list>
+        /// <para>This parameter can also include one or more of the following values.</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><see cref="WINBIO_ID_TYPE_NULL"/></term>
+        /// <description>The template has no associated ID.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_NOEXPAND"/></para><para>0x10000000</para></term>
+        /// <description>Do not automatically expand environment strings if the value is of type <see cref="REG_EXPAND_SZ"/>.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_ZEROONFAILURE"/></para><para>0x20000000</para></term>
+        /// <description>If <paramref name="pvData"/> is not NULL, set the contents of the buffer to zeroes on failure.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_SUBKEY_WOW6464KEY"/></para><para>0x00010000</para></term>
+        /// <description>
+        /// <para>If <paramref name="lpSubKey"/> is not NULL, open the subkey that <paramref name="lpSubKey"/> specifies with the <see cref="KEY_WOW64_64KEY"/> access rights. For information about these access rights, see Registry Key Security and Access Rights.</para>
+        /// <para>You cannot specify <see cref="RRF_SUBKEY_WOW6464KEY"/> in combination with <see cref="RRF_SUBKEY_WOW6432KEY"/>.</para>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_SUBKEY_WOW6432KEY"/></para><para>0x00020000</para></term>
+        /// <description>
+        /// <para>If <paramref name="lpSubKey"/> is not NULL, open the subkey that <paramref name="lpSubKey"/> specifies with the <see cref="KEY_WOW64_64KEY"/> access rights. For information about these access rights, see Registry Key Security and Access Rights.</para>
+        /// <para>You cannot specify <see cref="RRF_SUBKEY_WOW6464KEY"/> in combination with <see cref="RRF_SUBKEY_WOW6432KEY"/>.</para>
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <param name="pdwType">A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see Registry Value Types. This parameter can be NULL if the type is not required.</param>
+        /// <param name="pvData">
+        /// <para>A pointer to a buffer that receives the value's data. This parameter can be NULL if the data is not required.</para>
+        /// <para>If the data is a string, the function checks for a terminating null character. If one is not found, the string is stored with a null terminator if the buffer is large enough to accommodate the extra character. Otherwise, the function fails and returns <see cref="ERROR_MORE_DATA"/>.</para>
+        /// </param>
+        /// <param name="pcbData">
+        /// <para>A pointer to a variable that specifies the size of the buffer pointed to by the <paramref name="pvData"/> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <paramref name="pvData"/>.</para>
+        /// <para>The <paramref name="pcbData"/> parameter can be NULL only if <paramref name="pvData"/> is NULL.</para>
+        /// <para>If the data has the <see cref="REG_SZ"/>, <see cref="REG_MULTI_SZ"/> or <see cref="REG_EXPAND_SZ"/> type, this size includes any terminating null character or characters. For more information, see Remarks.</para>
+        /// <para>If the buffer specified by <paramref name="pvData"/> parameter is not large enough to hold the data, the function returns <see cref="ERROR_MORE_DATA"/> and stores the required buffer size in the variable pointed to by <paramref name="pcbData"/>. In this case, the contents of the <paramref name="pvData"/> buffer are undefined.</para>
+        /// <para>If <paramref name="pvData"/> is NULL, and <paramref name="pcbData"/> is non-NULL, the function returns <see cref="ERROR_SUCCESS"/> and stores the size of the data, in bytes, in the variable pointed to by <paramref name="pcbData"/>. This enables an application to determine the best way to allocate a buffer for the value's data.</para>
+        /// <para>If <paramref name="hKey"/> specifies <paramref name="HKEY_PERFORMANCE_DATA"/> and the <paramref name="pvData"/> buffer is not large enough to contain all of the returned data, the function returns <see cref="ERROR_MORE_DATA"/> and the value returned through the <paramref name="pcbData"/> parameter is undefined. This is because the size of the performance data can change from one call to the next. In this case, you must increase the buffer size and call <see cref="RegGetValue"/> again passing the updated buffer size in the <paramref name="pcbData"/> parameter. Repeat this until the function succeeds. You need to maintain a separate variable to keep track of the buffer size, because the value returned by <paramref name="pcbData"/> is unpredictable.</para>
+        /// </param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is <see cref="ERROR_SUCCESS"/>.</para>
+        /// <para>If the function fails, the return value is a system error code.</para>
+        /// <para>If the <paramref name="pvData"/> buffer is too small to receive the value, the function returns <see cref="ERROR_MORE_DATA"/>.</para>
+        /// <para>If <paramref name="dwFlags"/> specifies a combination of both <see cref="RRF_SUBKEY_WOW6464KEY"/> and <see cref="RRF_SUBKEY_WOW6432KEY"/>, the function returns <see cref="ERROR_INVALID_PARAMETER"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+        public static extern LONG RegGetValueW([In] HKEY hKey,
+                                               [In] LPCTSTR lpSubKey,
+                                               [In] LPCTSTR lpValue,
+                                               [In] DWORD dwFlags,
+                                               [Out] out DWORD pdwType,
+                                               [Out] out PVOID pvData,
+                                               ref DWORD pcbData);
+
+        /// <summary>
+        /// Retrieves the type and data for the specified registry value.
+        /// </summary>
+        /// <param name="hkey">
+        /// <para>A handle to an open <see cref="registry"/> key. The key must have been opened with the <see cref="KEY_QUERY_VALUE"/> access right. For more information, see <see cref="Registry"/> Key Security and Access Rights.</para>
+        /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
+        /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
+        /// <para><see cref="HKEY_CURRENT_CONFIG"/></para>
+        /// <para><see cref="HKEY_CURRENT_USER"/></para>
+        /// <para><see cref="HKEY_LOCAL_MACHINE"/></para>
+        /// <para><see cref="HKEY_PERFORMANCE_DATA"/></para>
+        /// <para><see cref="HKEY_PERFORMANCE_NLSTEXT"/></para>
+        /// <para><see cref="HKEY_PERFORMANCE_TEXT"/></para>
+        /// <para><see cref="HKEY_USERS"/></para>
+        /// </param>
+        /// <param name="lpSubKey">
+        /// <para>The name of the registry key. This key must be a subkey of the key specified by the <paramref name="hkey"/> parameter.</para>
+        /// <para>Key names are not case sensitive.</para>
+        /// </param>
+        /// <param name="lpValue">
+        /// <para>The name of the registry value.</para>
+        /// <para>If this parameter is NULL or an empty string, "", the function retrieves the type and data for the key's unnamed or default value, if any.</para>
+        /// <para>For more information, see Registry Element Size Limits.</para>
+        /// <para>Keys do not automatically have an unnamed or default value. Unnamed values can be of any type.</para>
+        /// </param>
+        /// <param name="dwFlags">
+        /// <para>The flags that restrict the data type of value to be queried. If the data type of the value does not meet this criteria, the function fails. This parameter can be one or more of the following values.</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_ANY"/></para><para>0x0000ffff</para></term>
+        /// <description>No type restriction.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_DWORD"/></para><para>0x00000018</para></term>
+        /// <description>Restrict type to 32-bit RRF_RT_REG_BINARY | RRF_RT_REG_DWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_QWORD"/></para><para>0x00000048</para></term>
+        /// <description>Restrict type to 64-bit RRF_RT_REG_BINARY | RRF_RT_REG_DWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_BINARY"/></para><para>0x00000008</para></term>
+        /// <description>Restrict type to REG_BINARY.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_DWORD"/></para><para>0x00000010</para></term>
+        /// <description>Restrict type to REG_DWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_EXPAND_SZ"/></para><para>0x00000004</para></term>
+        /// <description>Restrict type to REG_EXPAND_SZ.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_MULTI_SZ"/></para><para>0x00000020</para></term>
+        /// <description>Restrict type to REG_MULTI_SZ.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_NONE"/></para><para>0x00000001</para></term>
+        /// <description>Restrict type to REG_NONE.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_QWORD"/></para><para>0x00000040</para></term>
+        /// <description>Restrict type to REG_QWORD.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_RT_REG_SZ"/></para><para>0x00000002</para></term>
+        /// <description>Restrict type to REG_SZ.</description>
+        /// </item>
+        /// </list>
+        /// <para>This parameter can also include one or more of the following values.</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><see cref="WINBIO_ID_TYPE_NULL"/></term>
+        /// <description>The template has no associated ID.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_NOEXPAND"/></para><para>0x10000000</para></term>
+        /// <description>Do not automatically expand environment strings if the value is of type <see cref="REG_EXPAND_SZ"/>.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_ZEROONFAILURE"/></para><para>0x20000000</para></term>
+        /// <description>If <paramref name="pvData"/> is not NULL, set the contents of the buffer to zeroes on failure.</description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_SUBKEY_WOW6464KEY"/></para><para>0x00010000</para></term>
+        /// <description>
+        /// <para>If <paramref name="lpSubKey"/> is not NULL, open the subkey that <paramref name="lpSubKey"/> specifies with the <see cref="KEY_WOW64_64KEY"/> access rights. For information about these access rights, see Registry Key Security and Access Rights.</para>
+        /// <para>You cannot specify <see cref="RRF_SUBKEY_WOW6464KEY"/> in combination with <see cref="RRF_SUBKEY_WOW6432KEY"/>.</para>
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term><para><see cref="RRF_SUBKEY_WOW6432KEY"/></para><para>0x00020000</para></term>
+        /// <description>
+        /// <para>If <paramref name="lpSubKey"/> is not NULL, open the subkey that <paramref name="lpSubKey"/> specifies with the <see cref="KEY_WOW64_64KEY"/> access rights. For information about these access rights, see Registry Key Security and Access Rights.</para>
+        /// <para>You cannot specify <see cref="RRF_SUBKEY_WOW6464KEY"/> in combination with <see cref="RRF_SUBKEY_WOW6432KEY"/>.</para>
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <param name="pdwType">A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see Registry Value Types. This parameter can be NULL if the type is not required.</param>
+        /// <param name="pvData">
+        /// <para>A pointer to a buffer that receives the value's data. This parameter can be NULL if the data is not required.</para>
+        /// <para>If the data is a string, the function checks for a terminating null character. If one is not found, the string is stored with a null terminator if the buffer is large enough to accommodate the extra character. Otherwise, the function fails and returns <see cref="ERROR_MORE_DATA"/>.</para>
+        /// </param>
+        /// <param name="pcbData">
+        /// <para>A pointer to a variable that specifies the size of the buffer pointed to by the <paramref name="pvData"/> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <paramref name="pvData"/>.</para>
+        /// <para>The <paramref name="pcbData"/> parameter can be NULL only if <paramref name="pvData"/> is NULL.</para>
+        /// <para>If the data has the <see cref="REG_SZ"/>, <see cref="REG_MULTI_SZ"/> or <see cref="REG_EXPAND_SZ"/> type, this size includes any terminating null character or characters. For more information, see Remarks.</para>
+        /// <para>If the buffer specified by <paramref name="pvData"/> parameter is not large enough to hold the data, the function returns <see cref="ERROR_MORE_DATA"/> and stores the required buffer size in the variable pointed to by <paramref name="pcbData"/>. In this case, the contents of the <paramref name="pvData"/> buffer are undefined.</para>
+        /// <para>If <paramref name="pvData"/> is NULL, and <paramref name="pcbData"/> is non-NULL, the function returns <see cref="ERROR_SUCCESS"/> and stores the size of the data, in bytes, in the variable pointed to by <paramref name="pcbData"/>. This enables an application to determine the best way to allocate a buffer for the value's data.</para>
+        /// <para>If <paramref name="hKey"/> specifies <paramref name="HKEY_PERFORMANCE_DATA"/> and the <paramref name="pvData"/> buffer is not large enough to contain all of the returned data, the function returns <see cref="ERROR_MORE_DATA"/> and the value returned through the <paramref name="pcbData"/> parameter is undefined. This is because the size of the performance data can change from one call to the next. In this case, you must increase the buffer size and call <see cref="RegGetValue"/> again passing the updated buffer size in the <paramref name="pcbData"/> parameter. Repeat this until the function succeeds. You need to maintain a separate variable to keep track of the buffer size, because the value returned by <paramref name="pcbData"/> is unpredictable.</para>
+        /// </param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is <see cref="ERROR_SUCCESS"/>.</para>
+        /// <para>If the function fails, the return value is a system error code.</para>
+        /// <para>If the <paramref name="pvData"/> buffer is too small to receive the value, the function returns <see cref="ERROR_MORE_DATA"/>.</para>
+        /// <para>If <paramref name="dwFlags"/> specifies a combination of both <see cref="RRF_SUBKEY_WOW6464KEY"/> and <see cref="RRF_SUBKEY_WOW6432KEY"/>, the function returns <see cref="ERROR_INVALID_PARAMETER"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+        public static extern LONG RegGetValueW([In] HKEY hKey,
+                                               [In] LPCTSTR lpSubKey,
+                                               [In] LPCTSTR lpValue,
+                                               [In] DWORD dwFlags,
+                                               [Out] out DWORD pdwType,
+                                               [Out] PVOID pvData,
+                                               ref DWORD pcbData);
+
+        /// <summary>
+        /// <para>Opens the specified registry key. Note that key names are not case sensitive.</para>
+        /// <para>To perform transacted registry operations on a key, call the <see cref="RegOpenKeyTransacted"/> function.</para>
+        /// </summary>
+        /// <param name="hKey">
+        /// <para>A handle to an open registry key. This handle is returned by the <see cref="RegCreateKeyEx"/> or <see cref="RegOpenKeyEx"/> function, or it can be one of the following predefined keys:</para>
+        /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
+        /// <para><see cref="HKEY_CURRENT_CONFIG"/></para>
+        /// <para><see cref="HKEY_CURRENT_USER"/></para>
+        /// <para><see cref="HKEY_LOCAL_MACHINE"/></para>
+        /// <para><see cref="HKEY_USERS"/></para> 
+        /// </param>
+        /// <param name="lpSubKey">
+        /// <para>The name of the registry subkey to be opened.</para>
+        /// <para>Key names are not case sensitive.</para>
+        /// <para>The <paramref name="lpSubKey"/> parameter can be a pointer to an empty string. If <paramref name="lpSubKey"/> is a pointer to an empty string and <paramref name="hKey"/> is <see cref="HKEY_CLASSES_ROOT"/>, <paramref name="phkResult"/> receives the same <paramref name="hKey"/> handle passed into the function. Otherwise, <paramref name="phkResult"/> receives a new handle to the key specified by <paramref name="hKey"/>.</para>
+        /// <para>The <paramref name="lpSubKey"/> parameter can be NULL only if hKey is one of the predefined keys. If <paramref name="lpSubKey"/> is NULL and <paramref name="hKey"/> is <see cref="HKEY_CLASSES_ROOT"/>, <paramref name="phkResult"/> receives a new handle to the key specified by <paramref name="hKey"/>. Otherwise, <paramref name="phkResult"/> receives the same <paramref name="hKey"/> handle passed in to the function.</para>
+        /// <para>For more information, see Registry Element Size Limits.</para>
+        /// </param>
+        /// <param name="ulOptions">
+        /// <para>Specifies the option to apply when opening the key. Set this parameter to zero or the following:</para>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value</term>
+        /// <description>Meaning</description>
+        /// </listheader>
+        /// <item>
+        /// <term><see cref="REG_OPTION_OPEN_LINK"/></term>
+        /// <description>The key is a symbolic link. Registry symbolic links should only be used when absolutely necessary.</description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <param name="samDesired">A mask that specifies the desired access rights to the key to be opened. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see Registry Key Security and Access Rights.</param>
+        /// <param name="phkResult">A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the <see cref="RegCloseKey"/> function after you have finished using the handle.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is <see cref="ERROR_SUCCESS"/>.</para>
+        /// <para>If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <see cref="FormatMessage"/> function with the <see cref="FORMAT_MESSAGE_FROM_SYSTEM"/> flag to get a generic description of the error.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+        public static extern LONG RegOpenKeyExW([In] HKEY hKey,
+                                                [In] LPCTSTR lpSubKey,
+                                                [In] DWORD ulOptions,
+                                                [In] int samDesired,
+                                                [Out] out PHKEY phkResult);
+
+        /// <summary>
+        /// Sets the data and type of a specified value under a registry key.
+        /// </summary>
+        /// <param name="hKey">
+        /// <para>A handle to an open registry key. The key must have been opened with the <see cref="KEY_SET_VALUE"/> access right. For more information, see Registry Key Security and Access Rights.</para>
+        /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
+        /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
+        /// <para><see cref="HKEY_CURRENT_CONFIG"/></para>
+        /// <para><see cref="HKEY_CURRENT_USER"/></para>
+        /// <para><see cref="HKEY_LOCAL_MACHINE"/></para>
+        /// <para><see cref="HKEY_USERS"/></para>
+        /// <para>The Unicode version of this function supports the following additional predefined keys:</para>
+        /// <list type="bullet">
+        /// <item>
+        /// <description><see cref="HKEY_PERFORMANCE_TEXT"/></description>
+        /// </item>
+        /// <item>
+        /// <description><see cref="HKEY_PERFORMANCE_NLSTEXT"/></description>
+        /// </item>
+        /// </list>
+        /// </param>
+        /// <param name="lpValueName">
+        /// <para>The name of the value to be set. If a value with this name is not already present in the key, the function adds it to the key.</para>
+        /// <para>If <paramref name="lpValueName"/> is NULL or an empty string, "", the function sets the type and data for the key's unnamed or default value.</para>
+        /// <para>For more information, see Registry Element Size Limits.</para>
+        /// <para>Registry keys do not have default values, but they can have one unnamed value, which can be of any type.</para>
+        /// </param>
+        /// <param name="Reserved">This parameter is reserved and must be zero.</param>
+        /// <param name="dwType">The type of data pointed to by the lpData parameter. For a list of the possible types, see Registry Value Types.</param>
+        /// <param name="lpData">
+        /// <para>The data to be stored.</para>
+        /// <para>For string-based types, such as <see cref="REG_SZ"/>, the string must be null-terminated. With the <see cref="REG_MULTI_SZ"/> data type, the string must be terminated with two null characters. String-literal values must be formatted using a backslash preceded by another backslash as an escape character. For example, specify "C:\\mydir\\myfile" to store the string "C:\mydir\myfile".</para>
+        /// <para>Note  lpData indicating a null value is valid, however, if this is the case, cbData must be set to '0'.</para>
+        /// </param>
+        /// <param name="cbData">The size of the information pointed to by the lpData parameter, in bytes. If the data is of type <see cref="REG_SZ"/>, <see cref="REG_EXPAND_SZ"/>, or <see cref="REG_MULTI_SZ"/>, cbData must include the size of the terminating null character or characters.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is <see cref="ERROR_SUCCESS"/>.</para>
+        /// <para>If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <see cref="FormatMessage"/> function with the <see cref="FORMAT_MESSAGE_FROM_SYSTEM"/> flag to get a generic description of the error.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Unicode)]
+        public static extern LONG RegSetValueExW([In] HKEY hKey,
+                                                 [In] LPCTSTR lpValueName,
+                                                 DWORD Reserved,
+                                                 [In] DWORD dwType,
+                                                 [In] IntPtr lpData,
+                                                 [In] DWORD cbData);
+
+        /// <summary>
+        /// The <see cref="RtlZeroMemory"/> routine fills a block of memory with zeros, given a pointer to the block and the length, in bytes, to be filled.
+        /// </summary>
+        /// <param name="Destination">A pointer to the memory block to be filled with zeros.</param>
+        /// <param name="Length">The number of bytes to fill with zeros.</param>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Kernel32.dll", CallingConvention = CallingConvention.Winapi)]
+        public static extern void RtlZeroMemory([In] IntPtr Destination, [In] SIZE_T Length);
 
         /// <summary>
         /// Acquires window focus.
@@ -2942,8 +4408,19 @@ namespace WinBiometricDotNet.Interop
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
         public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
-                                                                [Out] WINBIO_STORAGE_SCHEMA** StorageSchemaArray,
+                                                                [Out] out IntPtr StorageSchemaArray,
                                                                 [Out] out SIZE_T StorageCount);
+        //[System.Security.SuppressUnmanagedCodeSecurity]
+        //[DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        //public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
+        //                                                        [Out] out SafeNativeMethods.WINBIO_STORAGE_SCHEMA[] StorageSchemaArray,
+        //                                                        [Out] out SIZE_T StorageCount);
+
+        //[System.Security.SuppressUnmanagedCodeSecurity]
+        //[DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        //public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
+        //                                                        [Out] WINBIO_STORAGE_SCHEMA** StorageSchemaArray,
+        //                                                        [Out] out SIZE_T StorageCount);
 
         /// <summary>
         /// Retrieves the biometric sub-factors enrolled for a specified identity and biometric unit.
@@ -2984,10 +4461,10 @@ namespace WinBiometricDotNet.Interop
         /// </returns>
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        public static extern unsafe HRESULT WinBioEnumEnrollments([In]     WINBIO_SESSION_HANDLE SessionHandle,
-                                                                  [In]     WINBIO_UNIT_ID UnitId,
-                                                                  [In]     ref WINBIO_IDENTITY Identity,
-                                                                  [Out] out WINBIO_BIOMETRIC_SUBTYPE* SubFactorArray,
+        public static extern unsafe HRESULT WinBioEnumEnrollments([In]      WINBIO_SESSION_HANDLE SessionHandle,
+                                                                  [In]      WINBIO_UNIT_ID UnitId,
+                                                                  [In]  ref WINBIO_IDENTITY Identity,
+                                                                  [Out] out IntPtr SubFactorArray,
                                                                   [Out] out SIZE_T SubFactorCount);
 
         /// <summary>
@@ -4019,7 +5496,7 @@ namespace WinBiometricDotNet.Interop
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
         public static extern unsafe HRESULT WinBioVerify([In] WINBIO_SESSION_HANDLE SessionHandle,
-                                                         [In] WINBIO_IDENTITY* Identity,
+                                                         [In] ref WINBIO_IDENTITY Identity,
                                                          [In] WINBIO_BIOMETRIC_SUBTYPE SubFactor,
                                                          [Out] out WINBIO_UNIT_ID UnitId,
                                                          [Out] out BOOLEAN Match,
@@ -4072,7 +5549,7 @@ namespace WinBiometricDotNet.Interop
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
         public static extern unsafe HRESULT WinBioVerifyWithCallback([In] WINBIO_SESSION_HANDLE SessionHandle,
-                                                                     [In] WINBIO_IDENTITY* Identity,
+                                                                     [In] ref WINBIO_IDENTITY Identity,
                                                                      [In] WINBIO_BIOMETRIC_SUBTYPE SubFactor,
                                                                      [In] WINBIO_VERIFY_CALLBACK VerifyCallback,
                                                                      [In] PVOID VerifyCallbackContext);
@@ -4104,6 +5581,16 @@ namespace WinBiometricDotNet.Interop
         #endregion
 
         #region Structs
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct FILETIME
+        {
+
+            public DWORD dwLowDateTime;
+
+            public DWORD dwHighDateTime;
+
+        }
 
         /// <summary>
         /// <para>GUIDs identify objects such as interfaces, manager entry-point vectors (EPVs), and class objects. A GUID is a 128-bit value consisting of one group of 8 hexadecimal digits, followed by three groups of 4 hexadecimal digits each, followed by one group of 12 hexadecimal digits. The following example GUID shows the groupings of hexadecimal digits in a GUID: 6B29FC40-CA47-1067-B31D-00DD010662DA</para>
@@ -4191,6 +5678,63 @@ namespace WinBiometricDotNet.Interop
             /// </summary>
             [FieldOffset(4)]
             public Int32 HighPart;
+
+        }
+        
+        /// <summary>
+        /// The <see cref="SECURITY_ATTRIBUTES"/> structure contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable. This structure provides security settings for objects created by various functions, such as <see cref="CreateFile"/>, <see cref="CreatePipe"/>, <see cref="CreateProcess"/>, <see cref="RegCreateKeyEx"/>, or <see cref="RegSaveKeyEx"/>.
+        /// </summary>
+        public struct SECURITY_ATTRIBUTES
+        {
+
+            /// <summary>
+            /// The size, in bytes, of this structure. Set this value to the size of the <see cref="SECURITY_ATTRIBUTES"/> structure.
+            /// </summary>
+            public DWORD nLength;
+
+            /// <summary>
+            /// <para>A pointer to a <see cref="SECURITY_DESCRIPTOR"/> structure that controls access to the object. If the value of this member is NULL, the object is assigned the default security descriptor associated with the access token of the calling process. This is not the same as granting access to everyone by assigning a NULL discretionary access control list (DACL). By default, the default DACL in the access token of a process allows access only to the user represented by the access token.</para>
+            /// <para>For information about creating a security descriptor, see Creating a Security Descriptor.</para>
+            /// </summary>
+            public LPVOID lpSecurityDescriptor;
+
+            /// <summary>
+            /// A Boolean value that specifies whether the returned handle is inherited when a new process is created. If this member is TRUE, the new process inherits the handle.
+            /// </summary>
+            public BOOL bInheritHandle;
+
+        }
+
+        /// <summary>
+        /// The <see cref="SID_AND_ATTRIBUTES"/> structure represents a security identifier (SID) and its attributes. SIDs are used to uniquely identify users or groups.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SID_AND_ATTRIBUTES
+        {
+
+            /// <summary>
+            /// A pointer to a SID structure.
+            /// </summary>
+            public IntPtr Sid;
+
+            /// <summary>
+            /// Specifies attributes of the SID. This value contains up to 32 one-bit flags. Its meaning depends on the definition and use of the SID.
+            /// </summary>
+            public DWORD Attributes;
+
+        }
+
+        /// <summary>
+        /// The <see cref="TOKEN_USER"/> structure identifies the user associated with an access token.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TOKEN_USER
+        {
+
+            /// <summary>
+            /// Specifies a <see cref="SID_AND_ATTRIBUTES"/> structure representing the user associated with the access token. There are currently no attributes defined for user security identifiers (SIDs).
+            /// </summary>
+            public SID_AND_ATTRIBUTES User;
 
         }
 
@@ -5612,26 +7156,23 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// The <see cref="WINBIO_STORAGE_SCHEMA"/> structure describes the capabilities of a biometric storage adapter. This structure is used by the <see cref="WinBioEnumDatabases"/> function.
         /// </summary>
-        [StructLayout(LayoutKind.Explicit, CharSet = CharSet.Unicode, Size = 1064)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct WINBIO_STORAGE_SCHEMA
         {
 
             /// <summary>
             /// The type of biometric measurement saved in the database.
             /// </summary>
-            [FieldOffset(0)]
             public WINBIO_BIOMETRIC_TYPE BiometricFactor;
 
             /// <summary>
             /// A GUID that identifies the database.
             /// </summary>
-            [FieldOffset(4)]
             public WINBIO_UUID DatabaseId;
 
             /// <summary>
             /// A GUID that identifies the format of the templates in the database.
             /// </summary>
-            [FieldOffset(20)]
             public WINBIO_UUID DataFormat;
 
             /// <summary>
@@ -5675,20 +7216,19 @@ namespace WinBiometricDotNet.Interop
             /// </item>
             /// </list>
             /// </summary>
-            [FieldOffset(36)]
             public ULONG Attributes;
 
             /// <summary>
             /// The path and file name of the database if it resides on the computer disk.
             /// </summary>
-            [FieldOffset(40)]
-            public IntPtr FilePath;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
+            public byte[] FilePath;
 
             /// <summary>
             /// A string value that can be sent to a database server to identify the database.
             /// </summary>
-            [FieldOffset(552)]
-            public IntPtr ConnectionString;
+            [MarshalAs(UnmanagedType.ByValArray, SizeConst = 512)]
+            public byte[] ConnectionString;
 
         }
 
@@ -5895,13 +7435,18 @@ namespace WinBiometricDotNet.Interop
             public static HRESULT HRESULT_FROM_WIN32(DWORD x)
             {
                 const int FACILITY_WIN32 = 7;
-                return (HRESULT) (x) <= 0 ? (HRESULT) (x) : (HRESULT) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000);
+                return (HRESULT)(x) <= 0 ? (HRESULT)(x) : (HRESULT)(((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000);
             }
 
+            public static bool SUCCEEDED(HRESULT hr)
+            {
+                return ((HRESULT)(hr)) >= 0;
+            }
+
+        }
+
+        #endregion
+
     }
-
-    #endregion
-
-}
 
 }

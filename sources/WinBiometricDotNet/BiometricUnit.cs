@@ -16,7 +16,7 @@ namespace WinBiometricDotNet
             this.Model = schema.Model;
             this.SerialNumber = schema.SerialNumber;
             this.SensorSubType = (BiometricSensorSubType) schema.SensorSubType;
-            this.BiometricFactor = (BiometricType) schema.BiometricFactor;
+            this.BiometricFactor = (BiometricTypes) schema.BiometricFactor;
             this.Capabilities = (BiometricCapabilities) schema.Capabilities;
             this.PoolType = (BiometricPoolType) schema.PoolType;
             this.UnitId = (int) schema.UnitId;
@@ -27,7 +27,7 @@ namespace WinBiometricDotNet
 
         #region Properties
 
-        public BiometricType BiometricFactor
+        public BiometricTypes BiometricFactor
         {
             get;
             internal set;

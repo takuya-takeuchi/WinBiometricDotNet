@@ -4,7 +4,7 @@ namespace WinBiometricDotNet
 {
 
     [Flags]
-    public enum BiometricType : uint
+    public enum BiometricTypes : uint
     {
 
         Mask = 0x00FFFFFF,

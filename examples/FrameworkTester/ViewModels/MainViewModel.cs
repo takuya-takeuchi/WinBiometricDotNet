@@ -40,12 +40,11 @@ namespace FrameworkTester.ViewModels
             foreach (var type in Assembly.GetExecutingAssembly()
                                                          .GetTypes()
                                                          .OrderBy(type => type.FullName)
-                                                         .Where(type => type != winBio && !type.IsInterface && type.GetInterfaces()
-                                                         .Contains(winBio)).Select(Activator.CreateInstance)
-                                                         .Where(type => type is ViewModelBase)
-                                                         .Cast<IWinBioViewModel>())
+                                                         .Where(type => type != winBio && type.IsInterface && type.GetInterfaces().Contains(winBio)))
             {
-                this._TestTargets.Add(type);
+
+                var model = SimpleIoc.Default.GetInstance(type) as IWinBioViewModel;
+                this._TestTargets.Add(model);
             }
 
             foreach (var unit in this._WinBiometricService.EnumBiometricUnits())
@@ -85,6 +84,9 @@ namespace FrameworkTester.ViewModels
             {
                 this._CurrentUnit = value;
                 this.RaisePropertyChanged();
+
+                foreach (var viewModel in this._TestTargets)
+                    viewModel.CurrentUnit = value;
             }
         }
         

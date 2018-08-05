@@ -57,8 +57,8 @@ namespace FrameworkTester.ViewModels
             foreach (var type in Assembly.GetExecutingAssembly()
                                                          .GetTypes()
                                                          .OrderBy(type => type.FullName)
-                                                         .Where(type => type != winBio && !type.IsInterface && type.GetInterfaces()
-                                                         .Contains(winBio)).Select(Activator.CreateInstance)
+                                                         .Where(type => type != winBio && !type.IsAbstract && !type.IsInterface && type.GetInterfaces().Contains(winBio))
+                                                         .Select(Activator.CreateInstance)
                                                          .Where(type => type is ViewModelBase)
                                                          .Cast<IWinBioViewModel>())
             {
@@ -67,14 +67,18 @@ namespace FrameworkTester.ViewModels
 
             SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
             SimpleIoc.Default.Register<IMainViewModel, MainViewModel>();
-
-            SimpleIoc.Default.Register<IWinBioAcquireFocusViewModel, WinBioAcquireFocusViewModel>();
-            SimpleIoc.Default.Register<IWinBioCaptureSampleViewModel, WinBioCaptureSampleViewModel>();
-            SimpleIoc.Default.Register<IWinBioCaptureSampleWithCallbackViewModel, WinBioCaptureSampleWithCallbackViewModel>();
-            SimpleIoc.Default.Register<IWinBioCloseSessionViewModel, WinBioCloseSessionViewModel>();
-            SimpleIoc.Default.Register<IWinBioEnumBiometricUnitsViewModel, WinBioEnumBiometricUnitsViewModel>();
-            SimpleIoc.Default.Register<IWinBioOpenSessionViewModel, WinBioOpenSessionViewModel>();
-            SimpleIoc.Default.Register<IWinBioReleaseFocusViewModel, WinBioReleaseFocusViewModel>();
+            
+            SimpleIoc.Default.Register<IWinBioAcquireFocusViewModel>(() => new WinBioAcquireFocusViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioCaptureSampleViewModel>(() => new WinBioCaptureSampleViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioCaptureSampleWithCallbackViewModel>(() => new WinBioCaptureSampleWithCallbackViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioCloseSessionViewModel>(() => new WinBioCloseSessionViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioEnumDatabasesViewModel>(() => new WinBioEnumDatabasesViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioEnumBiometricUnitsViewModel>(() => new WinBioEnumBiometricUnitsViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioEnumEnrollmentsViewModel>(() => new WinBioEnumEnrollmentsViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioOpenSessionViewModel>(() => new WinBioOpenSessionViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioReleaseFocusViewModel>(() => new WinBioReleaseFocusViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioVerifyViewModel>(() => new WinBioVerifyViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioVerifyWithCallbackViewModel>(() => new WinBioVerifyWithCallbackViewModel(), true);
         }
 
         public IMainViewModel Main
@@ -93,9 +97,17 @@ namespace FrameworkTester.ViewModels
 
         public IWinBioCloseSessionViewModel WinBioCloseSession => ServiceLocator.Current.GetInstance<IWinBioCloseSessionViewModel>();
 
+        public IWinBioEnumDatabasesViewModel WinBioEnumDatabases => ServiceLocator.Current.GetInstance<IWinBioEnumDatabasesViewModel>();
+
         public IWinBioEnumBiometricUnitsViewModel WinBioEnumBiometricUnits => ServiceLocator.Current.GetInstance<IWinBioEnumBiometricUnitsViewModel>();
 
+        public IWinBioEnumEnrollmentsViewModel WinBioEnumEnrollments => ServiceLocator.Current.GetInstance<IWinBioEnumEnrollmentsViewModel>();
+
         public IWinBioOpenSessionViewModel WinBioOpenSession => ServiceLocator.Current.GetInstance<IWinBioOpenSessionViewModel>();
+
+        public IWinBioVerifyViewModel WinBioVerify => ServiceLocator.Current.GetInstance<IWinBioVerifyViewModel>();
+
+        public IWinBioVerifyWithCallbackViewModel WinBioVerifyWithCallback => ServiceLocator.Current.GetInstance<IWinBioVerifyWithCallbackViewModel>();
 
         public IWinBioReleaseFocusViewModel ReleaseFocus => ServiceLocator.Current.GetInstance<IWinBioReleaseFocusViewModel>();
 

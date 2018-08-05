@@ -27,8 +27,8 @@ Windows Bitometric Framework .NET wrapper
 |WinBioEnrollDiscard||
 |WinBioEnrollSelect||
 |WinBioEnumBiometricUnits|✓|
-|WinBioEnumDatabases||
-|WinBioEnumEnrollments||
+|WinBioEnumDatabases|✓|
+|WinBioEnumEnrollments|✓|
 |WinBioEnumServiceProviders||
 |WinBioFree|✓|
 |WinBioGetCredentialState||
@@ -54,6 +54,6 @@ Windows Bitometric Framework .NET wrapper
 |WinBioSetProperty||
 |WinBioUnlockUnit||
 |WinBioUnregisterEventMonitor||
-|WinBioVerify||
+|WinBioVerify|✓|
 |WinBioVerifyWithCallback||
 |WinBioWait||

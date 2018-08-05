@@ -10,6 +10,8 @@
 
         Canceled,
 
+        NoMatch,
+
         Unknown
 
     }

@@ -6,7 +6,7 @@
 
         #region Constructors
 
-        internal CaptureSampleResult(uint unitId, OperationStatus operationStatus, uint rejectDetail, uint sampleSize)
+        internal CaptureSampleResult(uint unitId, OperationStatus operationStatus, RejectDetails rejectDetail, uint sampleSize)
         {
             this.UnitId = unitId;
             this.OperationStatus = operationStatus;
@@ -29,7 +29,7 @@
             get;
         }
 
-        public uint RejectDetail
+        public RejectDetails RejectDetail
         {
             get;
         }
