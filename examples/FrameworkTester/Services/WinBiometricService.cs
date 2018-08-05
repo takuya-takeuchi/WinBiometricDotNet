@@ -91,6 +91,14 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumBiometricUnits();
         }
 
+        public IEnumerable<FingerPosition> EnumEnrollments(BiometricUnit unit)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.EnumEnrollments(this._Session, unit);
+        }
+
         public Session OpenSession()
         {
             Session session = null;

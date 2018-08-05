@@ -2216,6 +2216,227 @@ namespace WinBiometricDotNet.Interop
         #region Enumerations
 
         /// <summary>
+        /// <para>The <see cref="TOKEN_INFORMATION_CLASS"/> enumeration contains values that specify the type of information being assigned to or retrieved from an access token.</para>
+        /// <para>The <see cref="GetTokenInformation"/> function uses these values to indicate the type of token information to retrieve.</para>
+        /// <para>The <see cref="SetTokenInformation"/> function uses these values to set the token information.</para>
+        /// </summary>
+        public enum TOKEN_INFORMATION_CLASS
+        {
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_USER"/> structure that contains the user account of the token.
+            /// </summary>
+            TokenUser = 1,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the group accounts associated with the token.
+            /// </summary>
+            TokenGroups,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_PRIVILEGES"/> structure that contains the privileges of the token.
+            /// </summary>
+            TokenPrivileges,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_OWNER"/> structure that contains the default owner security identifier (SID) for newly created objects.
+            /// </summary>
+            TokenOwner,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_PRIMARY_GROUP"/> structure that contains the default primary group SID for newly created objects.
+            /// </summary>
+            TokenPrimaryGroup,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_DEFAULT_DACL"/> structure that contains the default DACL for newly created objects.
+            /// </summary>
+            TokenDefaultDacl,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_SOURCE"/> structure that contains the source of the token. <see cref="TOKEN_QUERY_SOURCE"/> access is needed to retrieve this information.
+            /// </summary>
+            TokenSource,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_TYPE"/> value that indicates whether the token is a primary or impersonation token.
+            /// </summary>
+            TokenType,
+
+            /// <summary>
+            /// The buffer receives a SECURITY_IMPERSONATION_LEVEL value that indicates the impersonation level of the token. If the access token is not an impersonation token, the function fails.
+            /// </summary>
+            TokenImpersonationLevel,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_STATISTICS"/> structure that contains various token statistics.
+            /// </summary>
+            TokenStatistics,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the list of restricting SIDs in a restricted token.
+            /// </summary>
+            TokenRestrictedSids,
+
+            /// <summary>
+            /// <para>The buffer receives a DWORD value that indicates the Terminal Services session identifier that is associated with the token.</para>
+            /// <para>If the token is associated with the terminal server client session, the session identifier is nonzero.</para>
+            /// <para>Windows Server 2003 and Windows XP:  If the token is associated with the terminal server console session, the session identifier is zero.</para>
+            /// <para>In a non-Terminal Services environment, the session identifier is zero.</para>
+            /// <para>If TokenSessionId is set with <see cref="SetTokenInformation"/>, the application must have the Act As Part Of the Operating System privilege, and the application must be enabled to set the session ID in a token.</para>
+            /// </summary>
+            TokenSessionId,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS_AND_PRIVILEGES"/> structure that contains the user SID, the group accounts, the restricted SIDs, and the authentication ID associated with the token.
+            /// </summary>
+            TokenGroupsAndPrivileges,
+
+            /// <summary>
+            /// Reserved.
+            /// </summary>
+            TokenSessionReference,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token includes the SANDBOX_INERT flag.
+            /// </summary>
+            TokenSandBoxInert,
+
+            /// <summary>
+            /// Reserved.
+            /// </summary>
+            TokenAuditPolicy,
+
+            /// <summary>
+            /// <para>The buffer receives a <see cref="TOKEN_ORIGIN"/> value.</para>
+            /// <para>If the token resulted from a logon that used explicit credentials, such as passing a name, domain, and password to the LogonUser function, then the <see cref="TOKEN_ORIGIN"/> structure will contain the ID of the logon session that created it.</para>
+            /// <para>If the token resulted from network authentication, such as a call to <see cref="AcceptSecurityContext"/> or a call to <see cref="LogonUser"/> with dwLogonType set to <see cref="LOGON32_LOGON_NETWORK"/> or <see cref="LOGON32_LOGON_NETWORK_CLEARTEXT"/>, then this value will be zero.</para>
+            /// </summary>
+            TokenOrigin,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_ELEVATION_TYPE"/> value that specifies the elevation level of the token.
+            /// </summary>
+            TokenElevationType,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_LINKED_TOKEN"/> structure that contains a handle to another token that is linked to this token.
+            /// </summary>
+            TokenLinkedToken,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_ELEVATION"/> structure that specifies whether the token is elevated.
+            /// </summary>
+            TokenElevation,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token has ever been filtered.
+            /// </summary>
+            TokenHasRestrictions,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_ACCESS_INFORMATION"/> structure that specifies security information contained in the token.
+            /// </summary>
+            TokenAccessInformation,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if virtualization is allowed for the token.
+            /// </summary>
+            TokenVirtualizationAllowed,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if virtualization is enabled for the token.
+            /// </summary>
+            TokenVirtualizationEnabled,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_MANDATORY_LABEL"/> structure that specifies the token's integrity level.
+            /// </summary>
+            TokenIntegrityLevel,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token has the UIAccess flag set.
+            /// </summary>
+            TokenUIAccess,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_MANDATORY_POLICY"/> structure that specifies the token's mandatory integrity policy.
+            /// </summary>
+            TokenMandatoryPolicy,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that specifies the token's logon SID.
+            /// </summary>
+            TokenLogonSid,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that is nonzero if the token is an app container token. Any callers who check the TokenIsAppContainer and have it return 0 should also verify that the caller token is not an identify level impersonation token. If the current token is not an app container but is an identity level token, you should return AccessDenied.
+            /// </summary>
+            TokenIsAppContainer,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the capabilities associated with the token.
+            /// </summary>
+            TokenCapabilities,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_APPCONTAINER_INFORMATION"/> structure that contains the AppContainerSid associated with the token. If the token is not associated with an app container, the TokenAppContainer member of the <see cref="TOKEN_APPCONTAINER_INFORMATION"/> structure points to NULL.
+            /// </summary>
+            TokenAppContainerSid,
+
+            /// <summary>
+            /// The buffer receives a DWORD value that includes the app container number for the token. For tokens that are not app container tokens, this value is zero.
+            /// </summary>
+            TokenAppContainerNumber,
+
+            /// <summary>
+            /// The buffer receives a <see cref="CLAIM_SECURITY_ATTRIBUTES_INFORMATION"/> structure that contains the user claims associated with the token.
+            /// </summary>
+            TokenUserClaimAttributes,
+
+            /// <summary>
+            /// The buffer receives a <see cref="CLAIM_SECURITY_ATTRIBUTES_INFORMATION"/> structure that contains the device claims associated with the token.
+            /// </summary>
+            TokenDeviceClaimAttributes,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenRestrictedUserClaimAttributes,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenRestrictedDeviceClaimAttributes,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the device groups that are associated with the token.
+            /// </summary>
+            TokenDeviceGroups,
+
+            /// <summary>
+            /// The buffer receives a <see cref="TOKEN_GROUPS"/> structure that contains the restricted device groups that are associated with the token.
+            /// </summary>
+            TokenRestrictedDeviceGroups,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenSecurityAttributes,
+
+            /// <summary>
+            /// This value is reserved.
+            /// </summary>
+            TokenIsRestricted,
+
+            /// <summary>
+            /// The maximum value for this enumeration.
+            /// </summary>
+            MaxTokenInfoClass,
+
+        }
+
+        /// <summary>
         /// Defines constants that specify how completion notifications for asynchronous operations are to be delivered to the client application. This enumeration is used by the <see cref="WinBioAsyncOpenFramework"/> and <see cref="WinBioAsyncOpenSession"/> functions.
         /// </summary>
         public enum WINBIO_ASYNC_NOTIFICATION_METHOD
@@ -2307,12 +2528,72 @@ namespace WinBiometricDotNet.Interop
         #region Methods
 
         [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        public static extern bool CloseHandle(IntPtr hObject);
+
+        /// <summary>
+        /// The <see cref="CopySid"/> function copies a security identifier (SID) to a buffer.
+        /// </summary>
+        /// <param name="nDestinationSidLength">Specifies the length, in bytes, of the buffer receiving the copy of the SID.</param>
+        /// <param name="pDestinationSid">A pointer to a buffer that receives a copy of the source SID structure.</param>
+        /// <param name="pSourceSid">A pointer to a SID structure that the function copies to the buffer pointed to by the pDestinationSid parameter.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Auto)]
+        public static extern BOOL CopySid([In]  DWORD nDestinationSidLength,
+                                          [Out] IntPtr pDestinationSid,
+                                          [In]  IntPtr pSourceSid);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern uint FormatMessage(uint dwFlags, IntPtr lpSource, uint dwMessageId, uint dwLanguageId, out IntPtr lpBuffer, uint nSize, string[] Arguments);
 
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true, SetLastError = true, CallingConvention = CallingConvention.Winapi)]
         public static extern BOOL FreeLibrary(HMODULE hModule);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("kernel32", ExactSpelling = true, CallingConvention = CallingConvention.Winapi)]
+        public static extern IntPtr GetCurrentProcess();
+
+        /// <summary>
+        /// The <see cref="GetLengthSid"/> function returns the length, in bytes, of a valid security identifier (SID).
+        /// </summary>
+        /// <param name="pSid">A pointer to the SID structure whose length is returned. The structure is assumed to be valid.</param>
+        /// <returns>
+        /// <para>If the SID structure is valid, the return value is the length, in bytes, of the SID structure.</para>
+        /// <para>If the SID structure is not valid, the return value is undefined. Before calling <see cref="GetLengthSid"/>, pass the SID to the <see cref="IsValidSid"/> function to verify that the SID is valid.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, CharSet = CharSet.Auto)]
+        public static extern DWORD GetLengthSid([In]  IntPtr pSid);
+
+        /// <summary>
+        /// <para>The <see cref="GetTokenInformation"/> function retrieves a specified type of information about an access token. The calling process must have appropriate access rights to obtain the information.</para>
+        /// <para>To determine if a user is a member of a specific group, use the <see cref="CheckTokenMembership"/> function. To determine group membership for app container tokens, use the <see cref="CheckTokenMembershipEx"/> function.</para>
+        /// </summary>
+        /// <param name="TokenHandle"></param>
+        /// <param name="TokenInformationClass"></param>
+        /// <param name="TokenInformation"></param>
+        /// <param name="TokenInformationLength"></param>
+        /// <param name="ReturnLength">
+        /// <para>A pointer to a variable that receives the number of bytes needed for the buffer pointed to by the TokenInformation parameter. If this value is larger than the value specified in the TokenInformationLength parameter, the function fails and stores no data in the buffer.</para>
+        /// <para>If the value of the TokenInformationClass parameter is <see cref="TokenDefaultDacl"/> and the token has no default DACL, the function sets the variable pointed to by ReturnLength to sizeof(<see cref="TOKEN_DEFAULT_DACL"/>) and sets the DefaultDacl member of the <see cref="TOKEN_DEFAULT_DACL"/> structure to NULL.</para>
+        /// </param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi)]
+        public static extern BOOL GetTokenInformation([In]  HANDLE TokenHandle,
+                                                      [In]  TOKEN_INFORMATION_CLASS TokenInformationClass,
+                                                      [Out] IntPtr TokenInformation,
+                                                      [In]  DWORD TokenInformationLength,
+                                                      [Out] out DWORD ReturnLength);
 
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi)]
@@ -2325,6 +2606,25 @@ namespace WinBiometricDotNet.Interop
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr LocalFree(IntPtr hMem);
+
+        /// <summary>
+        /// The <see cref="OpenProcessToken"/> function opens the access token associated with a process.
+        /// </summary>
+        /// <param name="ProcessHandle">A handle to the process whose access token is opened. The process must have the <see cref="PROCESS_QUERY_INFORMATION"/> access permission.</param>
+        /// <param name="DesiredAccess">
+        /// <para>Specifies an access mask that specifies the requested types of access to the access token. These requested access types are compared with the discretionary access control list (DACL) of the token to determine which accesses are granted or denied.</para>
+        /// <para>For a list of access rights for access tokens, see Access Rights for Access-Token Objects.</para>
+        /// </param>
+        /// <param name="TokenHandle">A pointer to a handle that identifies the newly opened access token when the function returns.</param>
+        /// <returns>
+        /// <para>If the function succeeds, the return value is nonzero.</para>
+        /// <para>If the function fails, the return value is zero. To get extended error information, call <see cref="GetLastError"/>.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi, SetLastError = true)]
+        public static extern BOOL OpenProcessToken([In]  HANDLE ProcessHandle,
+                                                   [In]  DWORD DesiredAccess,
+                                                   [Out] out HANDLE TokenHandle);
 
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport("Advapi32.dll", CallingConvention = CallingConvention.Winapi)]
@@ -2880,6 +3180,15 @@ namespace WinBiometricDotNet.Interop
                                                  [In] DWORD dwType,
                                                  [In] IntPtr lpData,
                                                  [In] DWORD cbData);
+
+        /// <summary>
+        /// The <see cref="RtlZeroMemory"/> routine fills a block of memory with zeros, given a pointer to the block and the length, in bytes, to be filled.
+        /// </summary>
+        /// <param name="Destination">A pointer to the memory block to be filled with zeros.</param>
+        /// <param name="Length">The number of bytes to fill with zeros.</param>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport("Kernel32.dll", CallingConvention = CallingConvention.Winapi)]
+        public static extern void RtlZeroMemory([In] IntPtr Destination, [In] SIZE_T Length);
 
         /// <summary>
         /// Acquires window focus.
@@ -4148,10 +4457,10 @@ namespace WinBiometricDotNet.Interop
         /// </returns>
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        public static extern unsafe HRESULT WinBioEnumEnrollments([In]     WINBIO_SESSION_HANDLE SessionHandle,
-                                                                  [In]     WINBIO_UNIT_ID UnitId,
-                                                                  [In]     ref WINBIO_IDENTITY Identity,
-                                                                  [Out] out WINBIO_BIOMETRIC_SUBTYPE* SubFactorArray,
+        public static extern unsafe HRESULT WinBioEnumEnrollments([In]      WINBIO_SESSION_HANDLE SessionHandle,
+                                                                  [In]      WINBIO_UNIT_ID UnitId,
+                                                                  [In]  ref WINBIO_IDENTITY Identity,
+                                                                  [Out] out IntPtr SubFactorArray,
                                                                   [Out] out SIZE_T SubFactorCount);
 
         /// <summary>
@@ -5389,6 +5698,39 @@ namespace WinBiometricDotNet.Interop
             /// A Boolean value that specifies whether the returned handle is inherited when a new process is created. If this member is TRUE, the new process inherits the handle.
             /// </summary>
             public BOOL bInheritHandle;
+
+        }
+
+        /// <summary>
+        /// The <see cref="SID_AND_ATTRIBUTES"/> structure represents a security identifier (SID) and its attributes. SIDs are used to uniquely identify users or groups.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SID_AND_ATTRIBUTES
+        {
+
+            /// <summary>
+            /// A pointer to a SID structure.
+            /// </summary>
+            public IntPtr Sid;
+
+            /// <summary>
+            /// Specifies attributes of the SID. This value contains up to 32 one-bit flags. Its meaning depends on the definition and use of the SID.
+            /// </summary>
+            public DWORD Attributes;
+
+        }
+
+        /// <summary>
+        /// The <see cref="TOKEN_USER"/> structure identifies the user associated with an access token.
+        /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
+        public struct TOKEN_USER
+        {
+
+            /// <summary>
+            /// Specifies a <see cref="SID_AND_ATTRIBUTES"/> structure representing the user associated with the access token. There are currently no attributes defined for user security identifiers (SIDs).
+            /// </summary>
+            public SID_AND_ATTRIBUTES User;
 
         }
 

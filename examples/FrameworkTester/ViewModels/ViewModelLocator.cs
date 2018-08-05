@@ -74,6 +74,7 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IWinBioCloseSessionViewModel>(() => new WinBioCloseSessionViewModel(), true);
             SimpleIoc.Default.Register<IWinBioEnumDatabasesViewModel>(() => new WinBioEnumDatabasesViewModel(), true);
             SimpleIoc.Default.Register<IWinBioEnumBiometricUnitsViewModel>(() => new WinBioEnumBiometricUnitsViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioEnumEnrollmentsViewModel>(() => new WinBioEnumEnrollmentsViewModel(), true);
             SimpleIoc.Default.Register<IWinBioOpenSessionViewModel>(() => new WinBioOpenSessionViewModel(), true);
             SimpleIoc.Default.Register<IWinBioReleaseFocusViewModel>(() => new WinBioReleaseFocusViewModel(), true);
         }
@@ -97,6 +98,8 @@ namespace FrameworkTester.ViewModels
         public IWinBioEnumDatabasesViewModel WinBioEnumDatabases => ServiceLocator.Current.GetInstance<IWinBioEnumDatabasesViewModel>();
 
         public IWinBioEnumBiometricUnitsViewModel WinBioEnumBiometricUnits => ServiceLocator.Current.GetInstance<IWinBioEnumBiometricUnitsViewModel>();
+
+        public IWinBioEnumEnrollmentsViewModel WinBioEnumEnrollments => ServiceLocator.Current.GetInstance<IWinBioEnumEnrollmentsViewModel>();
 
         public IWinBioOpenSessionViewModel WinBioOpenSession => ServiceLocator.Current.GetInstance<IWinBioOpenSessionViewModel>();
 

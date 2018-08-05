@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using WinBiometricDotNet.Helpers;
@@ -196,6 +197,35 @@ namespace WinBiometricDotNet
                 yield return new BiometricUnit(schema);
         }
 
+        public static IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (unit == null)
+                throw new ArgumentNullException(nameof(unit));
+
+            var hr = GetCurrentUserIdentity(out var identity);
+            if (hr != 0)
+            {
+                ThrowWinBiometricException(hr);
+            }
+
+            hr = SafeNativeMethods.WinBioEnumEnrollments(session.Handle,
+                                                         (uint)unit.UnitId,
+                                                         ref identity,
+                                                         out var subFactorArray,
+                                                         out var subFactorCount);
+
+            ThrowWinBiometricException(hr);
+
+            var array = new WINBIO_BIOMETRIC_SUBTYPE[(int)subFactorCount];
+            Marshal.Copy(subFactorArray, array, 0, (int)subFactorCount);
+
+            SafeNativeMethods.WinBioFree(subFactorArray);
+
+            return array.Select(f => (FingerPosition)f).ToArray();
+        }
+
         public static Session OpenSession()
         {
             unsafe
@@ -352,7 +382,7 @@ namespace WinBiometricDotNet
             return result;
         }
 
-        private static unsafe HRESULT CreateCompatibleConfiguration(ref SafeNativeMethods.WINBIO_UNIT_SCHEMA unitSchema, out PoolConfiguration configuration)
+        private static HRESULT CreateCompatibleConfiguration(ref SafeNativeMethods.WINBIO_UNIT_SCHEMA unitSchema, out PoolConfiguration configuration)
         {
             configuration = new PoolConfiguration();
             IntPtr storageArray;
@@ -598,7 +628,7 @@ namespace WinBiometricDotNet
             return hr;
         }
 
-        private static unsafe bool FindInstalledDatabase(IntPtr storageArray, uint storageCount, Guid databaseId, out SafeNativeMethods.WINBIO_STORAGE_SCHEMA result)
+        private static bool FindInstalledDatabase(IntPtr storageArray, uint storageCount, Guid databaseId, out SafeNativeMethods.WINBIO_STORAGE_SCHEMA result)
         {
             result = default(SafeNativeMethods.WINBIO_STORAGE_SCHEMA);
 
@@ -613,6 +643,87 @@ namespace WinBiometricDotNet
             }
 
             return false;
+        }
+
+        private static HRESULT GetCurrentUserIdentity(out SafeNativeMethods.WINBIO_IDENTITY identity)
+        {
+            identity = new SafeNativeMethods.WINBIO_IDENTITY();
+
+            var tokenHandle = IntPtr.Zero;
+
+            try
+            {
+                // Open the access token associated with the
+                // current process
+                var currentProcess = SafeNativeMethods.GetCurrentProcess();
+                var hr = SafeNativeMethods.OpenProcessToken(currentProcess, SafeNativeMethods.TOKEN_READ, out tokenHandle);
+                if (hr == 0)
+                {
+                    var win32Status = Marshal.GetLastWin32Error();
+                    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)win32Status);
+                    return hr;
+                }
+
+                unsafe
+                {
+                    var retIdentity = identity;
+                    retIdentity.Type = SafeNativeMethods.WINBIO_ID_TYPE_NULL;
+
+                    // Zero the input identity and specify the type.
+                    var p = (IntPtr)(&retIdentity);
+                    SafeNativeMethods.RtlZeroMemory(p, (IntPtr)sizeof(SafeNativeMethods.WINBIO_IDENTITY));
+
+                    // Get TokenInformationLength and need not to check hr
+                    var tokenInfLength = 0U;
+                    hr = SafeNativeMethods.GetTokenInformation(tokenHandle,
+                                                               SafeNativeMethods.TOKEN_INFORMATION_CLASS.TokenUser,
+                                                               IntPtr.Zero,
+                                                               tokenInfLength,
+                                                               out tokenInfLength);
+
+                    var tokenInformation = Marshal.AllocHGlobal((int)tokenInfLength);
+                    hr = SafeNativeMethods.GetTokenInformation(tokenHandle,
+                                                               SafeNativeMethods.TOKEN_INFORMATION_CLASS.TokenUser,
+                                                               tokenInformation,
+                                                               tokenInfLength,
+                                                               out tokenInfLength);
+                    if (hr == 0)
+                    {
+                        var win32Status = Marshal.GetLastWin32Error();
+                        hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)win32Status);
+
+                        Marshal.FreeHGlobal(tokenInformation);
+                        return hr;
+                    }
+
+                    var tokenUser = (SafeNativeMethods.TOKEN_USER)Marshal.PtrToStructure(tokenInformation, typeof(SafeNativeMethods.TOKEN_USER));
+                    var ptr = (IntPtr)(&retIdentity.Value.AccountSid.Data[0]);
+                    hr = SafeNativeMethods.CopySid(SafeNativeMethods.SECURITY_MAX_SID_SIZE, ptr, tokenUser.User.Sid);
+                    if (hr == 0)
+                    {
+                        var win32Status = Marshal.GetLastWin32Error();
+                        hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)win32Status);
+
+                        Marshal.FreeHGlobal(tokenInformation);
+                        return hr;
+                    }
+
+                    // Specify the size of the SID and assign WINBIO_ID_TYPE_SID
+                    // to the type member of the WINBIO_IDENTITY structure.
+                    retIdentity.Value.AccountSid.Size = SafeNativeMethods.GetLengthSid(ptr);
+                    retIdentity.Type = SafeNativeMethods.WINBIO_ID_TYPE_SID;
+
+                    Marshal.FreeHGlobal(tokenInformation);
+
+                    identity = retIdentity;
+                    return 0;
+                }
+            }
+            finally
+            {
+                if (tokenHandle != IntPtr.Zero)
+                    SafeNativeMethods.CloseHandle(tokenHandle);
+            }
         }
 
         private static bool IsDatabaseInstalled(Guid databaseId, out Guid dataFormat)
@@ -884,7 +995,7 @@ namespace WinBiometricDotNet
                         {
                             File.Delete(database.FilePath);
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             hr = e.HResult;
                         }

@@ -24,6 +24,8 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<BiometricUnit> EnumBiometricUnits();
 
+        IEnumerable<FingerPosition> EnumEnrollments(BiometricUnit unit);
+
         Session OpenSession();
 
         void ReleaseFocus();
@@ -31,11 +33,5 @@ namespace FrameworkTester.Services.Interfaces
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
 
     }
-
-}
-
-
-namespace FrameworkTester.Services
-{
 
 }
