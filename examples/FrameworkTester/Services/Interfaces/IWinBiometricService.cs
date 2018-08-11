@@ -10,6 +10,8 @@ namespace FrameworkTester.Services.Interfaces
 
         void AcquireFocus();
 
+        void Cancel();
+
         CaptureSampleResult CaptureSample();
 
         void CaptureSampleWithCallback();

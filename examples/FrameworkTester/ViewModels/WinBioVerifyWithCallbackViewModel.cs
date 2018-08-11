@@ -18,6 +18,8 @@ namespace FrameworkTester.ViewModels
 
         #region Fields
 
+        private readonly IDispatcherService _DispatcherService;
+
         private readonly IWinBiometricService _Service;
 
         #endregion
@@ -27,13 +29,41 @@ namespace FrameworkTester.ViewModels
         public WinBioVerifyWithCallbackViewModel()
         {
             this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
+            this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
             this._FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
+
             WinBiometric.Verified += this.WinBiometricVerified;
+
+            this.WaitCallback = false;
         }
 
         #endregion
 
         #region Properties
+
+        private RelayCommand _CancelCommand;
+
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                return this._CancelCommand ?? (this._CancelCommand = new RelayCommand(() =>
+                {
+                    try
+                    {
+                        this._Service.Cancel();
+
+                        this.WaitCallback = false;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+
+                        this.WaitCallback = true;
+                    }
+                }, () => this._WaitCallback));
+            }
+        }
 
         private RelayCommand _ExecuteCommand;
 
@@ -51,13 +81,17 @@ namespace FrameworkTester.ViewModels
                     {
                         this.Result = "WAIT";
                         this._Service.VerifyWithCallback(this.CurrentUnit, this.SelectedFingerPosition);
+
+                        this.WaitCallback = true;
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message);
                         this.Result = "FAIL";
+
+                        this.WaitCallback = false;
                     }
-                }));
+                }, () => !this._WaitCallback));
             }
         }
 
@@ -108,6 +142,25 @@ namespace FrameworkTester.ViewModels
             }
         }
 
+        private bool _WaitCallback;
+
+        private bool WaitCallback
+        {
+            get
+            {
+                return this._WaitCallback;
+            }
+            set
+            {
+                this._WaitCallback = value;
+
+                this.RaisePropertyChanged();
+
+                this.ExecuteCommand.RaiseCanExecuteChanged();
+                this.CancelCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         private FingerPosition _SelectedFingerPosition;
 
         public FingerPosition SelectedFingerPosition
@@ -146,6 +199,11 @@ namespace FrameworkTester.ViewModels
 
         private void WinBiometricVerified(object sender, VerifyEventArgs e)
         {
+            this._DispatcherService.SafeAction(() =>
+            {
+                this.WaitCallback = false;
+            });
+
             switch (e.Result.OperationStatus)
             {
                 case OperationStatus.OK:

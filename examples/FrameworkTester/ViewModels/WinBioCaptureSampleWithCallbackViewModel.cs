@@ -16,6 +16,8 @@ namespace FrameworkTester.ViewModels
 
         #region Fields
 
+        private readonly IDispatcherService _DispatcherService;
+
         private readonly IWinBiometricService _Service;
 
         #endregion
@@ -25,12 +27,40 @@ namespace FrameworkTester.ViewModels
         public WinBioCaptureSampleWithCallbackViewModel()
         {
             this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
+            this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
+
             WinBiometric.SampleCaptured += this.WinBiometricOnSampleCaptured;
+
+            this.WaitCallback = false;
         }
 
         #endregion
 
         #region Properties
+
+        private RelayCommand _CancelCommand;
+
+        public RelayCommand CancelCommand
+        {
+            get
+            {
+                return this._CancelCommand ?? (this._CancelCommand = new RelayCommand(() =>
+                {
+                    try
+                    {
+                        this._Service.Cancel();
+
+                        this.WaitCallback = false;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+
+                        this.WaitCallback = true;
+                    }
+                }, () => this._WaitCallback));
+            }
+        }
 
         private BitmapSource _CaptureImage;
 
@@ -149,13 +179,17 @@ namespace FrameworkTester.ViewModels
                     {
                         this.Result = "WAIT";
                         this._Service.CaptureSampleWithCallback();
+
+                        this.WaitCallback = true;
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message);
                         this.Result = "FAIL";
+
+                        this.WaitCallback = false;
                     }
-                }));
+                }, () => !this._WaitCallback));
             }
         }
 
@@ -221,6 +255,25 @@ namespace FrameworkTester.ViewModels
             }
         }
 
+        private bool _WaitCallback;
+
+        private bool WaitCallback
+        {
+            get
+            {
+                return this._WaitCallback;
+            }
+            set
+            {
+                this._WaitCallback = value;
+
+                this.RaisePropertyChanged();
+
+                this.ExecuteCommand.RaiseCanExecuteChanged();
+                this.CancelCommand.RaiseCanExecuteChanged();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -229,6 +282,11 @@ namespace FrameworkTester.ViewModels
 
         private void WinBiometricOnSampleCaptured(object sender, CaptureSampleEventArgs e)
         {
+            this._DispatcherService.SafeAction(() =>
+            {
+                this.WaitCallback = false;
+            });
+
             switch (e.Result.OperationStatus)
             {
                 case OperationStatus.OK:

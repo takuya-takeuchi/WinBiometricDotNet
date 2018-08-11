@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media.Imaging;
 using FrameworkTester.ViewModels.Interfaces;
+using GalaSoft.MvvmLight.Command;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.DesignTimes
@@ -7,6 +8,11 @@ namespace FrameworkTester.DesignTimes
 
     public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioViewModel, IWinBioCaptureSampleWithCallbackViewModel
     {
+
+        public RelayCommand CancelCommand
+        {
+            get;
+        }
 
         public BitmapSource CaptureImage
         {

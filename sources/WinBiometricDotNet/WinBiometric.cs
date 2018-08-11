@@ -68,6 +68,15 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static void Cancel(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioCancel(session.Handle);
+            ThrowWinBiometricException(hr);
+        }
+
         public static CaptureSampleResult CaptureSample(Session session)
         {
             if (session == null)

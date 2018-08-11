@@ -36,6 +36,14 @@ namespace FrameworkTester.Services
             WinBiometric.AcquireFocus();
         }
 
+        public void Cancel()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.Cancel(this._Session);
+        }
+
         public CaptureSampleResult CaptureSample()
         {
             if (this._Session == null)

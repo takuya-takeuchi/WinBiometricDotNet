@@ -41,13 +41,22 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button
+        <StackPanel
             Grid.Column="2"
-            Width="100"
-            Height="30"
             HorizontalAlignment="Right"
-            Command="{Binding ExecuteCommand}"
-            Content="Execute" />
+            Orientation="Horizontal">
+            <Button
+                Width="100"
+                Height="30"
+                Margin="0,0,10,0"
+                Command="{Binding ExecuteCommand}"
+                Content="Execute" />
+            <Button
+                Width="100"
+                Height="30"
+                Command="{Binding CancelCommand}"
+                Content="Cancel" />
+        </StackPanel>
         <Viewbox
             Grid.Row="2"
             Grid.RowSpan="20"
