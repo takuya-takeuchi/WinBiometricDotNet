@@ -2,9 +2,11 @@
 
 Windows Biometric Framework .NET wrapper
 
-## Support API
-
+[![NuGet version](https://badge.fury.io/nu/WinBiometricDotNet.svg)](https://badge.fury.io/nu/WinBiometricDotNet)
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 [![API Cover Progress](https://img.shields.io/badge/API%20Coverage-46%25%20(24/52)-green.svg)]()
+
+## Support API
 
 |Function|Support|Note|
 |----|:----:|----|
