@@ -148,6 +148,7 @@
     <Compile Include="ViewModels\WinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\WinBioWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioViewModel.cs" />
     <Compile Include="Views\WinBioAcquireFocus.xaml.cs">
       <DependentUpon>WinBioAcquireFocus.xaml</DependentUpon>

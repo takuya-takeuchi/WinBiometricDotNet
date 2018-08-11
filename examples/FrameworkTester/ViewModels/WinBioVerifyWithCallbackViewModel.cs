@@ -2,29 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioVerifyWithCallbackViewModel : WinBioViewModel, IWinBioVerifyWithCallbackViewModel
+    public sealed class WinBioVerifyWithCallbackViewModel : WinBioWithCallbackViewModel, IWinBioVerifyWithCallbackViewModel
     {
-
-        #region Fields
-
-        private readonly IDispatcherService _DispatcherService;
-
-        #endregion
 
         #region Constructors
 
         public WinBioVerifyWithCallbackViewModel()
         {
-            this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
             this.FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
 
             WinBiometric.Verified -= this.WinBiometricVerified;
@@ -181,7 +172,7 @@ namespace FrameworkTester.ViewModels
 
         private void WinBiometricVerified(object sender, VerifyEventArgs e)
         {
-            this._DispatcherService.SafeAction(() =>
+            this.DispatcherService.SafeAction(() =>
             {
                 this.WaitCallback = false;
             });

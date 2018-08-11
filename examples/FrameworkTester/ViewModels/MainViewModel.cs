@@ -11,6 +11,7 @@ using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
+
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
 

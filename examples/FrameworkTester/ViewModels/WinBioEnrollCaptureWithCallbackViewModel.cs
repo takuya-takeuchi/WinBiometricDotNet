@@ -1,29 +1,19 @@
 ﻿using System;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioEnrollCaptureWithCallbackViewModel : WinBioViewModel, IWinBioEnrollCaptureWithCallbackViewModel
+    public sealed class WinBioEnrollCaptureWithCallbackViewModel : WinBioWithCallbackViewModel, IWinBioEnrollCaptureWithCallbackViewModel
     {
-
-        #region Fields
-
-        private readonly IDispatcherService _DispatcherService;
-
-        #endregion
 
         #region Constructors
 
         public WinBioEnrollCaptureWithCallbackViewModel()
         {
-            this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
-
             WinBiometric.EnrollCaptured -= this.WinBiometricEnrollCaptured;
             WinBiometric.EnrollCaptured += this.WinBiometricEnrollCaptured;
 
@@ -122,7 +112,7 @@ namespace FrameworkTester.ViewModels
 
         private void WinBiometricEnrollCaptured(object sender, EnrollCapturedEventArgs e)
         {
-            this._DispatcherService.SafeAction(() =>
+            this.DispatcherService.SafeAction(() =>
             {
                 this.WaitCallback = false;
             });

@@ -1,29 +1,19 @@
 ﻿using System;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioLocateSensorWithCallbackViewModel : WinBioViewModel, IWinBioLocateSensorWithCallbackViewModel
+    public sealed class WinBioLocateSensorWithCallbackViewModel : WinBioWithCallbackViewModel, IWinBioLocateSensorWithCallbackViewModel
     {
-
-        #region Fields
-
-        private readonly IDispatcherService _DispatcherService;
-
-        #endregion
 
         #region Constructors
 
         public WinBioLocateSensorWithCallbackViewModel()
         {
-            this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
-
             WinBiometric.SensorLocated -= this.WinBiometricSensorLocated;
             WinBiometric.SensorLocated += this.WinBiometricSensorLocated;
 
@@ -126,7 +116,7 @@ namespace FrameworkTester.ViewModels
 
         private void WinBiometricSensorLocated(object sender, LocateSensorEventArgs e)
         {
-            this._DispatcherService.SafeAction(() =>
+            this.DispatcherService.SafeAction(() =>
             {
                 this.WaitCallback = false;
             });

@@ -2,30 +2,20 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using FrameworkTester.Helpers;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioViewModel, IWinBioCaptureSampleWithCallbackViewModel
+    public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioWithCallbackViewModel, IWinBioCaptureSampleWithCallbackViewModel
     {
-
-        #region Fields
-
-        private readonly IDispatcherService _DispatcherService;
-
-        #endregion
 
         #region Constructors
 
         public WinBioCaptureSampleWithCallbackViewModel()
         {
-            this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
-
             WinBiometric.SampleCaptured -= this.WinBiometricOnSampleCaptured;
             WinBiometric.SampleCaptured += this.WinBiometricOnSampleCaptured;
 
@@ -276,7 +266,7 @@ namespace FrameworkTester.ViewModels
 
         private void WinBiometricOnSampleCaptured(object sender, CaptureSampleEventArgs e)
         {
-            this._DispatcherService.SafeAction(() =>
+            this.DispatcherService.SafeAction(() =>
             {
                 this.WaitCallback = false;
             });
