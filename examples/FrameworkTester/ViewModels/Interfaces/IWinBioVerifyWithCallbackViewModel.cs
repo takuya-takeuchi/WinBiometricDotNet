@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Command;
 using WinBiometricDotNet;
 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Windows.Media.Imaging;
 using FrameworkTester.ViewModels.Interfaces;
 using WinBiometricDotNet;
 
