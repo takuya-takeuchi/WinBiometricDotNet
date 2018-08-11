@@ -24,6 +24,7 @@ namespace FrameworkTester.ViewModels
         {
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
 
+            WinBiometric.SensorLocated -= this.WinBiometricSensorLocated;
             WinBiometric.SensorLocated += this.WinBiometricSensorLocated;
 
             this.WaitCallback = false;

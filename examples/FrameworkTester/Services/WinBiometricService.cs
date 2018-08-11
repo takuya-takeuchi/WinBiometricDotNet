@@ -21,12 +21,6 @@ namespace FrameworkTester.Services
 
         #endregion
 
-        #region Fields
-        #endregion
-
-        #region Constructors
-        #endregion
-
         #region Properties
 
         private Session _Session;

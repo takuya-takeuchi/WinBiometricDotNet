@@ -25,8 +25,9 @@ namespace FrameworkTester.ViewModels
         public WinBioVerifyWithCallbackViewModel()
         {
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
-            this._FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
+            this.FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
 
+            WinBiometric.Verified -= this.WinBiometricVerified;
             WinBiometric.Verified += this.WinBiometricVerified;
 
             this.WaitCallback = false;
@@ -141,10 +142,6 @@ namespace FrameworkTester.ViewModels
 
         private bool WaitCallback
         {
-            get
-            {
-                return this._WaitCallback;
-            }
             set
             {
                 this._WaitCallback = value;
@@ -171,19 +168,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private IEnumerable<FingerPosition> _FingerPositions;
-
         public IEnumerable<FingerPosition> FingerPositions
         {
-            get
-            {
-                return this._FingerPositions;
-            }
-            private set
-            {
-                this._FingerPositions = value;
-                this.RaisePropertyChanged();
-            }
+            get;
         }
 
         #endregion

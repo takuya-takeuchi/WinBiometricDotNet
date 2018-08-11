@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FrameworkTester.ViewModels.Interfaces;
+﻿using FrameworkTester.ViewModels.Interfaces;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.DesignTimes

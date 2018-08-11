@@ -26,6 +26,7 @@ namespace FrameworkTester.ViewModels
         {
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
 
+            WinBiometric.SampleCaptured -= this.WinBiometricOnSampleCaptured;
             WinBiometric.SampleCaptured += this.WinBiometricOnSampleCaptured;
 
             this.WaitCallback = false;
@@ -256,10 +257,6 @@ namespace FrameworkTester.ViewModels
 
         private bool WaitCallback
         {
-            get
-            {
-                return this._WaitCallback;
-            }
             set
             {
                 this._WaitCallback = value;
