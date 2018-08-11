@@ -30,6 +30,8 @@ namespace FrameworkTester.Services.Interfaces
 
         uint LocateSensor();
 
+        void LocateSensorWithCallback();
+
         Session OpenSession();
 
         void ReleaseFocus();

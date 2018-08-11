@@ -13,6 +13,8 @@ namespace FrameworkTester.Services
 
         public static event SampleCapturedHandler SampleCaptured;
 
+        public static event SensorLocatedHandler SensorLocated;
+
         public static event VerifyHandler Verified;
 
         #endregion
@@ -117,9 +119,20 @@ namespace FrameworkTester.Services
             return WinBiometric.LocateSensor(this._Session);
         }
 
+        public void LocateSensorWithCallback()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.SensorLocated -= SensorLocated;
+            WinBiometric.SensorLocated += SensorLocated;
+
+            WinBiometric.LocateSensorWithCallback(this._Session);
+        }
+
         public Session OpenSession()
         {
-            Session session = null;
+            Session session;
 
             if (this._Session != null)
             {

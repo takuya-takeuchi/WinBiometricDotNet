@@ -46,6 +46,8 @@ namespace WinBiometricDotNet
 
         public static event SampleCapturedHandler SampleCaptured;
 
+        public static event SensorLocatedHandler SensorLocated;
+
         public static event VerifyHandler Verified;
 
         #endregion
@@ -256,6 +258,18 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return unitId;
+        }
+
+        public static void LocateSensorWithCallback(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLocateSensorWithCallback(session.Handle,
+                                                                      LocateSensorCallback,
+                                                                      IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static Session OpenSession()
@@ -1252,7 +1266,21 @@ namespace WinBiometricDotNet
                 }
             }
         }
-        
+
+        private static void LocateSensorCallback(IntPtr locateCallbackContext,
+                                                 int operationStatus,
+                                                 WINBIO_UNIT_ID unitId)
+        {
+            var status = ConvertToOperationStatus(operationStatus);
+
+            var @event = SensorLocated;
+            if (@event != null)
+            {
+                var args = new LocateSensorEventArgs(unitId, status);
+                @event.Invoke(null, args);
+            }
+        }
+
         private static unsafe void VerifyCallback(IntPtr verifyCallbackContext,
                                                   HRESULT operationStatus,
                                                   WINBIO_UNIT_ID unitId,
