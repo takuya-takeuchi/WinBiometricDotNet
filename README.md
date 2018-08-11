@@ -3,7 +3,7 @@ Windows Bitometric Framework .NET wrapper
 
 ## Support API
 
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-35%25%20(18/52)-green.svg)]()
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-38%25%20(20/52)-green.svg)]()
 
 |Function|Support|Note|
 |----|:----:|----|
@@ -43,7 +43,7 @@ Windows Bitometric Framework .NET wrapper
 |WinBioIdentifyWithCallback|||
 |WinBioLocateSensor|✓||
 |WinBioLocateSensorWithCallback|✓||
-|WinBioLockUnit|||
+|WinBioLockUnit|✓||
 |WinBioLogonIdentifiedUser|||
 |WinBioMonitorPresence|||
 |WinBioOpenSession|✓||
@@ -54,7 +54,7 @@ Windows Bitometric Framework .NET wrapper
 |WinBioRemoveCredential|||
 |WinBioSetCredential|||
 |WinBioSetProperty|||
-|WinBioUnlockUnit|||
+|WinBioUnlockUnit|✓||
 |WinBioUnregisterEventMonitor|||
 |WinBioVerify|✓||
 |WinBioVerifyWithCallback|✓||
