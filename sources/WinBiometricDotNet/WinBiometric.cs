@@ -61,6 +61,16 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static void BeginEnroll(Session session, FingerPosition position, uint unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollBegin(session.Handle, (byte)position, unitId);
+
+            ThrowWinBiometricException(hr);
+        }
+
         public static void Cancel(Session session)
         {
             if (session == null)
@@ -68,6 +78,18 @@ namespace WinBiometricDotNet
 
             var hr = SafeNativeMethods.WinBioCancel(session.Handle);
             ThrowWinBiometricException(hr);
+        }
+
+        public static RejectDetails CaptureEnroll(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollCapture(session.Handle, out var rejectDetail);
+
+            ThrowWinBiometricException(hr);
+
+            return (RejectDetails)rejectDetail;
         }
 
         public static CaptureSampleResult CaptureSample(Session session)
@@ -120,6 +142,20 @@ namespace WinBiometricDotNet
             var hr = SafeNativeMethods.WinBioCloseSession(session.Handle);
 
             ThrowWinBiometricException(hr);
+        }
+
+        public static BiometricIdentity CommitEnroll(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollCommit(session.Handle,
+                                                          out var identity,
+                                                          out var isNewTemplate);
+
+            ThrowWinBiometricException(hr);
+
+            return new BiometricIdentity(identity);
         }
 
         public static Guid CreateDatabase(BiometricUnit unit)
@@ -182,6 +218,16 @@ namespace WinBiometricDotNet
                     throw new WinBiometricException(message);
                 }
             }
+        }
+
+        public static void DiscardEnroll(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollDiscard(session.Handle);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static IEnumerable<BiometricDatabase> EnumBiometricDatabases(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
@@ -405,7 +451,7 @@ namespace WinBiometricDotNet
 
             return new VerifyResult(match, unitId, status, (RejectDetails)rejectDetail);
         }
-        
+
         public static void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position)
         {
             if (session == null)
@@ -463,7 +509,7 @@ namespace WinBiometricDotNet
             unsafe
             {
                 if (messageLength > 0)
-                    message = Encoding.Default.GetString((byte*) lpMsgBuf, (int) messageLength);
+                    message = Encoding.Default.GetString((byte*)lpMsgBuf, (int)messageLength);
             }
 
             SafeNativeMethods.LocalFree(lpMsgBuf);
@@ -1382,6 +1428,5 @@ namespace WinBiometricDotNet
         #endregion
 
     }
-
 
 }

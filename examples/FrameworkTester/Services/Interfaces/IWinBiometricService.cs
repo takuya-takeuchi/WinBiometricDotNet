@@ -10,7 +10,11 @@ namespace FrameworkTester.Services.Interfaces
 
         void AcquireFocus();
 
+        void BeginEnroll(FingerPosition position, uint unitId);
+
         void Cancel();
+
+        RejectDetails CaptureEnroll();
 
         CaptureSampleResult CaptureSample();
 
@@ -18,9 +22,13 @@ namespace FrameworkTester.Services.Interfaces
 
         void CloseSession();
 
+        BiometricIdentity CommitEnroll();
+
         Guid CreateDatabase(BiometricUnit unit);
 
         void CreateDatabase(BiometricUnit unit, Guid guid);
+
+        void DiscardEnroll();
 
         IEnumerable<BiometricDatabase> EnumBiometricDatabases();
 

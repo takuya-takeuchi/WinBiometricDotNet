@@ -8,7 +8,7 @@
     d:DataContext="{d:DesignInstance {x:Type designTimes:WinBioReleaseFocusViewModel}}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    DataContext="{Binding Source={StaticResource Locator}, Path=ReleaseFocus}"
+    DataContext="{Binding Source={StaticResource Locator}, Path=WinBioReleaseFocus}"
     mc:Ignorable="d">
 
     <Grid>

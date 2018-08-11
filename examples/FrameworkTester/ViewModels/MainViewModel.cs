@@ -38,8 +38,8 @@ namespace FrameworkTester.ViewModels
             var winBio = typeof(IWinBioViewModel);
             foreach (var type in Assembly.GetExecutingAssembly()
                                                          .GetTypes()
-                                                         .OrderBy(type => type.FullName)
-                                                         .Where(type => type != winBio && type.IsInterface && type.GetInterfaces().Contains(winBio)))
+                                                         .Where(type => type != winBio && type.IsInterface && type.GetInterfaces().Contains(winBio))
+                                                         .OrderBy(type => type.FullName))
             {
 
                 var model = SimpleIoc.Default.GetInstance(type) as IWinBioViewModel;

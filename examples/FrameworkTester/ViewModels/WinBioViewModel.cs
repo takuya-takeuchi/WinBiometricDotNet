@@ -1,6 +1,8 @@
-﻿using FrameworkTester.ViewModels.Interfaces;
+﻿using FrameworkTester.Services.Interfaces;
+using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -8,6 +10,15 @@ namespace FrameworkTester.ViewModels
 
     public abstract class WinBioViewModel : ViewModelBase, IWinBioViewModel
     {
+
+        #region Constructors
+
+        protected WinBioViewModel()
+        {
+            this.BiometricService = SimpleIoc.Default.GetInstance<IWinBiometricService>();
+        }
+
+        #endregion
 
         #region Properties
 
@@ -25,7 +36,7 @@ namespace FrameworkTester.ViewModels
                 this.RaisePropertyChanged();
             }
         }
-        
+
         public abstract string Name
         {
             get;
@@ -49,6 +60,11 @@ namespace FrameworkTester.ViewModels
                 this._Result = value;
                 this.RaisePropertyChanged();
             }
+        }
+        
+        protected IWinBiometricService BiometricService
+        {
+            get;
         }
 
         #endregion

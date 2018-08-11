@@ -38,12 +38,28 @@ namespace FrameworkTester.Services
             WinBiometric.AcquireFocus();
         }
 
+        public void BeginEnroll(FingerPosition position, uint unitId)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.BeginEnroll(this._Session, position, unitId);
+        }
+
         public void Cancel()
         {
             if (this._Session == null)
                 throw new Exception("There is no opened session.");
 
             WinBiometric.Cancel(this._Session);
+        }
+
+        public RejectDetails CaptureEnroll()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.CaptureEnroll(this._Session);
         }
 
         public CaptureSampleResult CaptureSample()
@@ -77,6 +93,14 @@ namespace FrameworkTester.Services
             this._Session = null;
         }
 
+        public BiometricIdentity CommitEnroll()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.CommitEnroll(this._Session);
+        }
+
         public Guid CreateDatabase(BiometricUnit unit)
         {
             if (unit == null)
@@ -91,6 +115,14 @@ namespace FrameworkTester.Services
                 throw new ArgumentNullException(nameof(unit));
 
             WinBiometric.CreateDatabase(unit, guid);
+        }
+
+        public void DiscardEnroll()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.DiscardEnroll(this._Session);
         }
 
         public IEnumerable<BiometricDatabase> EnumBiometricDatabases()
