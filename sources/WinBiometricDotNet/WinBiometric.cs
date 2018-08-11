@@ -1109,7 +1109,67 @@ namespace WinBiometricDotNet
             if (!SafeNativeMethods.Macros.FAILED(hresult))
                 return;
 
-            throw new WinBiometricException(hresult);
+            switch (hresult)
+            {
+                case SafeNativeMethods.WINBIO_E_ADAPTER_INTEGRITY_FAILURE:
+                case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                case SafeNativeMethods.WINBIO_E_CANCELED:
+                case SafeNativeMethods.WINBIO_E_CAPTURE_ABORTED:
+                case SafeNativeMethods.WINBIO_E_CONFIGURATION_FAILURE:
+                case SafeNativeMethods.WINBIO_E_CRED_PROV_DISABLED:
+                case SafeNativeMethods.WINBIO_E_CRED_PROV_NO_CREDENTIAL:
+                case SafeNativeMethods.WINBIO_E_DATA_COLLECTION_IN_PROGRESS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_ALREADY_EXISTS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_BAD_INDEX_VECTOR:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CLOSE:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CREATE:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_ERASE:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_FIND:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_OPEN:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CORRUPTED:
+                case SafeNativeMethods.WINBIO_E_DATABASE_EOF:
+                case SafeNativeMethods.WINBIO_E_DATABASE_FULL:
+                case SafeNativeMethods.WINBIO_E_DATABASE_LOCKED:
+                case SafeNativeMethods.WINBIO_E_DATABASE_NO_MORE_RECORDS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_NO_RESULTS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_NO_SUCH_RECORD:
+                case SafeNativeMethods.WINBIO_E_DATABASE_READ_ERROR:
+                case SafeNativeMethods.WINBIO_E_DATABASE_WRITE_ERROR:
+                case SafeNativeMethods.WINBIO_E_DEVICE_BUSY:
+                case SafeNativeMethods.WINBIO_E_DEVICE_FAILURE:
+                case SafeNativeMethods.WINBIO_E_DISABLED:
+                case SafeNativeMethods.WINBIO_E_DUPLICATE_ENROLLMENT:
+                case SafeNativeMethods.WINBIO_E_DUPLICATE_TEMPLATE:
+                case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
+                case SafeNativeMethods.WINBIO_E_EVENT_MONITOR_ACTIVE:
+                case SafeNativeMethods.WINBIO_E_FAST_USER_SWITCH_DISABLED:
+                case SafeNativeMethods.WINBIO_E_INCORRECT_BSP:
+                case SafeNativeMethods.WINBIO_E_INCORRECT_SENSOR_POOL:
+                case SafeNativeMethods.WINBIO_E_INVALID_CONTROL_CODE:
+                case SafeNativeMethods.WINBIO_E_INVALID_DEVICE_STATE:
+                case SafeNativeMethods.WINBIO_E_INVALID_OPERATION:
+                case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_ID:
+                case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_TYPE:
+                case SafeNativeMethods.WINBIO_E_INVALID_SENSOR_MODE:
+                case SafeNativeMethods.WINBIO_E_INVALID_UNIT:
+                case SafeNativeMethods.WINBIO_E_LOCK_VIOLATION:
+                case SafeNativeMethods.WINBIO_E_NO_CAPTURE_DATA:
+                case SafeNativeMethods.WINBIO_E_NO_MATCH:
+                case SafeNativeMethods.WINBIO_E_NOT_ACTIVE_CONSOLE:
+                case SafeNativeMethods.WINBIO_E_SAS_ENABLED:
+                case SafeNativeMethods.WINBIO_E_SENSOR_UNAVAILABLE:
+                case SafeNativeMethods.WINBIO_E_SESSION_BUSY:
+                case SafeNativeMethods.WINBIO_E_UNKNOWN_ID:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_FORMAT:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_TYPE:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_FACTOR:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PROPERTY:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PURPOSE:
+                    var message = ConvertErrorCodeToString(hresult);
+                    throw new WinBiometricException(message);
+                default:
+                    throw new WinBiometricException(hresult);
+            }
         }
 
         private static void ThrowWinBiometricException(string message)
