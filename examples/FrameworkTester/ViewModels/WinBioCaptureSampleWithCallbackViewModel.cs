@@ -28,7 +28,7 @@ namespace FrameworkTester.ViewModels
 
         private RelayCommand _CancelCommand;
 
-        public RelayCommand CancelCommand
+        public override RelayCommand CancelCommand
         {
             get
             {
@@ -46,7 +46,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = true;
                     }
-                }, () => this._WaitCallback));
+                }, () => this.WaitCallback));
             }
         }
 
@@ -177,7 +177,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = false;
                     }
-                }, () => !this._WaitCallback));
+                }, () => !this.WaitCallback));
             }
         }
 
@@ -240,21 +240,6 @@ namespace FrameworkTester.ViewModels
             {
                 this._UnitId = value;
                 this.RaisePropertyChanged();
-            }
-        }
-
-        private bool _WaitCallback;
-
-        private bool WaitCallback
-        {
-            set
-            {
-                this._WaitCallback = value;
-
-                this.RaisePropertyChanged();
-
-                this.ExecuteCommand.RaiseCanExecuteChanged();
-                this.CancelCommand.RaiseCanExecuteChanged();
             }
         }
 

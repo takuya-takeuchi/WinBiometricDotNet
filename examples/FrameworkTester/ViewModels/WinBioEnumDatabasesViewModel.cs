@@ -2,23 +2,33 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioEnumDatabasesViewModel : WinBioWithCallbackViewModel, IWinBioEnumDatabasesViewModel
+    public sealed class WinBioEnumDatabasesViewModel : WinBioViewModel, IWinBioEnumDatabasesViewModel
     {
+
+        #region Fields
+
+        private readonly IDispatcherService _DispatcherService;
+
+        #endregion
 
         #region Constructors
 
         public WinBioEnumDatabasesViewModel()
         {
+            this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
+
             this._Databases.CollectionChanged += (sender, args) =>
             {
-                this.DispatcherService.SafeAction(() => this.RemoveDatabaseCommand.RaiseCanExecuteChanged());
+                this._DispatcherService.SafeAction(() => this.RemoveDatabaseCommand.RaiseCanExecuteChanged());
             };
         }
 
