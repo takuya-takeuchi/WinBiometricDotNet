@@ -4,19 +4,8 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IWinBioEnrollCaptureWithCallbackViewModel : IWinBioViewModel
+    public interface IWinBioEnrollCaptureWithCallbackViewModel : IWinBioEnrollCaptureViewModel, IWinBioWithCallbackViewModel
     {
-
-        RelayCommand CancelCommand
-        {
-            get;
-        }
-
-        RejectDetails RejectDetail
-        {
-            get;
-        }
-
     }
 
 }

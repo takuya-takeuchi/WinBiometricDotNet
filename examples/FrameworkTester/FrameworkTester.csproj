@@ -119,6 +119,7 @@
     <Compile Include="ViewModels\Interfaces\IWinBioReleaseFocusViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAcquireFocusViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioOpenSessionViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioViewModel.cs" />
     <Compile Include="DesignTimes\WinBioCaptureSampleWithCallbackViewModel.cs" />
     <Compile Include="DesignTimes\WinBioCaptureSampleViewModel.cs" />

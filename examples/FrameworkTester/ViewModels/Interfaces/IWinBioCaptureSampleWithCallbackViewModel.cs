@@ -3,13 +3,8 @@
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IWinBioCaptureSampleWithCallbackViewModel : IWinBioCaptureSampleViewModel
+    public interface IWinBioCaptureSampleWithCallbackViewModel : IWinBioCaptureSampleViewModel, IWinBioWithCallbackViewModel
     {
-
-        RelayCommand CancelCommand
-        {
-            get;
-        }
 
         bool Loop
         {

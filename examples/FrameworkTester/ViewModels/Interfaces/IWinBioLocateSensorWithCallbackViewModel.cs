@@ -3,19 +3,8 @@
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IWinBioLocateSensorWithCallbackViewModel : IWinBioViewModel
+    public interface IWinBioLocateSensorWithCallbackViewModel : IWinBioLocateSensorViewModel, IWinBioWithCallbackViewModel
     {
-
-        RelayCommand CancelCommand
-        {
-            get;
-        }
-
-        uint UnitId
-        {
-            get;
-        }
-
     }
 
 }
