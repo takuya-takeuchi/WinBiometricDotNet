@@ -3,7 +3,7 @@ Windows Bitometric Framework .NET wrapper
 
 ## Support API
 
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-38%25%20(20/52)-green.svg)]()
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-44%25%20(23/52)-green.svg)]()
 
 |Function|Support|Note|
 |----|:----:|----|
@@ -22,11 +22,11 @@ Windows Bitometric Framework .NET wrapper
 |WinBioControlUnit|||
 |WinBioControlUnitPrivileged|||
 |WinBioDeleteTemplate|||
-|WinBioEnrollBegin|||
+|WinBioEnrollBegin|✓||
 |WinBioEnrollCapture|✓||
-|WinBioEnrollCaptureWithCallback|✓||
-|WinBioEnrollCommit|||
-|WinBioEnrollDiscard|||
+|WinBioEnrollCaptureWithCallback|||
+|WinBioEnrollCommit|✓||
+|WinBioEnrollDiscard|✓||
 |WinBioEnrollSelect|||
 |WinBioEnumBiometricUnits|✓||
 |WinBioEnumDatabases|✓||
