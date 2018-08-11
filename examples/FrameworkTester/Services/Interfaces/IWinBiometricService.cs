@@ -28,6 +28,8 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<FingerPosition> EnumEnrollments(BiometricUnit unit);
 
+        uint LocateSensor();
+
         Session OpenSession();
 
         void ReleaseFocus();

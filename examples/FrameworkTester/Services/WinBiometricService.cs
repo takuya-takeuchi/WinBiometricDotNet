@@ -109,6 +109,14 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumEnrollments(this._Session, unit);
         }
 
+        public uint LocateSensor()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.LocateSensor(this._Session);
+        }
+
         public Session OpenSession()
         {
             Session session = null;

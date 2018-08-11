@@ -50,15 +50,6 @@ namespace WinBiometricDotNet
 
         #endregion
 
-        #region Fields
-        #endregion
-
-        #region Constructors
-        #endregion
-
-        #region Properties
-        #endregion
-
         #region Methods
 
         public static void AcquireFocus()
@@ -253,6 +244,18 @@ namespace WinBiometricDotNet
             SafeNativeMethods.WinBioFree(subFactorArray);
 
             return array.Select(f => (FingerPosition)f).ToArray();
+        }
+
+        public static WINBIO_UNIT_ID LocateSensor(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLocateSensor(session.Handle, out var unitId);
+
+            ThrowWinBiometricException(hr);
+
+            return unitId;
         }
 
         public static Session OpenSession()
