@@ -74,6 +74,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DesignTimes\WinBioAcquireFocusViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioUnlockUnitViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioLockUnitViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLocateSensorWithCallbackViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLocateSensorViewModel.cs" />
     <Compile Include="DesignTimes\WinBioVerifyWithCallbackViewModel.cs" />
@@ -90,6 +92,8 @@
     <Compile Include="Services\Interfaces\IWinBiometricService.cs" />
     <Compile Include="Services\WinBiometricService.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioUnlockUnitViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioLockUnitViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioLocateSensorWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioLocateSensorViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioVerifyWithCallbackViewModel.cs" />
@@ -109,6 +113,8 @@
     <Compile Include="DesignTimes\WinBioCloseSessionViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioOpenSessionViewModel.cs" />
+    <Compile Include="ViewModels\WinBioUnlockUnitViewModel.cs" />
+    <Compile Include="ViewModels\WinBioLockUnitViewModel.cs" />
     <Compile Include="ViewModels\WinBioLocateSensorViewModel.cs" />
     <Compile Include="ViewModels\WinBioLocateSensorWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioVerifyWithCallbackViewModel.cs" />
@@ -127,6 +133,12 @@
     <Compile Include="ViewModels\WinBioViewModel.cs" />
     <Compile Include="Views\WinBioAcquireFocus.xaml.cs">
       <DependentUpon>WinBioAcquireFocus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioLockUnit.xaml.cs">
+      <DependentUpon>WinBioLockUnit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioUnlockUnit.xaml.cs">
+      <DependentUpon>WinBioUnlockUnit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioLocateSensorWithCallback.xaml.cs">
       <DependentUpon>WinBioLocateSensorWithCallback.xaml</DependentUpon>
@@ -179,6 +191,14 @@
     <Page Include="Views\WinBioAcquireFocus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WinBioLockUnit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioUnlockUnit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioLocateSensorWithCallback.xaml">
       <Generator>MSBuild:Compile</Generator>

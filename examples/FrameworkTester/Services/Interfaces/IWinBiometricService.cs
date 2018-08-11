@@ -32,11 +32,15 @@ namespace FrameworkTester.Services.Interfaces
 
         void LocateSensorWithCallback();
 
+        void LockUnit(uint unitId);
+
         Session OpenSession();
 
         void ReleaseFocus();
 
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
+
+        void UnlockUnit(uint unitId);
 
         VerifyResult Verify(BiometricUnit unit, FingerPosition position);
 

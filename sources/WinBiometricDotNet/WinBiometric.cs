@@ -153,7 +153,7 @@ namespace WinBiometricDotNet
                     BiometricFactor = (WINBIO_BIOMETRIC_TYPE)unit.BiometricFactor,
                     Capabilities = (WINBIO_CAPABILITIES)unit.Capabilities,
                     PoolType = (WINBIO_POOL_TYPE)unit.PoolType,
-                    UnitId = (WINBIO_UNIT_ID)unit.UnitId,
+                    UnitId = unit.UnitId,
                     FirmwareVersion = new SafeNativeMethods.WINBIO_VERSION
                     {
                         MinorVersion = unit.FirmwareVersion.MinorVersion,
@@ -233,7 +233,7 @@ namespace WinBiometricDotNet
             }
 
             hr = SafeNativeMethods.WinBioEnumEnrollments(session.Handle,
-                                                         (uint)unit.UnitId,
+                                                         unit.UnitId,
                                                          ref identity,
                                                          out var subFactorArray,
                                                          out var subFactorCount);
@@ -268,6 +268,16 @@ namespace WinBiometricDotNet
             var hr = SafeNativeMethods.WinBioLocateSensorWithCallback(session.Handle,
                                                                       LocateSensorCallback,
                                                                       IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void LockUnit(Session session, WINBIO_UNIT_ID unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLockUnit(session.Handle, unitId);
 
             ThrowWinBiometricException(hr);
         }
@@ -320,7 +330,7 @@ namespace WinBiometricDotNet
                 BiometricFactor = (WINBIO_BIOMETRIC_TYPE)unit.BiometricFactor,
                 Capabilities = (WINBIO_CAPABILITIES)unit.Capabilities,
                 PoolType = (WINBIO_POOL_TYPE)unit.PoolType,
-                UnitId = (WINBIO_UNIT_ID)unit.UnitId,
+                UnitId = unit.UnitId,
                 FirmwareVersion = new SafeNativeMethods.WINBIO_VERSION
                 {
                     MinorVersion = unit.FirmwareVersion.MinorVersion,
@@ -341,6 +351,16 @@ namespace WinBiometricDotNet
                 var message = ConvertErrorCodeToString(hr);
                 throw new WinBiometricException(message);
             }
+        }
+
+        public static void UnlockUnit(Session session, WINBIO_UNIT_ID unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioUnlockUnit(session.Handle, unitId);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position)

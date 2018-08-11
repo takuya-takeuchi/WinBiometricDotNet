@@ -130,6 +130,14 @@ namespace FrameworkTester.Services
             WinBiometric.LocateSensorWithCallback(this._Session);
         }
 
+        public void LockUnit(uint unitId)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.LockUnit(this._Session, unitId);
+        }
+
         public Session OpenSession()
         {
             Session session;
@@ -157,6 +165,14 @@ namespace FrameworkTester.Services
                 throw new ArgumentNullException(nameof(unit));
 
             WinBiometric.RemoveDatabase(unit, databaseId);
+        }
+
+        public void UnlockUnit(uint unitId)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+            
+            WinBiometric.UnlockUnit(this._Session, unitId);
         }
 
         public VerifyResult Verify(BiometricUnit unit, FingerPosition position)
