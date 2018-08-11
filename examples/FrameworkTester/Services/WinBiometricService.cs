@@ -11,6 +11,8 @@ namespace FrameworkTester.Services
 
         #region Events
 
+        public static event EnrollCapturedHandler EnrollCaptured;
+
         public static event SampleCapturedHandler SampleCaptured;
 
         public static event SensorLocatedHandler SensorLocated;
@@ -60,6 +62,17 @@ namespace FrameworkTester.Services
                 throw new Exception("There is no opened session.");
 
             return WinBiometric.CaptureEnroll(this._Session);
+        }
+
+        public void CaptureEnrollWithCallback()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.EnrollCaptured -= EnrollCaptured;
+            WinBiometric.EnrollCaptured += EnrollCaptured;
+
+            WinBiometric.CaptureEnrollWithCallback(this._Session);
         }
 
         public CaptureSampleResult CaptureSample()

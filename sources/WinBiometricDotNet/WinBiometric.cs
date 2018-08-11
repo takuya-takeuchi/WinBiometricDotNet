@@ -44,6 +44,8 @@ namespace WinBiometricDotNet
 
         #region Events
 
+        public static event EnrollCapturedHandler EnrollCaptured;
+
         public static event SampleCapturedHandler SampleCaptured;
 
         public static event SensorLocatedHandler SensorLocated;
@@ -90,6 +92,18 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return (RejectDetails)rejectDetail;
+        }
+
+        public static void CaptureEnrollWithCallback(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollCaptureWithCallback(session.Handle,
+                                                                       CaptureEnrollCallback,
+                                                                       IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static CaptureSampleResult CaptureSample(Session session)
@@ -1364,6 +1378,20 @@ namespace WinBiometricDotNet
 
         #region Event Handlers
 
+        private static void CaptureEnrollCallback(IntPtr enrollCallbackContext,
+                                                  int operationStatus,
+                                                  WINBIO_REJECT_DETAIL rejectDetail)
+        {
+            var status = ConvertToOperationStatus(operationStatus);
+
+            var @event = EnrollCaptured;
+            if (@event != null)
+            {
+                var args = new EnrollCapturedEventArgs((RejectDetails)rejectDetail, status);
+                @event.Invoke(null, args);
+            }
+        }
+
         private static unsafe void CaptureSampleCallback(IntPtr captureCallbackContext,
                                                          int operationStatus,
                                                          WINBIO_UNIT_ID unitId,
@@ -1407,11 +1435,11 @@ namespace WinBiometricDotNet
             }
         }
 
-        private static unsafe void VerifyCallback(IntPtr verifyCallbackContext,
-                                                  HRESULT operationStatus,
-                                                  WINBIO_UNIT_ID unitId,
-                                                  bool match,
-                                                  WINBIO_REJECT_DETAIL rejectDetail)
+        private static void VerifyCallback(IntPtr verifyCallbackContext,
+                                           HRESULT operationStatus,
+                                           WINBIO_UNIT_ID unitId,
+                                           bool match,
+                                           WINBIO_REJECT_DETAIL rejectDetail)
         {
             var status = ConvertToOperationStatus(operationStatus);
 
