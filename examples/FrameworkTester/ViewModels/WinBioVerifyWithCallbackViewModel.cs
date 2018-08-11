@@ -18,15 +18,12 @@ namespace FrameworkTester.ViewModels
 
         private readonly IDispatcherService _DispatcherService;
 
-        private readonly IWinBiometricService _Service;
-
         #endregion
 
         #region Constructors
 
         public WinBioVerifyWithCallbackViewModel()
         {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
             this._FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
 
@@ -49,7 +46,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        this._Service.Cancel();
+                        this.BiometricService.Cancel();
 
                         this.WaitCallback = false;
                     }
@@ -78,7 +75,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this._Service.VerifyWithCallback(this.CurrentUnit, this.SelectedFingerPosition);
+                        this.BiometricService.VerifyWithCallback(this.CurrentUnit, this.SelectedFingerPosition);
 
                         this.WaitCallback = true;
                     }

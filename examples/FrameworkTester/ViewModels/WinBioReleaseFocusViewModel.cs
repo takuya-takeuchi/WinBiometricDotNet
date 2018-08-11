@@ -1,30 +1,13 @@
 ﻿using System;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace FrameworkTester.ViewModels
 {
 
     public sealed class WinBioReleaseFocusViewModel : WinBioViewModel, IWinBioReleaseFocusViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
-        #region Constructors
-
-        public WinBioReleaseFocusViewModel()
-        {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -38,7 +21,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        this._Service.ReleaseFocus();
+                        this.BiometricService.ReleaseFocus();
                         this.Result = "OK";
                     }
                     catch (Exception e)

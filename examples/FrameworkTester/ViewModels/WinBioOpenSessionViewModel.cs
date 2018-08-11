@@ -1,30 +1,13 @@
 ﻿using System;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace FrameworkTester.ViewModels
 {
 
     public sealed class WinBioOpenSessionViewModel : WinBioViewModel, IWinBioOpenSessionViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
-        #region Constructors
-
-        public WinBioOpenSessionViewModel()
-        {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -38,7 +21,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        var session = this._Service.OpenSession();
+                        var session = this.BiometricService.OpenSession();
                         this.SessionHandle = session.Handle;
 
                         this.Result = "OK";

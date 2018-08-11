@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -14,21 +12,6 @@ namespace FrameworkTester.ViewModels
 
     public sealed class WinBioEnumEnrollmentsViewModel : WinBioViewModel, IWinBioEnumEnrollmentsViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
-        #region Constructors
-
-        public WinBioEnumEnrollmentsViewModel()
-        {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -44,7 +27,7 @@ namespace FrameworkTester.ViewModels
                     {
                         this._FingerPositions.Clear();
 
-                        var positions = this._Service.EnumEnrollments(this.CurrentUnit);
+                        var positions = this.BiometricService.EnumEnrollments(this.CurrentUnit);
                         var resuls = new List<KeyValuePair<string, bool>>();
                         foreach (var value in Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>())
                         {

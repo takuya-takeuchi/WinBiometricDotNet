@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -11,21 +9,6 @@ namespace FrameworkTester.ViewModels
 
     public sealed class WinBioEnrollCommitViewModel : WinBioViewModel, IWinBioEnrollCommitViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
-        #region Constructors
-
-        public WinBioEnrollCommitViewModel()
-        {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -44,7 +27,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        var result = this._Service.CommitEnroll();
+                        var result = this.BiometricService.CommitEnroll();
                         this.Result = "OK";
 
                         this.Type = result.Type;

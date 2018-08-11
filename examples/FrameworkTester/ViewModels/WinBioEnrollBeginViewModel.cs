@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -14,17 +12,10 @@ namespace FrameworkTester.ViewModels
     public sealed class WinBioEnrollBeginViewModel : WinBioViewModel, IWinBioEnrollBeginViewModel
     {
 
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
         #region Constructors
 
         public WinBioEnrollBeginViewModel()
         {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this.FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
         }
 
@@ -43,7 +34,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this._Service.BeginEnroll(this.SelectedFingerPosition, this.CurrentUnit.UnitId);
+                        this.BiometricService.BeginEnroll(this.SelectedFingerPosition, this.CurrentUnit.UnitId);
                         this.Result = "OK";
                     }
                     catch (Exception e)

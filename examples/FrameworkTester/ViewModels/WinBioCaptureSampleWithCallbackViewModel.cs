@@ -18,15 +18,12 @@ namespace FrameworkTester.ViewModels
 
         private readonly IDispatcherService _DispatcherService;
 
-        private readonly IWinBiometricService _Service;
-
         #endregion
 
         #region Constructors
 
         public WinBioCaptureSampleWithCallbackViewModel()
         {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
 
             WinBiometric.SampleCaptured += this.WinBiometricOnSampleCaptured;
@@ -48,7 +45,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        this._Service.Cancel();
+                        this.BiometricService.Cancel();
 
                         this.WaitCallback = false;
                     }
@@ -178,7 +175,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this._Service.CaptureSampleWithCallback();
+                        this.BiometricService.CaptureSampleWithCallback();
 
                         this.WaitCallback = true;
                     }

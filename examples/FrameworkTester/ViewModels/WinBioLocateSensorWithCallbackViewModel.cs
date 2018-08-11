@@ -16,15 +16,12 @@ namespace FrameworkTester.ViewModels
 
         private readonly IDispatcherService _DispatcherService;
 
-        private readonly IWinBiometricService _Service;
-
         #endregion
 
         #region Constructors
 
         public WinBioLocateSensorWithCallbackViewModel()
         {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
 
             WinBiometric.SensorLocated += this.WinBiometricSensorLocated;
@@ -46,7 +43,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        this._Service.Cancel();
+                        this.BiometricService.Cancel();
 
                         this.WaitCallback = false;
                     }
@@ -73,7 +70,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this._Service.LocateSensorWithCallback();
+                        this.BiometricService.LocateSensorWithCallback();
 
                         this.WaitCallback = true;
                     }

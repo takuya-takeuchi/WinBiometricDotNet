@@ -1,30 +1,13 @@
 ﻿using System;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace FrameworkTester.ViewModels
 {
 
     public sealed class WinBioCancelViewModel : WinBioViewModel, IWinBioCancelViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
-        #region Constructors
-
-        public WinBioCancelViewModel()
-        {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -38,7 +21,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        this._Service.Cancel();
+                        this.BiometricService.Cancel();
                         this.Result = "OK";
                     }
                     catch (Exception e)
