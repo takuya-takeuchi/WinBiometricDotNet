@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -12,21 +10,6 @@ namespace FrameworkTester.ViewModels
 
     public sealed class WinBioEnumBiometricUnitsViewModel : WinBioViewModel, IWinBioEnumBiometricUnitsViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
-        #region Constructors
-
-        public WinBioEnumBiometricUnitsViewModel()
-        {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -41,7 +24,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this._Units.Clear();
-                        foreach (var unit in this._Service.EnumBiometricUnits())
+                        foreach (var unit in this.BiometricService.EnumBiometricUnits())
                             this._Units.Add(unit);
 
                         this.Result = "OK";

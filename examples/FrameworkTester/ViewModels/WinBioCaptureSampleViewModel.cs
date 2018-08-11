@@ -2,10 +2,8 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using FrameworkTester.Helpers;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -13,21 +11,6 @@ namespace FrameworkTester.ViewModels
 
     public sealed class WinBioCaptureSampleViewModel : WinBioViewModel, IWinBioCaptureSampleViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
-        #region Constructors
-
-        public WinBioCaptureSampleViewModel()
-        {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
-        }
-
-        #endregion
 
         #region Properties
 
@@ -147,7 +130,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        var result = this._Service.CaptureSample();
+                        var result = this.BiometricService.CaptureSample();
                         this.Result = "OK";
 
                         switch (result.OperationStatus)

@@ -11,16 +11,14 @@ namespace FrameworkTester.Services
 
         #region Events
 
+        public static event EnrollCapturedHandler EnrollCaptured;
+
         public static event SampleCapturedHandler SampleCaptured;
+
+        public static event SensorLocatedHandler SensorLocated;
 
         public static event VerifyHandler Verified;
 
-        #endregion
-
-        #region Fields
-        #endregion
-
-        #region Constructors
         #endregion
 
         #region Properties
@@ -34,6 +32,41 @@ namespace FrameworkTester.Services
         public void AcquireFocus()
         {
             WinBiometric.AcquireFocus();
+        }
+
+        public void BeginEnroll(FingerPosition position, uint unitId)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.BeginEnroll(this._Session, position, unitId);
+        }
+
+        public void Cancel()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.Cancel(this._Session);
+        }
+
+        public RejectDetails CaptureEnroll()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.CaptureEnroll(this._Session);
+        }
+
+        public void CaptureEnrollWithCallback()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.EnrollCaptured -= EnrollCaptured;
+            WinBiometric.EnrollCaptured += EnrollCaptured;
+
+            WinBiometric.CaptureEnrollWithCallback(this._Session);
         }
 
         public CaptureSampleResult CaptureSample()
@@ -67,6 +100,14 @@ namespace FrameworkTester.Services
             this._Session = null;
         }
 
+        public BiometricIdentity CommitEnroll()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.CommitEnroll(this._Session);
+        }
+
         public Guid CreateDatabase(BiometricUnit unit)
         {
             if (unit == null)
@@ -81,6 +122,14 @@ namespace FrameworkTester.Services
                 throw new ArgumentNullException(nameof(unit));
 
             WinBiometric.CreateDatabase(unit, guid);
+        }
+
+        public void DiscardEnroll()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.DiscardEnroll(this._Session);
         }
 
         public IEnumerable<BiometricDatabase> EnumBiometricDatabases()
@@ -101,9 +150,36 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumEnrollments(this._Session, unit);
         }
 
+        public uint LocateSensor()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.LocateSensor(this._Session);
+        }
+
+        public void LocateSensorWithCallback()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.SensorLocated -= SensorLocated;
+            WinBiometric.SensorLocated += SensorLocated;
+
+            WinBiometric.LocateSensorWithCallback(this._Session);
+        }
+
+        public void LockUnit(uint unitId)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.LockUnit(this._Session, unitId);
+        }
+
         public Session OpenSession()
         {
-            Session session = null;
+            Session session;
 
             if (this._Session != null)
             {
@@ -128,6 +204,14 @@ namespace FrameworkTester.Services
                 throw new ArgumentNullException(nameof(unit));
 
             WinBiometric.RemoveDatabase(unit, databaseId);
+        }
+
+        public void UnlockUnit(uint unitId)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+            
+            WinBiometric.UnlockUnit(this._Session, unitId);
         }
 
         public VerifyResult Verify(BiometricUnit unit, FingerPosition position)

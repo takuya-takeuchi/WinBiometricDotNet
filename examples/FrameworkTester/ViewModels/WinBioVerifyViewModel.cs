@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media.Imaging;
-using FrameworkTester.Helpers;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -16,17 +12,10 @@ namespace FrameworkTester.ViewModels
     public sealed class WinBioVerifyViewModel : WinBioViewModel, IWinBioVerifyViewModel
     {
 
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
-
         #region Constructors
 
         public WinBioVerifyViewModel()
         {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
         }
 
@@ -49,7 +38,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        var result = this._Service.Verify(this.CurrentUnit, this.SelectedFingerPosition);
+                        var result = this.BiometricService.Verify(this.CurrentUnit, this.SelectedFingerPosition);
                         this.Result = "OK";
 
                         this.IsMatch = result.IsMatch;

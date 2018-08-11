@@ -19,7 +19,7 @@ namespace WinBiometricDotNet
             this.BiometricFactor = (BiometricTypes) schema.BiometricFactor;
             this.Capabilities = (BiometricCapabilities) schema.Capabilities;
             this.PoolType = (BiometricPoolType) schema.PoolType;
-            this.UnitId = (int) schema.UnitId;
+            this.UnitId = schema.UnitId;
             this.FirmwareVersion = new BiometricUnitVersion(schema.FirmwareVersion);
         }
 
@@ -39,7 +39,7 @@ namespace WinBiometricDotNet
             internal set;
         }
 
-        public int UnitId
+        public uint UnitId
         {
             get;
             internal set;

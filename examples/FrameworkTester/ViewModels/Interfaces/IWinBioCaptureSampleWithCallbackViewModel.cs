@@ -1,7 +1,9 @@
-﻿namespace FrameworkTester.ViewModels.Interfaces
+﻿using GalaSoft.MvvmLight.Command;
+
+namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IWinBioCaptureSampleWithCallbackViewModel : IWinBioCaptureSampleViewModel
+    public interface IWinBioCaptureSampleWithCallbackViewModel : IWinBioCaptureSampleViewModel, IWinBioWithCallbackViewModel
     {
 
         bool Loop

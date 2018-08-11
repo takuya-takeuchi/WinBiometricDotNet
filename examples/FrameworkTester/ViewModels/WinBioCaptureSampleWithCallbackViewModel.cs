@@ -2,35 +2,53 @@
 using System.Windows;
 using System.Windows.Media.Imaging;
 using FrameworkTester.Helpers;
-using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioViewModel, IWinBioCaptureSampleWithCallbackViewModel
+    public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioWithCallbackViewModel, IWinBioCaptureSampleWithCallbackViewModel
     {
-
-        #region Fields
-
-        private readonly IWinBiometricService _Service;
-
-        #endregion
 
         #region Constructors
 
         public WinBioCaptureSampleWithCallbackViewModel()
         {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
+            WinBiometric.SampleCaptured -= this.WinBiometricOnSampleCaptured;
             WinBiometric.SampleCaptured += this.WinBiometricOnSampleCaptured;
+
+            this.WaitCallback = false;
         }
 
         #endregion
 
         #region Properties
+
+        private RelayCommand _CancelCommand;
+
+        public override RelayCommand CancelCommand
+        {
+            get
+            {
+                return this._CancelCommand ?? (this._CancelCommand = new RelayCommand(() =>
+                {
+                    try
+                    {
+                        this.BiometricService.Cancel();
+
+                        this.WaitCallback = false;
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message);
+
+                        this.WaitCallback = true;
+                    }
+                }, () => this.WaitCallback));
+            }
+        }
 
         private BitmapSource _CaptureImage;
 
@@ -148,14 +166,18 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this._Service.CaptureSampleWithCallback();
+                        this.BiometricService.CaptureSampleWithCallback();
+
+                        this.WaitCallback = true;
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message);
                         this.Result = "FAIL";
+
+                        this.WaitCallback = false;
                     }
-                }));
+                }, () => !this.WaitCallback));
             }
         }
 
@@ -229,6 +251,11 @@ namespace FrameworkTester.ViewModels
 
         private void WinBiometricOnSampleCaptured(object sender, CaptureSampleEventArgs e)
         {
+            this.DispatcherService.SafeAction(() =>
+            {
+                this.WaitCallback = false;
+            });
+
             switch (e.Result.OperationStatus)
             {
                 case OperationStatus.OK:

@@ -18,16 +18,14 @@ namespace FrameworkTester.ViewModels
 
         private readonly IDispatcherService _DispatcherService;
 
-        private readonly IWinBiometricService _Service;
-
         #endregion
 
         #region Constructors
 
         public WinBioEnumDatabasesViewModel()
         {
-            this._Service = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
+
             this._Databases.CollectionChanged += (sender, args) =>
             {
                 this._DispatcherService.SafeAction(() => this.RemoveDatabaseCommand.RaiseCanExecuteChanged());
@@ -48,7 +46,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        var guid = this._Service.CreateDatabase(this.CurrentUnit);
+                        var guid = this.BiometricService.CreateDatabase(this.CurrentUnit);
                         this.Result = "OK";
 
                         MessageBox.Show($"{guid} was created.");
@@ -90,7 +88,7 @@ namespace FrameworkTester.ViewModels
                         this.CurrentDatabase = null;
 
                         this._Databases.Clear();
-                        foreach (var database in this._Service.EnumBiometricDatabases())
+                        foreach (var database in this.BiometricService.EnumBiometricDatabases())
                             this._Databases.Add(database);
 
                         if (this._Databases.Any())
@@ -130,7 +128,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         var databaseId = this._CurrentDatabase.DatabaseId;
-                        this._Service.RemoveDatabase(this.CurrentUnit, databaseId);
+                        this.BiometricService.RemoveDatabase(this.CurrentUnit, databaseId);
                         this.Result = "OK";
 
                         var database = this._Databases.First(d => d.DatabaseId == databaseId);

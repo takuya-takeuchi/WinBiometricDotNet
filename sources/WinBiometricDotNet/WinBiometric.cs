@@ -44,19 +44,41 @@ namespace WinBiometricDotNet
 
         #region Events
 
+        public static event EnrollCapturedHandler EnrollCaptured;
+
         public static event SampleCapturedHandler SampleCaptured;
+
+        public static event SensorLocatedHandler SensorLocated;
 
         public static event VerifyHandler Verified;
 
         #endregion
 
         #region Fields
+
+        private static readonly SafeNativeMethods.WINBIO_ENROLL_CAPTURE_CALLBACK NativeEnrollCaptureCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_CAPTURE_CALLBACK NativeSampleCapturedCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_LOCATE_SENSOR_CALLBACK NativeSensorLocatedCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_VERIFY_CALLBACK NativeVerifyCallback;
+
         #endregion
 
         #region Constructors
-        #endregion
 
-        #region Properties
+        static WinBiometric()
+        {
+            unsafe
+            {
+                NativeEnrollCaptureCallback = CaptureEnrollCallback;
+                NativeSampleCapturedCallback = CaptureSampleCallback;
+                NativeSensorLocatedCallback = LocateSensorCallback;
+                NativeVerifyCallback = VerifyCallback;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -64,6 +86,49 @@ namespace WinBiometricDotNet
         public static void AcquireFocus()
         {
             var hr = SafeNativeMethods.WinBioAcquireFocus();
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void BeginEnroll(Session session, FingerPosition position, uint unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollBegin(session.Handle, (byte)position, unitId);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void Cancel(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioCancel(session.Handle);
+            ThrowWinBiometricException(hr);
+        }
+
+        public static RejectDetails CaptureEnroll(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollCapture(session.Handle, out var rejectDetail);
+
+            ThrowWinBiometricException(hr);
+
+            return (RejectDetails)rejectDetail;
+        }
+
+        public static void CaptureEnrollWithCallback(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollCaptureWithCallback(session.Handle,
+                                                                       NativeEnrollCaptureCallback,
+                                                                       IntPtr.Zero);
 
             ThrowWinBiometricException(hr);
         }
@@ -103,7 +168,7 @@ namespace WinBiometricDotNet
                 var hr = SafeNativeMethods.WinBioCaptureSampleWithCallback(session.Handle,
                                                                            SafeNativeMethods.WINBIO_NO_PURPOSE_AVAILABLE,
                                                                            SafeNativeMethods.WINBIO_DATA_FLAG_RAW,
-                                                                           CaptureSampleCallback,
+                                                                           NativeSampleCapturedCallback,
                                                                            IntPtr.Zero);
 
                 ThrowWinBiometricException(hr);
@@ -118,6 +183,20 @@ namespace WinBiometricDotNet
             var hr = SafeNativeMethods.WinBioCloseSession(session.Handle);
 
             ThrowWinBiometricException(hr);
+        }
+
+        public static BiometricIdentity CommitEnroll(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollCommit(session.Handle,
+                                                          out var identity,
+                                                          out var isNewTemplate);
+
+            ThrowWinBiometricException(hr);
+
+            return new BiometricIdentity(identity);
         }
 
         public static Guid CreateDatabase(BiometricUnit unit)
@@ -151,7 +230,7 @@ namespace WinBiometricDotNet
                     BiometricFactor = (WINBIO_BIOMETRIC_TYPE)unit.BiometricFactor,
                     Capabilities = (WINBIO_CAPABILITIES)unit.Capabilities,
                     PoolType = (WINBIO_POOL_TYPE)unit.PoolType,
-                    UnitId = (WINBIO_UNIT_ID)unit.UnitId,
+                    UnitId = unit.UnitId,
                     FirmwareVersion = new SafeNativeMethods.WINBIO_VERSION
                     {
                         MinorVersion = unit.FirmwareVersion.MinorVersion,
@@ -180,6 +259,16 @@ namespace WinBiometricDotNet
                     throw new WinBiometricException(message);
                 }
             }
+        }
+
+        public static void DiscardEnroll(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollDiscard(session.Handle);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static IEnumerable<BiometricDatabase> EnumBiometricDatabases(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
@@ -231,7 +320,7 @@ namespace WinBiometricDotNet
             }
 
             hr = SafeNativeMethods.WinBioEnumEnrollments(session.Handle,
-                                                         (uint)unit.UnitId,
+                                                         unit.UnitId,
                                                          ref identity,
                                                          out var subFactorArray,
                                                          out var subFactorCount);
@@ -244,6 +333,40 @@ namespace WinBiometricDotNet
             SafeNativeMethods.WinBioFree(subFactorArray);
 
             return array.Select(f => (FingerPosition)f).ToArray();
+        }
+
+        public static WINBIO_UNIT_ID LocateSensor(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLocateSensor(session.Handle, out var unitId);
+
+            ThrowWinBiometricException(hr);
+
+            return unitId;
+        }
+
+        public static void LocateSensorWithCallback(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLocateSensorWithCallback(session.Handle,
+                                                                      NativeSensorLocatedCallback,
+                                                                      IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void LockUnit(Session session, WINBIO_UNIT_ID unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLockUnit(session.Handle, unitId);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static Session OpenSession()
@@ -294,7 +417,7 @@ namespace WinBiometricDotNet
                 BiometricFactor = (WINBIO_BIOMETRIC_TYPE)unit.BiometricFactor,
                 Capabilities = (WINBIO_CAPABILITIES)unit.Capabilities,
                 PoolType = (WINBIO_POOL_TYPE)unit.PoolType,
-                UnitId = (WINBIO_UNIT_ID)unit.UnitId,
+                UnitId = unit.UnitId,
                 FirmwareVersion = new SafeNativeMethods.WINBIO_VERSION
                 {
                     MinorVersion = unit.FirmwareVersion.MinorVersion,
@@ -315,6 +438,16 @@ namespace WinBiometricDotNet
                 var message = ConvertErrorCodeToString(hr);
                 throw new WinBiometricException(message);
             }
+        }
+
+        public static void UnlockUnit(Session session, WINBIO_UNIT_ID unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioUnlockUnit(session.Handle, unitId);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position)
@@ -359,7 +492,7 @@ namespace WinBiometricDotNet
 
             return new VerifyResult(match, unitId, status, (RejectDetails)rejectDetail);
         }
-        
+
         public static void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position)
         {
             if (session == null)
@@ -374,7 +507,7 @@ namespace WinBiometricDotNet
             hr = SafeNativeMethods.WinBioVerifyWithCallback(session.Handle,
                                                             ref identity,
                                                             (WINBIO_BIOMETRIC_SUBTYPE)position,
-                                                            VerifyCallback,
+                                                            NativeVerifyCallback,
                                                             IntPtr.Zero);
 
             ThrowWinBiometricException(hr);
@@ -417,7 +550,7 @@ namespace WinBiometricDotNet
             unsafe
             {
                 if (messageLength > 0)
-                    message = Encoding.Default.GetString((byte*) lpMsgBuf, (int) messageLength);
+                    message = Encoding.Default.GetString((byte*)lpMsgBuf, (int)messageLength);
             }
 
             SafeNativeMethods.LocalFree(lpMsgBuf);
@@ -1063,7 +1196,67 @@ namespace WinBiometricDotNet
             if (!SafeNativeMethods.Macros.FAILED(hresult))
                 return;
 
-            throw new WinBiometricException(hresult);
+            switch (hresult)
+            {
+                case SafeNativeMethods.WINBIO_E_ADAPTER_INTEGRITY_FAILURE:
+                case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                case SafeNativeMethods.WINBIO_E_CANCELED:
+                case SafeNativeMethods.WINBIO_E_CAPTURE_ABORTED:
+                case SafeNativeMethods.WINBIO_E_CONFIGURATION_FAILURE:
+                case SafeNativeMethods.WINBIO_E_CRED_PROV_DISABLED:
+                case SafeNativeMethods.WINBIO_E_CRED_PROV_NO_CREDENTIAL:
+                case SafeNativeMethods.WINBIO_E_DATA_COLLECTION_IN_PROGRESS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_ALREADY_EXISTS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_BAD_INDEX_VECTOR:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CLOSE:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CREATE:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_ERASE:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_FIND:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_OPEN:
+                case SafeNativeMethods.WINBIO_E_DATABASE_CORRUPTED:
+                case SafeNativeMethods.WINBIO_E_DATABASE_EOF:
+                case SafeNativeMethods.WINBIO_E_DATABASE_FULL:
+                case SafeNativeMethods.WINBIO_E_DATABASE_LOCKED:
+                case SafeNativeMethods.WINBIO_E_DATABASE_NO_MORE_RECORDS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_NO_RESULTS:
+                case SafeNativeMethods.WINBIO_E_DATABASE_NO_SUCH_RECORD:
+                case SafeNativeMethods.WINBIO_E_DATABASE_READ_ERROR:
+                case SafeNativeMethods.WINBIO_E_DATABASE_WRITE_ERROR:
+                case SafeNativeMethods.WINBIO_E_DEVICE_BUSY:
+                case SafeNativeMethods.WINBIO_E_DEVICE_FAILURE:
+                case SafeNativeMethods.WINBIO_E_DISABLED:
+                case SafeNativeMethods.WINBIO_E_DUPLICATE_ENROLLMENT:
+                case SafeNativeMethods.WINBIO_E_DUPLICATE_TEMPLATE:
+                case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
+                case SafeNativeMethods.WINBIO_E_EVENT_MONITOR_ACTIVE:
+                case SafeNativeMethods.WINBIO_E_FAST_USER_SWITCH_DISABLED:
+                case SafeNativeMethods.WINBIO_E_INCORRECT_BSP:
+                case SafeNativeMethods.WINBIO_E_INCORRECT_SENSOR_POOL:
+                case SafeNativeMethods.WINBIO_E_INVALID_CONTROL_CODE:
+                case SafeNativeMethods.WINBIO_E_INVALID_DEVICE_STATE:
+                case SafeNativeMethods.WINBIO_E_INVALID_OPERATION:
+                case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_ID:
+                case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_TYPE:
+                case SafeNativeMethods.WINBIO_E_INVALID_SENSOR_MODE:
+                case SafeNativeMethods.WINBIO_E_INVALID_UNIT:
+                case SafeNativeMethods.WINBIO_E_LOCK_VIOLATION:
+                case SafeNativeMethods.WINBIO_E_NO_CAPTURE_DATA:
+                case SafeNativeMethods.WINBIO_E_NO_MATCH:
+                case SafeNativeMethods.WINBIO_E_NOT_ACTIVE_CONSOLE:
+                case SafeNativeMethods.WINBIO_E_SAS_ENABLED:
+                case SafeNativeMethods.WINBIO_E_SENSOR_UNAVAILABLE:
+                case SafeNativeMethods.WINBIO_E_SESSION_BUSY:
+                case SafeNativeMethods.WINBIO_E_UNKNOWN_ID:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_FORMAT:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_TYPE:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_FACTOR:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PROPERTY:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PURPOSE:
+                    var message = ConvertErrorCodeToString(hresult);
+                    throw new WinBiometricException(message);
+                default:
+                    throw new WinBiometricException(hresult);
+            }
         }
 
         private static void ThrowWinBiometricException(string message)
@@ -1212,6 +1405,20 @@ namespace WinBiometricDotNet
 
         #region Event Handlers
 
+        private static void CaptureEnrollCallback(IntPtr enrollCallbackContext,
+                                                  int operationStatus,
+                                                  WINBIO_REJECT_DETAIL rejectDetail)
+        {
+            var status = ConvertToOperationStatus(operationStatus);
+
+            var @event = EnrollCaptured;
+            if (@event != null)
+            {
+                var args = new EnrollCapturedEventArgs((RejectDetails)rejectDetail, status);
+                @event.Invoke(null, args);
+            }
+        }
+
         private static unsafe void CaptureSampleCallback(IntPtr captureCallbackContext,
                                                          int operationStatus,
                                                          WINBIO_UNIT_ID unitId,
@@ -1240,12 +1447,26 @@ namespace WinBiometricDotNet
                 }
             }
         }
-        
-        private static unsafe void VerifyCallback(IntPtr verifyCallbackContext,
-                                                  HRESULT operationStatus,
-                                                  WINBIO_UNIT_ID unitId,
-                                                  bool match,
-                                                  WINBIO_REJECT_DETAIL rejectDetail)
+
+        private static void LocateSensorCallback(IntPtr locateCallbackContext,
+                                                 int operationStatus,
+                                                 WINBIO_UNIT_ID unitId)
+        {
+            var status = ConvertToOperationStatus(operationStatus);
+
+            var @event = SensorLocated;
+            if (@event != null)
+            {
+                var args = new LocateSensorEventArgs(unitId, status);
+                @event.Invoke(null, args);
+            }
+        }
+
+        private static void VerifyCallback(IntPtr verifyCallbackContext,
+                                           HRESULT operationStatus,
+                                           WINBIO_UNIT_ID unitId,
+                                           bool match,
+                                           WINBIO_REJECT_DETAIL rejectDetail)
         {
             var status = ConvertToOperationStatus(operationStatus);
 
@@ -1262,6 +1483,5 @@ namespace WinBiometricDotNet
         #endregion
 
     }
-
 
 }

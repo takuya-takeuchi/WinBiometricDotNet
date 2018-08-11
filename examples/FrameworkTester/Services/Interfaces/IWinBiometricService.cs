@@ -10,15 +10,27 @@ namespace FrameworkTester.Services.Interfaces
 
         void AcquireFocus();
 
+        void BeginEnroll(FingerPosition position, uint unitId);
+
+        void Cancel();
+
+        RejectDetails CaptureEnroll();
+
+        void CaptureEnrollWithCallback();
+
         CaptureSampleResult CaptureSample();
 
         void CaptureSampleWithCallback();
 
         void CloseSession();
 
+        BiometricIdentity CommitEnroll();
+
         Guid CreateDatabase(BiometricUnit unit);
 
         void CreateDatabase(BiometricUnit unit, Guid guid);
+
+        void DiscardEnroll();
 
         IEnumerable<BiometricDatabase> EnumBiometricDatabases();
 
@@ -26,11 +38,19 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<FingerPosition> EnumEnrollments(BiometricUnit unit);
 
+        uint LocateSensor();
+
+        void LocateSensorWithCallback();
+
+        void LockUnit(uint unitId);
+
         Session OpenSession();
 
         void ReleaseFocus();
 
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
+
+        void UnlockUnit(uint unitId);
 
         VerifyResult Verify(BiometricUnit unit, FingerPosition position);
 
