@@ -54,6 +54,33 @@ namespace WinBiometricDotNet
 
         #endregion
 
+        #region Fields
+
+        private static readonly SafeNativeMethods.WINBIO_ENROLL_CAPTURE_CALLBACK NativeEnrollCaptureCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_CAPTURE_CALLBACK NativeSampleCapturedCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_LOCATE_SENSOR_CALLBACK NativeSensorLocatedCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_VERIFY_CALLBACK NativeVerifyCallback;
+
+        #endregion
+
+        #region Constructors
+
+        static WinBiometric()
+        {
+            unsafe
+            {
+                NativeEnrollCaptureCallback = CaptureEnrollCallback;
+                NativeSampleCapturedCallback = CaptureSampleCallback;
+                NativeSensorLocatedCallback = LocateSensorCallback;
+                NativeVerifyCallback = VerifyCallback;
+            }
+        }
+
+        #endregion
+
         #region Methods
 
         public static void AcquireFocus()
@@ -100,7 +127,7 @@ namespace WinBiometricDotNet
                 throw new ArgumentNullException(nameof(session));
 
             var hr = SafeNativeMethods.WinBioEnrollCaptureWithCallback(session.Handle,
-                                                                       CaptureEnrollCallback,
+                                                                       NativeEnrollCaptureCallback,
                                                                        IntPtr.Zero);
 
             ThrowWinBiometricException(hr);
@@ -141,7 +168,7 @@ namespace WinBiometricDotNet
                 var hr = SafeNativeMethods.WinBioCaptureSampleWithCallback(session.Handle,
                                                                            SafeNativeMethods.WINBIO_NO_PURPOSE_AVAILABLE,
                                                                            SafeNativeMethods.WINBIO_DATA_FLAG_RAW,
-                                                                           CaptureSampleCallback,
+                                                                           NativeSampleCapturedCallback,
                                                                            IntPtr.Zero);
 
                 ThrowWinBiometricException(hr);
@@ -326,7 +353,7 @@ namespace WinBiometricDotNet
                 throw new ArgumentNullException(nameof(session));
 
             var hr = SafeNativeMethods.WinBioLocateSensorWithCallback(session.Handle,
-                                                                      LocateSensorCallback,
+                                                                      NativeSensorLocatedCallback,
                                                                       IntPtr.Zero);
 
             ThrowWinBiometricException(hr);
@@ -480,7 +507,7 @@ namespace WinBiometricDotNet
             hr = SafeNativeMethods.WinBioVerifyWithCallback(session.Handle,
                                                             ref identity,
                                                             (WINBIO_BIOMETRIC_SUBTYPE)position,
-                                                            VerifyCallback,
+                                                            NativeVerifyCallback,
                                                             IntPtr.Zero);
 
             ThrowWinBiometricException(hr);
