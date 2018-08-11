@@ -146,7 +146,7 @@ namespace FrameworkTester.ViewModels
                     break;
             }
 
-            this.RejectDetail = e.RejectDetails;
+            this.RejectDetail = e.RejectDetail;
         }
 
         #endregion
