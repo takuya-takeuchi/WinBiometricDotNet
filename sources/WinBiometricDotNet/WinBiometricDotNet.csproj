@@ -5,7 +5,7 @@
     <Authors>Takuya Takeuchi</Authors>
     <Copyright>Takuya Takeuchi</Copyright>
     <Description>.NET wrapper for Windows Biometric Framework</Description>
-    <Version>0.3.0</Version>
+    <Version>0.4.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
