@@ -340,6 +340,18 @@ namespace WinBiometricDotNet
             return array.Select(f => (FingerPosition)f).ToArray();
         }
 
+        public static IEnumerable<BiometricServiceProvider> EnumServiceProviders(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            var hr = SafeNativeMethods.WinBioEnumServiceProviders((uint)biometricTypes,
+                                                                  out var bspSchemaArray,
+                                                                  out var bspCount);
+
+            ThrowWinBiometricException(hr);
+
+            foreach (var schema in bspSchemaArray)
+                yield return new BiometricServiceProvider(schema);
+        }
+
         public static WINBIO_UNIT_ID LocateSensor(Session session)
         {
             if (session == null)
@@ -389,7 +401,7 @@ namespace WinBiometricDotNet
             }
 
             ThrowWinBiometricException(hr);
-            
+
             // Basically, this statement should not be executed
             return false;
         }
@@ -487,7 +499,7 @@ namespace WinBiometricDotNet
 
             ThrowWinBiometricException(hr);
         }
-        
+
         public static void UnregisterEventMonitor(Session session)
         {
             if (session == null)
@@ -1495,7 +1507,7 @@ namespace WinBiometricDotNet
                 }
             }
         }
-        
+
         private static unsafe void EventMonitorCallback(IntPtr eventCallbackContext,
                                                         HRESULT operationStatus,
                                                         SafeNativeMethods.WINBIO_EVENT* @event)
@@ -1539,7 +1551,7 @@ namespace WinBiometricDotNet
                                                            null);
                         break;
                     case SafeNativeMethods.WINBIO_EVENT_ERROR:
-                        var winbioEventError= @event->Parameters.Error;
+                        var winbioEventError = @event->Parameters.Error;
                         var error = new ErrorEvent(winbioEventError.ErrorCode);
 
                         args = new EventMonitoredEventArgs(EventTypes.Error,

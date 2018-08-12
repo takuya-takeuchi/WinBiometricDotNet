@@ -152,6 +152,11 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumEnrollments(this._Session, unit);
         }
 
+        public IEnumerable<BiometricServiceProvider> EnumServiceProviders()
+        {
+            return WinBiometric.EnumServiceProviders();
+        }
+
         public uint LocateSensor()
         {
             if (this._Session == null)

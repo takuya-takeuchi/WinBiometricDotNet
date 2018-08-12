@@ -40,6 +40,8 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<FingerPosition> EnumEnrollments(BiometricUnit unit);
 
+        IEnumerable<BiometricServiceProvider> EnumServiceProviders();
+
         uint LocateSensor();
 
         void LocateSensorWithCallback();

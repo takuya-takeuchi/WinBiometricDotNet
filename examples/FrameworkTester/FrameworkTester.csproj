@@ -74,6 +74,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DesignTimes\WinBioAcquireFocusViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLogonIdentifiedUserViewModel.cs" />
     <Compile Include="DesignTimes\WinBioCancelViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollCaptureWithCallbackViewModel.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Services\WinBiometricService.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCancelViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioLogonIdentifiedUserViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnrollCaptureWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnrollCommitViewModel.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="DesignTimes\WinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioOpenSessionViewModel.cs" />
     <Compile Include="ViewModels\WinBioCancelViewModel.cs" />
+    <Compile Include="ViewModels\WinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\WinBioLogonIdentifiedUserViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollCaptureWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollDiscardViewModel.cs" />
@@ -168,6 +171,9 @@
     </Compile>
     <Compile Include="Views\WinBioEnrollBegin.xaml.cs">
       <DependentUpon>WinBioEnrollBegin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioEnumServiceProviders.xaml.cs">
+      <DependentUpon>WinBioEnumServiceProviders.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioLockUnit.xaml.cs">
       <DependentUpon>WinBioLockUnit.xaml</DependentUpon>
@@ -249,6 +255,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioEnrollBegin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioEnumServiceProviders.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
