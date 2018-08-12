@@ -46,6 +46,8 @@ namespace FrameworkTester.Services.Interfaces
 
         void LockUnit(uint unitId);
 
+        bool LogonIdentifiedUser();
+
         Session OpenSession();
 
         void RegisterEventMonitor(EventTypes eventType);

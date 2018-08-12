@@ -103,6 +103,8 @@ namespace WinBiometricDotNet.Interop
 
         public const int S_OK = unchecked((int)0x00000000);
 
+        public const int S_FALSE = unchecked((int)0x00000001);
+
         public const int TRUE = 1;
 
         public const int FALSE = 0;

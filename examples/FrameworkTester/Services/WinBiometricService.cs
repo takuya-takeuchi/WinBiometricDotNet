@@ -179,6 +179,14 @@ namespace FrameworkTester.Services
             WinBiometric.LockUnit(this._Session, unitId);
         }
 
+        public bool LogonIdentifiedUser()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.LogonIdentifiedUser(this._Session);
+        }
+
         public Session OpenSession()
         {
             Session session;
@@ -259,10 +267,7 @@ namespace FrameworkTester.Services
 
             WinBiometric.VerifyWithCallback(this._Session, unit, position);
         }
-
-        #region Overrids
-        #endregion
-
+        
         #endregion
 
     }

@@ -374,6 +374,26 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static bool LogonIdentifiedUser(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLogonIdentifiedUser(session.Handle);
+            switch (hr)
+            {
+                case SafeNativeMethods.S_OK:
+                    return true;
+                case SafeNativeMethods.S_FALSE:
+                    return false;
+            }
+
+            ThrowWinBiometricException(hr);
+            
+            // Basically, this statement should not be executed
+            return false;
+        }
+
         public static Session OpenSession()
         {
             unsafe
