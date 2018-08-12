@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
-<package >
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>WinBiometricDotNet</id>
-    <version>0.3.0-pre</version>
+    <version>0.4.0</version>
     <title>WinBiometricDotNet</title>
     <authors>Takuya Takeuchi</authors>
     <owners>Takuya Takeuchi</owners>
@@ -16,7 +16,9 @@
     <tags>windowsbiometricframework wbf biometric</tags>
     <serviceable>true</serviceable>
     <dependencies>
-      <group targetFramework="netstandard2.0" />
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Security.Principal.Windows" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
     </dependencies>
   </metadata>
   <files>
