@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security.Principal;
 using WinBiometricDotNet.Interop;
 
 namespace WinBiometricDotNet
@@ -37,10 +38,14 @@ namespace WinBiometricDotNet
                     unsafe
                     {
                         var accountSid = value.AccountSid;
-                        this.Sid = Marshal.PtrToStringAnsi((IntPtr)accountSid.Data);
+                        var binaryForm = new byte[accountSid.Size];
+                        Marshal.Copy((IntPtr)accountSid.Data, binaryForm, 0, binaryForm.Length);
+                        this.Sid = new SecurityIdentifier(binaryForm, 0);
                     }
                     break;
             }
+
+            this.Source = identity;
         }
 
         #endregion
@@ -52,7 +57,12 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public string Sid
+        public SecurityIdentifier Sid
+        {
+            get;
+        }
+
+        internal SafeNativeMethods.WINBIO_IDENTITY Source
         {
             get;
         }

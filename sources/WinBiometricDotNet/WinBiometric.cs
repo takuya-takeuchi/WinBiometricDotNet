@@ -46,6 +46,10 @@ namespace WinBiometricDotNet
 
         public static event EnrollCapturedHandler EnrollCaptured;
 
+        public static event EventMonitoredHandler EventMonitored;
+
+        public static event IdentifiedHandler Identified;
+
         public static event SampleCapturedHandler SampleCaptured;
 
         public static event SensorLocatedHandler SensorLocated;
@@ -57,6 +61,10 @@ namespace WinBiometricDotNet
         #region Fields
 
         private static readonly SafeNativeMethods.WINBIO_ENROLL_CAPTURE_CALLBACK NativeEnrollCaptureCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_EVENT_CALLBACK NativeEventCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_IDENTIFY_CALLBACK NativeIdentifyCallback;
 
         private static readonly SafeNativeMethods.WINBIO_CAPTURE_CALLBACK NativeSampleCapturedCallback;
 
@@ -73,6 +81,8 @@ namespace WinBiometricDotNet
             unsafe
             {
                 NativeEnrollCaptureCallback = CaptureEnrollCallback;
+                NativeEventCallback = EventMonitorCallback;
+                NativeIdentifyCallback = IdentifyCallback;
                 NativeSampleCapturedCallback = CaptureSampleCallback;
                 NativeSensorLocatedCallback = LocateSensorCallback;
                 NativeVerifyCallback = VerifyCallback;
@@ -335,6 +345,64 @@ namespace WinBiometricDotNet
             return array.Select(f => (FingerPosition)f).ToArray();
         }
 
+        public static IEnumerable<BiometricServiceProvider> EnumServiceProviders(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            var hr = SafeNativeMethods.WinBioEnumServiceProviders((uint)biometricTypes,
+                                                                  out var bspSchemaArray,
+                                                                  out var bspCount);
+
+            ThrowWinBiometricException(hr);
+
+            foreach (var schema in bspSchemaArray)
+                yield return new BiometricServiceProvider(schema);
+        }
+
+        public static CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
+        {
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+            
+            var hr = SafeNativeMethods.WinBioGetCredentialState(identity.Source,
+                                                                (SafeNativeMethods.WINBIO_CREDENTIAL_TYPE)credentialType,
+                                                                out var state);
+
+            ThrowWinBiometricException(hr);
+
+            return (CredentialStates)state;
+        }
+
+        public static IdentifyResult Identify(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioIdentify(session.Handle,
+                                                      out var unitId,
+                                                      out var identity,
+                                                      out var subFactor,
+                                                      out var rejectDetail);
+
+            ThrowWinBiometricException(hr);
+
+            return new IdentifyResult(unitId,
+                                      OperationStatus.OK, 
+                                      new BiometricIdentity(identity), 
+                                      (FingerPosition) subFactor,
+                                      (RejectDetails) rejectDetail);
+        }
+
+        public static void IdentifyWithCallback(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioIdentifyWithCallback(session.Handle,
+                                                                  NativeIdentifyCallback,
+                                                                  IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
+        }
+
         public static WINBIO_UNIT_ID LocateSensor(Session session)
         {
             if (session == null)
@@ -369,6 +437,26 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static bool LogonIdentifiedUser(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioLogonIdentifiedUser(session.Handle);
+            switch (hr)
+            {
+                case SafeNativeMethods.S_OK:
+                    return true;
+                case SafeNativeMethods.S_FALSE:
+                    return false;
+            }
+
+            ThrowWinBiometricException(hr);
+
+            // Basically, this statement should not be executed
+            return false;
+        }
+
         public static Session OpenSession()
         {
             unsafe
@@ -387,6 +475,19 @@ namespace WinBiometricDotNet
 
                 return new Session(sessionHandle);
             }
+        }
+
+        public static void RegisterEventMonitor(Session session, EventTypes eventType)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioRegisterEventMonitor(session.Handle,
+                                                                  (WINBIO_EVENT_TYPE)eventType,
+                                                                  NativeEventCallback,
+                                                                  IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static void ReleaseFocus()
@@ -450,6 +551,16 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static void UnregisterEventMonitor(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioUnregisterEventMonitor(session.Handle);
+
+            ThrowWinBiometricException(hr);
+        }
+
         public static VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position)
         {
             if (session == null)
@@ -509,6 +620,16 @@ namespace WinBiometricDotNet
                                                             (WINBIO_BIOMETRIC_SUBTYPE)position,
                                                             NativeVerifyCallback,
                                                             IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void Wait(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioWait(session.Handle);
 
             ThrowWinBiometricException(hr);
         }
@@ -1445,6 +1566,95 @@ namespace WinBiometricDotNet
                     SafeNativeMethods.WinBioFree((IntPtr)sample);
                     sample = null;
                 }
+            }
+        }
+
+        private static unsafe void EventMonitorCallback(IntPtr eventCallbackContext,
+                                                        HRESULT operationStatus,
+                                                        SafeNativeMethods.WINBIO_EVENT* @event)
+        {
+            try
+            {
+                var e = EventMonitored;
+                if (e == null)
+                    return;
+
+                if (@event == null)
+                    return;
+
+                var status = ConvertToOperationStatus(operationStatus);
+
+                EventMonitoredEventArgs args = null;
+                switch (@event->Type)
+                {
+                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED:
+                        var winbioEventUnclaimed = @event->Parameters.Unclaimed;
+                        var unclaimed = new UnclaimedEvent(winbioEventUnclaimed.UnitId,
+                                                           (RejectDetails)winbioEventUnclaimed.RejectDetail);
+
+                        args = new EventMonitoredEventArgs(EventTypes.Unclaimed,
+                                                           status,
+                                                           unclaimed,
+                                                           null,
+                                                           null);
+                        break;
+                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY:
+                        var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
+                        var unclaimedIdentify = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
+                                                                           (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
+                                                                           new BiometricIdentity(winbioEventUnclaimedidentity.Identity),
+                                                                           (RejectDetails)winbioEventUnclaimedidentity.RejectDetail);
+
+                        args = new EventMonitoredEventArgs(EventTypes.UnclaimedIdentify,
+                                                           status,
+                                                           null,
+                                                           unclaimedIdentify,
+                                                           null);
+                        break;
+                    case SafeNativeMethods.WINBIO_EVENT_ERROR:
+                        var winbioEventError = @event->Parameters.Error;
+                        var error = new ErrorEvent(winbioEventError.ErrorCode);
+
+                        args = new EventMonitoredEventArgs(EventTypes.Error,
+                                                           status,
+                                                           null,
+                                                           null,
+                                                           error);
+                        break;
+                }
+
+                e.Invoke(null, args);
+            }
+            finally
+            {
+                if (@event != null)
+                {
+                    SafeNativeMethods.WinBioFree((IntPtr)@event);
+                    @event = null;
+                }
+            }
+        }
+
+        private static unsafe void IdentifyCallback(IntPtr IdentifyCallbackContext,
+                                                    HRESULT operationStatus,
+                                                    WINBIO_UNIT_ID unitId,
+                                                    SafeNativeMethods.WINBIO_IDENTITY* identity,
+                                                    WINBIO_BIOMETRIC_SUBTYPE subFactor,
+                                                    WINBIO_REJECT_DETAIL rejectDetail)
+
+        {
+            var status = ConvertToOperationStatus(operationStatus);
+
+            var @event = Identified;
+            if (@event != null)
+            {
+                var result = new IdentifyResult(unitId, status,
+                                                new BiometricIdentity(*identity),
+                                                (FingerPosition)subFactor,
+                                                (RejectDetails)rejectDetail);
+
+                var args = new IdentifiedEventArgs(result);
+                @event.Invoke(null, args);
             }
         }
 

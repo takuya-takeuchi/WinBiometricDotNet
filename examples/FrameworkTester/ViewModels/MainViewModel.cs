@@ -1,7 +1,9 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Windows;
 using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight;
@@ -19,6 +21,8 @@ namespace FrameworkTester.ViewModels
         #endregion
 
         #region Fields
+
+        private bool _EventCancel;
 
         private readonly IDispatcherService _DispatcherService;
 
@@ -44,16 +48,37 @@ namespace FrameworkTester.ViewModels
             {
 
                 var model = SimpleIoc.Default.GetInstance(type) as IWinBioViewModel;
-                this._TestTargets.Add(model);
+                this.TestTargets.Add(model);
             }
 
             foreach (var unit in this._WinBiometricService.EnumBiometricUnits())
-                this._Units.Add(unit);
+                this.Units.Add(unit);
+
+            this._WinBiometricService.EventMonitored += this.OnEventMonitored;
         }
 
         #endregion
 
         #region Properties
+
+        private RelayCommand _ClearEventsCommand;
+
+        public RelayCommand ClearEventsCommand
+        {
+            get
+            {
+                return this._ClearEventsCommand ?? (this._ClearEventsCommand = new RelayCommand(async () =>
+                {
+                    await Task.Run(() =>
+                    {
+                        this._DispatcherService.SafeAction(() =>
+                        {
+                            this.Events.Clear();
+                        });
+                    });
+                }));
+            }
+        }
 
         private IWinBioViewModel _CurrentTestTarget;
 
@@ -76,20 +101,34 @@ namespace FrameworkTester.ViewModels
 
         public BiometricUnit CurrentUnit
         {
-            get
-            {
-                return this._CurrentUnit;
-            }
+            get => this._CurrentUnit;
             set
             {
                 this._CurrentUnit = value;
                 this.RaisePropertyChanged();
 
-                foreach (var viewModel in this._TestTargets)
+                foreach (var viewModel in this.TestTargets)
                     viewModel.CurrentUnit = value;
             }
         }
-        
+
+        public ObservableCollection<string> Events
+        {
+            get;
+        } = new ObservableCollection<string>();
+
+        private bool _EnableMonitorEvent;
+
+        public bool EnableMonitorEvent
+        {
+            get => this._EnableMonitorEvent;
+            set
+            {
+                this._EnableMonitorEvent = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private RelayCommand _LoadedCommand;
 
         public RelayCommand LoadedCommand
@@ -102,36 +141,126 @@ namespace FrameworkTester.ViewModels
                     {
                         this._DispatcherService.SafeAction(() =>
                         {
-                            if (this._TestTargets.Any())
-                                this.CurrentTestTarget = this._TestTargets.FirstOrDefault();
+                            if (this.TestTargets.Any())
+                                this.CurrentTestTarget = this.TestTargets.FirstOrDefault();
 
-                            if (this._Units.Any())
-                                this.CurrentUnit = this._Units.FirstOrDefault();
+                            if (this.Units.Any())
+                                this.CurrentUnit = this.Units.FirstOrDefault();
                         });
                     });
                 }));
             }
         }
 
-        private readonly ObservableCollection<IWinBioViewModel> _TestTargets = new ObservableCollection<IWinBioViewModel>();
+        public ObservableCollection<IWinBioViewModel> TestTargets
+        {
+            get;
+        } = new ObservableCollection<IWinBioViewModel>();
+        
+        private bool _ToggleMonitorEvent;
 
-        public ObservableCollection<IWinBioViewModel> TestTargets => this._TestTargets;
+        public bool ToggleMonitorEvent
+        {
+            get => this._ToggleMonitorEvent;
+            set
+            {
+                this._ToggleMonitorEvent = value;
+                this.RaisePropertyChanged();
 
-        private readonly ObservableCollection<BiometricUnit> _Units = new ObservableCollection<BiometricUnit>();
+                if (this._EventCancel)
+                {
+                    this._EventCancel = false;
+                    return;
+                }
 
-        public ObservableCollection<BiometricUnit> Units => this._Units;
+                try
+                {
+                    if (value)
+                    {
+                        this._WinBiometricService.RegisterEventMonitor(EventTypes.Unclaimed);
+                    }
+                    else
+                    {
+                        this._WinBiometricService.UnregisterEventMonitor();
+                    }
+                }
+                catch (Exception e)
+                {
+                    if (value)
+                    {
+                        MessageBox.Show(e.Message, "RegisterEventMonitor", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(e.Message, "UnregisterEventMonitor", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    this._EventCancel = true;
+                    this.ToggleMonitorEvent = !value;
+                }
+            }
+        }
+
+        public ObservableCollection<BiometricUnit> Units
+        {
+            get;
+        } = new ObservableCollection<BiometricUnit>();
 
         #endregion
 
         #region Methods
 
-        #region Overrids
-        #endregion
-
         #region Event Handlers
-        #endregion
 
-        #region Helpers
+        private void OnEventMonitored(object sender, EventMonitoredEventArgs e)
+        {
+            string message = null;
+            var dt = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss.fff");
+
+            switch (e.EventType)
+            {
+                case EventTypes.Unclaimed:
+                    var u = e.Unclaimed;
+                    message = $"[{dt}] [{e.OperationStatus}] [Unclaimed] UnidId: {u.UnidId}, RejectDetail: {u.RejectDetail}";
+                    break;
+                case EventTypes.UnclaimedIdentify:
+                    var ui = e.UnclaimedIdentify;
+                    message = $"[{dt}] [{e.OperationStatus}] [UnclaimedIdentify] UnidId: {ui.UnidId}, RejectDetail: {ui.RejectDetail}, FingerPosition: {ui.FingerPosition}";
+                    
+                    string subMessage = null;
+                    var identity = ui.Identity;
+                    switch (ui.Identity.Type)
+                    {
+                        case IdentityTypes.Null:
+                            subMessage = $"IdentityTypes: Null";
+                            break;
+                        case IdentityTypes.WildCard:
+                            subMessage = $"IdentityTypes: WildCard";
+                            break;
+                        case IdentityTypes.Guid:
+                            subMessage = $"IdentityTypes: Guid, TemplateGuid: {identity.TemplateGuid}";
+                            break;
+                        case IdentityTypes.Sid:
+                            subMessage = $"IdentityTypes: Guid, Sid: {identity.Sid}";
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+
+                    message = $"{message}, {subMessage}";
+                    break;
+                case EventTypes.Error:
+                    var err = e.Error;
+                    message = $"[{dt}] [{e.OperationStatus}] [Error] ErrorCode: {err.ErrorCode}";
+                    break;
+            }
+
+            this._DispatcherService.SafeAction(() =>
+            {
+                this.Events.Add(message);
+            });
+        }
+
         #endregion
 
         #endregion

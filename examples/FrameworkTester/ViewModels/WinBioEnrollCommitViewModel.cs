@@ -32,11 +32,11 @@ namespace FrameworkTester.ViewModels
 
                         this.Type = result.Type;
                         this.TemplateGuid = result.TemplateGuid;
-                        this.Sid = result.Sid;
+                        this.Sid = result.Sid?.Value;
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message);
+                        MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
                 }));

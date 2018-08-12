@@ -51,6 +51,7 @@ namespace FrameworkTester.ViewModels
 
             SimpleIoc.Default.Register<IDispatcherService>(() => new DispatcherService(Application.Current.Dispatcher));
             SimpleIoc.Default.Register<IWinBiometricService, WinBiometricService>();
+            SimpleIoc.Default.Register<IBiometricIdentityRepositoryViewModel, BiometricIdentityRepositoryViewModel>();
 
             var navigationService = new FrameNavigationService();
             var winBio = typeof(IWinBioViewModel);
@@ -82,9 +83,14 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IWinBioEnumDatabasesViewModel>(() => new WinBioEnumDatabasesViewModel(), true);
             SimpleIoc.Default.Register<IWinBioEnumBiometricUnitsViewModel>(() => new WinBioEnumBiometricUnitsViewModel(), true);
             SimpleIoc.Default.Register<IWinBioEnumEnrollmentsViewModel>(() => new WinBioEnumEnrollmentsViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioEnumServiceProvidersViewModel>(() => new WinBioEnumServiceProvidersViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioGetCredentialStateViewModel>(() => new WinBioGetCredentialStateViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioIdentifyViewModel>(() => new WinBioIdentifyViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioIdentifyWithCallbackViewModel>(() => new WinBioIdentifyWithCallbackViewModel(), true);
             SimpleIoc.Default.Register<IWinBioLocateSensorViewModel>(() => new WinBioLocateSensorViewModel(), true);
             SimpleIoc.Default.Register<IWinBioLocateSensorWithCallbackViewModel>(() => new WinBioLocateSensorWithCallbackViewModel(), true);
             SimpleIoc.Default.Register<IWinBioLockUnitViewModel>(() => new WinBioLockUnitViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioLogonIdentifiedUserViewModel>(() => new WinBioLogonIdentifiedUserViewModel(), true);
             SimpleIoc.Default.Register<IWinBioOpenSessionViewModel>(() => new WinBioOpenSessionViewModel(), true);
             SimpleIoc.Default.Register<IWinBioReleaseFocusViewModel>(() => new WinBioReleaseFocusViewModel(), true);
             SimpleIoc.Default.Register<IWinBioUnlockUnitViewModel>(() => new WinBioUnlockUnitViewModel(), true);
@@ -126,11 +132,21 @@ namespace FrameworkTester.ViewModels
 
         public IWinBioEnumEnrollmentsViewModel WinBioEnumEnrollments => ServiceLocator.Current.GetInstance<IWinBioEnumEnrollmentsViewModel>();
 
+        public IWinBioEnumServiceProvidersViewModel WinBioEnumServiceProviders => ServiceLocator.Current.GetInstance<IWinBioEnumServiceProvidersViewModel>();
+
+        public IWinBioGetCredentialStateViewModel WinBioGetCredentialState => ServiceLocator.Current.GetInstance<IWinBioGetCredentialStateViewModel>();
+
+        public IWinBioIdentifyViewModel WinBioIdentify => ServiceLocator.Current.GetInstance<IWinBioIdentifyViewModel>();
+
+        public IWinBioIdentifyWithCallbackViewModel WinBioIdentifyWithCallback => ServiceLocator.Current.GetInstance<IWinBioIdentifyWithCallbackViewModel>();
+
         public IWinBioLocateSensorViewModel WinBioLocateSensor => ServiceLocator.Current.GetInstance<IWinBioLocateSensorViewModel>();
 
         public IWinBioLocateSensorWithCallbackViewModel WinBioLocateSensorWithCallback => ServiceLocator.Current.GetInstance<IWinBioLocateSensorWithCallbackViewModel>();
 
         public IWinBioLockUnitViewModel WinBioLockUnit => ServiceLocator.Current.GetInstance<IWinBioLockUnitViewModel>();
+
+        public IWinBioLogonIdentifiedUserViewModel WinBioLogonIdentifiedUser => ServiceLocator.Current.GetInstance<IWinBioLogonIdentifiedUserViewModel>();
 
         public IWinBioOpenSessionViewModel WinBioOpenSession => ServiceLocator.Current.GetInstance<IWinBioOpenSessionViewModel>();
 

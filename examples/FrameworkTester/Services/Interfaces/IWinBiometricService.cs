@@ -8,6 +8,8 @@ namespace FrameworkTester.Services.Interfaces
     public interface IWinBiometricService
     {
 
+        event EventMonitoredHandler EventMonitored;
+
         void AcquireFocus();
 
         void BeginEnroll(FingerPosition position, uint unitId);
@@ -38,13 +40,25 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<FingerPosition> EnumEnrollments(BiometricUnit unit);
 
+        IEnumerable<BiometricServiceProvider> EnumServiceProviders();
+
+        CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType);
+
+        IdentifyResult Identify();
+
+        void IdentifyWithCallback();
+
         uint LocateSensor();
 
         void LocateSensorWithCallback();
 
         void LockUnit(uint unitId);
 
+        bool LogonIdentifiedUser();
+
         Session OpenSession();
+
+        void RegisterEventMonitor(EventTypes eventType);
 
         void ReleaseFocus();
 
@@ -52,9 +66,13 @@ namespace FrameworkTester.Services.Interfaces
 
         void UnlockUnit(uint unitId);
 
+        void UnregisterEventMonitor();
+
         VerifyResult Verify(BiometricUnit unit, FingerPosition position);
 
         void VerifyWithCallback(BiometricUnit unit, FingerPosition position);
+
+        void Wait();
 
     }
 
