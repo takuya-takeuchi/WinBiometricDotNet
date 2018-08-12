@@ -155,6 +155,18 @@ namespace FrameworkTester.ViewModels
             }
         }
 
+        private bool _EnableWait;
+
+        public override bool EnableWait
+        {
+            get => this._EnableWait;
+            set
+            {
+                this._EnableWait = value;
+                this.RaisePropertyChanged();
+            }
+        }
+
         private RelayCommand _ExecuteCommand;
 
         public override RelayCommand ExecuteCommand
@@ -163,16 +175,24 @@ namespace FrameworkTester.ViewModels
             {
                 return this._ExecuteCommand ?? (this._ExecuteCommand = new RelayCommand(() =>
                 {
+                    var name = this.Name;
+
                     try
                     {
                         this.Result = "WAIT";
                         this.BiometricService.CaptureSampleWithCallback();
 
                         this.WaitCallback = true;
+
+                        if (this.EnableWait)
+                        {
+                            name = "WinBioWait";
+                            this.BiometricService.Wait();
+                        }
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(e.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
 
                         this.WaitCallback = false;

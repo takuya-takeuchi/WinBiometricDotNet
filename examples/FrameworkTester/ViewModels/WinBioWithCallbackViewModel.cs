@@ -25,6 +25,12 @@ namespace FrameworkTester.ViewModels
             get;
         }
 
+        public abstract bool EnableWait
+        {
+            get;
+            set;
+        }
+
         protected IDispatcherService DispatcherService
         {
             get;

@@ -57,18 +57,41 @@ namespace FrameworkTester.ViewModels
                 return this._ExecuteCommand ?? (this._ExecuteCommand = new RelayCommand(() =>
                 {
                     this.RejectDetail = 0;
+                    var name = this.Name;
 
                     try
                     {
-                        this.BiometricService.CaptureEnrollWithCallback();
                         this.Result = "WAIT";
+                        this.BiometricService.CaptureEnrollWithCallback();
+
+                        this.WaitCallback = true;
+
+                        if (this.EnableWait)
+                        {
+                            name = "WinBioWait";
+                            this.BiometricService.Wait();
+                        }
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(e.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
+
+                        this.WaitCallback = false;
                     }
                 }));
+            }
+        }
+
+        private bool _EnableWait;
+
+        public override bool EnableWait
+        {
+            get => this._EnableWait;
+            set
+            {
+                this._EnableWait = value;
+                this.RaisePropertyChanged();
             }
         }
 

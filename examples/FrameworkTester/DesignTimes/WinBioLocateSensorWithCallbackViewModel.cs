@@ -12,6 +12,12 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
+        public bool EnableWait
+        {
+            get;
+            set;
+        }
+
         public uint UnitId
         {
             get;

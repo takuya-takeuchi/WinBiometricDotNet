@@ -63,6 +63,7 @@ namespace FrameworkTester.ViewModels
                     this.IsMatch = false;
                     this.UnitId = 0;
                     this.RejectDetail = 0;
+                    var name = this.Name;
 
                     try
                     {
@@ -70,15 +71,33 @@ namespace FrameworkTester.ViewModels
                         this.BiometricService.VerifyWithCallback(this.CurrentUnit, this.SelectedFingerPosition);
 
                         this.WaitCallback = true;
+
+                        if (this.EnableWait)
+                        {
+                            name = "WinBioWait";
+                            this.BiometricService.Wait();
+                        }
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(e.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
 
                         this.WaitCallback = false;
                     }
                 }, () => !this.WaitCallback));
+            }
+        }
+
+        private bool _EnableWait;
+
+        public override bool EnableWait
+        {
+            get => this._EnableWait;
+            set
+            {
+                this._EnableWait = value;
+                this.RaisePropertyChanged();
             }
         }
 

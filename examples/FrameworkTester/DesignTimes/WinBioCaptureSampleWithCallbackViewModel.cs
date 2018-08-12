@@ -49,6 +49,12 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
+        public bool EnableWait
+        {
+            get;
+            set;
+        }
+
         public bool Loop
         {
             get;

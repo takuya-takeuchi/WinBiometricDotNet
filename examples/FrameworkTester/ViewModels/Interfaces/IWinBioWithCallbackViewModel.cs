@@ -11,6 +11,12 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
+        bool EnableWait
+        {
+            get;
+            set;
+        }
+
     }
 
 }

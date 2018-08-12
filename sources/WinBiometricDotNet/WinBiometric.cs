@@ -624,6 +624,16 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static void Wait(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioWait(session.Handle);
+
+            ThrowWinBiometricException(hr);
+        }
+
         #region Helpers
 
         private static string ConvertErrorCodeToString(int errorCode)

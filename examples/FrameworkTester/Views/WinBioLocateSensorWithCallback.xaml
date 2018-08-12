@@ -25,22 +25,30 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel
-            Grid.Column="2"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
-            <Button
-                Width="100"
-                Height="30"
-                Margin="0,0,10,0"
-                Command="{Binding ExecuteCommand}"
-                Content="Execute" />
-            <Button
-                Width="100"
-                Height="30"
-                Command="{Binding CancelCommand}"
-                Content="Cancel" />
-        </StackPanel>
+        <Grid Grid.Column="2" HorizontalAlignment="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Command="{Binding ExecuteCommand}"
+                    Content="Execute" />
+                <Button
+                    Width="100"
+                    Height="30"
+                    Command="{Binding CancelCommand}"
+                    Content="Cancel" />
+            </StackPanel>
+            <CheckBox
+                Grid.Row="1"
+                Margin="5"
+                Content="Call Wait"
+                IsChecked="{Binding EnableWait}" />
+        </Grid>
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"

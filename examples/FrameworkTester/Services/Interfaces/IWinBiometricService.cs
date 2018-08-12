@@ -72,6 +72,8 @@ namespace FrameworkTester.Services.Interfaces
 
         void VerifyWithCallback(BiometricUnit unit, FingerPosition position);
 
+        void Wait();
+
     }
 
 }

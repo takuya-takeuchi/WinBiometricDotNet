@@ -13,6 +13,12 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
+        public bool EnableWait
+        {
+            get;
+            set;
+        }
+
         public RejectDetails RejectDetail
         {
             get;

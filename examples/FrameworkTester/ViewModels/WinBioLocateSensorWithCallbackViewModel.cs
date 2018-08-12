@@ -57,6 +57,7 @@ namespace FrameworkTester.ViewModels
                 return this._ExecuteCommand ?? (this._ExecuteCommand = new RelayCommand(() =>
                 {
                     this.UnitId = 0;
+                    var name = this.Name;
 
                     try
                     {
@@ -64,15 +65,33 @@ namespace FrameworkTester.ViewModels
                         this.BiometricService.LocateSensorWithCallback();
 
                         this.WaitCallback = true;
+
+                        if (this.EnableWait)
+                        {
+                            name = "WinBioWait";
+                            this.BiometricService.Wait();
+                        }
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(e.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
 
                         this.WaitCallback = false;
                     }
                 }, () => !this.WaitCallback));
+            }
+        }
+
+        private bool _EnableWait;
+
+        public override bool EnableWait
+        {
+            get => this._EnableWait;
+            set
+            {
+                this._EnableWait = value;
+                this.RaisePropertyChanged();
             }
         }
 

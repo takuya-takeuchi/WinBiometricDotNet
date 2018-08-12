@@ -302,6 +302,14 @@ namespace FrameworkTester.Services
             WinBiometric.VerifyWithCallback(this._Session, unit, position);
         }
 
+        public void Wait()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.Wait(this._Session);
+        }
+
         #endregion
 
     }

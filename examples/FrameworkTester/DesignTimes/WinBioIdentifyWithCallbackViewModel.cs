@@ -14,6 +14,12 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
+        public bool EnableWait
+        {
+            get;
+            set;
+        }
+
         public IBiometricIdentityRepositoryViewModel IdentityRepository
         {
             get;
