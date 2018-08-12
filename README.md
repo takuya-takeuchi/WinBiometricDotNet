@@ -1,9 +1,12 @@
-# WinBiometric.Net
-Windows Bitometric Framework .NET wrapper
+# ![Alt text](nuget/fingerprint48.png "WinBiometric.Net") WinBiometric.Net
+
+Windows Biometric Framework .NET wrapper
+
+[![NuGet version](https://badge.fury.io/nu/WinBiometricDotNet.svg)](https://badge.fury.io/nu/WinBiometricDotNet)
+[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-50%25%20(26/52)-green.svg)]()
 
 ## Support API
-
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-46%25%20(24/52)-green.svg)]()
 
 |Function|Support|Note|
 |----|:----:|----|
@@ -47,7 +50,7 @@ Windows Bitometric Framework .NET wrapper
 |WinBioLogonIdentifiedUser|||
 |WinBioMonitorPresence|||
 |WinBioOpenSession|✓||
-|WinBioRegisterEventMonitor|||
+|WinBioRegisterEventMonitor|✓||
 |WinBioReleaseFocus|✓||
 |WinBioRemoveAllCredentials|||
 |WinBioRemoveAllDomainCredentials|||
@@ -55,7 +58,7 @@ Windows Bitometric Framework .NET wrapper
 |WinBioSetCredential|||
 |WinBioSetProperty|||
 |WinBioUnlockUnit|✓||
-|WinBioUnregisterEventMonitor|||
+|WinBioUnregisterEventMonitor|✓||
 |WinBioVerify|✓||
 |WinBioVerifyWithCallback|✓||
 |WinBioWait|||
