@@ -35,7 +35,7 @@ namespace FrameworkTester.ViewModels
 
                         this.Type = result.Identity.Type;
                         this.TemplateGuid = result.Identity.TemplateGuid;
-                        this.Sid = result.Identity.Sid;
+                        this.Sid = result.Identity.Sid?.Value;
                         this.UnitId = result.UnitId;
                         this.FingerPosition = result.FingerPosition;
                         this.RejectDetail = result.RejectDetail;
