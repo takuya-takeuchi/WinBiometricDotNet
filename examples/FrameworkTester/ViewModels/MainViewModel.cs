@@ -186,7 +186,15 @@ namespace FrameworkTester.ViewModels
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message);
+                    if (value)
+                    {
+                        MessageBox.Show(e.Message, "RegisterEventMonitor", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        MessageBox.Show(e.Message, "UnregisterEventMonitor", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
                     this._EventCancel = true;
                     this.ToggleMonitorEvent = !value;
                 }

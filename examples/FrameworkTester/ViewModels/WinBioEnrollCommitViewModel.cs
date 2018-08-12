@@ -36,7 +36,7 @@ namespace FrameworkTester.ViewModels
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show(e.Message);
+                        MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
                 }));
