@@ -13,6 +13,8 @@ namespace FrameworkTester.Services
 
         public static event EnrollCapturedHandler EnrollCaptured;
 
+        public event EventMonitoredHandler EventMonitored;
+
         public static event SampleCapturedHandler SampleCaptured;
 
         public static event SensorLocatedHandler SensorLocated;
@@ -193,6 +195,17 @@ namespace FrameworkTester.Services
             return session;
         }
 
+        public void RegisterEventMonitor(EventTypes eventType)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.EventMonitored -= this.EventMonitored;
+            WinBiometric.EventMonitored += this.EventMonitored;
+
+            WinBiometric.RegisterEventMonitor(this._Session, eventType);
+        }
+
         public void ReleaseFocus()
         {
             WinBiometric.ReleaseFocus();
@@ -212,6 +225,14 @@ namespace FrameworkTester.Services
                 throw new Exception("There is no opened session.");
             
             WinBiometric.UnlockUnit(this._Session, unitId);
+        }
+
+        public void UnregisterEventMonitor()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.UnregisterEventMonitor(this._Session);
         }
 
         public VerifyResult Verify(BiometricUnit unit, FingerPosition position)

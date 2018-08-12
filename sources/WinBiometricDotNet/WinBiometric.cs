@@ -46,6 +46,8 @@ namespace WinBiometricDotNet
 
         public static event EnrollCapturedHandler EnrollCaptured;
 
+        public static event EventMonitoredHandler EventMonitored;
+
         public static event SampleCapturedHandler SampleCaptured;
 
         public static event SensorLocatedHandler SensorLocated;
@@ -57,6 +59,8 @@ namespace WinBiometricDotNet
         #region Fields
 
         private static readonly SafeNativeMethods.WINBIO_ENROLL_CAPTURE_CALLBACK NativeEnrollCaptureCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_EVENT_CALLBACK NativeEventCallback;
 
         private static readonly SafeNativeMethods.WINBIO_CAPTURE_CALLBACK NativeSampleCapturedCallback;
 
@@ -73,6 +77,7 @@ namespace WinBiometricDotNet
             unsafe
             {
                 NativeEnrollCaptureCallback = CaptureEnrollCallback;
+                NativeEventCallback = EventMonitorCallback;
                 NativeSampleCapturedCallback = CaptureSampleCallback;
                 NativeSensorLocatedCallback = LocateSensorCallback;
                 NativeVerifyCallback = VerifyCallback;
@@ -389,6 +394,19 @@ namespace WinBiometricDotNet
             }
         }
 
+        public static void RegisterEventMonitor(Session session, EventTypes eventType)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioRegisterEventMonitor(session.Handle,
+                                                                  (WINBIO_EVENT_TYPE)eventType,
+                                                                  NativeEventCallback,
+                                                                  IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
+        }
+
         public static void ReleaseFocus()
         {
             var hr = SafeNativeMethods.WinBioReleaseFocus();
@@ -446,6 +464,16 @@ namespace WinBiometricDotNet
                 throw new ArgumentNullException(nameof(session));
 
             var hr = SafeNativeMethods.WinBioUnlockUnit(session.Handle, unitId);
+
+            ThrowWinBiometricException(hr);
+        }
+        
+        public static void UnregisterEventMonitor(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioUnregisterEventMonitor(session.Handle);
 
             ThrowWinBiometricException(hr);
         }
@@ -1444,6 +1472,72 @@ namespace WinBiometricDotNet
                 {
                     SafeNativeMethods.WinBioFree((IntPtr)sample);
                     sample = null;
+                }
+            }
+        }
+        
+        private static unsafe void EventMonitorCallback(IntPtr eventCallbackContext,
+                                                        HRESULT operationStatus,
+                                                        SafeNativeMethods.WINBIO_EVENT* @event)
+        {
+            try
+            {
+                var e = EventMonitored;
+                if (e == null)
+                    return;
+
+                if (@event == null)
+                    return;
+
+                var status = ConvertToOperationStatus(operationStatus);
+
+                EventMonitoredEventArgs args = null;
+                switch (@event->Type)
+                {
+                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED:
+                        var winbioEventUnclaimed = @event->Parameters.Unclaimed;
+                        var unclaimed = new UnclaimedEvent(winbioEventUnclaimed.UnitId,
+                                                           (RejectDetails)winbioEventUnclaimed.RejectDetail);
+
+                        args = new EventMonitoredEventArgs(EventTypes.Unclaimed,
+                                                           status,
+                                                           unclaimed,
+                                                           null,
+                                                           null);
+                        break;
+                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY:
+                        var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
+                        var unclaimedIdentify = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
+                                                                           (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
+                                                                           new BiometricIdentity(winbioEventUnclaimedidentity.Identity),
+                                                                           (RejectDetails)winbioEventUnclaimedidentity.RejectDetail);
+
+                        args = new EventMonitoredEventArgs(EventTypes.UnclaimedIdentify,
+                                                           status,
+                                                           null,
+                                                           unclaimedIdentify,
+                                                           null);
+                        break;
+                    case SafeNativeMethods.WINBIO_EVENT_ERROR:
+                        var winbioEventError= @event->Parameters.Error;
+                        var error = new ErrorEvent(winbioEventError.ErrorCode);
+
+                        args = new EventMonitoredEventArgs(EventTypes.Error,
+                                                           status,
+                                                           null,
+                                                           null,
+                                                           error);
+                        break;
+                }
+
+                e.Invoke(null, args);
+            }
+            finally
+            {
+                if (@event != null)
+                {
+                    SafeNativeMethods.WinBioFree((IntPtr)@event);
+                    @event = null;
                 }
             }
         }

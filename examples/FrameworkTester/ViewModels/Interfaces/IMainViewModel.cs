@@ -8,6 +8,11 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IMainViewModel
     {
 
+        RelayCommand ClearEventsCommand
+        {
+            get;
+        }
+
         IWinBioViewModel CurrentTestTarget
         {
             get;
@@ -20,12 +25,28 @@ namespace FrameworkTester.ViewModels.Interfaces
             set;
         }
 
+        ObservableCollection<string> Events
+        {
+            get;
+        }
+
+        bool EnableMonitorEvent
+        {
+            get;
+            set;
+        }
+
         RelayCommand LoadedCommand
         {
             get;
         }
 
         ObservableCollection<IWinBioViewModel> TestTargets
+        {
+            get;
+        }
+
+        bool ToggleMonitorEvent
         {
             get;
         }

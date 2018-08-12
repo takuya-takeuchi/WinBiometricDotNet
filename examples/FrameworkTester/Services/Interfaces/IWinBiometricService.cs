@@ -8,6 +8,8 @@ namespace FrameworkTester.Services.Interfaces
     public interface IWinBiometricService
     {
 
+        event EventMonitoredHandler EventMonitored;
+
         void AcquireFocus();
 
         void BeginEnroll(FingerPosition position, uint unitId);
@@ -46,11 +48,15 @@ namespace FrameworkTester.Services.Interfaces
 
         Session OpenSession();
 
+        void RegisterEventMonitor(EventTypes eventType);
+
         void ReleaseFocus();
 
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
 
         void UnlockUnit(uint unitId);
+
+        void UnregisterEventMonitor();
 
         VerifyResult Verify(BiometricUnit unit, FingerPosition position);
 
