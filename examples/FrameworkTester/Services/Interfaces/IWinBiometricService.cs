@@ -42,6 +42,8 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<BiometricServiceProvider> EnumServiceProviders();
 
+        CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType);
+
         uint LocateSensor();
 
         void LocateSensorWithCallback();

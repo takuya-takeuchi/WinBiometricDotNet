@@ -41,6 +41,8 @@ namespace WinBiometricDotNet
                     }
                     break;
             }
+
+            this.Source = identity;
         }
 
         #endregion
@@ -53,6 +55,11 @@ namespace WinBiometricDotNet
         }
 
         public string Sid
+        {
+            get;
+        }
+
+        internal SafeNativeMethods.WINBIO_IDENTITY Source
         {
             get;
         }

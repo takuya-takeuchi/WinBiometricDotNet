@@ -157,6 +157,14 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumServiceProviders();
         }
 
+        public CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
+        {
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            return WinBiometric.GetCredentialState(identity, credentialType);
+        }
+
         public uint LocateSensor()
         {
             if (this._Session == null)
@@ -236,7 +244,7 @@ namespace FrameworkTester.Services
         {
             if (this._Session == null)
                 throw new Exception("There is no opened session.");
-            
+
             WinBiometric.UnlockUnit(this._Session, unitId);
         }
 
@@ -272,7 +280,7 @@ namespace FrameworkTester.Services
 
             WinBiometric.VerifyWithCallback(this._Session, unit, position);
         }
-        
+
         #endregion
 
     }

@@ -352,6 +352,20 @@ namespace WinBiometricDotNet
                 yield return new BiometricServiceProvider(schema);
         }
 
+        public static CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
+        {
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+            
+            var hr = SafeNativeMethods.WinBioGetCredentialState(identity.Source,
+                                                                (SafeNativeMethods.WINBIO_CREDENTIAL_TYPE)credentialType,
+                                                                out var state);
+
+            ThrowWinBiometricException(hr);
+
+            return (CredentialStates)state;
+        }
+
         public static WINBIO_UNIT_ID LocateSensor(Session session)
         {
             if (session == null)
