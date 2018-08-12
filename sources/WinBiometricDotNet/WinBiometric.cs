@@ -48,6 +48,8 @@ namespace WinBiometricDotNet
 
         public static event EventMonitoredHandler EventMonitored;
 
+        public static event IdentifiedHandler Identified;
+
         public static event SampleCapturedHandler SampleCaptured;
 
         public static event SensorLocatedHandler SensorLocated;
@@ -61,6 +63,8 @@ namespace WinBiometricDotNet
         private static readonly SafeNativeMethods.WINBIO_ENROLL_CAPTURE_CALLBACK NativeEnrollCaptureCallback;
 
         private static readonly SafeNativeMethods.WINBIO_EVENT_CALLBACK NativeEventCallback;
+
+        private static readonly SafeNativeMethods.WINBIO_IDENTIFY_CALLBACK NativeIdentifyCallback;
 
         private static readonly SafeNativeMethods.WINBIO_CAPTURE_CALLBACK NativeSampleCapturedCallback;
 
@@ -78,6 +82,7 @@ namespace WinBiometricDotNet
             {
                 NativeEnrollCaptureCallback = CaptureEnrollCallback;
                 NativeEventCallback = EventMonitorCallback;
+                NativeIdentifyCallback = IdentifyCallback;
                 NativeSampleCapturedCallback = CaptureSampleCallback;
                 NativeSensorLocatedCallback = LocateSensorCallback;
                 NativeVerifyCallback = VerifyCallback;
@@ -364,6 +369,38 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return (CredentialStates)state;
+        }
+
+        public static IdentifyResult Identify(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioIdentify(session.Handle,
+                                                      out var unitId,
+                                                      out var identity,
+                                                      out var subFactor,
+                                                      out var rejectDetail);
+
+            ThrowWinBiometricException(hr);
+
+            return new IdentifyResult(unitId,
+                                      OperationStatus.OK, 
+                                      new BiometricIdentity(identity), 
+                                      (FingerPosition) subFactor,
+                                      (RejectDetails) rejectDetail);
+        }
+
+        public static void IdentifyWithCallback(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioIdentifyWithCallback(session.Handle,
+                                                                  NativeIdentifyCallback,
+                                                                  IntPtr.Zero);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static WINBIO_UNIT_ID LocateSensor(Session session)
@@ -1585,6 +1622,29 @@ namespace WinBiometricDotNet
                     SafeNativeMethods.WinBioFree((IntPtr)@event);
                     @event = null;
                 }
+            }
+        }
+
+        private static unsafe void IdentifyCallback(IntPtr IdentifyCallbackContext,
+                                                    HRESULT operationStatus,
+                                                    WINBIO_UNIT_ID unitId,
+                                                    SafeNativeMethods.WINBIO_IDENTITY* identity,
+                                                    WINBIO_BIOMETRIC_SUBTYPE subFactor,
+                                                    WINBIO_REJECT_DETAIL rejectDetail)
+
+        {
+            var status = ConvertToOperationStatus(operationStatus);
+
+            var @event = Identified;
+            if (@event != null)
+            {
+                var result = new IdentifyResult(unitId, status,
+                                                new BiometricIdentity(*identity),
+                                                (FingerPosition)subFactor,
+                                                (RejectDetails)rejectDetail);
+
+                var args = new IdentifiedEventArgs(result);
+                @event.Invoke(null, args);
             }
         }
 

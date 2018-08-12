@@ -44,6 +44,10 @@ namespace FrameworkTester.Services.Interfaces
 
         CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType);
 
+        IdentifyResult Identify();
+
+        void IdentifyWithCallback();
+
         uint LocateSensor();
 
         void LocateSensorWithCallback();

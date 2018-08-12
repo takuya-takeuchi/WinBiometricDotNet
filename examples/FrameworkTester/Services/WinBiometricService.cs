@@ -15,6 +15,8 @@ namespace FrameworkTester.Services
 
         public event EventMonitoredHandler EventMonitored;
 
+        public static event IdentifiedHandler Identified;
+
         public static event SampleCapturedHandler SampleCaptured;
 
         public static event SensorLocatedHandler SensorLocated;
@@ -163,6 +165,25 @@ namespace FrameworkTester.Services
                 throw new ArgumentNullException(nameof(identity));
 
             return WinBiometric.GetCredentialState(identity, credentialType);
+        }
+
+        public IdentifyResult Identify()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            return WinBiometric.Identify(this._Session);
+        }
+
+        public void IdentifyWithCallback()
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.Identified -= Identified;
+            WinBiometric.Identified += Identified;
+
+            WinBiometric.IdentifyWithCallback(this._Session);
         }
 
         public uint LocateSensor()

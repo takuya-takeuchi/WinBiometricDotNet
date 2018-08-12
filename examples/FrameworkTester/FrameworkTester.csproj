@@ -74,6 +74,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DesignTimes\WinBioAcquireFocusViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioIdentifyWithCallbackViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioIdentifyViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetCredentialStateViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLogonIdentifiedUserViewModel.cs" />
@@ -102,6 +104,8 @@
     <Compile Include="Services\WinBiometricService.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCancelViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioIdentifyWithCallbackViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioIdentifyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioGetCredentialStateViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioLogonIdentifiedUserViewModel.cs" />
@@ -133,6 +137,8 @@
     <Compile Include="DesignTimes\WinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioOpenSessionViewModel.cs" />
     <Compile Include="ViewModels\WinBioCancelViewModel.cs" />
+    <Compile Include="ViewModels\WinBioIdentifyWithCallbackViewModel.cs" />
+    <Compile Include="ViewModels\WinBioIdentifyViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\WinBioGetCredentialStateViewModel.cs" />
     <Compile Include="ViewModels\WinBioLogonIdentifiedUserViewModel.cs" />
@@ -168,6 +174,12 @@
     </Compile>
     <Compile Include="Views\WinBioEnrollCaptureWithCallback.xaml.cs">
       <DependentUpon>WinBioEnrollCaptureWithCallback.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioIdentifyWithCallback.xaml.cs">
+      <DependentUpon>WinBioIdentifyWithCallback.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioIdentify.xaml.cs">
+      <DependentUpon>WinBioIdentify.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioEnrollDiscard.xaml.cs">
       <DependentUpon>WinBioEnrollDiscard.xaml</DependentUpon>
@@ -253,6 +265,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioEnrollCaptureWithCallback.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioIdentifyWithCallback.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioIdentify.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
