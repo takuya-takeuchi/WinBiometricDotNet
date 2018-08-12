@@ -2,6 +2,7 @@
 using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -9,6 +10,15 @@ namespace FrameworkTester.ViewModels
 
     public sealed class WinBioIdentifyViewModel : WinBioViewModel, IWinBioIdentifyViewModel
     {
+
+        #region Constructors
+
+        public WinBioIdentifyViewModel()
+        {
+            this.IdentityRepository = SimpleIoc.Default.GetInstance<IBiometricIdentityRepositoryViewModel>();
+        }
+
+        #endregion
 
         #region Properties
 
@@ -39,6 +49,8 @@ namespace FrameworkTester.ViewModels
                         this.UnitId = result.UnitId;
                         this.FingerPosition = result.FingerPosition;
                         this.RejectDetail = result.RejectDetail;
+
+                        this.IdentityRepository.Add(result.Identity);
                     }
                     catch (Exception e)
                     {
@@ -61,6 +73,11 @@ namespace FrameworkTester.ViewModels
                 this._FingerPosition = value;
                 this.RaisePropertyChanged();
             }
+        }
+
+        public IBiometricIdentityRepositoryViewModel IdentityRepository
+        {
+            get;
         }
 
         private RejectDetails _RejectDetail;

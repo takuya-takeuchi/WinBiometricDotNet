@@ -14,6 +14,11 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
+        public IBiometricIdentityRepositoryViewModel IdentityRepository
+        {
+            get;
+        }
+
         public FingerPosition FingerPosition
         {
             get;

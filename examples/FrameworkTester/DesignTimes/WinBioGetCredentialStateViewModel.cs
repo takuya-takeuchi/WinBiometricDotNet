@@ -6,6 +6,11 @@ namespace FrameworkTester.DesignTimes
 
     public sealed class WinBioGetCredentialStateViewModel : WinBioViewModel, IWinBioGetCredentialStateViewModel
     {
+        
+        public IBiometricIdentityRepositoryViewModel IdentityRepository
+        {
+            get;
+        }
 
         public CredentialStates State
         {

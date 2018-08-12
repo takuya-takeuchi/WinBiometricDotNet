@@ -7,6 +7,11 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioIdentifyViewModel : IWinBioViewModel
     {
 
+        IBiometricIdentityRepositoryViewModel IdentityRepository
+        {
+            get;
+        }
+
         FingerPosition FingerPosition
         {
             get;

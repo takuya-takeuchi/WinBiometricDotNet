@@ -8,6 +8,11 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioIdentifyViewModel : WinBioViewModel, IWinBioIdentifyViewModel
     {
 
+        public IBiometricIdentityRepositoryViewModel IdentityRepository
+        {
+            get;
+        }
+
         public FingerPosition FingerPosition
         {
             get;

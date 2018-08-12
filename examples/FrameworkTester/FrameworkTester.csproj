@@ -105,6 +105,8 @@
     <Compile Include="Services\Interfaces\IFrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IWinBiometricService.cs" />
     <Compile Include="Services\WinBiometricService.cs" />
+    <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IBiometricIdentityRepositoryViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCancelViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioIdentifyWithCallbackViewModel.cs" />
