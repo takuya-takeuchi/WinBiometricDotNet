@@ -39,8 +39,7 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Type: " />
         <TextBlock
             Grid.Row="2"
@@ -50,8 +49,7 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="TemplateGuid: " />
         <TextBlock
             Grid.Row="4"
@@ -61,8 +59,7 @@
         <TextBlock
             Grid.Row="6"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Sid: " />
         <TextBlock
             Grid.Row="6"
@@ -72,8 +69,7 @@
         <TextBlock
             Grid.Row="8"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="8"

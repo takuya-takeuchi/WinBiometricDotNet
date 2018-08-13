@@ -43,8 +43,7 @@
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
+                Style="{StaticResource LabelTextBlock}"
                 Text="FingerPosition: " />
             <ComboBox
                 Grid.Row="0"
@@ -64,8 +63,7 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="UnitId: " />
         <TextBlock
             Grid.Row="4"
@@ -75,8 +73,7 @@
         <TextBlock
             Grid.Row="6"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Match: " />
         <TextBlock
             Grid.Row="6"
@@ -86,8 +83,7 @@
         <TextBlock
             Grid.Row="8"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="RejectDetail: " />
         <TextBlock
             Grid.Row="8"
@@ -97,8 +93,7 @@
         <TextBlock
             Grid.Row="10"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="10"

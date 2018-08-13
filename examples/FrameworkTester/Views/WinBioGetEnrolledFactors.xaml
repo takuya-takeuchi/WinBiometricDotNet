@@ -39,8 +39,7 @@
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
+                Style="{StaticResource LabelTextBlock}"
                 Text="Identities: " />
             <ComboBox
                 Grid.Row="0"
@@ -71,8 +70,7 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Factor: " />
         <TextBlock
             Grid.Row="4"
@@ -82,8 +80,7 @@
         <TextBlock
             Grid.Row="6"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="6"

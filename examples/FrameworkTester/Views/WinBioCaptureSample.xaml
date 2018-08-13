@@ -63,8 +63,7 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="UnitId: " />
         <TextBlock
             Grid.Row="2"
@@ -74,8 +73,7 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="SampleSize: " />
         <TextBlock
             Grid.Row="4"
@@ -85,8 +83,7 @@
         <TextBlock
             Grid.Row="6"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="RejectDetail: " />
         <TextBlock
             Grid.Row="6"
@@ -96,8 +93,7 @@
         <TextBlock
             Grid.Row="8"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Width: " />
         <TextBlock
             Grid.Row="8"
@@ -107,8 +103,7 @@
         <TextBlock
             Grid.Row="10"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Height: " />
         <TextBlock
             Grid.Row="10"
@@ -118,8 +113,7 @@
         <TextBlock
             Grid.Row="12"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="HorizontalResolution: " />
         <TextBlock
             Grid.Row="12"
@@ -129,8 +123,7 @@
         <TextBlock
             Grid.Row="14"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="VerticalResolution: " />
         <TextBlock
             Grid.Row="14"
@@ -140,8 +133,7 @@
         <TextBlock
             Grid.Row="16"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="ScanHorizontalResolution: " />
         <TextBlock
             Grid.Row="16"
@@ -151,8 +143,7 @@
         <TextBlock
             Grid.Row="18"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="ScanVerticalResolution: " />
         <TextBlock
             Grid.Row="18"
@@ -162,8 +153,7 @@
         <TextBlock
             Grid.Row="20"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="20"

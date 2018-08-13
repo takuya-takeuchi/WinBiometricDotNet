@@ -35,8 +35,7 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="2"
@@ -46,8 +45,8 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            Style="{StaticResource LabelTextBlock}"
             Text="ServiceProviders: " />
         <ComboBox
             Grid.Row="4"
@@ -74,6 +73,7 @@
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="Id: " />
                         <TextBlock
                             Grid.Row="0"
@@ -82,6 +82,7 @@
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="MajorVersion: " />
                         <TextBlock
                             Grid.Row="1"
@@ -90,14 +91,17 @@
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="MinorVersion: " />
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="2"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="{Binding Version.MinorVersion}" />
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="BiometricFactor: " />
                         <TextBlock
                             Grid.Row="3"
@@ -106,6 +110,7 @@
                         <TextBlock
                             Grid.Row="4"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="Vendor: " />
                         <TextBlock
                             Grid.Row="4"
@@ -114,6 +119,7 @@
                         <TextBlock
                             Grid.Row="5"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="Description: " />
                         <TextBlock
                             Grid.Row="5"
