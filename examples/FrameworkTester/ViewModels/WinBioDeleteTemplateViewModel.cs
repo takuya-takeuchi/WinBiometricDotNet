@@ -51,27 +51,27 @@ namespace FrameworkTester.ViewModels
             get
             {
                 return this._ExecuteCommand ?? (this._ExecuteCommand = new RelayCommand(() =>
-                           {
-                               try
-                               {
-                                   this.Result = "WAIT";
-
-                                   var unitId = this.CurrentUnit;
-                                   var identity = this.IdentityRepository.CurrentBiometricIdentity;
-                                   var fingerPosition = this.CurrentFingerPosition;
-
-                                   this.BiometricService.DeleteTemplate(unitId.UnitId,
-                                       identity,
-                                       fingerPosition);
-
-                                   this.Result = "OK";
-                               }
-                               catch (Exception e)
-                               {
-                                   MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
-                                   this.Result = "FAIL";
-                               }
-                           }, this.IdentityRepository?.CurrentBiometricIdentity != null));
+                {
+                    try
+                    {
+                        this.Result = "WAIT";
+               
+                        var unitId = this.CurrentUnit;
+                        var identity = this.IdentityRepository.CurrentBiometricIdentity;
+                        var fingerPosition = this.CurrentFingerPosition;
+               
+                        this.BiometricService.DeleteTemplate(unitId.UnitId,
+                                                             identity,
+                                                             fingerPosition);
+               
+                        this.Result = "OK";
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                        this.Result = "FAIL";
+                    }
+                }, this.IdentityRepository?.CurrentBiometricIdentity != null));
             }
         }
 
