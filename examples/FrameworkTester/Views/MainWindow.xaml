@@ -98,15 +98,11 @@
                 Orientation="Horizontal">
                 <ToggleButton
                     x:Name="_ToggleButton"
-                    Width="100"
-                    Height="30"
                     Margin="5"
                     HorizontalAlignment="Right"
                     Content="Monitor Event"
                     IsChecked="{Binding ToggleMonitorEvent}" />
                 <Button
-                    Width="100"
-                    Height="30"
                     Margin="0,5,5,5"
                     HorizontalAlignment="Right"
                     Command="{Binding ClearEventsCommand}"

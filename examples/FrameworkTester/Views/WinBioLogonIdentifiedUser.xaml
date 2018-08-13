@@ -27,8 +27,6 @@
         </Grid.ColumnDefinitions>
         <Button
             Grid.Column="2"
-            Width="100"
-            Height="30"
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />

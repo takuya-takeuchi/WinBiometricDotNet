@@ -42,16 +42,10 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <Button
-                    Width="100"
-                    Height="30"
                     Margin="0,0,10,0"
                     Command="{Binding ExecuteCommand}"
                     Content="Execute" />
-                <Button
-                    Width="100"
-                    Height="30"
-                    Command="{Binding CancelCommand}"
-                    Content="Cancel" />
+                <Button Command="{Binding CancelCommand}" Content="Cancel" />
             </StackPanel>
             <CheckBox
                 Grid.Row="1"
