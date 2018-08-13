@@ -4,7 +4,7 @@ Windows Biometric Framework .NET wrapper
 
 [![NuGet version](https://badge.fury.io/nu/WinBiometricDotNet.svg)](https://badge.fury.io/nu/WinBiometricDotNet)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-73.0%25%20(38/52)-green.svg)]()
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-75.0%25%20(39/52)-green.svg)]()
 
 ## Support API
 
@@ -30,7 +30,7 @@ Windows Biometric Framework .NET wrapper
 |WinBioEnrollCaptureWithCallback|✓||
 |WinBioEnrollCommit|✓||
 |WinBioEnrollDiscard|✓||
-|WinBioEnrollSelect|||
+|WinBioEnrollSelect|✓||
 |WinBioEnumBiometricUnits|✓||
 |WinBioEnumDatabases|✓||
 |WinBioEnumEnrollments|✓||
