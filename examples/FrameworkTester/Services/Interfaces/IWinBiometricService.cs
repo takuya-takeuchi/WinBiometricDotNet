@@ -32,6 +32,8 @@ namespace FrameworkTester.Services.Interfaces
 
         void CreateDatabase(BiometricUnit unit, Guid guid);
 
+        void DeleteTemplate(uint unitId, BiometricIdentity identity, FingerPosition position);
+
         void DiscardEnroll();
 
         IEnumerable<BiometricDatabase> EnumBiometricDatabases();

@@ -271,6 +271,25 @@ namespace WinBiometricDotNet
             }
         }
 
+        public static void DeleteTemplate(Session session, uint unitId, BiometricIdentity identity, FingerPosition position)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            unsafe
+            {
+                var nativeIdentity = identity.Source;
+                var hr = SafeNativeMethods.WinBioDeleteTemplate(session.Handle,
+                                                                unitId,
+                                                                &nativeIdentity,
+                                                                (WINBIO_BIOMETRIC_SUBTYPE)position);
+
+                ThrowWinBiometricException(hr);
+            }
+        }
+
         public static void DiscardEnroll(Session session)
         {
             if (session == null)

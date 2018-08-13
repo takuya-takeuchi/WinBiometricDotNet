@@ -128,6 +128,16 @@ namespace FrameworkTester.Services
             WinBiometric.CreateDatabase(unit, guid);
         }
 
+        public void DeleteTemplate(uint unitId, BiometricIdentity identity, FingerPosition position)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            WinBiometric.DeleteTemplate(this._Session, unitId, identity, position);
+        }
+
         public void DiscardEnroll()
         {
             if (this._Session == null)
