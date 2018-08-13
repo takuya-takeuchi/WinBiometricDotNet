@@ -4412,17 +4412,6 @@ namespace WinBiometricDotNet.Interop
         public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
                                                                 [Out] out IntPtr StorageSchemaArray,
                                                                 [Out] out SIZE_T StorageCount);
-        //[System.Security.SuppressUnmanagedCodeSecurity]
-        //[DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        //public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
-        //                                                        [Out] out SafeNativeMethods.WINBIO_STORAGE_SCHEMA[] StorageSchemaArray,
-        //                                                        [Out] out SIZE_T StorageCount);
-
-        //[System.Security.SuppressUnmanagedCodeSecurity]
-        //[DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        //public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
-        //                                                        [Out] WINBIO_STORAGE_SCHEMA** StorageSchemaArray,
-        //                                                        [Out] out SIZE_T StorageCount);
 
         /// <summary>
         /// Retrieves the biometric sub-factors enrolled for a specified identity and biometric unit.

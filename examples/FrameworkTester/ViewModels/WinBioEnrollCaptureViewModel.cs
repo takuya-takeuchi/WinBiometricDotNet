@@ -10,14 +10,6 @@ namespace FrameworkTester.ViewModels
     public sealed class WinBioEnrollCaptureViewModel : WinBioViewModel, IWinBioEnrollCaptureViewModel
     {
 
-        //#region Constructors
-
-        //public WinBioEnrollCaptureViewModel()
-        //{
-        //}
-
-        //#endregion
-
         #region Properties
 
         private RelayCommand _ExecuteCommand;
