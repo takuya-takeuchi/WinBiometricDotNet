@@ -40,7 +40,7 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Value}" />
         <TextBlock
             Grid.Row="4"
@@ -50,7 +50,7 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Source}" />
         <TextBlock
             Grid.Row="6"
@@ -60,7 +60,7 @@
         <TextBlock
             Grid.Row="6"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
     </Grid>
 </Page>

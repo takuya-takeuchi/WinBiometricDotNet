@@ -82,7 +82,7 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding UnitId}" />
         <TextBlock
             Grid.Row="4"
@@ -92,7 +92,7 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding SampleSize}" />
         <TextBlock
             Grid.Row="6"
@@ -102,7 +102,7 @@
         <TextBlock
             Grid.Row="6"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding RejectDetail}" />
         <TextBlock
             Grid.Row="8"
@@ -112,7 +112,7 @@
         <TextBlock
             Grid.Row="8"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageWidth}" />
         <TextBlock
             Grid.Row="10"
@@ -122,7 +122,7 @@
         <TextBlock
             Grid.Row="10"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageHeight}" />
         <TextBlock
             Grid.Row="12"
@@ -132,7 +132,7 @@
         <TextBlock
             Grid.Row="12"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageHorizontalResolution}" />
         <TextBlock
             Grid.Row="14"
@@ -142,7 +142,7 @@
         <TextBlock
             Grid.Row="14"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageVerticalResolution}" />
         <TextBlock
             Grid.Row="16"
@@ -152,7 +152,7 @@
         <TextBlock
             Grid.Row="16"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageScanHorizontalResolution}" />
         <TextBlock
             Grid.Row="18"
@@ -162,7 +162,7 @@
         <TextBlock
             Grid.Row="18"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageScanVerticalResolution}" />
         <TextBlock
             Grid.Row="20"
@@ -172,7 +172,7 @@
         <TextBlock
             Grid.Row="20"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
     </Grid>
 </Page>

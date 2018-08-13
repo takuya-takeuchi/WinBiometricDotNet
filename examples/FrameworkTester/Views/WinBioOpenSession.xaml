@@ -37,7 +37,7 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding SessionHandle}" />
         <TextBlock
             Grid.Row="4"
@@ -47,7 +47,7 @@
         <TextBlock
             Grid.Row="4"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
     </Grid>
 </Page>

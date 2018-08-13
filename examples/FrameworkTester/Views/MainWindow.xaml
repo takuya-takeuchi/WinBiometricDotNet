@@ -51,7 +51,7 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Name}" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -70,7 +70,7 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding Description}" />
+                            <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Description}" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>

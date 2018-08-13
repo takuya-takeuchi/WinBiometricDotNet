@@ -39,7 +39,7 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="2"
-            VerticalAlignment="Center"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
         <StackPanel
             Grid.Row="6"
