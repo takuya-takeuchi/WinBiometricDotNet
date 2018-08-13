@@ -111,8 +111,11 @@
     <Compile Include="Services\Interfaces\IWinBiometricService.cs" />
     <Compile Include="Services\WinBiometricService.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioEnrollSelectViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioDeleteTemplateViewModel.cs" />
     <Compile Include="DesignTimes\WinBioDeleteTemplateViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioEnrollSelectViewModel.cs" />
+    <Compile Include="ViewModels\WinBioEnrollSelectViewModel.cs" />
     <Compile Include="ViewModels\WinBioDeleteTemplateViewModel.cs" />
     <Compile Include="ViewModels\WinBioGetPropertyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IBiometricIdentityRepositoryViewModel.cs" />
@@ -193,6 +196,9 @@
     <Compile Include="ViewModels\WinBioViewModel.cs" />
     <Compile Include="Views\WinBioAcquireFocus.xaml.cs">
       <DependentUpon>WinBioAcquireFocus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioEnrollSelect.xaml.cs">
+      <DependentUpon>WinBioEnrollSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioCancel.xaml.cs">
       <DependentUpon>WinBioCancel.xaml</DependentUpon>
@@ -302,6 +308,10 @@
     <Page Include="Views\WinBioAcquireFocus.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WinBioEnrollSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioCancel.xaml">
       <Generator>MSBuild:Compile</Generator>

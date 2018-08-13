@@ -304,6 +304,14 @@ namespace FrameworkTester.Services
             WinBiometric.RemoveDatabase(unit, databaseId);
         }
 
+        public void SelectEnroll(ulong selectorValue)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.SelectEnroll(this._Session, selectorValue);
+        }
+
         public void UnlockUnit(uint unitId)
         {
             if (this._Session == null)

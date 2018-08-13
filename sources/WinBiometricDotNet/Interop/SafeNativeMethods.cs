@@ -4344,6 +4344,20 @@ namespace WinBiometricDotNet.Interop
         public static extern HRESULT WinBioEnrollDiscard([In] WINBIO_SESSION_HANDLE SessionHandle);
 
         /// <summary>
+        /// Specifies the individual that you want to enroll when data that represents multiple individuals is present in the sample buffer. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
+        /// </summary>
+        /// <param name="SessionHandle">
+        ///<para>A <see cref="WINBIO_SESSION_HANDLE"/> value that identifies an open biometric session. Open a synchronous session handle by calling <see cref="WinBioOpenSession"/>. Open an asynchronous session handle by calling <see cref="WinBioAsyncOpenSession"/>.</para>
+        ///<para>For enrollment in facial recognition, use <see cref="WinBioAsyncOpenSession"/> with the PoolType parameter set to <see cref="WINBIO_POOL_SYSTEM"/> to get the handle.</para>
+        /// </param>
+        /// <param name="SelectorValue">A value that identifies that individual that you want to select for enrollment.</param>
+        /// <returns>If the function succeeds, it returns S_OK. If the function fails, it returns an HRESULT value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see Common HRESULT Values.</returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern HRESULT WinBioEnrollSelect([In] WINBIO_SESSION_HANDLE SessionHandle,
+                                                        [In] ULONGLONG SelectorValue);
+
+        /// <summary>
         /// Enumerates all attached biometric units that match the input type.
         /// </summary>
         /// <param name="Factor">A bitmask of <see cref="WINBIO_BIOMETRIC_TYPE"/> flags that specifies the biometric unit types to be enumerated. Only <see cref="WINBIO_TYPE_FINGERPRINT"/> is currently supported.</param>

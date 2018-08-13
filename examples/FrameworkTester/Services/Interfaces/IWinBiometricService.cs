@@ -81,6 +81,8 @@ namespace FrameworkTester.Services.Interfaces
 
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
 
+        void SelectEnroll(ulong selectorValue);
+
         void UnlockUnit(uint unitId);
 
         void UnregisterEventMonitor();

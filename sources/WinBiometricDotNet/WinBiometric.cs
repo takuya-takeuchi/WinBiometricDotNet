@@ -8,6 +8,7 @@ using WinBiometricDotNet.Helpers;
 using WinBiometricDotNet.Interop;
 
 using HRESULT = System.Int32;
+using ULONGLONG = System.UInt64;
 
 using WINBIO_BIOMETRIC_SENSOR_SUBTYPE = System.UInt32;
 using WINBIO_BIOMETRIC_SUBTYPE = System.Byte;
@@ -683,6 +684,16 @@ namespace WinBiometricDotNet
                 var message = ConvertErrorCodeToString(hr);
                 throw new WinBiometricException(message);
             }
+        }
+
+        public static void SelectEnroll(Session session, ULONGLONG selectorValue)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollSelect(session.Handle, selectorValue);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static void UnlockUnit(Session session, WINBIO_UNIT_ID unitId)
