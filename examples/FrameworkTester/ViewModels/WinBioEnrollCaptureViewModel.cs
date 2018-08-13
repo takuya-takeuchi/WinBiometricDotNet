@@ -26,9 +26,27 @@ namespace FrameworkTester.ViewModels
                     {
                         this.Result = "WAIT";
                         var result = this.BiometricService.CaptureEnroll();
-                        this.Result = "OK";
 
-                        this.RejectDetail = result;
+                        switch (result.OperationStatus)
+                        {
+                            case OperationStatus.OK:
+                                this.Result = "OK";
+                                break;
+                            case OperationStatus.BadCapture:
+                                this.Result = "BadCapture";
+                                break;
+                            case OperationStatus.Canceled:
+                                this.Result = "Canceled";
+                                break;
+                            case OperationStatus.MoreData:
+                                this.Result = "MoreData";
+                                break;
+                            case OperationStatus.Unknown:
+                                this.Result = "Unknown";
+                                break;
+                        }
+
+                        this.RejectDetail = result.RejectDetail;
                     }
                     catch (Exception e)
                     {

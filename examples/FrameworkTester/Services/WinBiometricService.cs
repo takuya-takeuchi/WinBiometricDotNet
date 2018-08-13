@@ -54,7 +54,7 @@ namespace FrameworkTester.Services
             WinBiometric.Cancel(this._Session);
         }
 
-        public RejectDetails CaptureEnroll()
+        public CaptureEnrollResult CaptureEnroll()
         {
             if (this._Session == null)
                 throw new Exception("There is no opened session.");

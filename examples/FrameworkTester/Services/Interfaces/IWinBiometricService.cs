@@ -16,7 +16,7 @@ namespace FrameworkTester.Services.Interfaces
 
         void Cancel();
 
-        RejectDetails CaptureEnroll();
+        CaptureEnrollResult CaptureEnroll();
 
         void CaptureEnrollWithCallback();
 

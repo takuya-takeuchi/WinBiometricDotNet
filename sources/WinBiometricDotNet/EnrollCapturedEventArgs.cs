@@ -8,22 +8,16 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal EnrollCapturedEventArgs(RejectDetails rejectDetail, OperationStatus operationStatus)
+        internal EnrollCapturedEventArgs(CaptureEnrollResult result)
         {
-            this.RejectDetail = rejectDetail;
-            this.OperationStatus = operationStatus;
+            this.Result = result;
         }
 
         #endregion
 
         #region Properties
 
-        public OperationStatus OperationStatus
-        {
-            get;
-        }
-
-        public RejectDetails RejectDetail
+        public CaptureEnrollResult Result
         {
             get;
         }

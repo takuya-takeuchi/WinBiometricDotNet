@@ -119,16 +119,29 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
-        public static RejectDetails CaptureEnroll(Session session)
+        public static CaptureEnrollResult CaptureEnroll(Session session)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
 
             var hr = SafeNativeMethods.WinBioEnrollCapture(session.Handle, out var rejectDetail);
 
-            ThrowWinBiometricException(hr);
+            OperationStatus status;
+            switch (hr)
+            {
+                case SafeNativeMethods.WINBIO_I_MORE_DATA:
+                    status = OperationStatus.MoreData;
+                    break;
+                case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                    status = OperationStatus.BadCapture;
+                    break;
+                default:
+                    ThrowWinBiometricException(hr);
+                    status = OperationStatus.OK;
+                    break;
+            }
 
-            return (RejectDetails)rejectDetail;
+            return new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
         }
 
         public static void CaptureEnrollWithCallback(Session session)
@@ -824,8 +837,11 @@ namespace WinBiometricDotNet
                     case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
                         status = OperationStatus.BadCapture;
                         break;
-                    case SafeNativeMethods.WINBIO_E_CANCELED:
+                    case SafeNativeMethods.WINBIO_I_MORE_DATA:
                         status = OperationStatus.Canceled;
+                        break;
+                    case SafeNativeMethods.WINBIO_E_CANCELED:
+                        status = OperationStatus.MoreData;
                         break;
                     default:
                         status = OperationStatus.Unknown;
@@ -1666,7 +1682,8 @@ namespace WinBiometricDotNet
             var @event = EnrollCaptured;
             if (@event != null)
             {
-                var args = new EnrollCapturedEventArgs((RejectDetails)rejectDetail, status);
+                var result =  new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
+                var args = new EnrollCapturedEventArgs(result);
                 @event.Invoke(null, args);
             }
         }
