@@ -25,6 +25,9 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
+                        this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this._FingerPositions.Clear();
 
                         var positions = this.BiometricService.EnumEnrollments(this.CurrentUnit);

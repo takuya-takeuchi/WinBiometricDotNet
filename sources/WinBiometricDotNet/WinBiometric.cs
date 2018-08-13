@@ -8,6 +8,7 @@ using WinBiometricDotNet.Helpers;
 using WinBiometricDotNet.Interop;
 
 using HRESULT = System.Int32;
+using ULONGLONG = System.UInt64;
 
 using WINBIO_BIOMETRIC_SENSOR_SUBTYPE = System.UInt32;
 using WINBIO_BIOMETRIC_SUBTYPE = System.Byte;
@@ -119,16 +120,29 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
-        public static RejectDetails CaptureEnroll(Session session)
+        public static CaptureEnrollResult CaptureEnroll(Session session)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
 
             var hr = SafeNativeMethods.WinBioEnrollCapture(session.Handle, out var rejectDetail);
 
-            ThrowWinBiometricException(hr);
+            OperationStatus status;
+            switch (hr)
+            {
+                case SafeNativeMethods.WINBIO_I_MORE_DATA:
+                    status = OperationStatus.MoreData;
+                    break;
+                case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                    status = OperationStatus.BadCapture;
+                    break;
+                default:
+                    ThrowWinBiometricException(hr);
+                    status = OperationStatus.OK;
+                    break;
+            }
 
-            return (RejectDetails)rejectDetail;
+            return new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
         }
 
         public static void CaptureEnrollWithCallback(Session session)
@@ -271,6 +285,25 @@ namespace WinBiometricDotNet
             }
         }
 
+        public static void DeleteTemplate(Session session, uint unitId, BiometricIdentity identity, FingerPosition position)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            unsafe
+            {
+                var nativeIdentity = identity.Source;
+                var hr = SafeNativeMethods.WinBioDeleteTemplate(session.Handle,
+                                                                unitId,
+                                                                &nativeIdentity,
+                                                                (WINBIO_BIOMETRIC_SUBTYPE)position);
+
+                ThrowWinBiometricException(hr);
+            }
+        }
+
         public static void DiscardEnroll(Session session)
         {
             if (session == null)
@@ -361,7 +394,7 @@ namespace WinBiometricDotNet
         {
             if (identity == null)
                 throw new ArgumentNullException(nameof(identity));
-            
+
             var hr = SafeNativeMethods.WinBioGetCredentialState(identity.Source,
                                                                 (SafeNativeMethods.WINBIO_CREDENTIAL_TYPE)credentialType,
                                                                 out var state);
@@ -369,6 +402,118 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return (CredentialStates)state;
+        }
+
+        public static void GetDomainLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            var hr = SafeNativeMethods.WinBioGetDomainLogonSetting(out value, out var tmp);
+
+            ThrowWinBiometricException(hr);
+
+            source = (SettingSourceTypes)tmp;
+        }
+
+        public static void GetEnabledSetting(out bool value, out SettingSourceTypes source)
+        {
+            var hr = SafeNativeMethods.WinBioGetEnabledSetting(out value, out var tmp);
+
+            ThrowWinBiometricException(hr);
+
+            source = (SettingSourceTypes)tmp;
+        }
+
+        public static BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner)
+        {
+            if (accountOwner == null)
+                throw new ArgumentNullException(nameof(accountOwner));
+
+            unsafe
+            {
+                var nativeIdentity = accountOwner.Source;
+                WINBIO_BIOMETRIC_TYPE enrolledFactor;
+                var hr = SafeNativeMethods.WinBioGetEnrolledFactors(&nativeIdentity,
+                                                                    &enrolledFactor);
+
+                ThrowWinBiometricException(hr);
+
+                return (BiometricTypes)enrolledFactor;
+            }
+        }
+
+        public static void GetLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            var hr = SafeNativeMethods.WinBioGetLogonSetting(out value, out var tmp);
+
+            ThrowWinBiometricException(hr);
+
+            source = (SettingSourceTypes)tmp;
+        }
+
+        public static void GetProperty(Session session,
+                                       PropertyTypes propertyType,
+                                       PropertyId propertyId,
+                                       uint unitId,
+                                       BiometricIdentity identity,
+                                       FingerPosition position,
+                                       out byte[] propertyBuffer)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            unsafe
+            {
+                var tmp = identity?.Source ?? new SafeNativeMethods.WINBIO_IDENTITY();
+                SafeNativeMethods.WINBIO_IDENTITY* nativeIdentity;
+
+                WINBIO_PROPERTY_ID id;
+                switch (propertyId)
+                {
+                    case PropertyId.AntiSpoofPolicy:
+                        id = (WINBIO_PROPERTY_ID)1;
+                        unitId = 0;
+                        nativeIdentity = &tmp;
+                        break;
+                    default:
+                        id = (WINBIO_PROPERTY_ID)propertyId;
+                        nativeIdentity = (SafeNativeMethods.WINBIO_IDENTITY*)IntPtr.Zero;
+                        break;
+                }
+
+                // NOTE
+                // PropertyType
+                //      * Currently this must be WINBIO_PROPERTY_TYPE_UNIT or WINBIO_PROPERTY_TYPE_ACCOUNT.
+                // UnitId
+                //      * If you specify WINBIO_PROPERTY_ANTI_SPOOF_POLICY as the value for the PropertyId
+                //        parameter, specify 0 for the UnitId parameter.
+                // Identity
+                //      * If you specify any other value for the PropertyId parameter, the Identity parameter must be NULL.
+                // SubFactor
+                //      * Reserved.This must be WINBIO_SUBTYPE_NO_INFORMATION.
+
+                var hr = SafeNativeMethods.WinBioGetProperty(session.Handle,
+                                                             (WINBIO_PROPERTY_TYPE)propertyType,
+                                                             id,
+                                                             unitId,
+                                                             nativeIdentity,
+                                                             (WINBIO_BIOMETRIC_SUBTYPE)SafeNativeMethods.WINBIO_SUBTYPE_NO_INFORMATION,
+                                                             out var pBuffer,
+                                                             out var pBufferSize);
+
+                ThrowWinBiometricException(hr);
+
+                if (pBuffer != IntPtr.Zero)
+                {
+                    var size = (int)pBufferSize;
+                    propertyBuffer = new byte[size];
+                    Marshal.Copy(pBuffer, propertyBuffer, 0, propertyBuffer.Length);
+
+                    SafeNativeMethods.WinBioFree(pBuffer);
+                }
+                else
+                {
+                    propertyBuffer = null;
+                }
+            }
         }
 
         public static IdentifyResult Identify(Session session)
@@ -385,10 +530,10 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return new IdentifyResult(unitId,
-                                      OperationStatus.OK, 
-                                      new BiometricIdentity(identity), 
-                                      (FingerPosition) subFactor,
-                                      (RejectDetails) rejectDetail);
+                                      OperationStatus.OK,
+                                      new BiometricIdentity(identity),
+                                      (FingerPosition)subFactor,
+                                      (RejectDetails)rejectDetail);
         }
 
         public static void IdentifyWithCallback(Session session)
@@ -539,6 +684,16 @@ namespace WinBiometricDotNet
                 var message = ConvertErrorCodeToString(hr);
                 throw new WinBiometricException(message);
             }
+        }
+
+        public static void SelectEnroll(Session session, ULONGLONG selectorValue)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioEnrollSelect(session.Handle, selectorValue);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static void UnlockUnit(Session session, WINBIO_UNIT_ID unitId)
@@ -693,8 +848,11 @@ namespace WinBiometricDotNet
                     case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
                         status = OperationStatus.BadCapture;
                         break;
-                    case SafeNativeMethods.WINBIO_E_CANCELED:
+                    case SafeNativeMethods.WINBIO_I_MORE_DATA:
                         status = OperationStatus.Canceled;
+                        break;
+                    case SafeNativeMethods.WINBIO_E_CANCELED:
+                        status = OperationStatus.MoreData;
                         break;
                     default:
                         status = OperationStatus.Unknown;
@@ -1535,7 +1693,8 @@ namespace WinBiometricDotNet
             var @event = EnrollCaptured;
             if (@event != null)
             {
-                var args = new EnrollCapturedEventArgs((RejectDetails)rejectDetail, status);
+                var result =  new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
+                var args = new EnrollCapturedEventArgs(result);
                 @event.Invoke(null, args);
             }
         }

@@ -16,7 +16,7 @@ namespace FrameworkTester.Services.Interfaces
 
         void Cancel();
 
-        RejectDetails CaptureEnroll();
+        CaptureEnrollResult CaptureEnroll();
 
         void CaptureEnrollWithCallback();
 
@@ -32,6 +32,8 @@ namespace FrameworkTester.Services.Interfaces
 
         void CreateDatabase(BiometricUnit unit, Guid guid);
 
+        void DeleteTemplate(uint unitId, BiometricIdentity identity, FingerPosition position);
+
         void DiscardEnroll();
 
         IEnumerable<BiometricDatabase> EnumBiometricDatabases();
@@ -43,6 +45,21 @@ namespace FrameworkTester.Services.Interfaces
         IEnumerable<BiometricServiceProvider> EnumServiceProviders();
 
         CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType);
+
+        void GetDomainLogonSetting(out bool value, out SettingSourceTypes source);
+
+        void GetEnabledSetting(out bool value, out SettingSourceTypes source);
+
+        BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner);
+
+        void GetLogonSetting(out bool value, out SettingSourceTypes source);
+
+        void GetProperty(PropertyTypes propertyType,
+                         PropertyId propertyId,
+                         uint unitId,
+                         BiometricIdentity identity,
+                         FingerPosition position,
+                         out byte[] propertyBuffer);
 
         IdentifyResult Identify();
 
@@ -63,6 +80,8 @@ namespace FrameworkTester.Services.Interfaces
         void ReleaseFocus();
 
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
+
+        void SelectEnroll(ulong selectorValue);
 
         void UnlockUnit(uint unitId);
 

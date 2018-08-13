@@ -1,4 +1,5 @@
-﻿using FrameworkTester.Services.Interfaces;
+﻿using System.Windows.Threading;
+using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -16,6 +17,7 @@ namespace FrameworkTester.ViewModels
         protected WinBioViewModel()
         {
             this.BiometricService = SimpleIoc.Default.GetInstance<IWinBiometricService>();
+            this.DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
         }
 
         #endregion
@@ -35,6 +37,11 @@ namespace FrameworkTester.ViewModels
                 this._CurrentUnit = value;
                 this.RaisePropertyChanged();
             }
+        }
+
+        protected IDispatcherService DispatcherService
+        {
+            get;
         }
 
         public abstract string Name
@@ -65,6 +72,15 @@ namespace FrameworkTester.ViewModels
         protected IWinBiometricService BiometricService
         {
             get;
+        }
+
+        #endregion
+
+        #region Methods
+
+        protected void UpdateUIImmediately()
+        {
+            this.DispatcherService.UpdateUI(DispatcherPriority.Background, 500);
         }
 
         #endregion

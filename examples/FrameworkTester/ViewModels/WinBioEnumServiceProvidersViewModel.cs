@@ -36,6 +36,9 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
+                        this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.ServiceProviders.Clear();
                         foreach (var provider in this.BiometricService.EnumServiceProviders())
                             this.ServiceProviders.Add(provider);

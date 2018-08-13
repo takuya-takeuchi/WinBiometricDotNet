@@ -4,13 +4,39 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:FrameworkTester"
     xmlns:viewModels="clr-namespace:FrameworkTester.ViewModels"
     d1p1:Ignorable="d"
     StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <viewModels:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+
+            <!--  Styles  -->
+            <Style TargetType="Button">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Height" Value="30" />
+            </Style>
+            <Style TargetType="ToggleButton">
+                <Setter Property="Width" Value="100" />
+                <Setter Property="Height" Value="30" />
+            </Style>
+            <Style x:Key="CaptureSampleViewBox" TargetType="Viewbox">
+                <Setter Property="MinWidth" Value="256" />
+                <Setter Property="MinHeight" Value="256" />
+                <Setter Property="MaxWidth" Value="256" />
+                <Setter Property="MaxHeight" Value="256" />
+                <Setter Property="Margin" Value="0,0,50,0" />
+            </Style>
+            <Style x:Key="LabelTextBlock" TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <Style x:Key="ValueTextBlock" TargetType="TextBlock">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

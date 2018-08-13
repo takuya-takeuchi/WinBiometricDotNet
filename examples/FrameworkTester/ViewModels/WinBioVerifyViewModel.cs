@@ -38,7 +38,10 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         var result = this.BiometricService.Verify(this.CurrentUnit, this.SelectedFingerPosition);
+
                         this.Result = "OK";
 
                         this.IsMatch = result.IsMatch;

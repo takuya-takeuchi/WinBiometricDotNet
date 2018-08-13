@@ -62,6 +62,8 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.BiometricService.LocateSensorWithCallback();
 
                         this.WaitCallback = true;

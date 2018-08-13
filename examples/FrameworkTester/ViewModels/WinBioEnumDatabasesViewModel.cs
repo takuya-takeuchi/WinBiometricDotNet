@@ -46,7 +46,11 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
+                        this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         var guid = this.BiometricService.CreateDatabase(this.CurrentUnit);
+
                         this.Result = "OK";
 
                         MessageBox.Show($"{guid} was created.");

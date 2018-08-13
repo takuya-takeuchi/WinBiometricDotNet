@@ -54,7 +54,7 @@ namespace FrameworkTester.Services
             WinBiometric.Cancel(this._Session);
         }
 
-        public RejectDetails CaptureEnroll()
+        public CaptureEnrollResult CaptureEnroll()
         {
             if (this._Session == null)
                 throw new Exception("There is no opened session.");
@@ -128,6 +128,16 @@ namespace FrameworkTester.Services
             WinBiometric.CreateDatabase(unit, guid);
         }
 
+        public void DeleteTemplate(uint unitId, BiometricIdentity identity, FingerPosition position)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            WinBiometric.DeleteTemplate(this._Session, unitId, identity, position);
+        }
+
         public void DiscardEnroll()
         {
             if (this._Session == null)
@@ -165,6 +175,39 @@ namespace FrameworkTester.Services
                 throw new ArgumentNullException(nameof(identity));
 
             return WinBiometric.GetCredentialState(identity, credentialType);
+        }
+
+        public void GetDomainLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            WinBiometric.GetDomainLogonSetting(out value, out source);
+        }
+
+        public void GetEnabledSetting(out bool value, out SettingSourceTypes source)
+        {
+            WinBiometric.GetEnabledSetting(out value, out source);
+        }
+
+        public BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner)
+        {
+            return WinBiometric.GetEnrolledFactors(accountOwner);
+        }
+
+        public void GetLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            WinBiometric.GetLogonSetting(out value, out source);
+        }
+
+        public void GetProperty(PropertyTypes propertyType, 
+                                PropertyId propertyId, 
+                                uint unitId, 
+                                BiometricIdentity identity,
+                                FingerPosition position, 
+                                out byte[] propertyBuffer)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.GetProperty(this._Session, propertyType, propertyId, unitId, identity, position, out propertyBuffer);
         }
 
         public IdentifyResult Identify()
@@ -259,6 +302,14 @@ namespace FrameworkTester.Services
                 throw new ArgumentNullException(nameof(unit));
 
             WinBiometric.RemoveDatabase(unit, databaseId);
+        }
+
+        public void SelectEnroll(ulong selectorValue)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.SelectEnroll(this._Session, selectorValue);
         }
 
         public void UnlockUnit(uint unitId)

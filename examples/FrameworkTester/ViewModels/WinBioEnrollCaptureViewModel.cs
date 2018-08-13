@@ -10,14 +10,6 @@ namespace FrameworkTester.ViewModels
     public sealed class WinBioEnrollCaptureViewModel : WinBioViewModel, IWinBioEnrollCaptureViewModel
     {
 
-        //#region Constructors
-
-        //public WinBioEnrollCaptureViewModel()
-        //{
-        //}
-
-        //#endregion
-
         #region Properties
 
         private RelayCommand _ExecuteCommand;
@@ -33,10 +25,30 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        var result = this.BiometricService.CaptureEnroll();
-                        this.Result = "OK";
+                        this.UpdateUIImmediately();
 
-                        this.RejectDetail = result;
+                        var result = this.BiometricService.CaptureEnroll();
+
+                        switch (result.OperationStatus)
+                        {
+                            case OperationStatus.OK:
+                                this.Result = "OK";
+                                break;
+                            case OperationStatus.BadCapture:
+                                this.Result = "BadCapture";
+                                break;
+                            case OperationStatus.Canceled:
+                                this.Result = "Canceled";
+                                break;
+                            case OperationStatus.MoreData:
+                                this.Result = "MoreData";
+                                break;
+                            case OperationStatus.Unknown:
+                                this.Result = "Unknown";
+                                break;
+                        }
+
+                        this.RejectDetail = result.RejectDetail;
                     }
                     catch (Exception e)
                     {

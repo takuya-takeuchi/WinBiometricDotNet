@@ -34,24 +34,24 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock
                 Grid.Row="0"
                 Grid.Column="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
+                Style="{StaticResource LabelTextBlock}"
                 Text="API: " />
             <ComboBox
                 Grid.Row="0"
-                Grid.Column="1"
+                Grid.Column="2"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding TestTargets}"
                 SelectedItem="{Binding CurrentTestTarget}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Name}" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -59,19 +59,18 @@
             <TextBlock
                 Grid.Row="2"
                 Grid.Column="0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
+                Style="{StaticResource LabelTextBlock}"
                 Text="Units: " />
             <ComboBox
                 Grid.Row="2"
-                Grid.Column="1"
+                Grid.Column="2"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding Units}"
                 SelectedItem="{Binding CurrentUnit}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding Description}" />
+                            <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Description}" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -99,15 +98,11 @@
                 Orientation="Horizontal">
                 <ToggleButton
                     x:Name="_ToggleButton"
-                    Width="100"
-                    Height="30"
                     Margin="5"
                     HorizontalAlignment="Right"
                     Content="Monitor Event"
                     IsChecked="{Binding ToggleMonitorEvent}" />
                 <Button
-                    Width="100"
-                    Height="30"
                     Margin="0,5,5,5"
                     HorizontalAlignment="Right"
                     Command="{Binding ClearEventsCommand}"

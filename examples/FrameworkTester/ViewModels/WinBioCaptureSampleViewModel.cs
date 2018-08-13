@@ -130,25 +130,28 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        var result = this.BiometricService.CaptureSample();
-                        this.Result = "OK";
+                        this.UpdateUIImmediately();
 
+                        var result = this.BiometricService.CaptureSample();
+
+                        var text = "OK";
                         switch (result.OperationStatus)
                         {
                             case OperationStatus.OK:
-                                this.Result = "OK";
+                                text = "OK";
                                 break;
                             case OperationStatus.BadCapture:
-                                this.Result = "BadCapture";
+                                text = "BadCapture";
                                 break;
                             case OperationStatus.Canceled:
-                                this.Result = "Canceled";
+                                text = "Canceled";
                                 break;
                             case OperationStatus.Unknown:
-                                this.Result = "Unknown";
+                                text = "Unknown";
                                 break;
                         }
 
+                        this.Result = text;
                         this.RejectDetail = result.RejectDetail;
                         this.SampleSize = result.SampleSize;
                         this.UnitId = result.UnitId;

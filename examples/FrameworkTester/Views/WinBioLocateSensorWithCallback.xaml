@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="2" HorizontalAlignment="Right">
@@ -32,16 +32,10 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal">
                 <Button
-                    Width="100"
-                    Height="30"
                     Margin="0,0,10,0"
                     Command="{Binding ExecuteCommand}"
                     Content="Execute" />
-                <Button
-                    Width="100"
-                    Height="30"
-                    Command="{Binding CancelCommand}"
-                    Content="Cancel" />
+                <Button Command="{Binding CancelCommand}" Content="Cancel" />
             </StackPanel>
             <CheckBox
                 Grid.Row="1"
@@ -52,24 +46,22 @@
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="UnitId: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
-            VerticalAlignment="Center"
+            Grid.Column="2"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding UnitId}" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="4"
-            Grid.Column="1"
-            VerticalAlignment="Center"
+            Grid.Column="2"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
     </Grid>
 </Page>

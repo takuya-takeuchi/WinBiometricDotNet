@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace FrameworkTester.Services.Interfaces
 {
@@ -8,6 +9,8 @@ namespace FrameworkTester.Services.Interfaces
     {
 
         Task SafeAction(Action action);
+
+        void UpdateUI(DispatcherPriority priority, int waitMsec);
 
     }
 

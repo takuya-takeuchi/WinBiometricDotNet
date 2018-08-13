@@ -4344,6 +4344,20 @@ namespace WinBiometricDotNet.Interop
         public static extern HRESULT WinBioEnrollDiscard([In] WINBIO_SESSION_HANDLE SessionHandle);
 
         /// <summary>
+        /// Specifies the individual that you want to enroll when data that represents multiple individuals is present in the sample buffer. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
+        /// </summary>
+        /// <param name="SessionHandle">
+        ///<para>A <see cref="WINBIO_SESSION_HANDLE"/> value that identifies an open biometric session. Open a synchronous session handle by calling <see cref="WinBioOpenSession"/>. Open an asynchronous session handle by calling <see cref="WinBioAsyncOpenSession"/>.</para>
+        ///<para>For enrollment in facial recognition, use <see cref="WinBioAsyncOpenSession"/> with the PoolType parameter set to <see cref="WINBIO_POOL_SYSTEM"/> to get the handle.</para>
+        /// </param>
+        /// <param name="SelectorValue">A value that identifies that individual that you want to select for enrollment.</param>
+        /// <returns>If the function succeeds, it returns S_OK. If the function fails, it returns an HRESULT value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see Common HRESULT Values.</returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern HRESULT WinBioEnrollSelect([In] WINBIO_SESSION_HANDLE SessionHandle,
+                                                        [In] ULONGLONG SelectorValue);
+
+        /// <summary>
         /// Enumerates all attached biometric units that match the input type.
         /// </summary>
         /// <param name="Factor">A bitmask of <see cref="WINBIO_BIOMETRIC_TYPE"/> flags that specifies the biometric unit types to be enumerated. Only <see cref="WINBIO_TYPE_FINGERPRINT"/> is currently supported.</param>
@@ -4412,17 +4426,6 @@ namespace WinBiometricDotNet.Interop
         public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
                                                                 [Out] out IntPtr StorageSchemaArray,
                                                                 [Out] out SIZE_T StorageCount);
-        //[System.Security.SuppressUnmanagedCodeSecurity]
-        //[DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        //public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
-        //                                                        [Out] out SafeNativeMethods.WINBIO_STORAGE_SCHEMA[] StorageSchemaArray,
-        //                                                        [Out] out SIZE_T StorageCount);
-
-        //[System.Security.SuppressUnmanagedCodeSecurity]
-        //[DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        //public static extern unsafe HRESULT WinBioEnumDatabases([In] WINBIO_BIOMETRIC_TYPE Factor,
-        //                                                        [Out] WINBIO_STORAGE_SCHEMA** StorageSchemaArray,
-        //                                                        [Out] out SIZE_T StorageCount);
 
         /// <summary>
         /// Retrieves the biometric sub-factors enrolled for a specified identity and biometric unit.
@@ -4776,6 +4779,21 @@ namespace WinBiometricDotNet.Interop
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
         public static extern HRESULT WinBioGetEnabledSetting([Out] out BOOLEAN Value,
                                                              [Out] out WINBIO_SETTING_SOURCE_TYPE Source);
+
+        /// <summary>
+        /// Gets information about the biometric enrollments that the specified user has on the computer. Biometric enrollments include enrollments for facial recognition, fingerprint scanning, iris scanning, and so on.
+        /// </summary>
+        /// <param name="AccountOwner"></param>
+        /// <param name="EnrolledFactors">
+        /// <para>A set of <see cref="WINBIO_BIOMETRIC_TYPE"/> flags that indicate the biometric enrollments that the specified user has on the computer. A value of 0 indicates that the user has no biometric enrollments.</para>
+        /// <para>These enrollments represent system pool enrollments only, such as enrollments that you can use to authenticate a user for sign-in, unlock, and so on.This value does not include private pool enrollments.</para>
+        /// <para>If you specify the wildcard identity type for the <see cref="WINBIO_IDENTITY"/> structure that you use for the AccountOwner parameter, this set of flags represents the combined set of enrollments for all users with accounts on the computer.</para>
+        /// </param>
+        /// <returns>If the function succeeds, it returns <see cref="S_OK"/>. If the function fails, it returns an HRESULT value that indicates the error. For a list of common error codes, see Common HRESULT Values.</returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern unsafe HRESULT WinBioGetEnrolledFactors([In]  WINBIO_IDENTITY* AccountOwner,
+                                                                     [Out] WINBIO_BIOMETRIC_TYPE* EnrolledFactors);
 
         /// <summary>
         /// Retrieves a value that indicates whether users can log on by using biometric information.

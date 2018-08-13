@@ -62,6 +62,8 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.BiometricService.CaptureEnrollWithCallback();
 
                         this.WaitCallback = true;
@@ -125,7 +127,7 @@ namespace FrameworkTester.ViewModels
                 this.WaitCallback = false;
             });
 
-            switch (e.OperationStatus)
+            switch (e.Result.OperationStatus)
             {
                 case OperationStatus.OK:
                     this.Result = "OK";
@@ -136,12 +138,15 @@ namespace FrameworkTester.ViewModels
                 case OperationStatus.Canceled:
                     this.Result = "Canceled";
                     break;
+                case OperationStatus.MoreData:
+                    this.Result = "MoreData";
+                    break;
                 case OperationStatus.Unknown:
                     this.Result = "Unknown";
                     break;
             }
 
-            this.RejectDetail = e.RejectDetail;
+            this.RejectDetail = e.Result.RejectDetail;
         }
 
         #endregion

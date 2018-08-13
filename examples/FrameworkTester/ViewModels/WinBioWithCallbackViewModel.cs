@@ -9,15 +9,6 @@ namespace FrameworkTester.ViewModels
     public abstract class WinBioWithCallbackViewModel : WinBioViewModel, IWinBioWithCallbackViewModel
     {
 
-        #region Constructors
-
-        protected WinBioWithCallbackViewModel()
-        {
-            this.DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
-        }
-
-        #endregion
-
         #region Properties
 
         public abstract RelayCommand CancelCommand
@@ -29,11 +20,6 @@ namespace FrameworkTester.ViewModels
         {
             get;
             set;
-        }
-
-        protected IDispatcherService DispatcherService
-        {
-            get;
         }
 
         private bool _WaitCallback;

@@ -21,35 +21,33 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button
-            Grid.Column="1"
-            Width="100"
-            Height="30"
+            Grid.Column="2"
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
-            VerticalAlignment="Center"
+            Grid.Column="2"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            Style="{StaticResource LabelTextBlock}"
             Text="Units: " />
         <ScrollViewer
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Stretch">
             <ListBox Height="300" ItemsSource="{Binding Units}">
                 <ListBox.ItemTemplate>

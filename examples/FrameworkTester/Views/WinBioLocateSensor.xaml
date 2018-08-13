@@ -22,37 +22,33 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button
             Grid.Column="2"
-            Width="100"
-            Height="30"
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="UnitId: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
-            VerticalAlignment="Center"
+            Grid.Column="2"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding UnitId}" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="4"
-            Grid.Column="1"
-            VerticalAlignment="Center"
+            Grid.Column="2"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
     </Grid>
 </Page>

@@ -24,7 +24,10 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         var result = this.BiometricService.LocateSensor();
+
                         this.Result = "OK";
 
                         this.UnitId = result;

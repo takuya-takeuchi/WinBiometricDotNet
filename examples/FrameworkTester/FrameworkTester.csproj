@@ -77,10 +77,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DesignTimes\WinBioAcquireFocusViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioGetEnabledSettingViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioGetEnrolledFactorsViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioGetLogonSettingViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioGetPropertyViewModel.cs" />
     <Compile Include="DesignTimes\WinBioIdentifyWithCallbackViewModel.cs" />
     <Compile Include="DesignTimes\WinBioIdentifyViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetCredentialStateViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioGetDomainLogonSettingViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLogonIdentifiedUserViewModel.cs" />
     <Compile Include="DesignTimes\WinBioCancelViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollCaptureWithCallbackViewModel.cs" />
@@ -106,17 +111,30 @@
     <Compile Include="Services\Interfaces\IWinBiometricService.cs" />
     <Compile Include="Services\WinBiometricService.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioEnrollSelectViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioDeleteTemplateViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioDeleteTemplateViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioEnrollSelectViewModel.cs" />
+    <Compile Include="ViewModels\WinBioEnrollSelectViewModel.cs" />
+    <Compile Include="ViewModels\WinBioDeleteTemplateViewModel.cs" />
+    <Compile Include="ViewModels\WinBioGetPropertyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IBiometricIdentityRepositoryViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCancelViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioGetEnabledSettingViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioGetEnrolledFactorsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioGetLogonSettingViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioGetPropertyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioIdentifyWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioIdentifyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioGetCredentialStateViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioGetDomainLogonSettingViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioLogonIdentifiedUserViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnrollCaptureWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnrollCommitViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnrollDiscardViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioPropertyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioUnlockUnitViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioLockUnitViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioLocateSensorWithCallbackViewModel.cs" />
@@ -142,6 +160,10 @@
     <Compile Include="DesignTimes\WinBioEnumBiometricUnitsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioOpenSessionViewModel.cs" />
     <Compile Include="ViewModels\WinBioCancelViewModel.cs" />
+    <Compile Include="ViewModels\WinBioGetDomainLogonSettingViewModel.cs" />
+    <Compile Include="ViewModels\WinBioGetEnabledSettingViewModel.cs" />
+    <Compile Include="ViewModels\WinBioGetEnrolledFactorsViewModel.cs" />
+    <Compile Include="ViewModels\WinBioGetLogonSettingViewModel.cs" />
     <Compile Include="ViewModels\WinBioIdentifyWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioIdentifyViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnumServiceProvidersViewModel.cs" />
@@ -149,6 +171,7 @@
     <Compile Include="ViewModels\WinBioLogonIdentifiedUserViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollCaptureWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollDiscardViewModel.cs" />
+    <Compile Include="ViewModels\WinBioPropertyViewModel.cs" />
     <Compile Include="ViewModels\WinBioUnlockUnitViewModel.cs" />
     <Compile Include="ViewModels\WinBioLockUnitViewModel.cs" />
     <Compile Include="ViewModels\WinBioLocateSensorViewModel.cs" />
@@ -174,11 +197,29 @@
     <Compile Include="Views\WinBioAcquireFocus.xaml.cs">
       <DependentUpon>WinBioAcquireFocus.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WinBioEnrollSelect.xaml.cs">
+      <DependentUpon>WinBioEnrollSelect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WinBioCancel.xaml.cs">
       <DependentUpon>WinBioCancel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioEnrollCaptureWithCallback.xaml.cs">
       <DependentUpon>WinBioEnrollCaptureWithCallback.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioDeleteTemplate.xaml.cs">
+      <DependentUpon>WinBioDeleteTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioGetProperty.xaml.cs">
+      <DependentUpon>WinBioGetProperty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioGetEnrolledFactors.xaml.cs">
+      <DependentUpon>WinBioGetEnrolledFactors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioGetLogonSetting.xaml.cs">
+      <DependentUpon>WinBioGetLogonSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioGetEnabledSetting.xaml.cs">
+      <DependentUpon>WinBioGetEnabledSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioIdentifyWithCallback.xaml.cs">
       <DependentUpon>WinBioIdentifyWithCallback.xaml</DependentUpon>
@@ -197,6 +238,9 @@
     </Compile>
     <Compile Include="Views\WinBioGetCredentialState.xaml.cs">
       <DependentUpon>WinBioGetCredentialState.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioGetDomainLogonSetting.xaml.cs">
+      <DependentUpon>WinBioGetDomainLogonSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioLockUnit.xaml.cs">
       <DependentUpon>WinBioLockUnit.xaml</DependentUpon>
@@ -265,11 +309,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\WinBioEnrollSelect.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WinBioCancel.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioEnrollCaptureWithCallback.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioDeleteTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioGetProperty.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioGetEnrolledFactors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioGetLogonSetting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioGetEnabledSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -294,6 +362,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioGetCredentialState.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioGetDomainLogonSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

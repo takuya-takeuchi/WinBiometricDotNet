@@ -46,7 +46,6 @@ namespace FrameworkTester.ViewModels
                                                          .Where(type => type != winBio && type.IsInterface && type.GetInterfaces().Contains(winBio))
                                                          .OrderBy(type => type.FullName))
             {
-
                 var model = SimpleIoc.Default.GetInstance(type) as IWinBioViewModel;
                 this.TestTargets.Add(model);
             }

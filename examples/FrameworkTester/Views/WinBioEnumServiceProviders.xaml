@@ -22,35 +22,33 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button
-            Grid.Column="1"
-            Width="100"
-            Height="30"
+            Grid.Column="2"
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
+            Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
-            VerticalAlignment="Center"
+            Grid.Column="2"
+            Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
-            HorizontalAlignment="Right"
             VerticalAlignment="Top"
+            Style="{StaticResource LabelTextBlock}"
             Text="ServiceProviders: " />
         <ComboBox
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Stretch"
             ItemsSource="{Binding ServiceProviders}"
             SelectedItem="{Binding CurrentServiceProvider}">
@@ -67,55 +65,68 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="5" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="Id: " />
                         <TextBlock
                             Grid.Row="0"
-                            Grid.Column="1"
+                            Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Id}" />
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="MajorVersion: " />
                         <TextBlock
                             Grid.Row="1"
-                            Grid.Column="1"
+                            Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Version.MajorVersion}" />
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="MinorVersion: " />
                         <TextBlock
                             Grid.Row="2"
-                            Grid.Column="1"
+                            Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Version.MinorVersion}" />
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="BiometricFactor: " />
                         <TextBlock
                             Grid.Row="3"
-                            Grid.Column="1"
+                            Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding BiometricFactor}" />
                         <TextBlock
                             Grid.Row="4"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="Vendor: " />
                         <TextBlock
                             Grid.Row="4"
-                            Grid.Column="1"
+                            Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Vendor}" />
                         <TextBlock
                             Grid.Row="5"
                             Grid.Column="0"
+                            Style="{StaticResource LabelTextBlock}"
                             Text="Description: " />
                         <TextBlock
                             Grid.Row="5"
-                            Grid.Column="1"
+                            Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Description}" />
                     </Grid>
                 </DataTemplate>
