@@ -3,9 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Takuya Takeuchi</Authors>
-    <Copyright>Takuya Takeuchi</Copyright>
-    <Description>.NET wrapper for Windows Biometric Framework</Description>
+    <Copyright>© Takuya Takeuchi 2018</Copyright>
+    <Description>Windows Bitometric Framework .NET wrapper</Description>
     <Version>0.5.0</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://github.com/takuya-takeuchi/WinBiometricDotNet</PackageProjectUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/takuya-takeuchi/WinBiometricDotNet/blob/master/nuget/fingerprint128.png?raw=true</PackageIconUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <RepositoryType></RepositoryType>
+    <PackageTags>windowsbiometricframework wbf biometric</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
