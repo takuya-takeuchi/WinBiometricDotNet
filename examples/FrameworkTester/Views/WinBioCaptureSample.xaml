@@ -46,9 +46,15 @@
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />
-        <Viewbox
+        <TextBlock
             Grid.Row="2"
-            Grid.RowSpan="20"
+            Grid.Column="2"
+            Margin="0,0,256,0"
+            Style="{StaticResource LabelTextBlock}"
+            Text="Captured Image: " />
+        <Viewbox
+            Grid.Row="4"
+            Grid.RowSpan="18"
             Grid.Column="2"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
