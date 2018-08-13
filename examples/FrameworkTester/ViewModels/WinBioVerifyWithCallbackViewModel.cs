@@ -68,6 +68,8 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.BiometricService.VerifyWithCallback(this.CurrentUnit, this.SelectedFingerPosition);
 
                         this.WaitCallback = true;

@@ -85,6 +85,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
 
                         var propertyType = this.CurrentPropertyType;
                         var propertyId = this.CurrentPropertyId;

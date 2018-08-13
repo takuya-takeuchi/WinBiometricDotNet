@@ -55,7 +55,8 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-               
+                        this.UpdateUIImmediately();
+
                         var unitId = this.CurrentUnit;
                         var identity = this.IdentityRepository.CurrentBiometricIdentity;
                         var fingerPosition = this.CurrentFingerPosition;

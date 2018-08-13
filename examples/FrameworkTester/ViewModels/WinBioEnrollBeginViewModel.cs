@@ -34,6 +34,8 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.BiometricService.BeginEnroll(this.SelectedFingerPosition, this.CurrentUnit.UnitId);
                         this.Result = "OK";
                     }

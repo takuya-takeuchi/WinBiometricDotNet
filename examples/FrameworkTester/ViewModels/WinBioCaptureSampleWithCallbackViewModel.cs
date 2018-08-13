@@ -180,6 +180,8 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.BiometricService.CaptureSampleWithCallback();
 
                         this.WaitCallback = true;

@@ -39,6 +39,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
 
                         var identity = this.IdentityRepository.CurrentBiometricIdentity;
                         var result = this.BiometricService.GetEnrolledFactors(identity);

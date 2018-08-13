@@ -21,7 +21,11 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
+                        this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.BiometricService.UnlockUnit(this.CurrentUnit.UnitId);
+
                         this.Result = "OK";
                     }
                     catch (Exception e)

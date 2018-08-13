@@ -23,6 +23,9 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
+                        this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this._Units.Clear();
                         foreach (var unit in this.BiometricService.EnumBiometricUnits())
                             this._Units.Add(unit);

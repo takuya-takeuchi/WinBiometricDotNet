@@ -21,10 +21,14 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
+                        this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         var session = this.BiometricService.OpenSession();
-                        this.SessionHandle = session.Handle;
 
                         this.Result = "OK";
+
+                        this.SessionHandle = session.Handle;
                     }
                     catch (Exception e)
                     {

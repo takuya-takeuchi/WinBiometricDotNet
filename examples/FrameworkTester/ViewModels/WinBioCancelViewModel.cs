@@ -21,6 +21,9 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
+                        this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.BiometricService.Cancel();
                         this.Result = "OK";
                     }

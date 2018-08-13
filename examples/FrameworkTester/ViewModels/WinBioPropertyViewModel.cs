@@ -26,7 +26,10 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         this.GetValueAndSource(out var value, out var source);
+
                         this.Result = "OK";
 
                         this.Source = source;

@@ -25,6 +25,8 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
+                        this.UpdateUIImmediately();
+
                         var result = this.BiometricService.CaptureEnroll();
 
                         switch (result.OperationStatus)
