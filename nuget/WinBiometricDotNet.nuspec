@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>WinBiometricDotNet</id>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
     <title>WinBiometricDotNet</title>
     <authors>Takuya Takeuchi</authors>
     <owners>Takuya Takeuchi</owners>
