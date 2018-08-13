@@ -4,7 +4,7 @@ Windows Biometric Framework .NET wrapper
 
 [![NuGet version](https://badge.fury.io/nu/WinBiometricDotNet.svg)](https://badge.fury.io/nu/WinBiometricDotNet)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-61.5%25%20(32/52)-green.svg)]()
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-71.1%25%20(37/52)-green.svg)]()
 
 ## Support API
 
@@ -37,11 +37,11 @@ Windows Biometric Framework .NET wrapper
 |WinBioEnumServiceProviders|✓||
 |WinBioFree|✓|Internal use only|
 |WinBioGetCredentialState|✓||
-|WinBioGetDomainLogonSetting|||
-|WinBioGetEnabledSetting|||
-|WinBioGetEnrolledFactors|||
-|WinBioGetLogonSetting|||
-|WinBioGetProperty|||
+|WinBioGetDomainLogonSetting|✓||
+|WinBioGetEnabledSetting|✓||
+|WinBioGetEnrolledFactors|✓||
+|WinBioGetLogonSetting|✓||
+|WinBioGetProperty|✓||
 |WinBioIdentify|✓||
 |WinBioIdentifyWithCallback|✓||
 |WinBioLocateSensor|✓||
