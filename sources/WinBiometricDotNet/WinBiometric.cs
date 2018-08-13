@@ -445,37 +445,60 @@ namespace WinBiometricDotNet
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
-            if (identity == null)
-                throw new ArgumentNullException(nameof(identity));
 
             unsafe
             {
-                var nativeIdentity = identity.Source;
+                var tmp = identity?.Source ?? new SafeNativeMethods.WINBIO_IDENTITY();
+                SafeNativeMethods.WINBIO_IDENTITY* nativeIdentity;
 
                 WINBIO_PROPERTY_ID id;
                 switch (propertyId)
                 {
                     case PropertyId.AntiSpoofPolicy:
                         id = (WINBIO_PROPERTY_ID)1;
+                        unitId = 0;
+                        nativeIdentity = &tmp;
                         break;
                     default:
                         id = (WINBIO_PROPERTY_ID)propertyId;
+                        nativeIdentity = (SafeNativeMethods.WINBIO_IDENTITY*)IntPtr.Zero;
                         break;
                 }
+
+                // NOTE
+                // PropertyType
+                //      * Currently this must be WINBIO_PROPERTY_TYPE_UNIT or WINBIO_PROPERTY_TYPE_ACCOUNT.
+                // UnitId
+                //      * If you specify WINBIO_PROPERTY_ANTI_SPOOF_POLICY as the value for the PropertyId
+                //        parameter, specify 0 for the UnitId parameter.
+                // Identity
+                //      * If you specify any other value for the PropertyId parameter, the Identity parameter must be NULL.
+                // SubFactor
+                //      * Reserved.This must be WINBIO_SUBTYPE_NO_INFORMATION.
 
                 var hr = SafeNativeMethods.WinBioGetProperty(session.Handle,
                                                              (WINBIO_PROPERTY_TYPE)propertyType,
                                                              id,
                                                              unitId,
-                                                             &nativeIdentity,
-                                                             (WINBIO_BIOMETRIC_SUBTYPE)position,
+                                                             nativeIdentity,
+                                                             (WINBIO_BIOMETRIC_SUBTYPE)SafeNativeMethods.WINBIO_SUBTYPE_NO_INFORMATION,
                                                              out var pBuffer,
                                                              out var pBufferSize);
 
                 ThrowWinBiometricException(hr);
 
-                propertyBuffer = new byte[(int)pBufferSize];
-                Marshal.Copy(pBuffer, propertyBuffer, 0, propertyBuffer.Length);
+                if (pBuffer != IntPtr.Zero)
+                {
+                    var size = (int)pBufferSize;
+                    propertyBuffer = new byte[size];
+                    Marshal.Copy(pBuffer, propertyBuffer, 0, propertyBuffer.Length);
+
+                    SafeNativeMethods.WinBioFree(pBuffer);
+                }
+                else
+                {
+                    propertyBuffer = null;
+                }
             }
         }
 
