@@ -50,12 +50,9 @@
             Grid.Row="2"
             Grid.RowSpan="20"
             Grid.Column="2"
-            MinWidth="256"
-            MinHeight="256"
-            MaxWidth="256"
-            MaxHeight="256"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Top">
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Style="{StaticResource CaptureSampleViewBox}">
             <Image Source="{Binding CaptureImage}" Stretch="UniformToFill" />
         </Viewbox>
         <TextBlock
