@@ -97,6 +97,7 @@
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding DatabaseId}" />
                         <TextBlock
                             Grid.Row="1"
@@ -106,6 +107,7 @@
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding DataFormat}" />
                         <TextBlock
                             Grid.Row="2"
@@ -115,6 +117,7 @@
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding BiometricFactor}" />
                         <TextBlock
                             Grid.Row="3"
@@ -124,6 +127,7 @@
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding DatabaseFlag}" />
                         <TextBlock
                             Grid.Row="4"
@@ -133,6 +137,7 @@
                         <TextBlock
                             Grid.Row="4"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding DatabaseTypes}" />
                         <TextBlock
                             Grid.Row="5"
@@ -142,6 +147,7 @@
                         <TextBlock
                             Grid.Row="5"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding ConnectionString}" />
                         <TextBlock
                             Grid.Row="6"
@@ -151,6 +157,7 @@
                         <TextBlock
                             Grid.Row="6"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding FilePath}" />
                     </Grid>
                 </DataTemplate>

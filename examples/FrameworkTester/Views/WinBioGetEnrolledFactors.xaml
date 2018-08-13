@@ -53,6 +53,7 @@
                             <TextBlock
                                 Grid.Row="0"
                                 Grid.Column="0"
+                                Style="{StaticResource ValueTextBlock}"
                                 Text="{Binding Sid.Value}" />
                         </Grid>
                     </DataTemplate>

@@ -76,6 +76,7 @@
                         <TextBlock
                             Grid.Row="0"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Id}" />
                         <TextBlock
                             Grid.Row="1"
@@ -85,6 +86,7 @@
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Version.MajorVersion}" />
                         <TextBlock
                             Grid.Row="2"
@@ -94,7 +96,7 @@
                         <TextBlock
                             Grid.Row="2"
                             Grid.Column="2"
-                            Style="{StaticResource LabelTextBlock}"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Version.MinorVersion}" />
                         <TextBlock
                             Grid.Row="3"
@@ -104,6 +106,7 @@
                         <TextBlock
                             Grid.Row="3"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding BiometricFactor}" />
                         <TextBlock
                             Grid.Row="4"
@@ -113,6 +116,7 @@
                         <TextBlock
                             Grid.Row="4"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Vendor}" />
                         <TextBlock
                             Grid.Row="5"
@@ -122,6 +126,7 @@
                         <TextBlock
                             Grid.Row="5"
                             Grid.Column="2"
+                            Style="{StaticResource ValueTextBlock}"
                             Text="{Binding Description}" />
                     </Grid>
                 </DataTemplate>
