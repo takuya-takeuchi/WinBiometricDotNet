@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="5" />
+            <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
@@ -27,14 +27,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button
-            Grid.Column="2"
-            Width="100"
-            Height="30"
-            HorizontalAlignment="Right"
-            Command="{Binding ExecuteCommand}"
-            Content="Execute" />
-        <Grid Grid.Row="2" Grid.Column="2">
+        <Grid Grid.Row="0" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
@@ -109,6 +102,14 @@
                 ItemsSource="{Binding FingerPositions}"
                 SelectedItem="{Binding CurrentFingerPosition}" />
         </Grid>
+        <Button
+            Grid.Row="2"
+            Grid.Column="2"
+            Width="100"
+            Height="30"
+            HorizontalAlignment="Right"
+            Command="{Binding ExecuteCommand}"
+            Content="Execute" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"

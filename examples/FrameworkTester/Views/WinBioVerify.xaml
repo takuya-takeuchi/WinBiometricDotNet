@@ -16,7 +16,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="5" />
+            <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
@@ -31,19 +31,36 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Text="FingerPosition: " />
+            <ComboBox
+                Grid.Row="0"
+                Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                ItemsSource="{Binding FingerPositions}"
+                SelectedItem="{Binding SelectedFingerPosition}" />
+        </Grid>
         <Button
+            Grid.Row="2"
             Grid.Column="2"
             Width="100"
             Height="30"
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />
-        <ComboBox
-            Grid.Row="2"
-            Grid.Column="2"
-            HorizontalAlignment="Stretch"
-            ItemsSource="{Binding FingerPositions}"
-            SelectedItem="{Binding SelectedFingerPosition}" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"
