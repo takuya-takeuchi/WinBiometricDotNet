@@ -32,7 +32,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="2" HorizontalAlignment="Right">
@@ -67,7 +67,7 @@
             Text="Type: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Type}" />
         <TextBlock
@@ -78,7 +78,7 @@
             Text="TemplateGuid: " />
         <TextBlock
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding TemplateGuid}" />
         <TextBlock
@@ -89,7 +89,7 @@
             Text="Sid: " />
         <TextBlock
             Grid.Row="6"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Sid}" />
         <TextBlock
@@ -100,7 +100,7 @@
             Text="UnitId: " />
         <TextBlock
             Grid.Row="8"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding UnitId}" />
         <TextBlock
@@ -111,7 +111,7 @@
             Text="RejectDetail: " />
         <TextBlock
             Grid.Row="10"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding RejectDetail}" />
         <TextBlock
@@ -122,7 +122,7 @@
             Text="FingerPosition: " />
         <TextBlock
             Grid.Row="12"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding FingerPosition}" />
         <TextBlock
@@ -133,7 +133,7 @@
             Text="Result: " />
         <TextBlock
             Grid.Row="14"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Result}" />
     </Grid>

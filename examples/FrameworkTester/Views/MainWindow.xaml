@@ -34,6 +34,7 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock
@@ -44,7 +45,7 @@
                 Text="API: " />
             <ComboBox
                 Grid.Row="0"
-                Grid.Column="1"
+                Grid.Column="2"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding TestTargets}"
                 SelectedItem="{Binding CurrentTestTarget}">
@@ -64,7 +65,7 @@
                 Text="Units: " />
             <ComboBox
                 Grid.Row="2"
-                Grid.Column="1"
+                Grid.Column="2"
                 VerticalAlignment="Center"
                 ItemsSource="{Binding Units}"
                 SelectedItem="{Binding CurrentUnit}">

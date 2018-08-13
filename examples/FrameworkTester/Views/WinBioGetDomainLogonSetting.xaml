@@ -24,7 +24,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button
@@ -42,7 +42,7 @@
             Text="Value: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Value}" />
         <TextBlock
@@ -53,7 +53,7 @@
             Text="Source: " />
         <TextBlock
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Source}" />
         <TextBlock
@@ -64,7 +64,7 @@
             Text="Result: " />
         <TextBlock
             Grid.Row="6"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Result}" />
     </Grid>

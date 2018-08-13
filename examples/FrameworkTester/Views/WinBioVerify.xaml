@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Row="0" Grid.Column="2">
@@ -69,7 +69,7 @@
             Text="UnitId: " />
         <TextBlock
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding UnitId}" />
         <TextBlock
@@ -80,7 +80,7 @@
             Text="Match: " />
         <TextBlock
             Grid.Row="6"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding IsMatch}" />
         <TextBlock
@@ -91,7 +91,7 @@
             Text="RejectDetail: " />
         <TextBlock
             Grid.Row="8"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding RejectDetail}" />
         <TextBlock
@@ -102,7 +102,7 @@
             Text="Result: " />
         <TextBlock
             Grid.Row="10"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Result}" />
     </Grid>

@@ -38,7 +38,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button
@@ -68,7 +68,7 @@
             Text="UnitId: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding UnitId}" />
         <TextBlock
@@ -79,7 +79,7 @@
             Text="SampleSize: " />
         <TextBlock
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding SampleSize}" />
         <TextBlock
@@ -90,7 +90,7 @@
             Text="RejectDetail: " />
         <TextBlock
             Grid.Row="6"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding RejectDetail}" />
         <TextBlock
@@ -101,7 +101,7 @@
             Text="Width: " />
         <TextBlock
             Grid.Row="8"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding CaptureImageWidth}" />
         <TextBlock
@@ -112,7 +112,7 @@
             Text="Height: " />
         <TextBlock
             Grid.Row="10"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding CaptureImageHeight}" />
         <TextBlock
@@ -123,7 +123,7 @@
             Text="HorizontalResolution: " />
         <TextBlock
             Grid.Row="12"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding CaptureImageHorizontalResolution}" />
         <TextBlock
@@ -134,7 +134,7 @@
             Text="VerticalResolution: " />
         <TextBlock
             Grid.Row="14"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding CaptureImageVerticalResolution}" />
         <TextBlock
@@ -145,7 +145,7 @@
             Text="ScanHorizontalResolution: " />
         <TextBlock
             Grid.Row="16"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding CaptureImageScanHorizontalResolution}" />
         <TextBlock
@@ -156,7 +156,7 @@
             Text="ScanVerticalResolution: " />
         <TextBlock
             Grid.Row="18"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding CaptureImageScanVerticalResolution}" />
         <TextBlock
@@ -167,7 +167,7 @@
             Text="Result: " />
         <TextBlock
             Grid.Row="20"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Result}" />
     </Grid>

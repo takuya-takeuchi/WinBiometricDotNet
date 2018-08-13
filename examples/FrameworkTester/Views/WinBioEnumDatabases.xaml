@@ -23,10 +23,11 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button
-            Grid.Column="1"
+            Grid.Column="2"
             Width="100"
             Height="30"
             HorizontalAlignment="Right"
@@ -40,12 +41,12 @@
             Text="Result: " />
         <TextBlock
             Grid.Row="2"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Center"
             Text="{Binding Result}" />
         <StackPanel
             Grid.Row="6"
-            Grid.Column="1"
+            Grid.Column="2"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
             <Button
@@ -70,7 +71,7 @@
             Text="Databases: " />
         <ComboBox
             Grid.Row="4"
-            Grid.Column="1"
+            Grid.Column="2"
             VerticalAlignment="Stretch"
             ItemsSource="{Binding Databases}"
             SelectedItem="{Binding CurrentDatabase}">
