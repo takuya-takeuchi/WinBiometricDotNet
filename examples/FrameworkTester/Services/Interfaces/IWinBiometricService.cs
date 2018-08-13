@@ -44,6 +44,21 @@ namespace FrameworkTester.Services.Interfaces
 
         CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType);
 
+        void GetDomainLogonSetting(out bool value, out SettingSourceTypes source);
+
+        void GetEnabledSetting(out bool value, out SettingSourceTypes source);
+
+        BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner);
+
+        void GetLogonSetting(out bool value, out SettingSourceTypes source);
+
+        void GetProperty(PropertyTypes propertyType,
+                         PropertyId propertyId,
+                         uint unitId,
+                         BiometricIdentity identity,
+                         FingerPosition position,
+                         out byte[] propertyBuffer);
+
         IdentifyResult Identify();
 
         void IdentifyWithCallback();

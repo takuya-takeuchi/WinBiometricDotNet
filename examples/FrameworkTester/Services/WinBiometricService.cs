@@ -167,6 +167,39 @@ namespace FrameworkTester.Services
             return WinBiometric.GetCredentialState(identity, credentialType);
         }
 
+        public void GetDomainLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            WinBiometric.GetDomainLogonSetting(out value, out source);
+        }
+
+        public void GetEnabledSetting(out bool value, out SettingSourceTypes source)
+        {
+            WinBiometric.GetEnabledSetting(out value, out source);
+        }
+
+        public BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner)
+        {
+            return WinBiometric.GetEnrolledFactors(accountOwner);
+        }
+
+        public void GetLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            WinBiometric.GetLogonSetting(out value, out source);
+        }
+
+        public void GetProperty(PropertyTypes propertyType, 
+                                PropertyId propertyId, 
+                                uint unitId, 
+                                BiometricIdentity identity,
+                                FingerPosition position, 
+                                out byte[] propertyBuffer)
+        {
+            if (this._Session == null)
+                throw new Exception("There is no opened session.");
+
+            WinBiometric.GetProperty(this._Session, propertyType, propertyId, unitId, identity, position, out propertyBuffer);
+        }
+
         public IdentifyResult Identify()
         {
             if (this._Session == null)

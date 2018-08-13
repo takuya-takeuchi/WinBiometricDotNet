@@ -361,7 +361,7 @@ namespace WinBiometricDotNet
         {
             if (identity == null)
                 throw new ArgumentNullException(nameof(identity));
-            
+
             var hr = SafeNativeMethods.WinBioGetCredentialState(identity.Source,
                                                                 (SafeNativeMethods.WINBIO_CREDENTIAL_TYPE)credentialType,
                                                                 out var state);
@@ -369,6 +369,95 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return (CredentialStates)state;
+        }
+
+        public static void GetDomainLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            var hr = SafeNativeMethods.WinBioGetDomainLogonSetting(out value, out var tmp);
+
+            ThrowWinBiometricException(hr);
+
+            source = (SettingSourceTypes)tmp;
+        }
+
+        public static void GetEnabledSetting(out bool value, out SettingSourceTypes source)
+        {
+            var hr = SafeNativeMethods.WinBioGetEnabledSetting(out value, out var tmp);
+
+            ThrowWinBiometricException(hr);
+
+            source = (SettingSourceTypes)tmp;
+        }
+
+        public static BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner)
+        {
+            if (accountOwner == null)
+                throw new ArgumentNullException(nameof(accountOwner));
+
+            unsafe
+            {
+                var nativeIdentity = accountOwner.Source;
+                WINBIO_BIOMETRIC_TYPE enrolledFactor;
+                var hr = SafeNativeMethods.WinBioGetEnrolledFactors(&nativeIdentity,
+                                                                    &enrolledFactor);
+
+                ThrowWinBiometricException(hr);
+
+                return (BiometricTypes)enrolledFactor;
+            }
+        }
+
+        public static void GetLogonSetting(out bool value, out SettingSourceTypes source)
+        {
+            var hr = SafeNativeMethods.WinBioGetLogonSetting(out value, out var tmp);
+
+            ThrowWinBiometricException(hr);
+
+            source = (SettingSourceTypes)tmp;
+        }
+
+        public static void GetProperty(Session session,
+                                       PropertyTypes propertyType,
+                                       PropertyId propertyId,
+                                       uint unitId,
+                                       BiometricIdentity identity,
+                                       FingerPosition position,
+                                       out byte[] propertyBuffer)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            unsafe
+            {
+                var nativeIdentity = identity.Source;
+
+                WINBIO_PROPERTY_ID id;
+                switch (propertyId)
+                {
+                    case PropertyId.AntiSpoofPolicy:
+                        id = (WINBIO_PROPERTY_ID)1;
+                        break;
+                    default:
+                        id = (WINBIO_PROPERTY_ID)propertyId;
+                        break;
+                }
+
+                var hr = SafeNativeMethods.WinBioGetProperty(session.Handle,
+                                                             (WINBIO_PROPERTY_TYPE)propertyType,
+                                                             id,
+                                                             unitId,
+                                                             &nativeIdentity,
+                                                             (WINBIO_BIOMETRIC_SUBTYPE)position,
+                                                             out var pBuffer,
+                                                             out var pBufferSize);
+
+                ThrowWinBiometricException(hr);
+
+                propertyBuffer = new byte[(int)pBufferSize];
+                Marshal.Copy(pBuffer, propertyBuffer, 0, propertyBuffer.Length);
+            }
         }
 
         public static IdentifyResult Identify(Session session)
@@ -385,10 +474,10 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return new IdentifyResult(unitId,
-                                      OperationStatus.OK, 
-                                      new BiometricIdentity(identity), 
-                                      (FingerPosition) subFactor,
-                                      (RejectDetails) rejectDetail);
+                                      OperationStatus.OK,
+                                      new BiometricIdentity(identity),
+                                      (FingerPosition)subFactor,
+                                      (RejectDetails)rejectDetail);
         }
 
         public static void IdentifyWithCallback(Session session)

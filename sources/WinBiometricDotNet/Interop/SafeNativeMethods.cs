@@ -4778,6 +4778,21 @@ namespace WinBiometricDotNet.Interop
                                                              [Out] out WINBIO_SETTING_SOURCE_TYPE Source);
 
         /// <summary>
+        /// Gets information about the biometric enrollments that the specified user has on the computer. Biometric enrollments include enrollments for facial recognition, fingerprint scanning, iris scanning, and so on.
+        /// </summary>
+        /// <param name="AccountOwner"></param>
+        /// <param name="EnrolledFactors">
+        /// <para>A set of <see cref="WINBIO_BIOMETRIC_TYPE"/> flags that indicate the biometric enrollments that the specified user has on the computer. A value of 0 indicates that the user has no biometric enrollments.</para>
+        /// <para>These enrollments represent system pool enrollments only, such as enrollments that you can use to authenticate a user for sign-in, unlock, and so on.This value does not include private pool enrollments.</para>
+        /// <para>If you specify the wildcard identity type for the <see cref="WINBIO_IDENTITY"/> structure that you use for the AccountOwner parameter, this set of flags represents the combined set of enrollments for all users with accounts on the computer.</para>
+        /// </param>
+        /// <returns>If the function succeeds, it returns <see cref="S_OK"/>. If the function fails, it returns an HRESULT value that indicates the error. For a list of common error codes, see Common HRESULT Values.</returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern unsafe HRESULT WinBioGetEnrolledFactors([In]  WINBIO_IDENTITY* AccountOwner,
+                                                                     [Out] WINBIO_BIOMETRIC_TYPE* EnrolledFactors);
+
+        /// <summary>
         /// Retrieves a value that indicates whether users can log on by using biometric information.
         /// </summary>
         /// <param name="Value">Pointer to a Boolean value that specifies whether biometric logons are enabled.</param>

@@ -85,6 +85,11 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IWinBioEnumEnrollmentsViewModel>(() => new WinBioEnumEnrollmentsViewModel(), true);
             SimpleIoc.Default.Register<IWinBioEnumServiceProvidersViewModel>(() => new WinBioEnumServiceProvidersViewModel(), true);
             SimpleIoc.Default.Register<IWinBioGetCredentialStateViewModel>(() => new WinBioGetCredentialStateViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioGetDomainLogonSettingViewModel>(() => new WinBioGetDomainLogonSettingViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioGetEnabledSettingViewModel>(() => new WinBioGetEnabledSettingViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioGetEnrolledFactorsViewModel>(() => new WinBioGetEnrolledFactorsViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioGetLogonSettingViewModel>(() => new WinBioGetLogonSettingViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioGetPropertyViewModel>(() => new WinBioGetPropertyViewModel(), true);
             SimpleIoc.Default.Register<IWinBioIdentifyViewModel>(() => new WinBioIdentifyViewModel(), true);
             SimpleIoc.Default.Register<IWinBioIdentifyWithCallbackViewModel>(() => new WinBioIdentifyWithCallbackViewModel(), true);
             SimpleIoc.Default.Register<IWinBioLocateSensorViewModel>(() => new WinBioLocateSensorViewModel(), true);
@@ -135,6 +140,16 @@ namespace FrameworkTester.ViewModels
         public IWinBioEnumServiceProvidersViewModel WinBioEnumServiceProviders => ServiceLocator.Current.GetInstance<IWinBioEnumServiceProvidersViewModel>();
 
         public IWinBioGetCredentialStateViewModel WinBioGetCredentialState => ServiceLocator.Current.GetInstance<IWinBioGetCredentialStateViewModel>();
+
+        public IWinBioGetDomainLogonSettingViewModel WinBioGetDomainLogonSetting => ServiceLocator.Current.GetInstance<IWinBioGetDomainLogonSettingViewModel>();
+
+        public IWinBioGetEnabledSettingViewModel WinBioGetEnabledSetting => ServiceLocator.Current.GetInstance<IWinBioGetEnabledSettingViewModel>();
+
+        public IWinBioGetEnrolledFactorsViewModel WinBioGetEnrolledFactors => ServiceLocator.Current.GetInstance<IWinBioGetEnrolledFactorsViewModel>();
+
+        public IWinBioGetLogonSettingViewModel WinBioGetLogonSetting => ServiceLocator.Current.GetInstance<IWinBioGetLogonSettingViewModel>();
+
+        public IWinBioGetPropertyViewModel WinBioGetProperty => ServiceLocator.Current.GetInstance<IWinBioGetPropertyViewModel>();
 
         public IWinBioIdentifyViewModel WinBioIdentify => ServiceLocator.Current.GetInstance<IWinBioIdentifyViewModel>();
 
