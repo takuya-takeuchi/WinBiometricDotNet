@@ -1691,13 +1691,19 @@ namespace WinBiometricDotNet
             switch (hresult)
             {
                 case SafeNativeMethods.WINBIO_E_ADAPTER_INTEGRITY_FAILURE:
+                case SafeNativeMethods.WINBIO_E_AUTO_LOGON_DISABLED:
                 case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_INVALID:
+                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_TOO_LARGE:
+                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_TOO_SMALL:
                 case SafeNativeMethods.WINBIO_E_CANCELED:
                 case SafeNativeMethods.WINBIO_E_CAPTURE_ABORTED:
                 case SafeNativeMethods.WINBIO_E_CONFIGURATION_FAILURE:
                 case SafeNativeMethods.WINBIO_E_CRED_PROV_DISABLED:
                 case SafeNativeMethods.WINBIO_E_CRED_PROV_NO_CREDENTIAL:
+                case SafeNativeMethods.WINBIO_E_CRED_PROV_SECURITY_LOCKOUT:
                 case SafeNativeMethods.WINBIO_E_DATA_COLLECTION_IN_PROGRESS:
+                case SafeNativeMethods.WINBIO_E_DATA_PROTECTION_FAILURE:
                 case SafeNativeMethods.WINBIO_E_DATABASE_ALREADY_EXISTS:
                 case SafeNativeMethods.WINBIO_E_DATABASE_BAD_INDEX_VECTOR:
                 case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CLOSE:
@@ -1714,36 +1720,60 @@ namespace WinBiometricDotNet
                 case SafeNativeMethods.WINBIO_E_DATABASE_NO_SUCH_RECORD:
                 case SafeNativeMethods.WINBIO_E_DATABASE_READ_ERROR:
                 case SafeNativeMethods.WINBIO_E_DATABASE_WRITE_ERROR:
+                case SafeNativeMethods.WINBIO_E_DEADLOCK_DETECTED:
                 case SafeNativeMethods.WINBIO_E_DEVICE_BUSY:
                 case SafeNativeMethods.WINBIO_E_DEVICE_FAILURE:
                 case SafeNativeMethods.WINBIO_E_DISABLED:
                 case SafeNativeMethods.WINBIO_E_DUPLICATE_ENROLLMENT:
                 case SafeNativeMethods.WINBIO_E_DUPLICATE_TEMPLATE:
+                case SafeNativeMethods.WINBIO_E_ENROLLMENT_CANCELED_BY_SUSPEND:
                 case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
                 case SafeNativeMethods.WINBIO_E_EVENT_MONITOR_ACTIVE:
                 case SafeNativeMethods.WINBIO_E_FAST_USER_SWITCH_DISABLED:
                 case SafeNativeMethods.WINBIO_E_INCORRECT_BSP:
                 case SafeNativeMethods.WINBIO_E_INCORRECT_SENSOR_POOL:
+                case SafeNativeMethods.WINBIO_E_INCORRECT_SESSION_TYPE:
+                case SafeNativeMethods.WINBIO_E_INSECURE_SENSOR:
+                case SafeNativeMethods.WINBIO_E_INVALID_BUFFER:
+                case SafeNativeMethods.WINBIO_E_INVALID_BUFFER_ID:
+                case SafeNativeMethods.WINBIO_E_INVALID_CALIBRATION_FORMAT_ARRAY:
                 case SafeNativeMethods.WINBIO_E_INVALID_CONTROL_CODE:
                 case SafeNativeMethods.WINBIO_E_INVALID_DEVICE_STATE:
+                case SafeNativeMethods.WINBIO_E_INVALID_KEY_IDENTIFIER:
                 case SafeNativeMethods.WINBIO_E_INVALID_OPERATION:
                 case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_ID:
                 case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_TYPE:
                 case SafeNativeMethods.WINBIO_E_INVALID_SENSOR_MODE:
+                case SafeNativeMethods.WINBIO_E_INVALID_SUBFACTOR:
+                case SafeNativeMethods.WINBIO_E_INVALID_TICKET:
                 case SafeNativeMethods.WINBIO_E_INVALID_UNIT:
+                case SafeNativeMethods.WINBIO_E_KEY_CREATION_FAILED:
+                case SafeNativeMethods.WINBIO_E_KEY_IDENTIFIER_BUFFER_TOO_SMALL:
                 case SafeNativeMethods.WINBIO_E_LOCK_VIOLATION:
+                case SafeNativeMethods.WINBIO_E_MAX_ERROR_COUNT_EXCEEDED:
                 case SafeNativeMethods.WINBIO_E_NO_CAPTURE_DATA:
                 case SafeNativeMethods.WINBIO_E_NO_MATCH:
+                case SafeNativeMethods.WINBIO_E_NO_PREBOOT_IDENTITY:
+                case SafeNativeMethods.WINBIO_E_NO_SUPPORTED_CALIBRATION_FORMAT:
                 case SafeNativeMethods.WINBIO_E_NOT_ACTIVE_CONSOLE:
+                case SafeNativeMethods.WINBIO_E_POLICY_PROTECTION_UNAVAILABLE:
+                case SafeNativeMethods.WINBIO_E_PRESENCE_MONITOR_ACTIVE:
+                case SafeNativeMethods.WINBIO_E_PROPERTY_UNAVAILABLE:
                 case SafeNativeMethods.WINBIO_E_SAS_ENABLED:
+                case SafeNativeMethods.WINBIO_E_SELECTION_REQUIRED:
                 case SafeNativeMethods.WINBIO_E_SENSOR_UNAVAILABLE:
                 case SafeNativeMethods.WINBIO_E_SESSION_BUSY:
+                case SafeNativeMethods.WINBIO_E_SESSION_HANDLE_CLOSED:
+                case SafeNativeMethods.WINBIO_E_TICKET_QUOTA_EXCEEDED:
+                case SafeNativeMethods.WINBIO_E_TRUSTLET_INTEGRITY_FAIL:
                 case SafeNativeMethods.WINBIO_E_UNKNOWN_ID:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_FORMAT:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_TYPE:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_FACTOR:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_POOL_TYPE:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PROPERTY:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PURPOSE:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_SENSOR_CALIBRATION_FORMAT:
                     var message = ConvertErrorCodeToString(hresult);
                     throw new WinBiometricException(message);
                 default:
