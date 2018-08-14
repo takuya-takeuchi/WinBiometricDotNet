@@ -4,23 +4,23 @@ Windows Biometric Framework .NET wrapper
 
 [![NuGet version](https://badge.fury.io/nu/WinBiometricDotNet.svg)](https://badge.fury.io/nu/WinBiometricDotNet)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-75.0%25%20(39/52)-green.svg)]()
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-84.6%25%20(44/52)-green.svg)]()
 
 ## Support API
 
 |Function|Support|Win 7|Win 8|Win 10|Note|
 |----|:----:|:----:|:----:|:----:|----|
 |WinBioAcquireFocus|✓|||✓||
-|WinBioAsyncEnumBiometricUnits||||✓||
-|WinBioAsyncEnumDatabases||||✓||
-|WinBioAsyncEnumServiceProviders||||✓||
-|WinBioAsyncMonitorFrameworkChanges||||✓||
-|WinBioAsyncOpenFramework||||✓||
-|WinBioAsyncOpenSession||||✓||
+|WinBioAsyncEnumBiometricUnits|✓|||✓|Experimental|
+|WinBioAsyncEnumDatabases|✓|||✓|Experimental|
+|WinBioAsyncEnumServiceProviders|✓|||✓|Experimental|
+|WinBioAsyncMonitorFrameworkChanges|✓|||✓|Experimental|
+|WinBioAsyncOpenFramework|✓|||✓|Experimental|
+|WinBioAsyncOpenSession|✓|||✓|Experimental|
 |WinBioCancel|✓|||✓||
 |WinBioCaptureSample|✓|||✓||
 |WinBioCaptureSampleWithCallback|✓|||✓||
-|WinBioCloseFramework||||✓||
+|WinBioCloseFramework|✓|||✓||
 |WinBioCloseSession|✓|||✓||
 |WinBioControlUnit||||✓||
 |WinBioControlUnitPrivileged||||✓||
