@@ -12,6 +12,22 @@ namespace FrameworkTester.Services.Interfaces
 
         void AcquireFocus();
 
+        void AsyncEnumBiometricUnits(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint);
+
+        void AsyncEnumDatabases(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint);
+
+        void AsyncEnumServiceProviders(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint);
+
+        void AsyncMonitorFrameworkChanges(Framework framework, ChangeTypes changeType);
+
+        void AsyncOpenFramework(IntPtr userData);
+
+        void AsyncOpenFramework(IntPtr targetWindow, uint messageCode);
+
+        void AsyncOpenSession(IntPtr userData);
+
+        void AsyncOpenSession(IntPtr targetWindow, uint messageCode);
+
         void BeginEnroll(FingerPosition position, uint unitId);
 
         void Cancel();
@@ -23,6 +39,8 @@ namespace FrameworkTester.Services.Interfaces
         CaptureSampleResult CaptureSample();
 
         void CaptureSampleWithCallback();
+
+        void CloseFramework(Framework framework);
 
         void CloseSession();
 
@@ -73,7 +91,15 @@ namespace FrameworkTester.Services.Interfaces
 
         bool LogonIdentifiedUser();
 
+        Framework OpenFramework(IntPtr userData);
+
+        Framework OpenFramework(IntPtr targetWindow, uint messageCode);
+
         Session OpenSession();
+
+        Session OpenSession(IntPtr userData);
+
+        Session OpenSession(IntPtr targetWindow, uint messageCode);
 
         void RegisterEventMonitor(EventTypes eventType);
 

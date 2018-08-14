@@ -76,7 +76,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\PtrToHexStringConveter.cs" />
+    <Compile Include="DesignTimes\ChildWindowViewModel.cs" />
     <Compile Include="DesignTimes\WinBioAcquireFocusViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioAsyncEnumBiometricUnitsViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioAsyncEnumDatabasesViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioAsyncMonitorFrameworkChangesViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioAsyncEnumServiceProvidersViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioCloseFrameworkViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioAsyncOpenSessionViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnabledSettingViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnrolledFactorsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetLogonSettingViewModel.cs" />
@@ -110,13 +119,43 @@
     <Compile Include="Services\Interfaces\IFrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IWinBiometricService.cs" />
     <Compile Include="Services\WinBiometricService.cs" />
+    <Compile Include="ViewModels\AsyncOpenSessionChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumDatabasesViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumBiometricUnitsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncMonitorFrameworkChangesViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumServiceProvidersViewModel.cs" />
+    <Compile Include="ViewModels\SessionWindowRepositoryViewModel.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
+    <Compile Include="Selectors\ChildWindowTemplateSlector.cs" />
+    <Compile Include="ViewModels\ChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\AsyncOpenFrameworkChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\FrameworkWindowRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IAsyncOpenSessionChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IAsyncOpenFrameworkChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWindowRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IFrameworkWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ISessionWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncChildWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncSessionViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioCloseFrameworkViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncOpenSessionViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioEnrollSelectViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioDeleteTemplateViewModel.cs" />
     <Compile Include="DesignTimes\WinBioDeleteTemplateViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollSelectViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncFrameworkViewModel.cs" />
+    <Compile Include="ViewModels\WinBioAsyncMonitorFrameworkChangesViewModel.cs" />
+    <Compile Include="ViewModels\WinBioAsyncEnumDatabasesViewModel.cs" />
+    <Compile Include="ViewModels\WinBioAsyncEnumServiceProvidersViewModel.cs" />
+    <Compile Include="ViewModels\WinBioAsyncEnumBiometricUnitsViewModel.cs" />
+    <Compile Include="ViewModels\WinBioCloseFrameworkViewModel.cs" />
+    <Compile Include="ViewModels\WinBioAsyncOpenSessionViewModel.cs" />
+    <Compile Include="ViewModels\WinBioAsyncOpenFrameworkViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioAsyncOpenFrameworkViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollSelectViewModel.cs" />
     <Compile Include="ViewModels\WinBioDeleteTemplateViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioAsyncOpenFrameworkViewModel.cs" />
     <Compile Include="ViewModels\WinBioGetPropertyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IBiometricIdentityRepositoryViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
@@ -194,8 +233,29 @@
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\WinBioWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioViewModel.cs" />
+    <Compile Include="Views\ChildWindow.xaml.cs">
+      <DependentUpon>ChildWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WinBioAcquireFocus.xaml.cs">
       <DependentUpon>WinBioAcquireFocus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioAsyncMonitorFrameworkChanges.xaml.cs">
+      <DependentUpon>WinBioAsyncMonitorFrameworkChanges.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioAsyncEnumServiceProviders.xaml.cs">
+      <DependentUpon>WinBioAsyncEnumServiceProviders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioAsyncEnumDatabases.xaml.cs">
+      <DependentUpon>WinBioAsyncEnumDatabases.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioAsyncEnumBiometricUnits.xaml.cs">
+      <DependentUpon>WinBioAsyncEnumBiometricUnits.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioCloseFramework.xaml.cs">
+      <DependentUpon>WinBioCloseFramework.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioAsyncOpenSession.xaml.cs">
+      <DependentUpon>WinBioAsyncOpenSession.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioEnrollSelect.xaml.cs">
       <DependentUpon>WinBioEnrollSelect.xaml</DependentUpon>
@@ -208,6 +268,9 @@
     </Compile>
     <Compile Include="Views\WinBioDeleteTemplate.xaml.cs">
       <DependentUpon>WinBioDeleteTemplate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioAsyncOpenFramework.xaml.cs">
+      <DependentUpon>WinBioAsyncOpenFramework.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioGetProperty.xaml.cs">
       <DependentUpon>WinBioGetProperty.xaml</DependentUpon>
@@ -293,6 +356,10 @@
     <Compile Include="Views\WinBioReleaseFocus.xaml.cs">
       <DependentUpon>WinBioReleaseFocus.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ChildWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -309,6 +376,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\WinBioAsyncMonitorFrameworkChanges.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioAsyncEnumServiceProviders.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioAsyncEnumDatabases.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioAsyncEnumBiometricUnits.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioCloseFramework.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioAsyncOpenSession.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WinBioEnrollSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -322,6 +413,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioDeleteTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioAsyncOpenFramework.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

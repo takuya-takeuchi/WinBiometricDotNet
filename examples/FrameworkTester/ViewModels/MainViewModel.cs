@@ -17,9 +17,6 @@ namespace FrameworkTester.ViewModels
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
 
-        #region Events
-        #endregion
-
         #region Fields
 
         private bool _EventCancel;

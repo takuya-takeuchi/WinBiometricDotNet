@@ -42,7 +42,7 @@ namespace WinBiometricDotNet.Interop
     using WINBIO_COMPONENT = UInt32;
     using WINBIO_EVENT_TYPE = UInt32;
     using WINBIO_FRAMEWORK_CHANGE_TYPE = UInt32;
-    using WINBIO_FRAMEWORK_HANDLE = IntPtr;
+    using WINBIO_FRAMEWORK_HANDLE = UIntPtr;
     using WINBIO_IDENTITY_TYPE = UInt32;
     using WINBIO_INDICATOR_STATUS = UInt32;
     using WINBIO_OPERATION_TYPE = UInt32;
@@ -2058,7 +2058,8 @@ namespace WinBiometricDotNet.Interop
         /// </summary>
         /// <param name="AsyncResult">Pointer to a <see cref="WINBIO_ASYNC_RESULT"/> structure that contains information about the completed operation. The structure is created by the Windows Biometric Framework. You must call WinBioFree to release the structure.</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public unsafe delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] WINBIO_ASYNC_RESULT* AsyncResult);
+        //public unsafe delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] WINBIO_ASYNC_RESULT* AsyncResult);
+        public  delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] IntPtr AsyncResult);
 
         /// <summary>
         /// <para>Called by the Windows Biometric Framework to return results from the asynchronous <see cref="WinBioCaptureSampleWithCallback"/> function. The client application must implement this function.</para>
@@ -3435,13 +3436,23 @@ namespace WinBiometricDotNet.Interop
         /// </returns>
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        public static extern HRESULT WinBioAsyncOpenFramework([In] WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
-                                                              [In] HWND TargetWindow,
-                                                              [In] UINT MessageCode,
-                                                              [In] WINBIO_ASYNC_COMPLETION_CALLBACK CallbackRoutine,
-                                                              [In] PVOID UserData,
-                                                              [In] BOOL AsynchronousOpen,
-                                                              [Out] out WINBIO_FRAMEWORK_HANDLE FrameworkHandle);
+        public static extern unsafe HRESULT WinBioAsyncOpenFramework([In]  WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
+                                                                     [In]  HWND TargetWindow,
+                                                                     [In]  UINT MessageCode,
+                                                                     [In]  WINBIO_ASYNC_COMPLETION_CALLBACK CallbackRoutine,
+                                                                     [In]  PVOID UserData,
+                                                                     [In]  BOOL AsynchronousOpen,
+                                                                     [Out] out WINBIO_FRAMEWORK_HANDLE FrameworkHandle);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern unsafe HRESULT WinBioAsyncOpenFramework([In]  WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
+                                                                     [In]  HWND TargetWindow,
+                                                                     [In]  UINT MessageCode,
+                                                                     [In]  IntPtr CallbackRoutine,
+                                                                     [In]  PVOID UserData,
+                                                                     [In]  BOOL AsynchronousOpen,
+                                                                     [Out] out WINBIO_FRAMEWORK_HANDLE FrameworkHandle);
 
         /// <summary>
         /// <para>Asynchronously connects to a biometric service provider and one or more biometric units. If successful, the function returns a biometric session handle. Every operation performed by using this handle will be completed asynchronously, including <see cref="WinBioCloseSession"/>, and the results will be returned to the client application by using the method specified in the <paramref name="NotificationMethod"/> parameter.</para>
@@ -3622,6 +3633,21 @@ namespace WinBiometricDotNet.Interop
                                                                    [In] HWND TargetWindow,
                                                                    [In] UINT MessageCode,
                                                                    [In] WINBIO_ASYNC_COMPLETION_CALLBACK CallbackRoutine,
+                                                                   [In] PVOID UserData,
+                                                                   [In] BOOL AsynchronousOpen,
+                                                                   [Out] out WINBIO_SESSION_HANDLE SessionHandle);
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern unsafe HRESULT WinBioAsyncOpenSession([In] WINBIO_BIOMETRIC_TYPE Factor,
+                                                                   [In] WINBIO_POOL_TYPE PoolType,
+                                                                   [In] WINBIO_SESSION_FLAGS Flags,
+                                                                   [In] WINBIO_UNIT_ID* UnitArray,
+                                                                   [In] SIZE_T UnitCount,
+                                                                   [In] Guid* DatabaseId,
+                                                                   [In] WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
+                                                                   [In] HWND TargetWindow,
+                                                                   [In] UINT MessageCode,
+                                                                   [In] IntPtr CallbackRoutine,
                                                                    [In] PVOID UserData,
                                                                    [In] BOOL AsynchronousOpen,
                                                                    [Out] out WINBIO_SESSION_HANDLE SessionHandle);
@@ -5805,7 +5831,7 @@ namespace WinBiometricDotNet.Interop
             /// <summary>
             /// Union that encloses nested structures that contain additional information about the success or failure of asynchronous operations begun by the client application.
             /// </summary>
-            public WINBIO_ASYNC_RESULT_VERIFY Verify;
+            public WINBIO_ASYNC_RESULT_PARAMETERS Parameter;
 
         }
 

@@ -11,6 +11,8 @@ namespace FrameworkTester.Services
 
         #region Events
 
+        public static event AsyncCompletedHandler AsyncCompleted;
+
         public static event EnrollCapturedHandler EnrollCaptured;
 
         public event EventMonitoredHandler EventMonitored;
@@ -36,6 +38,52 @@ namespace FrameworkTester.Services
         public void AcquireFocus()
         {
             WinBiometric.AcquireFocus();
+        }
+
+        public void AsyncEnumBiometricUnits(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            WinBiometric.AsyncEnumBiometricUnits(framework, biometricTypes);
+        }
+
+        public void AsyncEnumDatabases(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            WinBiometric.AsyncEnumDatabases(framework, biometricTypes);
+        }
+
+        public void AsyncEnumServiceProviders(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            WinBiometric.AsyncEnumServiceProviders(framework, biometricTypes);
+        }
+
+        public void AsyncMonitorFrameworkChanges(Framework framework, ChangeTypes changeType)
+        {
+            WinBiometric.AsyncMonitorFrameworkChanges(framework, changeType);
+        }
+
+        public void AsyncOpenFramework(IntPtr userData)
+        {
+            WinBiometric.AsyncCompleted -= AsyncCompleted;
+            WinBiometric.AsyncCompleted += AsyncCompleted;
+
+            WinBiometric.AsyncOpenFramework(userData);
+        }
+
+        public void AsyncOpenFramework(IntPtr targetWindow, uint messageCode)
+        {
+            WinBiometric.AsyncOpenFramework(targetWindow, messageCode);
+        }
+
+        public void AsyncOpenSession(IntPtr userData)
+        {
+            WinBiometric.AsyncCompleted -= AsyncCompleted;
+            WinBiometric.AsyncCompleted += AsyncCompleted;
+
+            WinBiometric.AsyncOpenSession(userData);
+        }
+
+        public void AsyncOpenSession(IntPtr targetWindow, uint messageCode)
+        {
+            WinBiometric.AsyncOpenSession(targetWindow, messageCode);
         }
 
         public void BeginEnroll(FingerPosition position, uint unitId)
@@ -93,6 +141,11 @@ namespace FrameworkTester.Services
             WinBiometric.SampleCaptured += SampleCaptured;
 
             WinBiometric.CaptureSampleWithCallback(this._Session);
+        }
+
+        public void CloseFramework(Framework framework)
+        {
+            WinBiometric.CloseFramework(framework);
         }
 
         public void CloseSession()
@@ -264,6 +317,19 @@ namespace FrameworkTester.Services
             return WinBiometric.LogonIdentifiedUser(this._Session);
         }
 
+        public Framework OpenFramework(IntPtr userData)
+        {
+            WinBiometric.AsyncCompleted -= AsyncCompleted;
+            WinBiometric.AsyncCompleted += AsyncCompleted;
+
+            return WinBiometric.OpenFramework(userData);
+        }
+
+        public Framework OpenFramework(IntPtr targetWindow, uint messageCode)
+        {
+            return WinBiometric.OpenFramework(targetWindow, messageCode);
+        }
+
         public Session OpenSession()
         {
             Session session;
@@ -278,6 +344,19 @@ namespace FrameworkTester.Services
             this._Session = session;
 
             return session;
+        }
+
+        public Session OpenSession(IntPtr userData)
+        {
+            WinBiometric.AsyncCompleted -= AsyncCompleted;
+            WinBiometric.AsyncCompleted += AsyncCompleted;
+
+            return WinBiometric.OpenSession(userData);
+        }
+
+        public Session OpenSession(IntPtr targetWindow, uint messageCode)
+        {
+            return WinBiometric.OpenSession(targetWindow, messageCode);
         }
 
         public void RegisterEventMonitor(EventTypes eventType)
