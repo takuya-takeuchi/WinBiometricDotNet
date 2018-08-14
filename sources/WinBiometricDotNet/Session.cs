@@ -8,7 +8,7 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal Session(IntPtr handle)
+        internal Session(UIntPtr handle)
         {
             this.Handle = handle;
         }
@@ -17,7 +17,7 @@ namespace WinBiometricDotNet
 
         #region Properties
 
-        public IntPtr Handle
+        public UIntPtr Handle
         {
             get;
         }

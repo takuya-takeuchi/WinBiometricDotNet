@@ -65,7 +65,7 @@ namespace FrameworkTester.DesignTimes
             set;
         }
 
-        public IntPtr SessionHandle
+        public UIntPtr SessionHandle
         {
             get;
         }

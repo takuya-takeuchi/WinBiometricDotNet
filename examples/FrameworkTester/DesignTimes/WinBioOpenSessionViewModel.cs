@@ -7,7 +7,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioOpenSessionViewModel : WinBioViewModel, IWinBioOpenSessionViewModel
     {
 
-        public IntPtr SessionHandle
+        public UIntPtr SessionHandle
         {
             get;
         }

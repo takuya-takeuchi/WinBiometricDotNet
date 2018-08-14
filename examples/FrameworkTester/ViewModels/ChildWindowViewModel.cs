@@ -77,7 +77,7 @@ namespace FrameworkTester.ViewModels
                 this.ApiStatus = value?.ApiStatus ?? 0;
                 this.OperationType = value?.OperationType ?? 0;
                 this.SequenceNumber = value?.SequenceNumber ?? 0;
-                this.SessionHandle = value?.SessionHandle ?? IntPtr.Zero;
+                this.SessionHandle = value?.SessionHandle ?? UIntPtr.Zero;
                 this.UnitId = value?.UnitId ?? 0;
                 this.UserData = value?.UserData ?? IntPtr.Zero;
                 this.TimeStamp = value?.TimeStamp ?? DateTime.FromFileTime(0);
@@ -154,9 +154,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private IntPtr _SessionHandle;
+        private UIntPtr _SessionHandle;
 
-        public IntPtr SessionHandle
+        public UIntPtr SessionHandle
         {
             get => this._SessionHandle;
             private set

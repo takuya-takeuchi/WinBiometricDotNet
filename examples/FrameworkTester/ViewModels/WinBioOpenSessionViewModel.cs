@@ -41,9 +41,9 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioOpenSession";
 
-        private IntPtr _SessionHandle;
+        private UIntPtr _SessionHandle;
 
-        public IntPtr SessionHandle
+        public UIntPtr SessionHandle
         {
             get
             {

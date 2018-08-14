@@ -51,11 +51,6 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public IntPtr SessionHandle
-        {
-            get;
-        }
-
         public uint UnitId
         {
             get;

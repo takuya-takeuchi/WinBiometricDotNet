@@ -21,7 +21,7 @@ namespace WinBiometricDotNet
             {
                 case OperationTypes.Open:
                     this.Session = new Session(result->SessionHandle);
-                    this.Framework = new Framework((UIntPtr)(ulong)result->SessionHandle);
+                    this.Framework = new Framework(result->SessionHandle);
                     break;
                 case OperationTypes.OpenFramework:
                     // Even though call AsyncOpenFramework, WINBIO_OPERATION_OPEN_FRAMEWORK is not set to WINBIO_ASYNC_RESULT::Operation.
@@ -58,7 +58,7 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public IntPtr SessionHandle
+        public UIntPtr SessionHandle
         {
             get;
         }

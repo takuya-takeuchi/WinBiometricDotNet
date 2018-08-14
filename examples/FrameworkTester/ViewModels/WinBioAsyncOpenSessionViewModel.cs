@@ -70,7 +70,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this.SessionHandle = IntPtr.Zero;
+                        this.SessionHandle = UIntPtr.Zero;
                         this.UpdateUIImmediately();
 
                         switch (this.SelectedMethod)
@@ -174,9 +174,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private IntPtr _SessionHandle;
+        private UIntPtr _SessionHandle;
 
-        public IntPtr SessionHandle
+        public UIntPtr SessionHandle
         {
             get => this._SessionHandle;
             private set

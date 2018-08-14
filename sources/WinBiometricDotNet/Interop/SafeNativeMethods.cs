@@ -53,7 +53,7 @@ namespace WinBiometricDotNet.Interop
     using WINBIO_SENSOR_MODE = UInt32;
     using WINBIO_SENSOR_STATUS = UInt32;
     using WINBIO_SESSION_FLAGS = UInt32;
-    using WINBIO_SESSION_HANDLE = IntPtr;
+    using WINBIO_SESSION_HANDLE = UIntPtr;
     using WINBIO_SETTING_SOURCE_TYPE = UInt32;
     using WINBIO_UNIT_ID = UInt32;
     using WINBIO_UUID = Guid;

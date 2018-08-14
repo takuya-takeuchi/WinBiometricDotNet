@@ -6,7 +6,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioOpenSessionViewModel : IWinBioViewModel
     {
 
-        IntPtr SessionHandle
+        UIntPtr SessionHandle
         {
             get;
         }
