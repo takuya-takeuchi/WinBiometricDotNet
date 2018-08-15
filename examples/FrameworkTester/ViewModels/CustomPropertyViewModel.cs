@@ -16,6 +16,7 @@ namespace FrameworkTester.ViewModels
         public CustomPropertyViewModel()
         {
             this.FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
+            this.PropertyTypes = Enum.GetValues(typeof(PropertyTypes)).Cast<PropertyTypes>().ToArray();
             this.PropertyIds = Enum.GetValues(typeof(PropertyId)).Cast<PropertyId>().ToArray();
 
             this.CurrentFingerPosition = this.FingerPositions.First();
@@ -70,7 +71,7 @@ namespace FrameworkTester.ViewModels
         public byte[] PropertyBuffer
         {
             get => this._PropertyBuffer;
-            private set
+            set
             {
                 this._PropertyBuffer = value;
                 this.RaisePropertyChanged();
@@ -80,6 +81,20 @@ namespace FrameworkTester.ViewModels
         public IEnumerable<PropertyId> PropertyIds
         {
             get;
+        }
+
+        public IEnumerable<PropertyTypes> PropertyTypes
+        {
+            get;
+        }
+
+        #endregion
+
+        #region Methods
+
+        public override bool CanExecute()
+        {
+            return this.IdentityRepository.CurrentBiometricIdentity != null;
         }
 
         #endregion

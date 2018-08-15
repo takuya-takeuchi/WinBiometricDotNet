@@ -93,6 +93,14 @@ namespace FrameworkTester.Services.Interfaces
 
         void GetLogonSetting(out bool value, out SettingSourceTypes source);
 
+        AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
+                                                   PropertyTypes propertyType,
+                                                   BiometricIdentity identity);
+
+        ULONG GetSampleHintProperty(Session session,
+                                    PropertyTypes propertyType,
+                                    uint unitId);
+
         void GetProperty(Session session,
                          PropertyTypes propertyType,
                          PropertyId propertyId,

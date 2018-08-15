@@ -249,6 +249,20 @@ namespace FrameworkTester.Services
             WinBiometric.GetLogonSetting(out value, out source);
         }
 
+        public AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
+                                               PropertyTypes propertyType,
+                                               BiometricIdentity identity)
+        {
+            return WinBiometric.GetAntiSpoofPolicyProperty(session, propertyType, identity);
+        }
+
+        public ULONG GetSampleHintProperty(Session session,
+                                                     PropertyTypes propertyType,
+                                                     uint unitId)
+        {
+            return WinBiometric.GetSampleHintProperty(session, propertyType, unitId);
+        }
+
         public void GetProperty(Session session,
                                 PropertyTypes propertyType, 
                                 PropertyId propertyId, 

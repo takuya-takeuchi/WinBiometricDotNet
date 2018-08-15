@@ -5,72 +5,53 @@ using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
     public sealed class WinBioGetPropertyViewModel : WinBioSessionViewModel, IWinBioGetPropertyViewModel
     {
+        #region Fields
+
+        private readonly AntiSpoofPolicyPropertyViewModel _AntiSpoofPolicyPropertyResult = new AntiSpoofPolicyPropertyViewModel();
+
+        private readonly SampleHintPropertyViewModel _SampleHintPropertyResult = new SampleHintPropertyViewModel();
+
+        private readonly CustomPropertyViewModel _CustomPropertyResult = new CustomPropertyViewModel();
+
+        #endregion
 
         #region Constructors
 
         public WinBioGetPropertyViewModel()
         {
-            this.FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
-            this.PropertyTypes = Enum.GetValues(typeof(PropertyTypes)).Cast<PropertyTypes>().ToArray();
-            this.PropertyIds = Enum.GetValues(typeof(PropertyId)).Cast<PropertyId>().ToArray();
+            this.Properties = new PropertyViewModel[]
+            {
+                new SampleHintPropertyViewModel(),
+                new AntiSpoofPolicyPropertyViewModel(),
+                new CustomPropertyViewModel()
+            };
 
-            this.CurrentFingerPosition = this.FingerPositions.First();
-            this.CurrentPropertyType = this.PropertyTypes.First();
-            this.CurrentPropertyId = this.PropertyIds.First();
+            this.SelectedProperty = this.Properties.First();
 
             this.IdentityRepository = SimpleIoc.Default.GetInstance<IBiometricIdentityRepositoryViewModel>();
             this.IdentityRepository.PropertyChanged += (sender, args) =>
             {
                 this.ExecuteCommand.RaiseCanExecuteChanged();
             };
+
+            foreach (var property in this.Properties)
+            {
+                property.PropertyChanged += (sender, args) =>
+                {
+                    this.ExecuteCommand.RaiseCanExecuteChanged();
+                };
+            }
         }
 
         #endregion
 
         #region Properties
-
-        private FingerPosition _CurrentFingerPosition;
-
-        public FingerPosition CurrentFingerPosition
-        {
-            get => this._CurrentFingerPosition;
-            set
-            {
-                this._CurrentFingerPosition = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private PropertyId _CurrentPropertyId;
-
-        public PropertyId CurrentPropertyId
-        {
-            get => this._CurrentPropertyId;
-            set
-            {
-                this._CurrentPropertyId = value;
-                this.RaisePropertyChanged();
-            }
-        }
-
-        private PropertyTypes _CurrentPropertyType;
-
-        public PropertyTypes CurrentPropertyType
-        {
-            get => this._CurrentPropertyType;
-            set
-            {
-                this._CurrentPropertyType = value;
-                this.RaisePropertyChanged();
-            }
-        }
 
         private RelayCommand _ExecuteCommand;
 
@@ -80,44 +61,64 @@ namespace FrameworkTester.ViewModels
             {
                 return this._ExecuteCommand ?? (this._ExecuteCommand = new RelayCommand(() =>
                 {
-                    this.PropertyBuffer = null;
-
                     try
                     {
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
                         var session = this.WindowRepository.SelectedWindow.Session;
-                        var propertyType = this.CurrentPropertyType;
-                        var propertyId = this.CurrentPropertyId;
-                        var unitId = this.CurrentUnit;
-                        var identity = this.IdentityRepository.CurrentBiometricIdentity;
-                        var fingerPosition = this.CurrentFingerPosition;
 
-                        this.BiometricService.GetProperty(session,
-                                                          propertyType,
-                                                          propertyId,
-                                                          unitId.UnitId,
-                                                          identity,
-                                                          fingerPosition, 
-                                                          out var propertyBuffer);
+                        switch (this.SelectedProperty)
+                        {
+                            case AntiSpoofPolicyPropertyViewModel anti:
+                                var asp = this.BiometricService.GetAntiSpoofPolicyProperty(session,
+                                                                                           anti.CurrentPropertyType,
+                                                                                           anti.IdentityRepository.CurrentBiometricIdentity);
+
+                                this._AntiSpoofPolicyPropertyResult.SelectedAction = asp.Action;
+                                this._AntiSpoofPolicyPropertyResult.SelectedSource = asp.Source;
+
+                                this.ResultProperty = this._AntiSpoofPolicyPropertyResult;
+                                break;
+                            case SampleHintPropertyViewModel sample:
+                                var num = this.BiometricService.GetSampleHintProperty(session,
+                                                                                      sample.CurrentPropertyType,
+                                                                                      this.CurrentUnit.UnitId);
+
+                                this._SampleHintPropertyResult.MaximumNumberOfGoodBiometricSamples = num;
+
+                                this.ResultProperty = this._SampleHintPropertyResult;
+                                break;
+                            case CustomPropertyViewModel custom:
+                                var propertyType = custom.CurrentPropertyType;
+                                var propertyId = custom.CurrentPropertyId;
+                                var unitId = this.CurrentUnit;
+                                var identity = this.IdentityRepository.CurrentBiometricIdentity;
+                                var fingerPosition = custom.CurrentFingerPosition;
+
+                                this.BiometricService.GetProperty(session,
+                                                                  propertyType,
+                                                                  propertyId,
+                                                                  unitId.UnitId,
+                                                                  identity,
+                                                                  fingerPosition,
+                                                                  out var propertyBuffer);
+
+                                this._CustomPropertyResult.PropertyBuffer = propertyBuffer;
+
+                                this.ResultProperty = this._CustomPropertyResult;
+                                break;
+                        }
 
                         this.Result = "OK";
-
-                        this.PropertyBuffer = propertyBuffer;
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.WindowRepository?.SelectedWindow != null));
+                }, () => this.WindowRepository?.SelectedWindow != null && this.SelectedProperty.CanExecute()));
             }
-        }
-
-        public IEnumerable<FingerPosition> FingerPositions
-        {
-            get;
         }
 
         public IBiometricIdentityRepositoryViewModel IdentityRepository
@@ -127,26 +128,46 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioGetProperty";
 
-        private byte[] _PropertyBuffer;
-
-        public byte[] PropertyBuffer
+        public IEnumerable<PropertyViewModel> Properties
         {
-            get => this._PropertyBuffer;
-            private set
+            get;
+        }
+
+        private PropertyViewModel _SelectedProperty;
+
+        public PropertyViewModel SelectedProperty
+        {
+            get => this._SelectedProperty;
+            set
             {
-                this._PropertyBuffer = value;
+                this._SelectedProperty = value;
                 this.RaisePropertyChanged();
+                
+                switch (this.SelectedProperty)
+                {
+                    case AntiSpoofPolicyPropertyViewModel _:
+                        this.ResultProperty = this._AntiSpoofPolicyPropertyResult;
+                        break;
+                    case SampleHintPropertyViewModel _:
+                        this.ResultProperty = this._SampleHintPropertyResult;
+                        break;
+                    case CustomPropertyViewModel _:
+                        this.ResultProperty = this._CustomPropertyResult;
+                        break;
+                }
             }
         }
 
-        public IEnumerable<PropertyId> PropertyIds
-        {
-            get;
-        }
+        private PropertyViewModel _ResultProperty;
 
-        public IEnumerable<PropertyTypes> PropertyTypes
+        public PropertyViewModel ResultProperty
         {
-            get;
+            get => this._ResultProperty;
+            private set
+            {
+                this._ResultProperty = value;
+                this.RaisePropertyChanged();
+            }
         }
 
         #endregion
