@@ -8,7 +8,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioIdentifyViewModel : WinBioViewModel, IWinBioIdentifyViewModel
+    public sealed class WinBioIdentifyViewModel : WinBioSessionViewModel, IWinBioIdentifyViewModel
     {
 
         #region Constructors
@@ -42,7 +42,9 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var result = this.BiometricService.Identify();
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var result = this.BiometricService.Identify(session);
+
                         this.Result = "OK";
 
                         this.Type = result.Identity.Type;
@@ -59,7 +61,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 

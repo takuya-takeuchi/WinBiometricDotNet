@@ -1,4 +1,4 @@
-﻿using System;
+﻿using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace WinBiometricDotNet
 {
@@ -8,7 +8,7 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal Session(IntPtr handle)
+        internal Session(WINBIO_SESSION_HANDLE handle)
         {
             this.Handle = handle;
         }
@@ -17,7 +17,7 @@ namespace WinBiometricDotNet
 
         #region Properties
 
-        public IntPtr Handle
+        public WINBIO_SESSION_HANDLE Handle
         {
             get;
         }

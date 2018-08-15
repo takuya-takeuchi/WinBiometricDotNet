@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Command;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioLocateSensorViewModel : WinBioViewModel, IWinBioLocateSensorViewModel
+    public sealed class WinBioLocateSensorViewModel : WinBioSessionViewModel, IWinBioLocateSensorViewModel
     {
 
         #region Properties
@@ -26,7 +26,8 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var result = this.BiometricService.LocateSensor();
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var result = this.BiometricService.LocateSensor(session);
 
                         this.Result = "OK";
 
@@ -37,7 +38,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 

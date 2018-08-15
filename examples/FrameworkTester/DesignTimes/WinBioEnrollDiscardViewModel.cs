@@ -3,8 +3,14 @@
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioEnrollDiscardViewModel : WinBioViewModel, IWinBioEnrollDiscardViewModel
+    public sealed class WinBioEnrollDiscardViewModel : WinBioViewModel, IWinBioEnrollDiscardViewModel, IWinBioAsyncSessionViewModel
     {
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        {
+            get;
+        }
+
     }
 
 }

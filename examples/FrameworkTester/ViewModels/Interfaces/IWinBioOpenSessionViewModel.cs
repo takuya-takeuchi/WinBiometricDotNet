@@ -1,4 +1,4 @@
-﻿using System;
+﻿using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace FrameworkTester.ViewModels.Interfaces
 {
@@ -6,7 +6,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioOpenSessionViewModel : IWinBioViewModel
     {
 
-        IntPtr SessionHandle
+        WINBIO_SESSION_HANDLE SessionHandle
         {
             get;
         }

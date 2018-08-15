@@ -42,7 +42,7 @@ namespace WinBiometricDotNet.Interop
     using WINBIO_COMPONENT = UInt32;
     using WINBIO_EVENT_TYPE = UInt32;
     using WINBIO_FRAMEWORK_CHANGE_TYPE = UInt32;
-    using WINBIO_FRAMEWORK_HANDLE = IntPtr;
+    using WINBIO_FRAMEWORK_HANDLE = UInt32;
     using WINBIO_IDENTITY_TYPE = UInt32;
     using WINBIO_INDICATOR_STATUS = UInt32;
     using WINBIO_OPERATION_TYPE = UInt32;
@@ -53,7 +53,7 @@ namespace WinBiometricDotNet.Interop
     using WINBIO_SENSOR_MODE = UInt32;
     using WINBIO_SENSOR_STATUS = UInt32;
     using WINBIO_SESSION_FLAGS = UInt32;
-    using WINBIO_SESSION_HANDLE = IntPtr;
+    using WINBIO_SESSION_HANDLE = UInt32;
     using WINBIO_SETTING_SOURCE_TYPE = UInt32;
     using WINBIO_UNIT_ID = UInt32;
     using WINBIO_UUID = Guid;
@@ -755,11 +755,166 @@ namespace WinBiometricDotNet.Interop
         /// The adapter did not pass its integrity check.
         /// </summary>
         public const int WINBIO_E_ADAPTER_INTEGRITY_FAILURE = unchecked((int)0x8009803D);
+        
+        /// <summary>
+        /// This operation requires a different type of session handle.
+        /// </summary>
+        public const int WINBIO_E_INCORRECT_SESSION_TYPE = unchecked((int)0x8009803E);
+
+        /// <summary>
+        /// This session handle has already been closed.
+        /// </summary>
+        public const int WINBIO_E_SESSION_HANDLE_CLOSED = unchecked((int)0x8009803F);
+
+        /// <summary>
+        /// The requested operation was aborted because it would have caused a deadlock.
+        /// </summary>
+        public const int WINBIO_E_DEADLOCK_DETECTED = unchecked((int)0x80098040);
+
+        /// <summary>
+        /// There is no pre-boot logon identity available.
+        /// </summary>
+        public const int WINBIO_E_NO_PREBOOT_IDENTITY = unchecked((int)0x80098041);
+
+        /// <summary>
+        /// The operation was aborted because there were too many errors.
+        /// </summary>
+        public const int WINBIO_E_MAX_ERROR_COUNT_EXCEEDED = unchecked((int)0x80098042);
+
+        /// <summary>
+        /// System policy settings have disabled pre-boot auto-logon using biometrics.
+        /// </summary>
+        public const int WINBIO_E_AUTO_LOGON_DISABLED = unchecked((int)0x80098043);
+
+        /// <summary>
+        /// The specified ticket is either incorrect or has expired.
+        /// </summary>
+        public const int WINBIO_E_INVALID_TICKET = unchecked((int)0x80098044);
+
+        /// <summary>
+        /// The calling process has too many outstanding tickets.
+        /// </summary>
+        public const int WINBIO_E_TICKET_QUOTA_EXCEEDED = unchecked((int)0x80098045);
+
+        /// <summary>
+        /// The biometric service could not decrypt the data.
+        /// </summary>
+        public const int WINBIO_E_DATA_PROTECTION_FAILURE = unchecked((int)0x80098046);
+
+        /// <summary>
+        /// Biometric authentication has been disabled because of too many unregistered fingerpint scans.
+        /// </summary>
+        public const int WINBIO_E_CRED_PROV_SECURITY_LOCKOUT = unchecked((int)0x80098047);
+
+        /// <summary>
+        /// The requested pool type is not supported by this biometric factor.
+        /// </summary>
+        public const int WINBIO_E_UNSUPPORTED_POOL_TYPE = unchecked((int)0x80098048);
+
+        /// <summary>
+        /// A specific individual must be selected in order to perform an enrollment.
+        /// </summary>
+        public const int WINBIO_E_SELECTION_REQUIRED = unchecked((int)0x80098049);
+
+        /// <summary>
+        /// A presence monitor is already active on that session.
+        /// </summary>
+        public const int WINBIO_E_PRESENCE_MONITOR_ACTIVE = unchecked((int)0x8009804A);
+
+        /// <summary>
+        /// The specified sub-factor value is out of range or is not supported.
+        /// </summary>
+        public const int WINBIO_E_INVALID_SUBFACTOR = unchecked((int)0x8009804B);
+
+        /// <summary>
+        /// The sensor adapter returned an invalid calibration format array.
+        /// </summary>
+        public const int WINBIO_E_INVALID_CALIBRATION_FORMAT_ARRAY = unchecked((int)0x8009804C);
+
+        /// <summary>
+        /// The sensor and engine adapter don't share a common calibration format.
+        /// </summary>
+        public const int WINBIO_E_NO_SUPPORTED_CALIBRATION_FORMAT = unchecked((int)0x8009804D);
+
+        /// <summary>
+        /// The sensor adapter does not support the requested calibration format.
+        /// </summary>
+        public const int WINBIO_E_UNSUPPORTED_SENSOR_CALIBRATION_FORMAT = unchecked((int)0x8009804E);
+
+        /// <summary>
+        /// The requested calibration buffer size is too small.
+        /// </summary>
+        public const int WINBIO_E_CALIBRATION_BUFFER_TOO_SMALL = unchecked((int)0x8009804F);
+
+        /// <summary>
+        /// The requested calibration buffer size is too large.
+        /// </summary>
+        public const int WINBIO_E_CALIBRATION_BUFFER_TOO_LARGE = unchecked((int)0x80098050);
+
+        /// <summary>
+        /// The sensor adapter cannot process the contents of the calibration buffer.
+        /// </summary>
+        public const int WINBIO_E_CALIBRATION_BUFFER_INVALID = unchecked((int)0x80098051);
+
+        /// <summary>
+        /// The key identifier is invalid.
+        /// </summary>
+        public const int WINBIO_E_INVALID_KEY_IDENTIFIER = unchecked((int)0x80098052);
+
+        /// <summary>
+        /// The key cannot be created.
+        /// </summary>
+        public const int WINBIO_E_KEY_CREATION_FAILED = unchecked((int)0x80098053);
+
+        /// <summary>
+        /// The key identifier buffer is too small.
+        /// </summary>
+        public const int WINBIO_E_KEY_IDENTIFIER_BUFFER_TOO_SMALL = unchecked((int)0x80098054);
+
+        /// <summary>
+        /// The biometric unt is unable to provide data for this property at the present time.
+        /// </summary>
+        public const int WINBIO_E_PROPERTY_UNAVAILABLE = unchecked((int)0x80098055);
+
+        /// <summary>
+        /// Policy protection is not available because a TPM 2.0 device is either not present or not supported.
+        /// </summary>
+        public const int WINBIO_E_POLICY_PROTECTION_UNAVAILABLE = unchecked((int)0x80098056);
+
+        /// <summary>
+        /// The biometric sensor does not support a secure hardware data path.
+        /// </summary>
+        public const int WINBIO_E_INSECURE_SENSOR = unchecked((int)0x80098057);
+
+        /// <summary>
+        /// The identifier does not refer to a valid buffer.
+        /// </summary>
+        public const int WINBIO_E_INVALID_BUFFER_ID = unchecked((int)0x80098058);
+
+        /// <summary>
+        /// The contents of the buffer are not valid.
+        /// </summary>
+        public const int WINBIO_E_INVALID_BUFFER = unchecked((int)0x80098059);
+
+        /// <summary>
+        /// The Windows Biometric Service secure component was compromised.
+        /// </summary>
+        public const int WINBIO_E_TRUSTLET_INTEGRITY_FAIL = unchecked((int)0x8009805A);
+
+        /// <summary>
+        /// The Windows Biometric Service canceled the enrollment because the platform entered a suspended state.
+        /// </summary>
+        public const int WINBIO_E_ENROLLMENT_CANCELED_BY_SUSPEND = unchecked((int)0x8009805B);
 
         /// <summary>
         /// Another sample is needed for the current enrollment template.
         /// </summary>
         public const int WINBIO_I_MORE_DATA = unchecked(0x00090001);
+
+        /// <summary>
+        /// Return data includes multiple status values, which must be checked separately.
+        /// </summary>
+        public const int WINBIO_I_EXTENDED_STATUS_INFORMATION = unchecked(0x00090002);
 
         #endregion
 
@@ -2058,7 +2213,8 @@ namespace WinBiometricDotNet.Interop
         /// </summary>
         /// <param name="AsyncResult">Pointer to a <see cref="WINBIO_ASYNC_RESULT"/> structure that contains information about the completed operation. The structure is created by the Windows Biometric Framework. You must call WinBioFree to release the structure.</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
-        public unsafe delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] WINBIO_ASYNC_RESULT* AsyncResult);
+        //public unsafe delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] WINBIO_ASYNC_RESULT* AsyncResult);
+        public  delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] IntPtr AsyncResult);
 
         /// <summary>
         /// <para>Called by the Windows Biometric Framework to return results from the asynchronous <see cref="WinBioCaptureSampleWithCallback"/> function. The client application must implement this function.</para>
@@ -3435,13 +3591,23 @@ namespace WinBiometricDotNet.Interop
         /// </returns>
         [System.Security.SuppressUnmanagedCodeSecurity]
         [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
-        public static extern HRESULT WinBioAsyncOpenFramework([In] WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
-                                                              [In] HWND TargetWindow,
-                                                              [In] UINT MessageCode,
-                                                              [In] WINBIO_ASYNC_COMPLETION_CALLBACK CallbackRoutine,
-                                                              [In] PVOID UserData,
-                                                              [In] BOOL AsynchronousOpen,
-                                                              [Out] out WINBIO_FRAMEWORK_HANDLE FrameworkHandle);
+        public static extern unsafe HRESULT WinBioAsyncOpenFramework([In]  WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
+                                                                     [In]  HWND TargetWindow,
+                                                                     [In]  UINT MessageCode,
+                                                                     [In]  WINBIO_ASYNC_COMPLETION_CALLBACK CallbackRoutine,
+                                                                     [In]  PVOID UserData,
+                                                                     [In]  BOOL AsynchronousOpen,
+                                                                     [Out] out WINBIO_FRAMEWORK_HANDLE FrameworkHandle);
+
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern unsafe HRESULT WinBioAsyncOpenFramework([In]  WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
+                                                                     [In]  HWND TargetWindow,
+                                                                     [In]  UINT MessageCode,
+                                                                     [In]  IntPtr CallbackRoutine,
+                                                                     [In]  PVOID UserData,
+                                                                     [In]  BOOL AsynchronousOpen,
+                                                                     [Out] out WINBIO_FRAMEWORK_HANDLE FrameworkHandle);
 
         /// <summary>
         /// <para>Asynchronously connects to a biometric service provider and one or more biometric units. If successful, the function returns a biometric session handle. Every operation performed by using this handle will be completed asynchronously, including <see cref="WinBioCloseSession"/>, and the results will be returned to the client application by using the method specified in the <paramref name="NotificationMethod"/> parameter.</para>
@@ -3622,6 +3788,21 @@ namespace WinBiometricDotNet.Interop
                                                                    [In] HWND TargetWindow,
                                                                    [In] UINT MessageCode,
                                                                    [In] WINBIO_ASYNC_COMPLETION_CALLBACK CallbackRoutine,
+                                                                   [In] PVOID UserData,
+                                                                   [In] BOOL AsynchronousOpen,
+                                                                   [Out] out WINBIO_SESSION_HANDLE SessionHandle);
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern unsafe HRESULT WinBioAsyncOpenSession([In] WINBIO_BIOMETRIC_TYPE Factor,
+                                                                   [In] WINBIO_POOL_TYPE PoolType,
+                                                                   [In] WINBIO_SESSION_FLAGS Flags,
+                                                                   [In] WINBIO_UNIT_ID* UnitArray,
+                                                                   [In] SIZE_T UnitCount,
+                                                                   [In] Guid* DatabaseId,
+                                                                   [In] WINBIO_ASYNC_NOTIFICATION_METHOD NotificationMethod,
+                                                                   [In] HWND TargetWindow,
+                                                                   [In] UINT MessageCode,
+                                                                   [In] IntPtr CallbackRoutine,
                                                                    [In] PVOID UserData,
                                                                    [In] BOOL AsynchronousOpen,
                                                                    [Out] out WINBIO_SESSION_HANDLE SessionHandle);
@@ -5805,7 +5986,7 @@ namespace WinBiometricDotNet.Interop
             /// <summary>
             /// Union that encloses nested structures that contain additional information about the success or failure of asynchronous operations begun by the client application.
             /// </summary>
-            public WINBIO_ASYNC_RESULT_VERIFY Verify;
+            public WINBIO_ASYNC_RESULT_PARAMETERS Parameter;
 
         }
 

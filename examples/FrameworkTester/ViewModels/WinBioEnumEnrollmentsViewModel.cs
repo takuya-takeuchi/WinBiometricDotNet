@@ -10,7 +10,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioEnumEnrollmentsViewModel : WinBioViewModel, IWinBioEnumEnrollmentsViewModel
+    public sealed class WinBioEnumEnrollmentsViewModel : WinBioSessionViewModel, IWinBioEnumEnrollmentsViewModel
     {
 
         #region Properties
@@ -30,7 +30,8 @@ namespace FrameworkTester.ViewModels
 
                         this._FingerPositions.Clear();
 
-                        var positions = this.BiometricService.EnumEnrollments(this.CurrentUnit);
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var positions = this.BiometricService.EnumEnrollments(session, this.CurrentUnit);
                         var resuls = new List<KeyValuePair<string, bool>>();
                         foreach (var value in Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>())
                         {
@@ -48,7 +49,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 

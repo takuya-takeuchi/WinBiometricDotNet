@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Ioc;
 namespace FrameworkTester.ViewModels
 {
 
-    public abstract class WinBioWithCallbackViewModel : WinBioViewModel, IWinBioWithCallbackViewModel
+    public abstract class WinBioWithCallbackViewModel : WinBioSessionViewModel, IWinBioWithCallbackViewModel
     {
 
         #region Properties

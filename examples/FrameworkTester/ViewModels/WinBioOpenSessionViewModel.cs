@@ -3,10 +3,12 @@ using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 
+using WINBIO_SESSION_HANDLE = System.UInt32;
+
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioOpenSessionViewModel : WinBioViewModel, IWinBioOpenSessionViewModel
+    public sealed class WinBioOpenSessionViewModel : WinBioSessionViewModel, IWinBioOpenSessionViewModel
     {
 
         #region Properties
@@ -28,6 +30,8 @@ namespace FrameworkTester.ViewModels
 
                         this.Result = "OK";
 
+                        this.WindowRepository.Add(new SessionViewModel(session));
+
                         this.SessionHandle = session.Handle;
                     }
                     catch (Exception e)
@@ -41,9 +45,9 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioOpenSession";
 
-        private IntPtr _SessionHandle;
+        private WINBIO_SESSION_HANDLE _SessionHandle;
 
-        public IntPtr SessionHandle
+        public WINBIO_SESSION_HANDLE SessionHandle
         {
             get
             {

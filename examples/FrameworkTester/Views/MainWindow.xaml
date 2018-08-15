@@ -92,22 +92,59 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel
-                Grid.Row="0"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
-                <ToggleButton
-                    x:Name="_ToggleButton"
-                    Margin="5"
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="15" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="Target Session: " />
+                    <Grid
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox
+                            HorizontalAlignment="Stretch"
+                            ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                            ItemsSource="{Binding WindowRepository.Windows}"
+                            SelectedItem="{Binding WindowRepository.SelectedWindow}" />
+                    </Grid>
+                </Grid>
+
+                <StackPanel
+                    Grid.Column="2"
                     HorizontalAlignment="Right"
-                    Content="Monitor Event"
-                    IsChecked="{Binding ToggleMonitorEvent}" />
-                <Button
-                    Margin="0,5,5,5"
-                    HorizontalAlignment="Right"
-                    Command="{Binding ClearEventsCommand}"
-                    Content="Clear Events" />
-            </StackPanel>
+                    Orientation="Horizontal">
+                    <ToggleButton
+                        x:Name="_ToggleButton"
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Content="Monitor Event"
+                        IsChecked="{Binding ToggleMonitorEvent}" />
+                    <Button
+                        Margin="0,5,5,5"
+                        HorizontalAlignment="Right"
+                        Command="{Binding ClearEventsCommand}"
+                        Content="Clear Events" />
+                </StackPanel>
+            </Grid>
 
             <ScrollViewer Grid.Row="1">
                 <ListBox

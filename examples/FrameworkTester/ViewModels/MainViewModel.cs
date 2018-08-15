@@ -17,10 +17,9 @@ namespace FrameworkTester.ViewModels
     public class MainViewModel : ViewModelBase, IMainViewModel
     {
 
-        #region Events
-        #endregion
-
         #region Fields
+
+        private Session _CurrentSession;
 
         private bool _EventCancel;
 
@@ -39,6 +38,8 @@ namespace FrameworkTester.ViewModels
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
             this._WinBiometricService = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._NavigationService = SimpleIoc.Default.GetInstance<IFrameNavigationService>();
+
+            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionHandleViewModel>>();
 
             var winBio = typeof(IWinBioViewModel);
             foreach (var type in Assembly.GetExecutingAssembly()
@@ -176,11 +177,12 @@ namespace FrameworkTester.ViewModels
                 {
                     if (value)
                     {
-                        this._WinBiometricService.RegisterEventMonitor(EventTypes.Unclaimed);
+                        this._CurrentSession = this.WindowRepository.SelectedWindow.Session;
+                        this._WinBiometricService.RegisterEventMonitor(this._CurrentSession, EventTypes.Unclaimed);
                     }
                     else
                     {
-                        this._WinBiometricService.UnregisterEventMonitor();
+                        this._WinBiometricService.UnregisterEventMonitor(this._CurrentSession);
                     }
                 }
                 catch (Exception e)
@@ -204,6 +206,11 @@ namespace FrameworkTester.ViewModels
         {
             get;
         } = new ObservableCollection<BiometricUnit>();
+        
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        {
+            get;
+        }
 
         #endregion
 

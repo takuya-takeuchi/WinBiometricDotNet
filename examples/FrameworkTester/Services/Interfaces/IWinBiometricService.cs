@@ -12,35 +12,53 @@ namespace FrameworkTester.Services.Interfaces
 
         void AcquireFocus();
 
-        void BeginEnroll(FingerPosition position, uint unitId);
+        void AsyncEnumBiometricUnits(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint);
 
-        void Cancel();
+        void AsyncEnumDatabases(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint);
 
-        CaptureEnrollResult CaptureEnroll();
+        void AsyncEnumServiceProviders(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint);
 
-        void CaptureEnrollWithCallback();
+        void AsyncMonitorFrameworkChanges(Framework framework, ChangeTypes changeType);
 
-        CaptureSampleResult CaptureSample();
+        void AsyncOpenFramework(IntPtr userData);
 
-        void CaptureSampleWithCallback();
+        void AsyncOpenFramework(IntPtr targetWindow, uint messageCode);
 
-        void CloseSession();
+        void AsyncOpenSession(IntPtr userData);
 
-        BiometricIdentity CommitEnroll();
+        void AsyncOpenSession(IntPtr targetWindow, uint messageCode);
+
+        void BeginEnroll(Session session, FingerPosition position, uint unitId);
+
+        void Cancel(Session session);
+
+        CaptureEnrollResult CaptureEnroll(Session session);
+
+        void CaptureEnrollWithCallback(Session session);
+
+        CaptureSampleResult CaptureSample(Session session);
+
+        void CaptureSampleWithCallback(Session session);
+
+        void CloseFramework(Framework framework);
+
+        void CloseSession(Session session);
+
+        BiometricIdentity CommitEnroll(Session session);
 
         Guid CreateDatabase(BiometricUnit unit);
 
         void CreateDatabase(BiometricUnit unit, Guid guid);
 
-        void DeleteTemplate(uint unitId, BiometricIdentity identity, FingerPosition position);
+        void DeleteTemplate(Session session, uint unitId, BiometricIdentity identity, FingerPosition position);
 
-        void DiscardEnroll();
+        void DiscardEnroll(Session session);
 
         IEnumerable<BiometricDatabase> EnumBiometricDatabases();
 
         IEnumerable<BiometricUnit> EnumBiometricUnits();
 
-        IEnumerable<FingerPosition> EnumEnrollments(BiometricUnit unit);
+        IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit);
 
         IEnumerable<BiometricServiceProvider> EnumServiceProviders();
 
@@ -54,44 +72,53 @@ namespace FrameworkTester.Services.Interfaces
 
         void GetLogonSetting(out bool value, out SettingSourceTypes source);
 
-        void GetProperty(PropertyTypes propertyType,
+        void GetProperty(Session session,
+                         PropertyTypes propertyType,
                          PropertyId propertyId,
                          uint unitId,
                          BiometricIdentity identity,
                          FingerPosition position,
                          out byte[] propertyBuffer);
 
-        IdentifyResult Identify();
+        IdentifyResult Identify(Session session);
 
-        void IdentifyWithCallback();
+        void IdentifyWithCallback(Session session);
 
-        uint LocateSensor();
+        uint LocateSensor(Session session);
 
-        void LocateSensorWithCallback();
+        void LocateSensorWithCallback(Session session);
 
-        void LockUnit(uint unitId);
+        void LockUnit(Session session, uint unitId);
 
-        bool LogonIdentifiedUser();
+        bool LogonIdentifiedUser(Session session);
+
+        Framework OpenFramework(IntPtr userData);
+
+        Framework OpenFramework(IntPtr targetWindow, uint messageCode);
 
         Session OpenSession();
 
-        void RegisterEventMonitor(EventTypes eventType);
+        Session OpenSession(IntPtr userData);
+
+        Session OpenSession(IntPtr targetWindow, uint messageCode);
+
+        void RegisterEventMonitor(Session session, EventTypes eventType);
 
         void ReleaseFocus();
 
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
 
-        void SelectEnroll(ulong selectorValue);
+        void SelectEnroll(Session session, ulong selectorValue);
 
-        void UnlockUnit(uint unitId);
+        void UnlockUnit(Session session, uint unitId);
 
-        void UnregisterEventMonitor();
+        void UnregisterEventMonitor(Session session);
 
-        VerifyResult Verify(BiometricUnit unit, FingerPosition position);
+        VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position);
 
-        void VerifyWithCallback(BiometricUnit unit, FingerPosition position);
+        void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position);
 
-        void Wait();
+        void Wait(Session session);
 
     }
 

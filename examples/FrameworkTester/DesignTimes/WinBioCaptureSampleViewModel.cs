@@ -5,7 +5,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioCaptureSampleViewModel : WinBioViewModel, IWinBioCaptureSampleViewModel
+    public sealed class WinBioCaptureSampleViewModel : WinBioViewModel, IWinBioCaptureSampleViewModel, IWinBioAsyncSessionViewModel
     {
 
         public BitmapSource CaptureImage
@@ -54,6 +54,11 @@ namespace FrameworkTester.DesignTimes
         }
 
         public uint UnitId
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

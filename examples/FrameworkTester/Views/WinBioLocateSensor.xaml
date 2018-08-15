@@ -16,6 +16,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -25,28 +27,57 @@
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Style="{StaticResource LabelTextBlock}"
+                Text="Target Session: " />
+            <Grid
+                Grid.Row="0"
+                Grid.Column="2"
+                HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    HorizontalAlignment="Stretch"
+                    ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                    ItemsSource="{Binding WindowRepository.Windows}"
+                    SelectedItem="{Binding WindowRepository.SelectedWindow}" />
+            </Grid>
+        </Grid>
         <Button
+            Grid.Row="2"
             Grid.Column="2"
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="UnitId: " />
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding UnitId}" />
         <TextBlock
-            Grid.Row="4"
+            Grid.Row="6"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
-            Grid.Row="4"
+            Grid.Row="6"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />

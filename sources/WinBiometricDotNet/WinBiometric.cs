@@ -8,6 +8,8 @@ using WinBiometricDotNet.Helpers;
 using WinBiometricDotNet.Interop;
 
 using HRESULT = System.Int32;
+using PVOID = System.IntPtr;
+using UINT = System.UInt32;
 using ULONGLONG = System.UInt64;
 
 using WINBIO_BIOMETRIC_SENSOR_SUBTYPE = System.UInt32;
@@ -45,6 +47,8 @@ namespace WinBiometricDotNet
 
         #region Events
 
+        public static event AsyncCompletedHandler AsyncCompleted;
+
         public static event EnrollCapturedHandler EnrollCaptured;
 
         public static event EventMonitoredHandler EventMonitored;
@@ -60,6 +64,8 @@ namespace WinBiometricDotNet
         #endregion
 
         #region Fields
+
+        private static readonly SafeNativeMethods.WINBIO_ASYNC_COMPLETION_CALLBACK NativeAsyncCompletionCallback;
 
         private static readonly SafeNativeMethods.WINBIO_ENROLL_CAPTURE_CALLBACK NativeEnrollCaptureCallback;
 
@@ -81,6 +87,7 @@ namespace WinBiometricDotNet
         {
             unsafe
             {
+                NativeAsyncCompletionCallback = AsyncCompletedCallback;
                 NativeEnrollCaptureCallback = CaptureEnrollCallback;
                 NativeEventCallback = EventMonitorCallback;
                 NativeIdentifyCallback = IdentifyCallback;
@@ -99,6 +106,122 @@ namespace WinBiometricDotNet
             var hr = SafeNativeMethods.WinBioAcquireFocus();
 
             ThrowWinBiometricException(hr);
+        }
+
+        public static void AsyncEnumBiometricUnits(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
+
+            var hr = SafeNativeMethods.WinBioAsyncEnumBiometricUnits(framework.Handle,
+                                                                     (WINBIO_BIOMETRIC_TYPE)biometricTypes);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void AsyncEnumDatabases(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
+
+            var hr = SafeNativeMethods.WinBioAsyncEnumDatabases(framework.Handle,
+                                                                (WINBIO_BIOMETRIC_TYPE)biometricTypes);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void AsyncEnumServiceProviders(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
+        {
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
+
+            var hr = SafeNativeMethods.WinBioAsyncEnumServiceProviders(framework.Handle,
+                                                                       (WINBIO_BIOMETRIC_TYPE)biometricTypes);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void AsyncMonitorFrameworkChanges(Framework framework, ChangeTypes changeType)
+        {
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
+
+            var hr = SafeNativeMethods.WinBioAsyncMonitorFrameworkChanges(framework.Handle,
+                                                                          (WINBIO_FRAMEWORK_CHANGE_TYPE)changeType);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void AsyncOpenFramework(PVOID userData)
+        {
+            var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_CALLBACK,
+                                                                IntPtr.Zero,
+                                                                0,
+                                                                NativeAsyncCompletionCallback,
+                                                                userData,
+                                                                SafeNativeMethods.TRUE,
+                                                                out var frameworkHandle);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void AsyncOpenFramework(IntPtr targetWindow, UINT messageCode)
+        {
+            var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_MESSAGE,
+                                                                targetWindow,
+                                                                messageCode,
+                                                                IntPtr.Zero,
+                                                                IntPtr.Zero,
+                                                                SafeNativeMethods.TRUE,
+                                                                out var frameworkHandle);
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void AsyncOpenSession(PVOID userData)
+        {
+            unsafe
+            {
+                var databaseId = SafeNativeMethods.WINBIO_DB_DEFAULT;
+                var hr = SafeNativeMethods.WinBioAsyncOpenSession(SafeNativeMethods.WINBIO_TYPE_FINGERPRINT,
+                                                                  SafeNativeMethods.WINBIO_POOL_SYSTEM,
+                                                                  SafeNativeMethods.WINBIO_FLAG_RAW,
+                                                                  null,
+                                                                  IntPtr.Zero,
+                                                                  databaseId,
+                                                                  SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_CALLBACK,
+                                                                  IntPtr.Zero,
+                                                                  0,
+                                                                  NativeAsyncCompletionCallback,
+                                                                  userData,
+                                                                  SafeNativeMethods.TRUE,
+                                                                  out var sessionHandle);
+
+                ThrowWinBiometricException(hr);
+            }
+        }
+
+        public static void AsyncOpenSession(IntPtr targetWindow, UINT messageCode)
+        {
+            unsafe
+            {
+                var databaseId = SafeNativeMethods.WINBIO_DB_DEFAULT;
+                var hr = SafeNativeMethods.WinBioAsyncOpenSession(SafeNativeMethods.WINBIO_TYPE_FINGERPRINT,
+                                                                  SafeNativeMethods.WINBIO_POOL_SYSTEM,
+                                                                  SafeNativeMethods.WINBIO_FLAG_RAW,
+                                                                  null,
+                                                                  IntPtr.Zero,
+                                                                  databaseId,
+                                                                  SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_MESSAGE,
+                                                                  targetWindow,
+                                                                  messageCode,
+                                                                  IntPtr.Zero,
+                                                                  IntPtr.Zero,
+                                                                  SafeNativeMethods.TRUE,
+                                                                  out var sessionHandle);
+
+                ThrowWinBiometricException(hr);
+            }
         }
 
         public static void BeginEnroll(Session session, FingerPosition position, uint unitId)
@@ -197,6 +320,16 @@ namespace WinBiometricDotNet
 
                 ThrowWinBiometricException(hr);
             }
+        }
+
+        public static void CloseFramework(Framework framework)
+        {
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
+
+            var hr = SafeNativeMethods.WinBioCloseFramework(framework.Handle);
+
+            ThrowWinBiometricException(hr);
         }
 
         public static void CloseSession(Session session)
@@ -602,6 +735,36 @@ namespace WinBiometricDotNet
             return false;
         }
 
+        public static Framework OpenFramework(PVOID userData)
+        {
+            var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_CALLBACK,
+                                                                IntPtr.Zero,
+                                                                0,
+                                                                NativeAsyncCompletionCallback,
+                                                                userData,
+                                                                SafeNativeMethods.FALSE,
+                                                                out var frameworkHandle);
+
+            ThrowWinBiometricException(hr);
+
+            return new Framework(frameworkHandle);
+        }
+
+        public static Framework OpenFramework(IntPtr targetWindow, UINT messageCode)
+        {
+            var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_MESSAGE,
+                                                                targetWindow,
+                                                                messageCode,
+                                                                IntPtr.Zero,
+                                                                IntPtr.Zero,
+                                                                SafeNativeMethods.FALSE,
+                                                                out var frameworkHandle);
+
+            ThrowWinBiometricException(hr);
+
+            return new Framework(frameworkHandle);
+        }
+
         public static Session OpenSession()
         {
             unsafe
@@ -615,6 +778,56 @@ namespace WinBiometricDotNet
                                                              databaseId,
                                                              out var sessionHandle
                 );
+
+                ThrowWinBiometricException(hr);
+
+                return new Session(sessionHandle);
+            }
+        }
+
+        public static Session OpenSession(PVOID userData)
+        {
+            unsafe
+            {
+                var databaseId = SafeNativeMethods.WINBIO_DB_DEFAULT;
+                var hr = SafeNativeMethods.WinBioAsyncOpenSession(SafeNativeMethods.WINBIO_TYPE_FINGERPRINT,
+                                                                  SafeNativeMethods.WINBIO_POOL_SYSTEM,
+                                                                  SafeNativeMethods.WINBIO_FLAG_RAW,
+                                                                  null,
+                                                                  IntPtr.Zero,
+                                                                  databaseId,
+                                                                  SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_CALLBACK,
+                                                                  IntPtr.Zero,
+                                                                  0,
+                                                                  NativeAsyncCompletionCallback,
+                                                                  userData,
+                                                                  SafeNativeMethods.FALSE,
+                                                                  out var sessionHandle);
+
+                ThrowWinBiometricException(hr);
+
+                return new Session(sessionHandle);
+            }
+        }
+
+        public static Session OpenSession(IntPtr targetWindow, UINT messageCode)
+        {
+            unsafe
+            {
+                var databaseId = SafeNativeMethods.WINBIO_DB_DEFAULT;
+                var hr = SafeNativeMethods.WinBioAsyncOpenSession(SafeNativeMethods.WINBIO_TYPE_FINGERPRINT,
+                                                                  SafeNativeMethods.WINBIO_POOL_SYSTEM,
+                                                                  SafeNativeMethods.WINBIO_FLAG_RAW,
+                                                                  null,
+                                                                  IntPtr.Zero,
+                                                                  databaseId,
+                                                                  SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_MESSAGE,
+                                                                  targetWindow,
+                                                                  messageCode,
+                                                                  IntPtr.Zero,
+                                                                  IntPtr.Zero,
+                                                                  SafeNativeMethods.FALSE,
+                                                                  out var sessionHandle);
 
                 ThrowWinBiometricException(hr);
 
@@ -1478,13 +1691,19 @@ namespace WinBiometricDotNet
             switch (hresult)
             {
                 case SafeNativeMethods.WINBIO_E_ADAPTER_INTEGRITY_FAILURE:
+                case SafeNativeMethods.WINBIO_E_AUTO_LOGON_DISABLED:
                 case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
+                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_INVALID:
+                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_TOO_LARGE:
+                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_TOO_SMALL:
                 case SafeNativeMethods.WINBIO_E_CANCELED:
                 case SafeNativeMethods.WINBIO_E_CAPTURE_ABORTED:
                 case SafeNativeMethods.WINBIO_E_CONFIGURATION_FAILURE:
                 case SafeNativeMethods.WINBIO_E_CRED_PROV_DISABLED:
                 case SafeNativeMethods.WINBIO_E_CRED_PROV_NO_CREDENTIAL:
+                case SafeNativeMethods.WINBIO_E_CRED_PROV_SECURITY_LOCKOUT:
                 case SafeNativeMethods.WINBIO_E_DATA_COLLECTION_IN_PROGRESS:
+                case SafeNativeMethods.WINBIO_E_DATA_PROTECTION_FAILURE:
                 case SafeNativeMethods.WINBIO_E_DATABASE_ALREADY_EXISTS:
                 case SafeNativeMethods.WINBIO_E_DATABASE_BAD_INDEX_VECTOR:
                 case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CLOSE:
@@ -1501,36 +1720,60 @@ namespace WinBiometricDotNet
                 case SafeNativeMethods.WINBIO_E_DATABASE_NO_SUCH_RECORD:
                 case SafeNativeMethods.WINBIO_E_DATABASE_READ_ERROR:
                 case SafeNativeMethods.WINBIO_E_DATABASE_WRITE_ERROR:
+                case SafeNativeMethods.WINBIO_E_DEADLOCK_DETECTED:
                 case SafeNativeMethods.WINBIO_E_DEVICE_BUSY:
                 case SafeNativeMethods.WINBIO_E_DEVICE_FAILURE:
                 case SafeNativeMethods.WINBIO_E_DISABLED:
                 case SafeNativeMethods.WINBIO_E_DUPLICATE_ENROLLMENT:
                 case SafeNativeMethods.WINBIO_E_DUPLICATE_TEMPLATE:
+                case SafeNativeMethods.WINBIO_E_ENROLLMENT_CANCELED_BY_SUSPEND:
                 case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
                 case SafeNativeMethods.WINBIO_E_EVENT_MONITOR_ACTIVE:
                 case SafeNativeMethods.WINBIO_E_FAST_USER_SWITCH_DISABLED:
                 case SafeNativeMethods.WINBIO_E_INCORRECT_BSP:
                 case SafeNativeMethods.WINBIO_E_INCORRECT_SENSOR_POOL:
+                case SafeNativeMethods.WINBIO_E_INCORRECT_SESSION_TYPE:
+                case SafeNativeMethods.WINBIO_E_INSECURE_SENSOR:
+                case SafeNativeMethods.WINBIO_E_INVALID_BUFFER:
+                case SafeNativeMethods.WINBIO_E_INVALID_BUFFER_ID:
+                case SafeNativeMethods.WINBIO_E_INVALID_CALIBRATION_FORMAT_ARRAY:
                 case SafeNativeMethods.WINBIO_E_INVALID_CONTROL_CODE:
                 case SafeNativeMethods.WINBIO_E_INVALID_DEVICE_STATE:
+                case SafeNativeMethods.WINBIO_E_INVALID_KEY_IDENTIFIER:
                 case SafeNativeMethods.WINBIO_E_INVALID_OPERATION:
                 case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_ID:
                 case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_TYPE:
                 case SafeNativeMethods.WINBIO_E_INVALID_SENSOR_MODE:
+                case SafeNativeMethods.WINBIO_E_INVALID_SUBFACTOR:
+                case SafeNativeMethods.WINBIO_E_INVALID_TICKET:
                 case SafeNativeMethods.WINBIO_E_INVALID_UNIT:
+                case SafeNativeMethods.WINBIO_E_KEY_CREATION_FAILED:
+                case SafeNativeMethods.WINBIO_E_KEY_IDENTIFIER_BUFFER_TOO_SMALL:
                 case SafeNativeMethods.WINBIO_E_LOCK_VIOLATION:
+                case SafeNativeMethods.WINBIO_E_MAX_ERROR_COUNT_EXCEEDED:
                 case SafeNativeMethods.WINBIO_E_NO_CAPTURE_DATA:
                 case SafeNativeMethods.WINBIO_E_NO_MATCH:
+                case SafeNativeMethods.WINBIO_E_NO_PREBOOT_IDENTITY:
+                case SafeNativeMethods.WINBIO_E_NO_SUPPORTED_CALIBRATION_FORMAT:
                 case SafeNativeMethods.WINBIO_E_NOT_ACTIVE_CONSOLE:
+                case SafeNativeMethods.WINBIO_E_POLICY_PROTECTION_UNAVAILABLE:
+                case SafeNativeMethods.WINBIO_E_PRESENCE_MONITOR_ACTIVE:
+                case SafeNativeMethods.WINBIO_E_PROPERTY_UNAVAILABLE:
                 case SafeNativeMethods.WINBIO_E_SAS_ENABLED:
+                case SafeNativeMethods.WINBIO_E_SELECTION_REQUIRED:
                 case SafeNativeMethods.WINBIO_E_SENSOR_UNAVAILABLE:
                 case SafeNativeMethods.WINBIO_E_SESSION_BUSY:
+                case SafeNativeMethods.WINBIO_E_SESSION_HANDLE_CLOSED:
+                case SafeNativeMethods.WINBIO_E_TICKET_QUOTA_EXCEEDED:
+                case SafeNativeMethods.WINBIO_E_TRUSTLET_INTEGRITY_FAIL:
                 case SafeNativeMethods.WINBIO_E_UNKNOWN_ID:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_FORMAT:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_TYPE:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_FACTOR:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_POOL_TYPE:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PROPERTY:
                 case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PURPOSE:
+                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_SENSOR_CALIBRATION_FORMAT:
                     var message = ConvertErrorCodeToString(hresult);
                     throw new WinBiometricException(message);
                 default:
@@ -1684,6 +1927,21 @@ namespace WinBiometricDotNet
 
         #region Event Handlers
 
+        //private static unsafe void AsyncCompletedCallback(SafeNativeMethods.WINBIO_ASYNC_RESULT* asyncResult)
+        //{
+
+        //}
+
+        //private static unsafe void AsyncCompletedCallback(ref SafeNativeMethods.WINBIO_ASYNC_RESULT asyncResult)
+        //{
+        //}
+
+        private static void AsyncCompletedCallback(IntPtr asyncResult)
+        {
+            if (asyncResult != IntPtr.Zero)
+                SafeNativeMethods.WinBioFree(asyncResult);
+        }
+
         private static void CaptureEnrollCallback(IntPtr enrollCallbackContext,
                                                   int operationStatus,
                                                   WINBIO_REJECT_DETAIL rejectDetail)
@@ -1693,7 +1951,7 @@ namespace WinBiometricDotNet
             var @event = EnrollCaptured;
             if (@event != null)
             {
-                var result =  new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
+                var result = new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
                 var args = new EnrollCapturedEventArgs(result);
                 @event.Invoke(null, args);
             }

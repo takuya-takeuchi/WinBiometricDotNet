@@ -7,7 +7,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioEnrollCommitViewModel : WinBioViewModel, IWinBioEnrollCommitViewModel
+    public sealed class WinBioEnrollCommitViewModel : WinBioSessionViewModel, IWinBioEnrollCommitViewModel
     {
 
         #region Properties
@@ -29,7 +29,9 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var result = this.BiometricService.CommitEnroll();
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var result = this.BiometricService.CommitEnroll(session);
+
                         this.Result = "OK";
 
                         this.Type = result.Type;
@@ -41,7 +43,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 

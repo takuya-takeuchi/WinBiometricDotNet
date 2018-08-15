@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight.Command;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioLocateSensorWithCallbackViewModel : WinBioViewModel, IWinBioLocateSensorWithCallbackViewModel
+    public sealed class WinBioLocateSensorWithCallbackViewModel : WinBioViewModel, IWinBioLocateSensorWithCallbackViewModel, IWinBioAsyncSessionViewModel
     {
 
         public RelayCommand CancelCommand
@@ -19,6 +19,11 @@ namespace FrameworkTester.DesignTimes
         }
 
         public uint UnitId
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

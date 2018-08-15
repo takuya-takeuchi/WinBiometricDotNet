@@ -1,0 +1,272 @@
+﻿<Window
+    x:Class="FrameworkTester.Views.ChildWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:designTimes="clr-namespace:FrameworkTester.DesignTimes"
+    xmlns:interfaces="clr-namespace:FrameworkTester.ViewModels.Interfaces"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selectors="clr-namespace:FrameworkTester.Selectors"
+    x:Name="_Window"
+    Title="{Binding Handle, Converter={StaticResource IntegerToHexStringConveter}}"
+    Width="600"
+    Height="450"
+    d:DataContext="{d:DesignInstance {x:Type designTimes:ChildWindowViewModel}}"
+    d:DesignHeight="450"
+    d:DesignWidth="600"
+    ShowInTaskbar="False"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <DataTemplate x:Key="AsyncOpenFrameworkTemplate" DataType="interfaces:IAsyncOpenFrameworkChildWindowViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Last Received: " />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding LastReceived}" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="ApiStatus: " />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding ApiStatus}" />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="OperationType: " />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding OperationType}" />
+                <TextBlock
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="SequenceNumber: " />
+                <TextBlock
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding SequenceNumber}" />
+                <TextBlock
+                    Grid.Row="8"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Framework Handle: " />
+                <TextBlock
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding Framework.Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
+                <TextBlock
+                    Grid.Row="10"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="UnitId: " />
+                <TextBlock
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding UnitId}" />
+                <TextBlock
+                    Grid.Row="12"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="UserData: " />
+                <TextBlock
+                    Grid.Row="12"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding UserData, Converter={StaticResource IntegerToHexStringConveter}}" />
+                <TextBlock
+                    Grid.Row="14"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="TimeStamp: " />
+                <TextBlock
+                    Grid.Row="14"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding TimeStamp}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AsyncOpenSessionTemplate" DataType="interfaces:IAsyncOpenSessionChildWindowViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Last Received: " />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding LastReceived}" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="ApiStatus: " />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding ApiStatus}" />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="OperationType: " />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding OperationType}" />
+                <TextBlock
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="SequenceNumber: " />
+                <TextBlock
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding SequenceNumber}" />
+                <TextBlock
+                    Grid.Row="8"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="SessionHandle: " />
+                <TextBlock
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding Session.Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
+                <TextBlock
+                    Grid.Row="10"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="UnitId: " />
+                <TextBlock
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding UnitId}" />
+                <TextBlock
+                    Grid.Row="12"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="UserData: " />
+                <TextBlock
+                    Grid.Row="12"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding UserData, Converter={StaticResource IntegerToHexStringConveter}}" />
+                <TextBlock
+                    Grid.Row="14"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="TimeStamp: " />
+                <TextBlock
+                    Grid.Row="14"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding TimeStamp}" />
+            </Grid>
+        </DataTemplate>
+
+        <selectors:ChildWindowTemplateSlector
+            x:Key="ChildWindowTemplateSlector"
+            AsyncOpenFramework="{StaticResource AsyncOpenFrameworkTemplate}"
+            AsyncOpenSession="{StaticResource AsyncOpenSessionTemplate}" />
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ContentControl Grid.Row="0" Content="{Binding ElementName=_Window, Path=DataContext}" ContentTemplateSelector="{StaticResource ChildWindowTemplateSlector}" />
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Margin="0,5,5,5"
+                    HorizontalAlignment="Right"
+                    Command="{Binding ClearLogsCommand}"
+                    Content="Clear Logs" />
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="1">
+                <ListBox
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    ItemsSource="{Binding Logs}" />
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

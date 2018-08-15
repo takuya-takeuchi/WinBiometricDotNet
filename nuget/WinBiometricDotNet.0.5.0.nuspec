@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>WinBiometricDotNet</id>
+    <version>0.5.0</version>
+    <authors>Takuya Takeuchi</authors>
+    <owners>Takuya Takeuchi</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/takuya-takeuchi/WinBiometricDotNet</projectUrl>
+    <iconUrl>https://github.com/takuya-takeuchi/WinBiometricDotNet/blob/master/nuget/fingerprint128.png?raw=true</iconUrl>
+    <description>Windows Bitometric Framework .NET wrapper</description>
+    <copyright>© Takuya Takeuchi 2018</copyright>
+    <tags>windowsbiometricframework wbf biometric</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Security.Principal.Windows" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\netstandard2.0\WinBiometricDotNet.dll" target="lib\netstandard2.0\WinBiometricDotNet.dll" />
+  </files>
+</package>

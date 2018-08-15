@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Command;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioLogonIdentifiedUserViewModel : WinBioViewModel, IWinBioLogonIdentifiedUserViewModel
+    public sealed class WinBioLogonIdentifiedUserViewModel : WinBioSessionViewModel, IWinBioLogonIdentifiedUserViewModel
     {
 
         #region Properties
@@ -24,7 +24,8 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var result = this.BiometricService.LogonIdentifiedUser();
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var result = this.BiometricService.LogonIdentifiedUser(session);
 
                         this.Result = "OK";
 
@@ -35,7 +36,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 
