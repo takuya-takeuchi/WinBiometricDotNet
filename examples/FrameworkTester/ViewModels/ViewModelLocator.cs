@@ -84,6 +84,8 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IWinBioCaptureSampleWithCallbackViewModel>(() => new WinBioCaptureSampleWithCallbackViewModel(), true);
             SimpleIoc.Default.Register<IWinBioCloseFrameworkViewModel>(() => new WinBioCloseFrameworkViewModel(), true);
             SimpleIoc.Default.Register<IWinBioCloseSessionViewModel>(() => new WinBioCloseSessionViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioControlUnitViewModel>(() => new WinBioControlUnitViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioControlUnitPrivilegedViewModel>(() => new WinBioControlUnitPrivilegedViewModel(), true);
             SimpleIoc.Default.Register<IWinBioDeleteTemplateViewModel>(() => new WinBioDeleteTemplateViewModel(), true);
             SimpleIoc.Default.Register<IWinBioEnrollBeginViewModel>(() => new WinBioEnrollBeginViewModel(), true);
             SimpleIoc.Default.Register<IWinBioEnrollCaptureViewModel>(() => new WinBioEnrollCaptureViewModel(), true);
@@ -145,6 +147,10 @@ namespace FrameworkTester.ViewModels
         public IWinBioCloseFrameworkViewModel WinBioCloseFramework => ServiceLocator.Current.GetInstance<IWinBioCloseFrameworkViewModel>();
 
         public IWinBioCloseSessionViewModel WinBioCloseSession => ServiceLocator.Current.GetInstance<IWinBioCloseSessionViewModel>();
+
+        public IWinBioControlUnitViewModel WinBioControlUnit => ServiceLocator.Current.GetInstance<IWinBioControlUnitViewModel>();
+
+        public IWinBioControlUnitPrivilegedViewModel WinBioControlUnitPrivileged => ServiceLocator.Current.GetInstance<IWinBioControlUnitPrivilegedViewModel>();
 
         public IWinBioDeleteTemplateViewModel WinBioDeleteTemplate => ServiceLocator.Current.GetInstance<IWinBioDeleteTemplateViewModel>();
 

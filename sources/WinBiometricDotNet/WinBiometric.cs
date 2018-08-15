@@ -9,7 +9,9 @@ using WinBiometricDotNet.Interop;
 
 using HRESULT = System.Int32;
 using PVOID = System.IntPtr;
+using SIZE_T = System.IntPtr;
 using UINT = System.UInt32;
+using ULONG = System.UInt32;
 using ULONGLONG = System.UInt64;
 
 using WINBIO_BIOMETRIC_SENSOR_SUBTYPE = System.UInt32;
@@ -354,6 +356,90 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
 
             return new BiometricIdentity(identity);
+        }
+
+        public static void ControlUnit(Session session,
+                                       uint unitId,
+                                       Component component,
+                                       ULONG controlCode,
+                                       byte[] sendBuffer,
+                                       byte[] receiveBuffer,
+                                       out SIZE_T receiveDataSize,
+                                       out ULONG operationStatus)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (sendBuffer == null)
+                throw new ArgumentNullException(nameof(sendBuffer));
+            if (receiveBuffer == null)
+                throw new ArgumentNullException(nameof(receiveBuffer));
+
+            unsafe
+            {
+                fixed (byte* sb = &sendBuffer[0])
+                fixed (byte* rb = &receiveBuffer[0])
+                {
+                    var sbPtr = (IntPtr)sb;
+                    var sbSize = (IntPtr)sendBuffer.Length;
+                    var rbPtr = (IntPtr)rb;
+                    var rbSize = (IntPtr)receiveBuffer.Length;
+
+                    var hr = SafeNativeMethods.WinBioControlUnit(session.Handle,
+                                                                 unitId,
+                                                                 (WINBIO_COMPONENT)component,
+                                                                 controlCode,
+                                                                 sbPtr,
+                                                                 sbSize,
+                                                                 rbPtr,
+                                                                 rbSize,
+                                                                 out receiveDataSize,
+                                                                 out operationStatus);
+
+                    ThrowWinBiometricException(hr);
+                }
+            }
+        }
+
+        public static void ControlUnitPrivileged(Session session,
+                                                 uint unitId,
+                                                 Component component,
+                                                 ULONG controlCode,
+                                                 byte[] sendBuffer,
+                                                 byte[] receiveBuffer,
+                                                 out SIZE_T receiveDataSize,
+                                                 out ULONG operationStatus)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (sendBuffer == null)
+                throw new ArgumentNullException(nameof(sendBuffer));
+            if (receiveBuffer == null)
+                throw new ArgumentNullException(nameof(receiveBuffer));
+
+            unsafe
+            {
+                fixed (byte* sb = &sendBuffer[0])
+                fixed (byte* rb = &receiveBuffer[0])
+                {
+                    var sbPtr = (IntPtr)sb;
+                    var sbSize = (IntPtr)sendBuffer.Length;
+                    var rbPtr = (IntPtr)rb;
+                    var rbSize = (IntPtr)receiveBuffer.Length;
+
+                    var hr = SafeNativeMethods.WinBioControlUnitPrivileged(session.Handle,
+                                                                           unitId,
+                                                                           (WINBIO_COMPONENT)component,
+                                                                           controlCode,
+                                                                           sbPtr,
+                                                                           sbSize,
+                                                                           rbPtr,
+                                                                           rbSize,
+                                                                           out receiveDataSize,
+                                                                           out operationStatus);
+
+                    ThrowWinBiometricException(hr);
+                }
+            }
         }
 
         public static Guid CreateDatabase(BiometricUnit unit)

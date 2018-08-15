@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using WinBiometricDotNet;
 
+using SIZE_T = System.IntPtr;
+using ULONG = System.UInt32;
+
 namespace FrameworkTester.Services.Interfaces
 {
 
@@ -45,6 +48,24 @@ namespace FrameworkTester.Services.Interfaces
         void CloseSession(Session session);
 
         BiometricIdentity CommitEnroll(Session session);
+
+        void ControlUnit(Session session,
+                         uint unitId,
+                         Component component,
+                         ULONG controlCode,
+                         byte[] sendBuffer,
+                         byte[] receiveBuffer,
+                         out SIZE_T receiveDataSize,
+                         out ULONG operationStatus);
+
+        void ControlUnitPrivileged(Session session,
+                                   uint unitId,
+                                   Component component,
+                                   ULONG controlCode,
+                                   byte[] sendBuffer,
+                                   byte[] receiveBuffer,
+                                   out SIZE_T receiveDataSize,
+                                   out ULONG operationStatus);
 
         Guid CreateDatabase(BiometricUnit unit);
 

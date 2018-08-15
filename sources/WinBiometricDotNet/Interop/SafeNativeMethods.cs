@@ -4125,7 +4125,7 @@ namespace WinBiometricDotNet.Interop
                                                        [In] ULONG ControlCode,
                                                        [In] PUCHAR SendBuffer,
                                                        [In] SIZE_T SendBufferSize,
-                                                       [Out] out PUCHAR ReceiveBuffer,
+                                                       [In] PUCHAR ReceiveBuffer,
                                                        [In] SIZE_T ReceiveBufferSize,
                                                        [Out] out SIZE_T ReceiveDataSize,
                                                        [Out] out ULONG OperationStatus);
@@ -4204,7 +4204,7 @@ namespace WinBiometricDotNet.Interop
                                                                  [In] ULONG ControlCode,
                                                                  [In] PUCHAR SendBuffer,
                                                                  [In] SIZE_T SendBufferSize,
-                                                                 [Out] out PUCHAR ReceiveBuffer,
+                                                                 [In] PUCHAR ReceiveBuffer,
                                                                  [In] SIZE_T ReceiveBufferSize,
                                                                  [Out] out SIZE_T ReceiveDataSize,
                                                                  [Out] out ULONG OperationStatus);

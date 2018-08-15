@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using FrameworkTester.Services.Interfaces;
 using WinBiometricDotNet;
 
+using SIZE_T = System.IntPtr;
+using ULONG = System.UInt32;
+
 namespace FrameworkTester.Services
 {
 
@@ -129,6 +132,44 @@ namespace FrameworkTester.Services
         public BiometricIdentity CommitEnroll(Session session)
         {
             return WinBiometric.CommitEnroll(session);
+        }
+        
+        public void ControlUnit(Session session,
+                                uint unitId,
+                                Component component,
+                                ULONG controlCode,
+                                byte[] sendBuffer,
+                                byte[] receiveBuffer,
+                                out SIZE_T receiveDataSize,
+                                out ULONG operationStatus)
+        {
+            WinBiometric.ControlUnit(session,
+                                     unitId,
+                                     component,
+                                     controlCode,
+                                     sendBuffer,
+                                     receiveBuffer,
+                                     out receiveDataSize,
+                                     out operationStatus);
+        }
+
+        public void ControlUnitPrivileged(Session session,
+                                          uint unitId,
+                                          Component component,
+                                          ULONG controlCode,
+                                          byte[] sendBuffer,
+                                          byte[] receiveBuffer,
+                                          out SIZE_T receiveDataSize,
+                                          out ULONG operationStatus)
+        {
+            WinBiometric.ControlUnitPrivileged(session,
+                                               unitId,
+                                               component,
+                                               controlCode,
+                                               sendBuffer,
+                                               receiveBuffer,
+                                               out receiveDataSize,
+                                               out operationStatus);
         }
 
         public Guid CreateDatabase(BiometricUnit unit)
