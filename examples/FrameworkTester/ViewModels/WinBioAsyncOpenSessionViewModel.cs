@@ -5,7 +5,6 @@ using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using FrameworkTester.Views;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 using WINBIO_SESSION_HANDLE = System.UInt32;
 
@@ -28,12 +27,6 @@ namespace FrameworkTester.ViewModels
 
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
-
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionHandleViewModel>>();
-            this.WindowRepository.PropertyChanged += (sender, args) =>
-            {
-                this.ExecuteCommand.RaiseCanExecuteChanged();
-            };
         }
 
         #endregion
@@ -206,11 +199,6 @@ namespace FrameworkTester.ViewModels
 
                 this.ExecuteCommand.RaiseCanExecuteChanged();
             }
-        }
-
-        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
-        {
-            get;
         }
 
         private uint _MessageCode;

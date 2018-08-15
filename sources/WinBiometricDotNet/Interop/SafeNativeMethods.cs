@@ -5989,6 +5989,7 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// The <see cref="SECURITY_ATTRIBUTES"/> structure contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable. This structure provides security settings for objects created by various functions, such as <see cref="CreateFile"/>, <see cref="CreatePipe"/>, <see cref="CreateProcess"/>, <see cref="RegCreateKeyEx"/>, or <see cref="RegSaveKeyEx"/>.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_ATTRIBUTES
         {
 

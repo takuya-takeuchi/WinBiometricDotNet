@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FrameworkTester.ViewModels.Interfaces;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
@@ -16,14 +14,10 @@ namespace FrameworkTester.ViewModels
         public CustomPropertyViewModel()
         {
             this.FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
-            this.PropertyTypes = Enum.GetValues(typeof(PropertyTypes)).Cast<PropertyTypes>().ToArray();
             this.PropertyIds = Enum.GetValues(typeof(PropertyId)).Cast<PropertyId>().ToArray();
 
             this.SelectedFingerPosition = this.FingerPositions.First();
-            this.SelectedPropertyType = this.PropertyTypes.First();
             this.SelectedPropertyId = this.PropertyIds.First();
-
-            this.IdentityRepository = SimpleIoc.Default.GetInstance<IBiometricIdentityRepositoryViewModel>();
         }
 
         #endregion
@@ -61,11 +55,6 @@ namespace FrameworkTester.ViewModels
             get;
         }
 
-        public IBiometricIdentityRepositoryViewModel IdentityRepository
-        {
-            get;
-        }
-
         private byte[] _PropertyBuffer;
 
         public byte[] PropertyBuffer
@@ -79,11 +68,6 @@ namespace FrameworkTester.ViewModels
         }
 
         public IEnumerable<PropertyId> PropertyIds
-        {
-            get;
-        }
-
-        public IEnumerable<PropertyTypes> PropertyTypes
         {
             get;
         }
