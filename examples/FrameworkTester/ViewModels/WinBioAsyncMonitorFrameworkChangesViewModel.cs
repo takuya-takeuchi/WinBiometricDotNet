@@ -23,8 +23,8 @@ namespace FrameworkTester.ViewModels
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
 
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<IFrameworkHandleViewModel>>();
-            this.WindowRepository.PropertyChanged += (sender, args) =>
+            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<IFrameworkHandleViewModel>>();
+            this.HandleRepository.PropertyChanged += (sender, args) =>
             {
                 this.ExecuteCommand.RaiseCanExecuteChanged();
             };
@@ -60,8 +60,8 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var window = this.WindowRepository.SelectedWindow;
-                        this.BiometricService.AsyncEnumBiometricUnits(window.Framework);
+                        var window = this.HandleRepository.SelectedHandle;
+                        this.BiometricService.AsyncMonitorFrameworkChanges(window.Framework, this.SelectedChangeType);
 
                         this.Result = "OK";
                     }
@@ -70,13 +70,13 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.WindowRepository?.SelectedWindow != null));
+                }, () => this.HandleRepository?.SelectedHandle != null));
             }
         }
 
         public override string Name => "WinBioAsyncMonitorFrameworkChanges";
         
-        public IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
         {
             get;
         }

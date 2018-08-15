@@ -755,7 +755,7 @@ namespace WinBiometricDotNet.Interop
         /// The adapter did not pass its integrity check.
         /// </summary>
         public const int WINBIO_E_ADAPTER_INTEGRITY_FAILURE = unchecked((int)0x8009803D);
-        
+
         /// <summary>
         /// This operation requires a different type of session handle.
         /// </summary>
@@ -2071,9 +2071,40 @@ namespace WinBiometricDotNet.Interop
         #region WINBIO_PROPERTY_ID
 
         /// <summary>
-        /// A biometric session.
+        /// Estimate of the maximum number of good biometric samples required to complete an enrollment template.
         /// </summary>
-        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_SAMPLE_HINT = 1;
+        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_SAMPLE_HINT = (WINBIO_PROPERTY_ID)1;
+
+        /// <summary>
+        /// Returns extended information about the capabilities and attributes of the Sensor component connected to a specific biometric unit.
+        /// </summary>
+        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_EXTENDED_SENSOR_INFO = (WINBIO_PROPERTY_ID)2;
+
+        /// <summary>
+        /// Returns extended information about the capabilities and attributes of the Engine component connected to a specific biometric unit.
+        /// </summary>
+        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_EXTENDED_ENGINE_INFO = (WINBIO_PROPERTY_ID)3;
+
+        /// <summary>
+        /// Returns extended information about the capabilities and attributes of the Storage component connected to a specific biometric unit.
+        /// </summary>
+        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_EXTENDED_STORAGE_INFO = (WINBIO_PROPERTY_ID)4;
+
+        /// <summary>
+        /// Returns extended information about the status of an in-progress enrollment on a particular biometric unit. If no enrollment is in progress on the BU, it returns WINBIO_E_INVALID_OPERATION in the 'TemplateStatus' field.
+        /// </summary>
+        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_EXTENDED_ENROLLMENT_STATUS = (WINBIO_PROPERTY_ID)5;
+
+        /// <summary>
+        /// Returns extended information about the current status of a specific biometric unit.
+        /// </summary>
+        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_EXTENDED_UNIT_STATUS = (WINBIO_PROPERTY_ID)6;
+
+        /// <summary>
+        /// <para>Gets or sets the values of the anti-spoofing policy for a specific user account.</para>
+        /// <para>Performing a 'Get' operation with the wildcard identity returns the system default value of this policy.</para>
+        /// </summary>
+        public const WINBIO_PROPERTY_ID WINBIO_PROPERTY_ANTI_SPOOF_POLICY = (WINBIO_PROPERTY_ID)1;
 
         #endregion
 
@@ -2180,6 +2211,28 @@ namespace WinBiometricDotNet.Interop
 
         #endregion
 
+        #region WINBIO_SENSOR_STATUS Constants
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_STATUS_UNKNOWN = (WINBIO_SENSOR_STATUS)0;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_ACCEPT = (WINBIO_SENSOR_STATUS)1;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_REJECT = (WINBIO_SENSOR_STATUS)2;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_READY = (WINBIO_SENSOR_STATUS)3;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_BUSY = (WINBIO_SENSOR_STATUS)4;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_NOT_CALIBRATED = (WINBIO_SENSOR_STATUS)5;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_FAILURE = (WINBIO_SENSOR_STATUS)6;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_AVAILABLE = (WINBIO_SENSOR_STATUS)7;
+
+        public const WINBIO_SENSOR_STATUS WINBIO_SENSOR_UNAVAILABLE = (WINBIO_SENSOR_STATUS)8;
+
+        #endregion
+
         #region WINBIO_SETTING_SOURCE_TYPE Constans
 
         /// <summary>
@@ -2214,7 +2267,7 @@ namespace WinBiometricDotNet.Interop
         /// <param name="AsyncResult">Pointer to a <see cref="WINBIO_ASYNC_RESULT"/> structure that contains information about the completed operation. The structure is created by the Windows Biometric Framework. You must call WinBioFree to release the structure.</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall)]
         //public unsafe delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] WINBIO_ASYNC_RESULT* AsyncResult);
-        public  delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] IntPtr AsyncResult);
+        public delegate void WINBIO_ASYNC_COMPLETION_CALLBACK([In] IntPtr AsyncResult);
 
         /// <summary>
         /// <para>Called by the Windows Biometric Framework to return results from the asynchronous <see cref="WinBioCaptureSampleWithCallback"/> function. The client application must implement this function.</para>
@@ -2683,6 +2736,21 @@ namespace WinBiometricDotNet.Interop
             /// </summary>
             WINBIO_CREDENTIAL_SET = 0x00000002
 
+        }
+
+        public enum WINBIO_ANTI_SPOOF_POLICY_ACTION
+        {
+            WINBIO_ANTI_SPOOF_DISABLE = 0x00000000,
+            WINBIO_ANTI_SPOOF_ENABLE = 0x00000001,
+            WINBIO_ANTI_SPOOF_REMOVE = 0x00000002,
+        }
+
+        public enum WINBIO_POLICY_SOURCE
+        {
+            WINBIO_POLICY_UNKNOWN = 0x00000000,
+            WINBIO_POLICY_DEFAULT = 0x00000001,
+            WINBIO_POLICY_LOCAL = 0x00000002,
+            WINBIO_POLICY_ADMIN = 0x00000003,
         }
 
         #endregion
@@ -4125,7 +4193,7 @@ namespace WinBiometricDotNet.Interop
                                                        [In] ULONG ControlCode,
                                                        [In] PUCHAR SendBuffer,
                                                        [In] SIZE_T SendBufferSize,
-                                                       [Out] out PUCHAR ReceiveBuffer,
+                                                       [In] PUCHAR ReceiveBuffer,
                                                        [In] SIZE_T ReceiveBufferSize,
                                                        [Out] out SIZE_T ReceiveDataSize,
                                                        [Out] out ULONG OperationStatus);
@@ -4204,7 +4272,7 @@ namespace WinBiometricDotNet.Interop
                                                                  [In] ULONG ControlCode,
                                                                  [In] PUCHAR SendBuffer,
                                                                  [In] SIZE_T SendBufferSize,
-                                                                 [Out] out PUCHAR ReceiveBuffer,
+                                                                 [In] PUCHAR ReceiveBuffer,
                                                                  [In] SIZE_T ReceiveBufferSize,
                                                                  [Out] out SIZE_T ReceiveDataSize,
                                                                  [Out] out ULONG OperationStatus);
@@ -5339,6 +5407,17 @@ namespace WinBiometricDotNet.Interop
         public static extern HRESULT WinBioLogonIdentifiedUser([In] WINBIO_SESSION_HANDLE SessionHandle);
 
         /// <summary>
+        /// Turns on the face-recognition or iris-monitoring mechanism for the specified biometric unit. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
+        /// </summary>
+        /// <param name="SessionHandle">An asynchronous handle for the biometric session that you obtained by calling the <see cref="WinBioAsyncOpenSession"/> function with the PoolType parameter set to <see cref="WINBIO_POOL_SYSTEM"/>.</param>
+        /// <param name="UnitId">he identifier of the biometric unit for which you want to turn on the face-recognition or iris-monitoring mechanism.</param>
+        /// <returns></returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern HRESULT WinBioMonitorPresence([In] WINBIO_SESSION_HANDLE SessionHandle,
+                                                           [In] WINBIO_UNIT_ID UnitId);
+
+        /// <summary>
         /// The <see cref="WinBioRegisterEventMonitor"/> function Registers a callback function to receive event notifications from the service provider associated with an open session.
         /// </summary>
         /// <param name="SessionHandle">A WINBIO_SESSION_HANDLE value that identifies the open biometric session. Open the session handle by calling <see cref="WinBioOpenSession"/>.</param>
@@ -5522,6 +5601,31 @@ namespace WinBiometricDotNet.Interop
                                                          [In] PUCHAR Credential,
                                                          [In] SIZE_T CredentialSize,
                                                          [In] WINBIO_CREDENTIAL_FORMAT Format);
+
+        /// <summary>
+        /// Sets the value of a standard property associated with a biometric session, unit, template, or account. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
+        /// </summary>
+        /// <param name="SessionHandle">A <see cref="WINBIO_SESSION_HANDLE"/> value that identifies an open biometric session. Open a synchronous session handle by calling <see cref="WinBioOpenSession"/>. Open an asynchronous session handle by calling <see cref="WinBioAsyncOpenSession"/>.</param>
+        /// <param name="PropertyType">A <see cref="WINBIO_PROPERTY_TYPE"/> value that specifies the source of the property information. Currently this must be <see cref="WINBIO_PROPERTY_TYPE_ACCOUNT"/>.</param>
+        /// <param name="PropertyId">A <see cref="WINBIO_PROPERTY_ID"/> value that specifies the property to be queried. Currently this must be <see cref="WINBIO_PROPERTY_ANTI_SPOOF_POLICY"/>. All other properties are read-only.</param>
+        /// <param name="UnitId">A <see cref="WINBIO_UNIT_ID"/> value that identifies the biometric unit. For the <see cref="WINBIO_PROPERTY_ANTI_SPOOF_POLICY"/> property, this value must be 0.</param>
+        /// <param name="Identity">Address of a <see cref="WINBIO_IDENTITY"/> structure that specifies the account for which you want to set the property.</param>
+        /// <param name="SubFactor">Reserved. This must be <see cref="WINBIO_SUBTYPE_NO_INFORMATION"/>.</param>
+        /// <param name="PropertyBuffer">A pointer to a structure that specifies the new value for the property. This value cannot be NULL. For setting the <see cref="WINBIO_PROPERTY_ANTI_SPOOF_POLICY"/> property, the structure must be a <see cref="WINBIO_ANTI_SPOOF_POLICY"/> structure.</param>
+        /// <param name="PropertyBufferSize">The size, in bytes, of the structure to which the <paramref name="PropertyBuffer"/> parameter points. This value cannot be 0.</param>
+        /// <returns>
+        /// <para>If the function succeeds, it returns <see cref="S_OK"/>. If the function fails, it returns an HRESULT value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see Common HRESULT Values.</para>
+        /// </returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern unsafe HRESULT WinBioSetProperty([In] WINBIO_SESSION_HANDLE SessionHandle,
+                                                              [In] WINBIO_PROPERTY_TYPE PropertyType,
+                                                              [In] WINBIO_PROPERTY_ID PropertyId,
+                                                              [In] WINBIO_UNIT_ID UnitId,
+                                                              [In] WINBIO_IDENTITY* Identity,
+                                                              [In] WINBIO_BIOMETRIC_SUBTYPE SubFactor,
+                                                              [In] PVOID PropertyBuffer,
+                                                              [In] SIZE_T PropertyBufferSize);
 
         /// <summary>
         /// Releases the session lock on the specified biometric unit.
@@ -5881,10 +5985,11 @@ namespace WinBiometricDotNet.Interop
             public Int32 HighPart;
 
         }
-        
+
         /// <summary>
         /// The <see cref="SECURITY_ATTRIBUTES"/> structure contains the security descriptor for an object and specifies whether the handle retrieved by specifying this structure is inheritable. This structure provides security settings for objects created by various functions, such as <see cref="CreateFile"/>, <see cref="CreatePipe"/>, <see cref="CreateProcess"/>, <see cref="RegCreateKeyEx"/>, or <see cref="RegSaveKeyEx"/>.
         /// </summary>
+        [StructLayout(LayoutKind.Sequential)]
         public struct SECURITY_ATTRIBUTES
         {
 
@@ -5936,6 +6041,16 @@ namespace WinBiometricDotNet.Interop
             /// Specifies a <see cref="SID_AND_ATTRIBUTES"/> structure representing the user associated with the access token. There are currently no attributes defined for user security identifiers (SIDs).
             /// </summary>
             public SID_AND_ATTRIBUTES User;
+
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINBIO_ANTI_SPOOF_POLICY
+        {
+
+            public WINBIO_ANTI_SPOOF_POLICY_ACTION Action;
+
+            public WINBIO_POLICY_SOURCE Source;
 
         }
 
@@ -7109,6 +7224,16 @@ namespace WinBiometricDotNet.Interop
             /// HRESULT value that contains <see cref="S_OK"/> or an error code that resulted from computations performed by the Windows Biometric Framework.
             /// </summary>
             public HRESULT ErrorCode;
+
+        }
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct WINBIO_EXTENDED_UNIT_STATUS
+        {
+            public WINBIO_SENSOR_STATUS Availability;
+
+            public ULONG ReasonCode;
 
         }
 

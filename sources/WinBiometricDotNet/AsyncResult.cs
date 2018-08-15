@@ -1,6 +1,5 @@
 ﻿using System;
 using WinBiometricDotNet.Interop;
-
 using HRESULT = System.Int32;
 using WINBIO_SESSION_HANDLE = System.UInt32;
 

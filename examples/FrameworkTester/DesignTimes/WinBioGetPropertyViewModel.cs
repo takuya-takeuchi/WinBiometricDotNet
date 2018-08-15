@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using FrameworkTester.ViewModels;
 using FrameworkTester.ViewModels.Interfaces;
-using WinBiometricDotNet;
 
 namespace FrameworkTester.DesignTimes
 {
@@ -8,50 +8,23 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioGetPropertyViewModel : WinBioViewModel, IWinBioGetPropertyViewModel, IWinBioAsyncSessionViewModel
     {
 
-        public FingerPosition CurrentFingerPosition
+        public IEnumerable<PropertyViewModel> Properties
+        {
+            get;
+        }
+
+        public PropertyViewModel SelectedProperty
         {
             get;
             set;
         }
 
-        public PropertyId CurrentPropertyId
-        {
-            get;
-            set;
-        }
-
-        public PropertyTypes CurrentPropertyType
-        {
-            get;
-            set;
-        }
-
-        public IEnumerable<FingerPosition> FingerPositions
+        public PropertyViewModel ResultProperty
         {
             get;
         }
 
-        public IBiometricIdentityRepositoryViewModel IdentityRepository
-        {
-            get;
-        }
-
-        public byte[] PropertyBuffer
-        {
-            get;
-        }
-
-        public IEnumerable<PropertyTypes> PropertyTypes
-        {
-            get;
-        }
-
-        public IEnumerable<PropertyId> PropertyIds
-        {
-            get;
-        }
-
-        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }

@@ -2,14 +2,261 @@
     x:Class="FrameworkTester.Views.WinBioGetProperty"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:FrameworkTester.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:designTimes="clr-namespace:FrameworkTester.DesignTimes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:selectors="clr-namespace:FrameworkTester.Selectors"
+    xmlns:viewModels="clr-namespace:FrameworkTester.ViewModels"
     d:DataContext="{d:DesignInstance {x:Type designTimes:WinBioGetPropertyViewModel}}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     DataContext="{Binding Source={StaticResource Locator}, Path=WinBioGetProperty}"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="InputSampleHintDataTemplate" DataType="viewModels:SampleHintPropertyViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="PropertyType: " />
+                <ComboBox
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                    ItemsSource="{Binding PropertyTypes}"
+                    SelectedItem="{Binding SelectedPropertyType}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="InputAntiSpoofPolicyDataTemplate" DataType="viewModels:AntiSpoofPolicyPropertyViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="PropertyType: " />
+                <ComboBox
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                    ItemsSource="{Binding PropertyTypes}"
+                    SelectedItem="{Binding SelectedPropertyType}" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Identity: " />
+                <ComboBox
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                    ItemsSource="{Binding IdentityRepository.Identities}"
+                    SelectedItem="{Binding IdentityRepository.SelectedIdentity}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="InputCustomDataTemplate" DataType="viewModels:CustomPropertyViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="PropertyType: " />
+                <ComboBox
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding PropertyTypes}"
+                    SelectedItem="{Binding SelectedPropertyType}" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="PropertyId: " />
+                <ComboBox
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding PropertyIds}"
+                    SelectedItem="{Binding SelectedPropertyId}" />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Identities: " />
+                <ComboBox
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding IdentityRepository.Identities}"
+                    SelectedItem="{Binding IdentityRepository.SelectedIdentity}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Style="{StaticResource ValueTextBlock}"
+                                    Text="{Binding Sid.Value}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="FingerPosition: " />
+                <ComboBox
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{Binding FingerPositions}"
+                    SelectedItem="{Binding SelectedFingerPosition}" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="OutputSampleHintDataTemplate" DataType="viewModels:SampleHintPropertyViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Maximum number of good biometric samples: " />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding MaximumNumberOfGoodBiometricSamples}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="OutputAntiSpoofPolicyDataTemplate" DataType="viewModels:AntiSpoofPolicyPropertyViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="5" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Action: " />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding SelectedAction}" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="Source: " />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Style="{StaticResource ValueTextBlock}"
+                    Text="{Binding SelectedSource}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="OutputCustomHintDataTemplate" DataType="viewModels:CustomPropertyViewModel">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource LabelTextBlock}"
+                    Text="PropertyBuffer: " />
+                <ScrollViewer
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    VerticalAlignment="Stretch">
+                    <ItemsControl ItemsSource="{Binding PropertyBuffer}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,5,5">
+                                    <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding StringFormat={}0x{0:X2}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </DataTemplate>
+
+        <selectors:PropertyTemplateSlector
+            x:Key="InputPropertyTemplateSlector"
+            AntiSpoofPolicy="{StaticResource InputAntiSpoofPolicyDataTemplate}"
+            Custom="{StaticResource InputCustomDataTemplate}"
+            SampleHint="{StaticResource InputSampleHintDataTemplate}" />
+        <selectors:PropertyTemplateSlector
+            x:Key="OutputPropertyTemplateSlector"
+            AntiSpoofPolicy="{StaticResource OutputAntiSpoofPolicyDataTemplate}"
+            Custom="{StaticResource OutputCustomHintDataTemplate}"
+            SampleHint="{StaticResource OutputSampleHintDataTemplate}" />
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -47,70 +294,39 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Style="{StaticResource LabelTextBlock}"
-                Text="PropertyType: " />
+                Text="Property: " />
             <ComboBox
                 Grid.Row="0"
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
-                ItemsSource="{Binding PropertyTypes}"
-                SelectedItem="{Binding CurrentPropertyType}" />
-            <TextBlock
-                Grid.Row="2"
-                Grid.Column="0"
-                Style="{StaticResource LabelTextBlock}"
-                Text="PropertyId: " />
-            <ComboBox
-                Grid.Row="2"
-                Grid.Column="2"
-                HorizontalAlignment="Stretch"
-                ItemsSource="{Binding PropertyIds}"
-                SelectedItem="{Binding CurrentPropertyId}" />
-            <TextBlock
-                Grid.Row="4"
-                Grid.Column="0"
-                Style="{StaticResource LabelTextBlock}"
-                Text="Identities: " />
-            <ComboBox
-                Grid.Row="4"
-                Grid.Column="2"
-                HorizontalAlignment="Stretch"
-                ItemsSource="{Binding IdentityRepository.Identities}"
-                SelectedItem="{Binding IdentityRepository.CurrentBiometricIdentity}">
+                ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                ItemsSource="{Binding Properties}"
+                SelectedItem="{Binding SelectedProperty}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock
-                                Grid.Row="0"
-                                Grid.Column="0"
-                                Style="{StaticResource ValueTextBlock}"
-                                Text="{Binding Sid.Value}" />
+                            <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding Name}" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBlock
-                Grid.Row="6"
-                Grid.Column="0"
-                Style="{StaticResource LabelTextBlock}"
-                Text="FingerPosition: " />
-            <ComboBox
-                Grid.Row="6"
+            <controls:ObservableContentControl
+                Grid.Row="2"
                 Grid.Column="2"
-                HorizontalAlignment="Stretch"
-                ItemsSource="{Binding FingerPositions}"
-                SelectedItem="{Binding CurrentFingerPosition}" />
+                Content="{Binding SelectedProperty}"
+                ContentTemplateSelector="{StaticResource InputPropertyTemplateSlector}" />
             <TextBlock
-                Grid.Row="8"
+                Grid.Row="4"
                 Grid.Column="0"
                 Style="{StaticResource LabelTextBlock}"
                 Text="Target Session: " />
             <ComboBox
-                Grid.Row="8"
+                Grid.Row="4"
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
                 ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
-                ItemsSource="{Binding WindowRepository.Windows}"
-                SelectedItem="{Binding WindowRepository.SelectedWindow}" />
+                ItemsSource="{Binding HandleRepository.Handles}"
+                SelectedItem="{Binding HandleRepository.SelectedHandle}" />
         </Grid>
         <Button
             Grid.Row="2"
@@ -128,31 +344,11 @@
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
-        <TextBlock
-            Grid.Row="6"
-            Grid.Column="0"
-            VerticalAlignment="Top"
-            Style="{StaticResource LabelTextBlock}"
-            Text="PropertyBuffer: " />
-        <ScrollViewer
+        <controls:ObservableContentControl
             Grid.Row="6"
             Grid.Column="2"
-            VerticalAlignment="Stretch">
-            <ItemsControl ItemsSource="{Binding PropertyBuffer}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,0,5,5">
-                            <TextBlock Style="{StaticResource ValueTextBlock}" Text="{Binding StringFormat={}0x{0:X2}}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </ScrollViewer>
+            Content="{Binding ResultProperty}"
+            ContentTemplateSelector="{StaticResource OutputPropertyTemplateSlector}" />
     </Grid>
 </Page>
 

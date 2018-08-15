@@ -7,7 +7,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioEnumServiceProvidersViewModel : IWinBioViewModel
     {
 
-        BiometricServiceProvider CurrentServiceProvider
+        BiometricServiceProvider SelectedServiceProvider
         {
             get;
             set;

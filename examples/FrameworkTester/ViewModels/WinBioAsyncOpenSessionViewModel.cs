@@ -5,9 +5,7 @@ using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using FrameworkTester.Views;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
-
 using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace FrameworkTester.ViewModels
@@ -29,12 +27,6 @@ namespace FrameworkTester.ViewModels
 
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
-
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionHandleViewModel>>();
-            this.WindowRepository.PropertyChanged += (sender, args) =>
-            {
-                this.ExecuteCommand.RaiseCanExecuteChanged();
-            };
         }
 
         #endregion
@@ -54,7 +46,7 @@ namespace FrameworkTester.ViewModels
                     newWindow.DataContext = childWindow;
                     newWindow.Show();
 
-                    this.WindowRepository.Add(childWindow);
+                    this.HandleRepository.Add(childWindow);
                 }));
             }
         }
@@ -75,7 +67,7 @@ namespace FrameworkTester.ViewModels
                         this.SessionHandle = 0;
                         this.UpdateUIImmediately();
 
-                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var session = this.HandleRepository.SelectedHandle.Session;
                         switch (this.SelectedMethod)
                         {
                             case AsyncNotificationMethod.NotifyCallback:
@@ -85,7 +77,7 @@ namespace FrameworkTester.ViewModels
                                     this.SessionHandle = this.BiometricService.OpenSession(IntPtr.Zero).Handle;
                                 break;
                             case AsyncNotificationMethod.NotifyMessage:
-                                var childWindow = this.WindowRepository.SelectedWindow;
+                                var childWindow = this.HandleRepository.SelectedHandle;
                                 var handle = childWindow.Handle;
                                 var code = childWindow.MessageCode;
                                 if (this.Async)
@@ -132,7 +124,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var session = this.HandleRepository.SelectedHandle.Session;
                         this.BiometricService.Cancel(session);
 
                         this.WaitCallback = false;
@@ -209,11 +201,6 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
-        {
-            get;
-        }
-
         private uint _MessageCode;
 
         public uint MessageCode
@@ -284,7 +271,7 @@ namespace FrameworkTester.ViewModels
                 case AsyncNotificationMethod.NotifyCallback:
                     return true;
                 case AsyncNotificationMethod.NotifyMessage:
-                    var childWindow = this.WindowRepository?.SelectedWindow;
+                    var childWindow = this.HandleRepository?.SelectedHandle;
                     return childWindow != null && childWindow.Handle != IntPtr.Zero;
                 default:
                     return false;

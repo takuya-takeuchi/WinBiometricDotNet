@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace FrameworkTester.ViewModels.Interfaces
+﻿namespace FrameworkTester.ViewModels.Interfaces
 {
 
     public interface IWinBioAsyncFrameworkViewModel
     {
 
-        IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
+        IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
         {
             get;
         }

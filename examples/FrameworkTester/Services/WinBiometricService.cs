@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using FrameworkTester.Services.Interfaces;
 using WinBiometricDotNet;
+using SIZE_T = System.IntPtr;
+using ULONG = System.UInt32;
 
 namespace FrameworkTester.Services
 {
@@ -54,7 +56,7 @@ namespace FrameworkTester.Services
             WinBiometric.AsyncMonitorFrameworkChanges(framework, changeType);
         }
 
-        public void AsyncOpenFramework(IntPtr userData)
+        public void AsyncOpenFramework(SIZE_T userData)
         {
             WinBiometric.AsyncCompleted -= AsyncCompleted;
             WinBiometric.AsyncCompleted += AsyncCompleted;
@@ -62,12 +64,12 @@ namespace FrameworkTester.Services
             WinBiometric.AsyncOpenFramework(userData);
         }
 
-        public void AsyncOpenFramework(IntPtr targetWindow, uint messageCode)
+        public void AsyncOpenFramework(SIZE_T targetWindow, uint messageCode)
         {
             WinBiometric.AsyncOpenFramework(targetWindow, messageCode);
         }
 
-        public void AsyncOpenSession(IntPtr userData)
+        public void AsyncOpenSession(SIZE_T userData)
         {
             WinBiometric.AsyncCompleted -= AsyncCompleted;
             WinBiometric.AsyncCompleted += AsyncCompleted;
@@ -75,7 +77,7 @@ namespace FrameworkTester.Services
             WinBiometric.AsyncOpenSession(userData);
         }
 
-        public void AsyncOpenSession(IntPtr targetWindow, uint messageCode)
+        public void AsyncOpenSession(SIZE_T targetWindow, uint messageCode)
         {
             WinBiometric.AsyncOpenSession(targetWindow, messageCode);
         }
@@ -129,6 +131,44 @@ namespace FrameworkTester.Services
         public BiometricIdentity CommitEnroll(Session session)
         {
             return WinBiometric.CommitEnroll(session);
+        }
+        
+        public void ControlUnit(Session session,
+                                uint unitId,
+                                Component component,
+                                ULONG controlCode,
+                                byte[] sendBuffer,
+                                byte[] receiveBuffer,
+                                out SIZE_T receiveDataSize,
+                                out ULONG operationStatus)
+        {
+            WinBiometric.ControlUnit(session,
+                                     unitId,
+                                     component,
+                                     controlCode,
+                                     sendBuffer,
+                                     receiveBuffer,
+                                     out receiveDataSize,
+                                     out operationStatus);
+        }
+
+        public void ControlUnitPrivileged(Session session,
+                                          uint unitId,
+                                          Component component,
+                                          ULONG controlCode,
+                                          byte[] sendBuffer,
+                                          byte[] receiveBuffer,
+                                          out SIZE_T receiveDataSize,
+                                          out ULONG operationStatus)
+        {
+            WinBiometric.ControlUnitPrivileged(session,
+                                               unitId,
+                                               component,
+                                               controlCode,
+                                               sendBuffer,
+                                               receiveBuffer,
+                                               out receiveDataSize,
+                                               out operationStatus);
         }
 
         public Guid CreateDatabase(BiometricUnit unit)
@@ -208,6 +248,20 @@ namespace FrameworkTester.Services
             WinBiometric.GetLogonSetting(out value, out source);
         }
 
+        public AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
+                                               PropertyTypes propertyType,
+                                               BiometricIdentity identity)
+        {
+            return WinBiometric.GetAntiSpoofPolicyProperty(session, propertyType, identity);
+        }
+
+        public ULONG GetSampleHintProperty(Session session,
+                                                     PropertyTypes propertyType,
+                                                     uint unitId)
+        {
+            return WinBiometric.GetSampleHintProperty(session, propertyType, unitId);
+        }
+
         public void GetProperty(Session session,
                                 PropertyTypes propertyType, 
                                 PropertyId propertyId, 
@@ -255,6 +309,11 @@ namespace FrameworkTester.Services
             return WinBiometric.LogonIdentifiedUser(session);
         }
 
+        public void MonitorPresence(Session session, uint unitId)
+        {
+            WinBiometric.MonitorPresence(session, unitId);
+        }
+
         public Framework OpenFramework(IntPtr userData)
         {
             WinBiometric.AsyncCompleted -= AsyncCompleted;
@@ -299,6 +358,21 @@ namespace FrameworkTester.Services
             WinBiometric.ReleaseFocus();
         }
 
+        public void RemoveAllCredentials()
+        {
+            WinBiometric.RemoveAllCredentials();
+        }
+
+        public void RemoveAllDomainCredentials()
+        {
+            WinBiometric.RemoveAllDomainCredentials();
+        }
+
+        public void RemoveCredential(BiometricIdentity identity, CredentialTypes credentialType)
+        {
+            WinBiometric.RemoveCredential(identity, credentialType);
+        }
+
         public void RemoveDatabase(BiometricUnit unit, Guid databaseId)
         {
             if (unit == null)
@@ -310,6 +384,21 @@ namespace FrameworkTester.Services
         public void SelectEnroll(Session session, ulong selectorValue)
         {
             WinBiometric.SelectEnroll(session, selectorValue);
+        }
+
+        public void SetAntiSpoofPolicyProperty(Session session,
+                                               PropertyTypes propertyType,
+                                               BiometricIdentity identity,
+                                               AntiSpoofPolicy antiSpoofPolicy)
+        {
+            WinBiometric.SetAntiSpoofPolicyProperty(session, propertyType, identity, antiSpoofPolicy);
+        }
+        
+        public void SetCredential(CredentialTypes credentialType,
+                                  byte[] credential,
+                                  CredentialFormat format)
+        {
+            WinBiometric.SetCredential(credentialType, credential, format);
         }
 
         public void UnlockUnit(Session session, uint unitId)

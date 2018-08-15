@@ -19,8 +19,8 @@ namespace FrameworkTester.ViewModels
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
 
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<IFrameworkHandleViewModel>>();
-            this.WindowRepository.PropertyChanged += (sender, args) =>
+            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<IFrameworkHandleViewModel>>();
+            this.HandleRepository.PropertyChanged += (sender, args) =>
             {
                 this.ExecuteCommand.RaiseCanExecuteChanged();
             };
@@ -56,7 +56,7 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var window = this.WindowRepository.SelectedWindow;
+                        var window = this.HandleRepository.SelectedHandle;
                         this.BiometricService.AsyncEnumServiceProviders(window.Framework);
 
                         this.Result = "OK";
@@ -66,25 +66,25 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.WindowRepository?.SelectedWindow != null));
+                }, () => this.HandleRepository?.SelectedHandle != null));
             }
         }
 
         public override string Name => "WinBioAsyncEnumServiceProviders";
 
-        public IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
         {
             get;
         }
 
-        private BiometricServiceProvider _CurrentServiceProvider;
+        private BiometricServiceProvider _SelectedServiceProvider;
 
-        public BiometricServiceProvider CurrentServiceProvider
+        public BiometricServiceProvider SelectedServiceProvider
         {
-            get => this._CurrentServiceProvider;
+            get => this._SelectedServiceProvider;
             set
             {
-                this._CurrentServiceProvider = value;
+                this._SelectedServiceProvider = value;
                 this.RaisePropertyChanged();
             }
         }

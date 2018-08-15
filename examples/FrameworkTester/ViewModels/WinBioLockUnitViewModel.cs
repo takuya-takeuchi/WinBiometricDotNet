@@ -24,8 +24,8 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var session = this.WindowRepository.SelectedWindow.Session;
-                        this.BiometricService.LockUnit(session, this.CurrentUnit.UnitId);
+                        var session = this.HandleRepository.SelectedHandle.Session;
+                        this.BiometricService.LockUnit(session, this.SelectedUnit.UnitId);
 
                         this.Result = "OK";
                     }
@@ -34,7 +34,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.WindowRepository?.SelectedWindow != null));
+                }, () => this.HandleRepository?.SelectedHandle != null));
             }
         }
 

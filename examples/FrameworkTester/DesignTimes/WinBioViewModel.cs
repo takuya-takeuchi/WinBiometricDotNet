@@ -8,7 +8,7 @@ namespace FrameworkTester.DesignTimes
     public abstract class WinBioViewModel : IWinBioViewModel
     {
 
-        public BiometricUnit CurrentUnit
+        public BiometricUnit SelectedUnit
         {
             get;
             set;

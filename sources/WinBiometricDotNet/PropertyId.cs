@@ -1,4 +1,5 @@
-﻿using WINBIO_PROPERTY_ID = System.UInt32;
+﻿using WinBiometricDotNet.Interop;
+using WINBIO_PROPERTY_ID = System.UInt32;
 
 namespace WinBiometricDotNet
 {
@@ -6,17 +7,18 @@ namespace WinBiometricDotNet
     public enum PropertyId : WINBIO_PROPERTY_ID
     {
 
-        SampleHint = (WINBIO_PROPERTY_ID)1,
+        SampleHint = SafeNativeMethods.WINBIO_PROPERTY_SAMPLE_HINT,
 
-        ExtendedSensorInfo = (WINBIO_PROPERTY_ID)2,
+        ExtendedSensorInfo = SafeNativeMethods.WINBIO_PROPERTY_EXTENDED_SENSOR_INFO,
 
-        ExtendedEngineInfo = (WINBIO_PROPERTY_ID)3,
+        ExtendedEngineInfo = SafeNativeMethods.WINBIO_PROPERTY_EXTENDED_ENGINE_INFO,
 
-        ExtendedStorageInfo = (WINBIO_PROPERTY_ID)4,
+        ExtendedStorageInfo = SafeNativeMethods.WINBIO_PROPERTY_EXTENDED_STORAGE_INFO,
 
-        ExtendedEnrollmentStatus = (WINBIO_PROPERTY_ID)5,
+        ExtendedEnrollmentStatus = SafeNativeMethods.WINBIO_PROPERTY_EXTENDED_ENROLLMENT_STATUS,
 
-        AntiSpoofPolicy = (WINBIO_PROPERTY_ID)6
+        // SafeNativeMethods.WINBIO_PROPERTY_ANTI_SPOOF_POLICY
+        AntiSpoofPolicy = 6,
 
     }
 

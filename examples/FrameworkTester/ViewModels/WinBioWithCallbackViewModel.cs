@@ -1,7 +1,5 @@
-﻿using FrameworkTester.Services.Interfaces;
-using FrameworkTester.ViewModels.Interfaces;
+﻿using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 
 namespace FrameworkTester.ViewModels
 {

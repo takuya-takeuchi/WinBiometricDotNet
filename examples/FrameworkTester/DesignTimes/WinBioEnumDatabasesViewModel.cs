@@ -14,7 +14,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public BiometricDatabase CurrentDatabase
+        public BiometricDatabase SelectedDatabase
         {
             get;
             set;

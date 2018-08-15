@@ -8,7 +8,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioEnumServiceProvidersViewModel : WinBioViewModel, IWinBioEnumServiceProvidersViewModel
     {
 
-        public BiometricServiceProvider CurrentServiceProvider
+        public BiometricServiceProvider SelectedServiceProvider
         {
             get;
             set;

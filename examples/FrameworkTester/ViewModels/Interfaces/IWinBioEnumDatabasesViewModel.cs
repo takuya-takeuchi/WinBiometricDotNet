@@ -13,7 +13,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        BiometricDatabase CurrentDatabase
+        BiometricDatabase SelectedDatabase
         {
             get;
             set;

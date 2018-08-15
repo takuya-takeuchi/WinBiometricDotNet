@@ -14,14 +14,14 @@ namespace FrameworkTester.ViewModels
 
         #region Properties
 
-        private BiometricServiceProvider _CurrentServiceProvider;
+        private BiometricServiceProvider _SelectedServiceProvider;
 
-        public BiometricServiceProvider CurrentServiceProvider
+        public BiometricServiceProvider SelectedServiceProvider
         {
-            get => this._CurrentServiceProvider;
+            get => this._SelectedServiceProvider;
             set
             {
-                this._CurrentServiceProvider = value;
+                this._SelectedServiceProvider = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -44,7 +44,7 @@ namespace FrameworkTester.ViewModels
                             this.ServiceProviders.Add(provider);
 
                         if (this.ServiceProviders.Any())
-                            this.CurrentServiceProvider = this.ServiceProviders.FirstOrDefault();
+                            this.SelectedServiceProvider = this.ServiceProviders.FirstOrDefault();
 
                         this.Result = "OK";
                     }

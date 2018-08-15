@@ -6,7 +6,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioEnrollSelectViewModel : WinBioViewModel, IWinBioEnrollSelectViewModel, IWinBioAsyncSessionViewModel
     {
 
-        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }

@@ -19,7 +19,7 @@ namespace FrameworkTester.ViewModels
 
         #region Fields
 
-        private Session _CurrentSession;
+        private Session _SelectedSession;
 
         private bool _EventCancel;
 
@@ -39,7 +39,7 @@ namespace FrameworkTester.ViewModels
             this._WinBiometricService = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._NavigationService = SimpleIoc.Default.GetInstance<IFrameNavigationService>();
 
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionHandleViewModel>>();
+            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<ISessionHandleViewModel>>();
 
             var winBio = typeof(IWinBioViewModel);
             foreach (var type in Assembly.GetExecutingAssembly()
@@ -80,35 +80,35 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private IWinBioViewModel _CurrentTestTarget;
+        private IWinBioViewModel _SelectedTestTarget;
 
-        public IWinBioViewModel CurrentTestTarget
+        public IWinBioViewModel SelectedTestTarget
         {
             get
             {
-                return this._CurrentTestTarget;
+                return this._SelectedTestTarget;
             }
             set
             {
-                this._CurrentTestTarget = value;
+                this._SelectedTestTarget = value;
                 this.RaisePropertyChanged();
 
                 this._NavigationService.NavigateTo(value.Name);
             }
         }
 
-        private BiometricUnit _CurrentUnit;
+        private BiometricUnit _SelectedUnit;
 
-        public BiometricUnit CurrentUnit
+        public BiometricUnit SelectedUnit
         {
-            get => this._CurrentUnit;
+            get => this._SelectedUnit;
             set
             {
-                this._CurrentUnit = value;
+                this._SelectedUnit = value;
                 this.RaisePropertyChanged();
 
                 foreach (var viewModel in this.TestTargets)
-                    viewModel.CurrentUnit = value;
+                    viewModel.SelectedUnit = value;
             }
         }
 
@@ -142,10 +142,10 @@ namespace FrameworkTester.ViewModels
                         this._DispatcherService.SafeAction(() =>
                         {
                             if (this.TestTargets.Any())
-                                this.CurrentTestTarget = this.TestTargets.FirstOrDefault();
+                                this.SelectedTestTarget = this.TestTargets.FirstOrDefault();
 
                             if (this.Units.Any())
-                                this.CurrentUnit = this.Units.FirstOrDefault();
+                                this.SelectedUnit = this.Units.FirstOrDefault();
                         });
                     });
                 }));
@@ -177,12 +177,12 @@ namespace FrameworkTester.ViewModels
                 {
                     if (value)
                     {
-                        this._CurrentSession = this.WindowRepository.SelectedWindow.Session;
-                        this._WinBiometricService.RegisterEventMonitor(this._CurrentSession, EventTypes.Unclaimed);
+                        this._SelectedSession = this.HandleRepository.SelectedHandle.Session;
+                        this._WinBiometricService.RegisterEventMonitor(this._SelectedSession, EventTypes.Unclaimed);
                     }
                     else
                     {
-                        this._WinBiometricService.UnregisterEventMonitor(this._CurrentSession);
+                        this._WinBiometricService.UnregisterEventMonitor(this._SelectedSession);
                     }
                 }
                 catch (Exception e)
@@ -207,7 +207,7 @@ namespace FrameworkTester.ViewModels
             get;
         } = new ObservableCollection<BiometricUnit>();
         
-        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }

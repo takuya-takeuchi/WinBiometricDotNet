@@ -1,23 +1,22 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IWindowRepositoryViewModel<T> : INotifyPropertyChanged
+    public interface IHandleRepositoryViewModel<T> : INotifyPropertyChanged
         where T : IHandleViewModel
     {
 
-        void Add(T window);
+        void Add(T handle);
 
-        T SelectedWindow
+        T SelectedHandle
         {
             get;
             set;
         }
 
-        ObservableCollection<T> Windows
+        ObservableCollection<T> Handles
         {
             get;
         }

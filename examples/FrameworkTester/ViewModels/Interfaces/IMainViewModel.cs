@@ -13,13 +13,13 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        IWinBioViewModel CurrentTestTarget
+        IWinBioViewModel SelectedTestTarget
         {
             get;
             set;
         }
 
-        BiometricUnit CurrentUnit
+        BiometricUnit SelectedUnit
         {
             get;
             set;
@@ -56,7 +56,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }

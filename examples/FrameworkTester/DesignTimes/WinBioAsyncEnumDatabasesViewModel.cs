@@ -20,7 +20,7 @@ namespace FrameworkTester.DesignTimes
             set;
         }
 
-        public IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
         {
             get;
         }

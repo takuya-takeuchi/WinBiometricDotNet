@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ObservableContentControl.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\IntegerToHexStringConveter.cs" />
     <Compile Include="DesignTimes\ChildWindowViewModel.cs" />
@@ -86,9 +87,13 @@
     <Compile Include="DesignTimes\WinBioAsyncEnumServiceProvidersViewModel.cs" />
     <Compile Include="DesignTimes\WinBioCloseFrameworkViewModel.cs" />
     <Compile Include="DesignTimes\WinBioAsyncOpenSessionViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioControlUnitPrivilegedViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioSetCredentialViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioEnrollBeginViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnabledSettingViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnrolledFactorsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetLogonSettingViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioControlUnitViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetPropertyViewModel.cs" />
     <Compile Include="DesignTimes\WinBioIdentifyWithCallbackViewModel.cs" />
     <Compile Include="DesignTimes\WinBioIdentifyViewModel.cs" />
@@ -103,7 +108,7 @@
     <Compile Include="DesignTimes\WinBioLockUnitViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLocateSensorWithCallbackViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLocateSensorViewModel.cs" />
-    <Compile Include="DesignTimes\WinBioEnrollBeginViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioMonitorPresenceViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollCaptureViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollCommitViewModel.cs" />
     <Compile Include="DesignTimes\WinBioVerifyWithCallbackViewModel.cs" />
@@ -113,7 +118,13 @@
     <Compile Include="DesignTimes\WinBioReleaseFocusViewModel.cs" />
     <Compile Include="DesignTimes\WinBioViewModel.cs" />
     <Compile Include="Helpers\BitmapSourceHelper.cs" />
+    <Compile Include="ViewModels\CustomPropertyViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioSetCredentialViewModel.cs" />
+    <Compile Include="ViewModels\SampleHintPropertyViewModel.cs" />
+    <Compile Include="ViewModels\AntiSpoofPolicyPropertyViewModel.cs" />
+    <Compile Include="Selectors\PropertyTemplateSlector.cs" />
     <Compile Include="Selectors\OpenSessionTemplateSlector.cs" />
+    <Compile Include="ViewModels\PropertyViewModel.cs" />
     <Compile Include="Services\DispatcherService.cs" />
     <Compile Include="Services\FrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IDispatcherService.cs" />
@@ -128,16 +139,32 @@
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncMonitorFrameworkChangesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioSetPropertyViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioSetPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WinBioSetCredentialViewModel.cs" />
+    <Compile Include="ViewModels\WinBioSetPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WinBioRemoveCredentialViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioControlUnitPrivilegedViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioControlUnitViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioMonitorPresenceViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioRemoveAllCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioRemoveAllDomainCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioRemoveCredentialViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioRemoveCredentialViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioRemoveAllDomainCredentialsViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioRemoveAllCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\WinBioRemoveAllCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\WinBioRemoveAllDomainCredentialsViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
-    <Compile Include="ViewModels\SessionWindowRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\SessionHandleRepositoryViewModel.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
     <Compile Include="Selectors\ChildWindowTemplateSlector.cs" />
     <Compile Include="ViewModels\ChildWindowViewModel.cs" />
     <Compile Include="ViewModels\AsyncOpenFrameworkChildWindowViewModel.cs" />
-    <Compile Include="ViewModels\FrameworkWindowRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\FrameworkHandleRepositoryViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IAsyncOpenSessionChildWindowViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IAsyncOpenFrameworkChildWindowViewModel.cs" />
-    <Compile Include="ViewModels\Interfaces\IWindowRepositoryViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IHandleRepositoryViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IChildWindowViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IFrameworkHandleViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\ISessionHandleViewModel.cs" />
@@ -158,6 +185,8 @@
     <Compile Include="ViewModels\WinBioAsyncOpenSessionViewModel.cs" />
     <Compile Include="ViewModels\WinBioAsyncOpenFrameworkViewModel.cs" />
     <Compile Include="DesignTimes\WinBioAsyncOpenFrameworkViewModel.cs" />
+    <Compile Include="ViewModels\WinBioControlUnitPrivilegedViewModel.cs" />
+    <Compile Include="ViewModels\WinBioMonitorPresenceViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollSelectViewModel.cs" />
     <Compile Include="ViewModels\WinBioDeleteTemplateViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncOpenFrameworkViewModel.cs" />
@@ -224,6 +253,7 @@
     <Compile Include="ViewModels\WinBioEnrollBeginViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollCaptureViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollCommitViewModel.cs" />
+    <Compile Include="ViewModels\WinBioControlUnitViewModel.cs" />
     <Compile Include="ViewModels\WinBioVerifyWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioVerifyViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnumEnrollmentsViewModel.cs" />
@@ -263,6 +293,27 @@
     <Compile Include="Views\WinBioAsyncOpenSession.xaml.cs">
       <DependentUpon>WinBioAsyncOpenSession.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WinBioControlUnitPrivileged.xaml.cs">
+      <DependentUpon>WinBioControlUnitPrivileged.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioSetCredential.xaml.cs">
+      <DependentUpon>WinBioSetCredential.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioSetProperty.xaml.cs">
+      <DependentUpon>WinBioSetProperty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioRemoveAllCredentials.xaml.cs">
+      <DependentUpon>WinBioRemoveAllCredentials.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioRemoveAllDomainCredentials.xaml.cs">
+      <DependentUpon>WinBioRemoveAllDomainCredentials.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioRemoveCredential.xaml.cs">
+      <DependentUpon>WinBioRemoveCredential.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioMonitorPresence.xaml.cs">
+      <DependentUpon>WinBioMonitorPresence.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\WinBioEnrollSelect.xaml.cs">
       <DependentUpon>WinBioEnrollSelect.xaml</DependentUpon>
     </Compile>
@@ -277,6 +328,9 @@
     </Compile>
     <Compile Include="Views\WinBioAsyncOpenFramework.xaml.cs">
       <DependentUpon>WinBioAsyncOpenFramework.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioControlUnit.xaml.cs">
+      <DependentUpon>WinBioControlUnit.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioGetProperty.xaml.cs">
       <DependentUpon>WinBioGetProperty.xaml</DependentUpon>
@@ -406,6 +460,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\WinBioControlUnitPrivileged.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioSetCredential.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioSetProperty.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioRemoveAllCredentials.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioRemoveAllDomainCredentials.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioRemoveCredential.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioMonitorPresence.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\WinBioEnrollSelect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -423,6 +505,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioAsyncOpenFramework.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioControlUnit.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

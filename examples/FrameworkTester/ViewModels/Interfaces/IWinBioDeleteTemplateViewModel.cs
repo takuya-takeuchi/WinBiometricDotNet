@@ -7,7 +7,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioDeleteTemplateViewModel : IWinBioViewModel
     {
 
-        FingerPosition CurrentFingerPosition
+        FingerPosition SelectedFingerPosition
         {
             get;
             set;

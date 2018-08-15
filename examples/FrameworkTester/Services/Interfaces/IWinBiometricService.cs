@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using WinBiometricDotNet;
+using SIZE_T = System.IntPtr;
+using ULONG = System.UInt32;
 
 namespace FrameworkTester.Services.Interfaces
 {
@@ -20,13 +22,13 @@ namespace FrameworkTester.Services.Interfaces
 
         void AsyncMonitorFrameworkChanges(Framework framework, ChangeTypes changeType);
 
-        void AsyncOpenFramework(IntPtr userData);
+        void AsyncOpenFramework(SIZE_T userData);
 
-        void AsyncOpenFramework(IntPtr targetWindow, uint messageCode);
+        void AsyncOpenFramework(SIZE_T targetWindow, uint messageCode);
 
-        void AsyncOpenSession(IntPtr userData);
+        void AsyncOpenSession(SIZE_T userData);
 
-        void AsyncOpenSession(IntPtr targetWindow, uint messageCode);
+        void AsyncOpenSession(SIZE_T targetWindow, uint messageCode);
 
         void BeginEnroll(Session session, FingerPosition position, uint unitId);
 
@@ -45,6 +47,24 @@ namespace FrameworkTester.Services.Interfaces
         void CloseSession(Session session);
 
         BiometricIdentity CommitEnroll(Session session);
+
+        void ControlUnit(Session session,
+                         uint unitId,
+                         Component component,
+                         ULONG controlCode,
+                         byte[] sendBuffer,
+                         byte[] receiveBuffer,
+                         out SIZE_T receiveDataSize,
+                         out ULONG operationStatus);
+
+        void ControlUnitPrivileged(Session session,
+                                   uint unitId,
+                                   Component component,
+                                   ULONG controlCode,
+                                   byte[] sendBuffer,
+                                   byte[] receiveBuffer,
+                                   out SIZE_T receiveDataSize,
+                                   out ULONG operationStatus);
 
         Guid CreateDatabase(BiometricUnit unit);
 
@@ -72,6 +92,14 @@ namespace FrameworkTester.Services.Interfaces
 
         void GetLogonSetting(out bool value, out SettingSourceTypes source);
 
+        AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
+                                                   PropertyTypes propertyType,
+                                                   BiometricIdentity identity);
+
+        ULONG GetSampleHintProperty(Session session,
+                                    PropertyTypes propertyType,
+                                    uint unitId);
+
         void GetProperty(Session session,
                          PropertyTypes propertyType,
                          PropertyId propertyId,
@@ -92,6 +120,8 @@ namespace FrameworkTester.Services.Interfaces
 
         bool LogonIdentifiedUser(Session session);
 
+        void MonitorPresence(Session session, uint unitId);
+
         Framework OpenFramework(IntPtr userData);
 
         Framework OpenFramework(IntPtr targetWindow, uint messageCode);
@@ -106,9 +136,24 @@ namespace FrameworkTester.Services.Interfaces
 
         void ReleaseFocus();
 
+        void RemoveAllCredentials();
+
+        void RemoveAllDomainCredentials();
+
+        void RemoveCredential(BiometricIdentity identity, CredentialTypes credentialType);
+
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
 
         void SelectEnroll(Session session, ulong selectorValue);
+
+        void SetAntiSpoofPolicyProperty(Session session,
+                                        PropertyTypes propertyType,
+                                        BiometricIdentity identity,
+                                        AntiSpoofPolicy antiSpoofPolicy);
+
+        void SetCredential(CredentialTypes credentialType,
+                           byte[] credential,
+                           CredentialFormat format);
 
         void UnlockUnit(Session session, uint unitId);
 

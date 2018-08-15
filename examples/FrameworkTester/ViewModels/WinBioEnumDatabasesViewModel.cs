@@ -49,7 +49,7 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var guid = this.BiometricService.CreateDatabase(this.CurrentUnit);
+                        var guid = this.BiometricService.CreateDatabase(this.SelectedUnit);
 
                         this.Result = "OK";
 
@@ -64,17 +64,17 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private BiometricDatabase _CurrentDatabase;
+        private BiometricDatabase _SelectedDatabase;
 
-        public BiometricDatabase CurrentDatabase
+        public BiometricDatabase SelectedDatabase
         {
             get
             {
-                return this._CurrentDatabase;
+                return this._SelectedDatabase;
             }
             set
             {
-                this._CurrentDatabase = value;
+                this._SelectedDatabase = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -89,14 +89,14 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        this.CurrentDatabase = null;
+                        this.SelectedDatabase = null;
 
                         this._Databases.Clear();
                         foreach (var database in this.BiometricService.EnumBiometricDatabases())
                             this._Databases.Add(database);
 
                         if (this._Databases.Any())
-                            this.CurrentDatabase = this._Databases.First();
+                            this.SelectedDatabase = this._Databases.First();
 
                         this.Result = "OK";
                     }
@@ -131,8 +131,8 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        var databaseId = this._CurrentDatabase.DatabaseId;
-                        this.BiometricService.RemoveDatabase(this.CurrentUnit, databaseId);
+                        var databaseId = this._SelectedDatabase.DatabaseId;
+                        this.BiometricService.RemoveDatabase(this.SelectedUnit, databaseId);
                         this.Result = "OK";
 
                         var database = this._Databases.First(d => d.DatabaseId == databaseId);
