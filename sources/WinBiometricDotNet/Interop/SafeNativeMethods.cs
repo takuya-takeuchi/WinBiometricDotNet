@@ -5339,6 +5339,17 @@ namespace WinBiometricDotNet.Interop
         public static extern HRESULT WinBioLogonIdentifiedUser([In] WINBIO_SESSION_HANDLE SessionHandle);
 
         /// <summary>
+        /// Turns on the face-recognition or iris-monitoring mechanism for the specified biometric unit. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
+        /// </summary>
+        /// <param name="SessionHandle">An asynchronous handle for the biometric session that you obtained by calling the <see cref="WinBioAsyncOpenSession"/> function with the PoolType parameter set to <see cref="WINBIO_POOL_SYSTEM"/>.</param>
+        /// <param name="UnitId">he identifier of the biometric unit for which you want to turn on the face-recognition or iris-monitoring mechanism.</param>
+        /// <returns></returns>
+        [System.Security.SuppressUnmanagedCodeSecurity]
+        [DllImport(DllName, CallingConvention = CallingConvention.Winapi)]
+        public static extern HRESULT WinBioMonitorPresence([In] WINBIO_SESSION_HANDLE SessionHandle,
+                                                           [In] WINBIO_UNIT_ID UnitId);
+
+        /// <summary>
         /// The <see cref="WinBioRegisterEventMonitor"/> function Registers a callback function to receive event notifications from the service provider associated with an open session.
         /// </summary>
         /// <param name="SessionHandle">A WINBIO_SESSION_HANDLE value that identifies the open biometric session. Open the session handle by calling <see cref="WinBioOpenSession"/>.</param>

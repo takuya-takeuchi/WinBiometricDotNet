@@ -296,6 +296,11 @@ namespace FrameworkTester.Services
             return WinBiometric.LogonIdentifiedUser(session);
         }
 
+        public void MonitorPresence(Session session, uint unitId)
+        {
+            WinBiometric.MonitorPresence(session, unitId);
+        }
+
         public Framework OpenFramework(IntPtr userData)
         {
             WinBiometric.AsyncCompleted -= AsyncCompleted;

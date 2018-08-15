@@ -113,6 +113,8 @@ namespace FrameworkTester.Services.Interfaces
 
         bool LogonIdentifiedUser(Session session);
 
+        void MonitorPresence(Session session, uint unitId);
+
         Framework OpenFramework(IntPtr userData);
 
         Framework OpenFramework(IntPtr targetWindow, uint messageCode);

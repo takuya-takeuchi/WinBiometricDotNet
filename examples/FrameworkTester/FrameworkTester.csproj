@@ -87,6 +87,7 @@
     <Compile Include="DesignTimes\WinBioCloseFrameworkViewModel.cs" />
     <Compile Include="DesignTimes\WinBioAsyncOpenSessionViewModel.cs" />
     <Compile Include="DesignTimes\WinBioControlUnitPrivilegedViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioEnrollBeginViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnabledSettingViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnrolledFactorsViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetLogonSettingViewModel.cs" />
@@ -105,7 +106,7 @@
     <Compile Include="DesignTimes\WinBioLockUnitViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLocateSensorWithCallbackViewModel.cs" />
     <Compile Include="DesignTimes\WinBioLocateSensorViewModel.cs" />
-    <Compile Include="DesignTimes\WinBioEnrollBeginViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioMonitorPresenceViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollCaptureViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollCommitViewModel.cs" />
     <Compile Include="DesignTimes\WinBioVerifyWithCallbackViewModel.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioControlUnitPrivilegedViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioControlUnitViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioMonitorPresenceViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\SessionWindowRepositoryViewModel.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
@@ -163,6 +165,7 @@
     <Compile Include="ViewModels\WinBioAsyncOpenFrameworkViewModel.cs" />
     <Compile Include="DesignTimes\WinBioAsyncOpenFrameworkViewModel.cs" />
     <Compile Include="ViewModels\WinBioControlUnitPrivilegedViewModel.cs" />
+    <Compile Include="ViewModels\WinBioMonitorPresenceViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollSelectViewModel.cs" />
     <Compile Include="ViewModels\WinBioDeleteTemplateViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncOpenFrameworkViewModel.cs" />
@@ -271,6 +274,9 @@
     </Compile>
     <Compile Include="Views\WinBioControlUnitPrivileged.xaml.cs">
       <DependentUpon>WinBioControlUnitPrivileged.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioMonitorPresence.xaml.cs">
+      <DependentUpon>WinBioMonitorPresence.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioEnrollSelect.xaml.cs">
       <DependentUpon>WinBioEnrollSelect.xaml</DependentUpon>
@@ -419,6 +425,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioControlUnitPrivileged.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioMonitorPresence.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

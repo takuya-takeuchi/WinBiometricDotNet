@@ -821,6 +821,16 @@ namespace WinBiometricDotNet
             return false;
         }
 
+        public static void MonitorPresence(Session session, uint unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            var hr = SafeNativeMethods.WinBioMonitorPresence(session.Handle, unitId);
+
+            ThrowWinBiometricException(hr);
+        }
+
         public static Framework OpenFramework(PVOID userData)
         {
             var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_CALLBACK,
