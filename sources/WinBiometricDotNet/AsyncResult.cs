@@ -1,7 +1,6 @@
 ﻿using System;
 using WinBiometricDotNet.Interop;
 using HRESULT = System.Int32;
-using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace WinBiometricDotNet
 {
@@ -80,11 +79,6 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public WINBIO_SESSION_HANDLE SessionHandle
-        {
-            get;
-        }
-
         public Session Session
         {
             get;
@@ -104,19 +98,6 @@ namespace WinBiometricDotNet
         {
             get;
         }
-
-        #endregion
-
-        #region Methods
-
-        #region Overrids
-        #endregion
-
-        #region Event Handlers
-        #endregion
-
-        #region Helpers
-        #endregion
 
         #endregion
 
