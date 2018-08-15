@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using WinBiometricDotNet;
-
 using SIZE_T = System.IntPtr;
 using ULONG = System.UInt32;
 
@@ -23,13 +22,13 @@ namespace FrameworkTester.Services.Interfaces
 
         void AsyncMonitorFrameworkChanges(Framework framework, ChangeTypes changeType);
 
-        void AsyncOpenFramework(IntPtr userData);
+        void AsyncOpenFramework(SIZE_T userData);
 
-        void AsyncOpenFramework(IntPtr targetWindow, uint messageCode);
+        void AsyncOpenFramework(SIZE_T targetWindow, uint messageCode);
 
-        void AsyncOpenSession(IntPtr userData);
+        void AsyncOpenSession(SIZE_T userData);
 
-        void AsyncOpenSession(IntPtr targetWindow, uint messageCode);
+        void AsyncOpenSession(SIZE_T targetWindow, uint messageCode);
 
         void BeginEnroll(Session session, FingerPosition position, uint unitId);
 

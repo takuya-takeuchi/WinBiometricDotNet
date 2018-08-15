@@ -1,6 +1,4 @@
-﻿using System;
-using FrameworkTester.ViewModels.Interfaces;
-
+﻿using FrameworkTester.ViewModels.Interfaces;
 using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace FrameworkTester.DesignTimes

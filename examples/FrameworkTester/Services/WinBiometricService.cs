@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using FrameworkTester.Services.Interfaces;
 using WinBiometricDotNet;
-
 using SIZE_T = System.IntPtr;
 using ULONG = System.UInt32;
 
@@ -57,7 +56,7 @@ namespace FrameworkTester.Services
             WinBiometric.AsyncMonitorFrameworkChanges(framework, changeType);
         }
 
-        public void AsyncOpenFramework(IntPtr userData)
+        public void AsyncOpenFramework(SIZE_T userData)
         {
             WinBiometric.AsyncCompleted -= AsyncCompleted;
             WinBiometric.AsyncCompleted += AsyncCompleted;
@@ -65,12 +64,12 @@ namespace FrameworkTester.Services
             WinBiometric.AsyncOpenFramework(userData);
         }
 
-        public void AsyncOpenFramework(IntPtr targetWindow, uint messageCode)
+        public void AsyncOpenFramework(SIZE_T targetWindow, uint messageCode)
         {
             WinBiometric.AsyncOpenFramework(targetWindow, messageCode);
         }
 
-        public void AsyncOpenSession(IntPtr userData)
+        public void AsyncOpenSession(SIZE_T userData)
         {
             WinBiometric.AsyncCompleted -= AsyncCompleted;
             WinBiometric.AsyncCompleted += AsyncCompleted;
@@ -78,7 +77,7 @@ namespace FrameworkTester.Services
             WinBiometric.AsyncOpenSession(userData);
         }
 
-        public void AsyncOpenSession(IntPtr targetWindow, uint messageCode)
+        public void AsyncOpenSession(SIZE_T targetWindow, uint messageCode)
         {
             WinBiometric.AsyncOpenSession(targetWindow, messageCode);
         }

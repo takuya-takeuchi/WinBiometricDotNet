@@ -2,7 +2,6 @@
 using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-
 using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace FrameworkTester.ViewModels

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight;

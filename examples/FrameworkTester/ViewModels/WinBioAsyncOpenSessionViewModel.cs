@@ -7,7 +7,6 @@ using FrameworkTester.Views;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
-
 using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace FrameworkTester.ViewModels

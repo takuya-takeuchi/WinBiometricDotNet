@@ -1,5 +1,4 @@
-﻿using System;
-using WinBiometricDotNet;
+﻿using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels.Interfaces
 {

@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using WinBiometricDotNet.Helpers;
 using WinBiometricDotNet.Interop;
-
 using HRESULT = System.Int32;
 using PVOID = System.IntPtr;
 using SIZE_T = System.IntPtr;
@@ -153,7 +152,7 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
-        public static void AsyncOpenFramework(IntPtr targetWindow, UINT messageCode)
+        public static void AsyncOpenFramework(PVOID targetWindow, UINT messageCode)
         {
             var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_MESSAGE,
                                                                 targetWindow,
@@ -189,7 +188,7 @@ namespace WinBiometricDotNet
             }
         }
 
-        public static void AsyncOpenSession(IntPtr targetWindow, UINT messageCode)
+        public static void AsyncOpenSession(PVOID targetWindow, UINT messageCode)
         {
             unsafe
             {

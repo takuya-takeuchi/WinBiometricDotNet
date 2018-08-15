@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using WinBiometricDotNet;
-
 using WINBIO_FRAMEWORK_HANDLE = System.UInt32;
 
 namespace FrameworkTester.DesignTimes
