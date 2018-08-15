@@ -373,6 +373,14 @@ namespace FrameworkTester.Services
             WinBiometric.SelectEnroll(session, selectorValue);
         }
 
+        public void SetAntiSpoofPolicyProperty(Session session,
+                                               PropertyTypes propertyType,
+                                               BiometricIdentity identity,
+                                               AntiSpoofPolicy antiSpoofPolicy)
+        {
+            WinBiometric.SetAntiSpoofPolicyProperty(session, propertyType, identity, antiSpoofPolicy);
+        }
+
         public void UnlockUnit(Session session, uint unitId)
         {
             WinBiometric.UnlockUnit(session, unitId);

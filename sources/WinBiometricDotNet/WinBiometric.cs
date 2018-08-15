@@ -34,7 +34,6 @@ using WINBIO_PROPERTY_ID = System.UInt32;
 using WINBIO_PROPERTY_TYPE = System.UInt32;
 using WINBIO_REJECT_DETAIL = System.UInt32;
 using WINBIO_SENSOR_MODE = System.UInt32;
-using WINBIO_SENSOR_STATUS = System.UInt32;
 using WINBIO_SESSION_FLAGS = System.UInt32;
 using WINBIO_SESSION_HANDLE = System.IntPtr;
 using WINBIO_SETTING_SOURCE_TYPE = System.UInt32;
@@ -668,6 +667,77 @@ namespace WinBiometricDotNet
             source = (SettingSourceTypes)tmp;
         }
 
+        public static AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
+                                                                 PropertyTypes propertyType,
+                                                                 BiometricIdentity identity)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            unsafe
+            {
+                var tmp = identity.Source;
+                var nativeIdentity = &tmp;
+
+                var hr = SafeNativeMethods.WinBioGetProperty(session.Handle,
+                                                             (WINBIO_PROPERTY_TYPE)propertyType,
+                                                             SafeNativeMethods.WINBIO_PROPERTY_ANTI_SPOOF_POLICY,
+                                                             0,
+                                                             nativeIdentity,
+                                                             SafeNativeMethods.WINBIO_SUBTYPE_NO_INFORMATION,
+                                                             out var pBuffer,
+                                                             out var pBufferSize);
+
+                ThrowWinBiometricException(hr);
+
+                AntiSpoofPolicy antiSpoofPolicy = null;
+                if (pBuffer != IntPtr.Zero)
+                {
+                    var asp = Marshal.PtrToStructure<SafeNativeMethods.WINBIO_ANTI_SPOOF_POLICY>(pBuffer);
+                    antiSpoofPolicy = new AntiSpoofPolicy(&asp);
+
+                    SafeNativeMethods.WinBioFree(pBuffer);
+                }
+
+                return antiSpoofPolicy;
+            }
+        }
+
+        public static ULONG GetSampleHintProperty(Session session,
+                                                  PropertyTypes propertyType,
+                                                  uint unitId)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            unsafe
+            {
+                var hr = SafeNativeMethods.WinBioGetProperty(session.Handle,
+                                                             (WINBIO_PROPERTY_TYPE)propertyType,
+                                                             SafeNativeMethods.WINBIO_PROPERTY_SAMPLE_HINT,
+                                                             unitId,
+                                                             (SafeNativeMethods.WINBIO_IDENTITY*)IntPtr.Zero,
+                                                             SafeNativeMethods.WINBIO_SUBTYPE_NO_INFORMATION,
+                                                             out var pBuffer,
+                                                             out var pBufferSize);
+
+                ThrowWinBiometricException(hr);
+
+                ULONG samples = 0;
+                if (pBuffer != IntPtr.Zero)
+                {
+                    var pSample = (ULONG*) pBuffer;
+                    samples = *pSample;
+
+                    SafeNativeMethods.WinBioFree(pBuffer);
+                }
+
+                return samples;
+            }
+        }
+
         public static void GetProperty(Session session,
                                        PropertyTypes propertyType,
                                        PropertyId propertyId,
@@ -688,7 +758,7 @@ namespace WinBiometricDotNet
                 switch (propertyId)
                 {
                     case PropertyId.AntiSpoofPolicy:
-                        id = (WINBIO_PROPERTY_ID)1;
+                        id = (WINBIO_PROPERTY_ID)SafeNativeMethods.WINBIO_PROPERTY_ANTI_SPOOF_POLICY;
                         unitId = 0;
                         nativeIdentity = &tmp;
                         break;
@@ -1027,6 +1097,45 @@ namespace WinBiometricDotNet
             var hr = SafeNativeMethods.WinBioEnrollSelect(session.Handle, selectorValue);
 
             ThrowWinBiometricException(hr);
+        }
+
+        public static void SetAntiSpoofPolicyProperty(Session session,
+                                                      PropertyTypes propertyType,
+                                                      BiometricIdentity identity,
+                                                      AntiSpoofPolicy antiSpoofPolicy)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+            if (antiSpoofPolicy == null)
+                throw new ArgumentNullException(nameof(antiSpoofPolicy));
+
+            unsafe
+            {
+                var tmp = identity.Source;
+                var nativeIdentity = &tmp;
+
+                var asp = new SafeNativeMethods.WINBIO_ANTI_SPOOF_POLICY
+                {
+                    Source = (SafeNativeMethods.WINBIO_POLICY_SOURCE)antiSpoofPolicy.Source,
+                    Action = (SafeNativeMethods.WINBIO_ANTI_SPOOF_POLICY_ACTION)antiSpoofPolicy.Action
+                };
+
+                var propertyBuffer = (IntPtr)(&asp);
+                var propertyBufferSize = (SIZE_T)sizeof(SafeNativeMethods.WINBIO_ANTI_SPOOF_POLICY);
+
+                var hr = SafeNativeMethods.WinBioSetProperty(session.Handle,
+                                                             (WINBIO_PROPERTY_TYPE)propertyType,
+                                                             SafeNativeMethods.WINBIO_PROPERTY_ANTI_SPOOF_POLICY,
+                                                             0,
+                                                             nativeIdentity,
+                                                             SafeNativeMethods.WINBIO_SUBTYPE_NO_INFORMATION,
+                                                             propertyBuffer,
+                                                             propertyBufferSize);
+
+                ThrowWinBiometricException(hr);
+            }
         }
 
         public static void UnlockUnit(Session session, WINBIO_UNIT_ID unitId)

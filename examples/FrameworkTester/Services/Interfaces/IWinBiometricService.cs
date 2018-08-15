@@ -139,6 +139,11 @@ namespace FrameworkTester.Services.Interfaces
 
         void SelectEnroll(Session session, ulong selectorValue);
 
+        void SetAntiSpoofPolicyProperty(Session session,
+                                        PropertyTypes propertyType,
+                                        BiometricIdentity identity,
+                                        AntiSpoofPolicy antiSpoofPolicy);
+
         void UnlockUnit(Session session, uint unitId);
 
         void UnregisterEventMonitor(Session session);

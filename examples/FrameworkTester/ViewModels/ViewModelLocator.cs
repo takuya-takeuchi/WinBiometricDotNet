@@ -115,6 +115,7 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IWinBioRemoveAllCredentialsViewModel>(() => new WinBioRemoveAllCredentialsViewModel(), true);
             SimpleIoc.Default.Register<IWinBioRemoveAllDomainCredentialsViewModel>(() => new WinBioRemoveAllDomainCredentialsViewModel(), true);
             SimpleIoc.Default.Register<IWinBioRemoveCredentialViewModel>(() => new WinBioRemoveCredentialViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioSetPropertyViewModel>(() => new WinBioSetPropertyViewModel(), true);
             SimpleIoc.Default.Register<IWinBioUnlockUnitViewModel>(() => new WinBioUnlockUnitViewModel(), true);
             SimpleIoc.Default.Register<IWinBioVerifyViewModel>(() => new WinBioVerifyViewModel(), true);
             SimpleIoc.Default.Register<IWinBioVerifyWithCallbackViewModel>(() => new WinBioVerifyWithCallbackViewModel(), true);
@@ -213,6 +214,8 @@ namespace FrameworkTester.ViewModels
         public IWinBioRemoveAllDomainCredentialsViewModel WinBioRemoveAllDomainCredentials => ServiceLocator.Current.GetInstance<IWinBioRemoveAllDomainCredentialsViewModel>();
 
         public IWinBioRemoveCredentialViewModel WinBioRemoveCredential => ServiceLocator.Current.GetInstance<IWinBioRemoveCredentialViewModel>();
+
+        public IWinBioSetPropertyViewModel WinBioSetProperty => ServiceLocator.Current.GetInstance<IWinBioSetPropertyViewModel>();
 
         public IWinBioUnlockUnitViewModel WinBioUnlockUnit => ServiceLocator.Current.GetInstance<IWinBioUnlockUnitViewModel>();
 

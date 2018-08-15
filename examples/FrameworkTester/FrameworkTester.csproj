@@ -76,6 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controls\ObservableContentControl.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\IntegerToHexStringConveter.cs" />
     <Compile Include="DesignTimes\ChildWindowViewModel.cs" />
@@ -116,7 +117,12 @@
     <Compile Include="DesignTimes\WinBioReleaseFocusViewModel.cs" />
     <Compile Include="DesignTimes\WinBioViewModel.cs" />
     <Compile Include="Helpers\BitmapSourceHelper.cs" />
+    <Compile Include="ViewModels\CustomPropertyViewModel.cs" />
+    <Compile Include="ViewModels\SampleHintPropertyViewModel.cs" />
+    <Compile Include="ViewModels\AntiSpoofPolicyPropertyViewModel.cs" />
+    <Compile Include="Selectors\PropertyTemplateSlector.cs" />
     <Compile Include="Selectors\OpenSessionTemplateSlector.cs" />
+    <Compile Include="ViewModels\PropertyViewModel.cs" />
     <Compile Include="Services\DispatcherService.cs" />
     <Compile Include="Services\FrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IDispatcherService.cs" />
@@ -131,6 +137,9 @@
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncMonitorFrameworkChangesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioSetPropertyViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioSetPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WinBioSetPropertyViewModel.cs" />
     <Compile Include="ViewModels\WinBioRemoveCredentialViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioControlUnitPrivilegedViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioControlUnitViewModel.cs" />
@@ -283,6 +292,9 @@
     </Compile>
     <Compile Include="Views\WinBioControlUnitPrivileged.xaml.cs">
       <DependentUpon>WinBioControlUnitPrivileged.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioSetProperty.xaml.cs">
+      <DependentUpon>WinBioSetProperty.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioRemoveAllCredentials.xaml.cs">
       <DependentUpon>WinBioRemoveAllCredentials.xaml</DependentUpon>
@@ -443,6 +455,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioControlUnitPrivileged.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioSetProperty.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
