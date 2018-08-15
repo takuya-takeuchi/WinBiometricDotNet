@@ -61,7 +61,7 @@ namespace FrameworkTester.ViewModels
                         this.UpdateUIImmediately();
 
                         var window = this.WindowRepository.SelectedWindow;
-                        this.BiometricService.AsyncEnumBiometricUnits(window.Framework);
+                        this.BiometricService.AsyncMonitorFrameworkChanges(window.Framework, this.SelectedChangeType);
 
                         this.Result = "OK";
                     }
