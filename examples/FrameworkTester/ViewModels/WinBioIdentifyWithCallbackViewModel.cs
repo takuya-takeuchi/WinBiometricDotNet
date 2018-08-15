@@ -48,7 +48,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = true;
                     }
-                }, () => this.WaitCallback && this.WindowRepository?.SelectedWindow != null));
+                }, () => this.WaitCallback));
             }
         }
 
@@ -91,7 +91,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = false;
                     }
-                }, () => !this.WaitCallback));
+                }, () => !this.WaitCallback && this.WindowRepository?.SelectedWindow != null));
             }
         }
 
