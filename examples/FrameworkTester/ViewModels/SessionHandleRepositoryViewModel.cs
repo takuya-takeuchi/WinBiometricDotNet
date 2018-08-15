@@ -6,14 +6,14 @@ using GalaSoft.MvvmLight;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class SessionWindowRepositoryViewModel : ViewModelBase, IWindowRepositoryViewModel<ISessionHandleViewModel>
+    public sealed class SessionHandleRepositoryViewModel : ViewModelBase, IHandleRepositoryViewModel<ISessionHandleViewModel>
     {
 
         #region Properties
 
         private ISessionHandleViewModel _SelectedWindow;
 
-        public ISessionHandleViewModel SelectedWindow
+        public ISessionHandleViewModel SelectedHandle
         {
             get => this._SelectedWindow;
             set
@@ -23,7 +23,7 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public ObservableCollection<ISessionHandleViewModel> Windows
+        public ObservableCollection<ISessionHandleViewModel> Handles
         {
             get;
         } = new ObservableCollection<ISessionHandleViewModel>();
@@ -32,19 +32,19 @@ namespace FrameworkTester.ViewModels
 
         #region Methods
 
-        public void Add(ISessionHandleViewModel childWindow)
+        public void Add(ISessionHandleViewModel handle)
         {
-            if (this.Windows.Any())
+            if (this.Handles.Any())
             {
-                if(this.Windows.All(h => h != childWindow))
-                    this.Windows.Add(childWindow);
+                if(this.Handles.All(h => h != handle))
+                    this.Handles.Add(handle);
             }
             else
             {
-                this.Windows.Add(childWindow);
+                this.Handles.Add(handle);
             }
 
-            this.SelectedWindow = childWindow;
+            this.SelectedHandle = handle;
         }
 
         #endregion

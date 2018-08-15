@@ -64,8 +64,8 @@
                 </Grid.ColumnDefinitions>
                 <ComboBox
                     HorizontalAlignment="Stretch"
-                    ItemsSource="{Binding WindowRepository.Windows}"
-                    SelectedItem="{Binding WindowRepository.SelectedWindow}">
+                    ItemsSource="{Binding HandleRepository.Handles}"
+                    SelectedItem="{Binding HandleRepository.SelectedHandle}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>

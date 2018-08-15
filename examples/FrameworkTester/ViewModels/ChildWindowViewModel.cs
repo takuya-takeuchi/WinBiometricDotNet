@@ -21,7 +21,7 @@ namespace FrameworkTester.ViewModels
 
         private readonly IDispatcherService _DispatcherService;
 
-        private readonly IWindowRepositoryViewModel<T> _WindowRepository;
+        private readonly IHandleRepositoryViewModel<T> _HandleRepository;
 
         private HwndSource _HwndSource;
 
@@ -34,7 +34,7 @@ namespace FrameworkTester.ViewModels
         protected ChildWindowViewModel(Window window, uint messageCode)
         {
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
-            this._WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<T>>();
+            this._HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<T>>();
 
             this._Window = window;
             this.MessageCode = messageCode;
@@ -229,7 +229,7 @@ namespace FrameworkTester.ViewModels
             // WM_CLOSE
             if (msg == 0x0010)
             {
-                this._WindowRepository.Windows.Remove(this as T);
+                this._HandleRepository.Handles.Remove(this as T);
             }
             else if (msg == this.MessageCode)
             {

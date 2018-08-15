@@ -29,8 +29,8 @@ namespace FrameworkTester.ViewModels
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
 
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<IFrameworkHandleViewModel>>();
-            this.WindowRepository.PropertyChanged += (sender, args) =>
+            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<IFrameworkHandleViewModel>>();
+            this.HandleRepository.PropertyChanged += (sender, args) =>
             {
                 this.ExecuteCommand.RaiseCanExecuteChanged();
             };
@@ -53,7 +53,7 @@ namespace FrameworkTester.ViewModels
                     newWindow.DataContext = childWindow;
                     newWindow.Show();
 
-                    this.WindowRepository.Add(childWindow);
+                    this.HandleRepository.Add(childWindow);
                 }));
             }
         }
@@ -83,7 +83,7 @@ namespace FrameworkTester.ViewModels
                                     this.FrameworkHandle = this.BiometricService.OpenFramework(IntPtr.Zero).Handle;
                                 break;
                             case AsyncNotificationMethod.NotifyMessage:
-                                var childWindow = this.WindowRepository.SelectedWindow;
+                                var childWindow = this.HandleRepository.SelectedHandle;
                                 var handle = childWindow.Handle;
                                 var code = childWindow.MessageCode;
                                 if (this.Async)
@@ -161,7 +161,7 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
         {
             get;
         }
@@ -236,7 +236,7 @@ namespace FrameworkTester.ViewModels
                 case AsyncNotificationMethod.NotifyCallback:
                     return true;
                 case AsyncNotificationMethod.NotifyMessage:
-                    var childWindow = this.WindowRepository?.SelectedWindow;
+                    var childWindow = this.HandleRepository?.SelectedHandle;
                     return childWindow != null && childWindow.Handle != IntPtr.Zero;
                 default:
                     return false;

@@ -29,7 +29,7 @@ namespace FrameworkTester.ViewModels
 
                         this.Result = "OK";
 
-                        this.WindowRepository.Add(new SessionViewModel(session));
+                        this.HandleRepository.Add(new SessionViewModel(session));
 
                         this.SessionHandle = session.Handle;
                     }

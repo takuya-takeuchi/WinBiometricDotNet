@@ -4,7 +4,7 @@
     public interface IWinBioAsyncFrameworkViewModel
     {
 
-        IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
+        IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
         {
             get;
         }

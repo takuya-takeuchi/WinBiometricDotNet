@@ -36,7 +36,7 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var session = this.HandleRepository.SelectedHandle.Session;
                         this.BiometricService.Cancel(session);
 
                         this.WaitCallback = false;
@@ -183,7 +183,7 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var session = this.HandleRepository.SelectedHandle.Session;
                         this.BiometricService.CaptureSampleWithCallback(session);
 
                         this.WaitCallback = true;
@@ -201,7 +201,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = false;
                     }
-                }, () => !this.WaitCallback && this.WindowRepository?.SelectedWindow != null));
+                }, () => !this.WaitCallback && this.HandleRepository?.SelectedHandle != null));
             }
         }
 

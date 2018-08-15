@@ -29,8 +29,8 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IDispatcherService>(() => new DispatcherService(Application.Current.Dispatcher));
             SimpleIoc.Default.Register<IWinBiometricService, WinBiometricService>();
             SimpleIoc.Default.Register<IBiometricIdentityRepositoryViewModel, BiometricIdentityRepositoryViewModel>();
-            SimpleIoc.Default.Register<IWindowRepositoryViewModel<ISessionHandleViewModel>, SessionWindowRepositoryViewModel>();
-            SimpleIoc.Default.Register<IWindowRepositoryViewModel<IFrameworkHandleViewModel>, FrameworkWindowRepositoryViewModel>();
+            SimpleIoc.Default.Register<IHandleRepositoryViewModel<ISessionHandleViewModel>, SessionHandleRepositoryViewModel>();
+            SimpleIoc.Default.Register<IHandleRepositoryViewModel<IFrameworkHandleViewModel>, FrameworkHandleRepositoryViewModel>();
 
             var navigationService = new FrameNavigationService();
             var winBio = typeof(IWinBioViewModel);

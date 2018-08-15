@@ -56,7 +56,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }

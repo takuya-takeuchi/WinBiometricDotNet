@@ -4,7 +4,7 @@
     public interface IWinBioAsyncSessionViewModel
     {
 
-        IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }

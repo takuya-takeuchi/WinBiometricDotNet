@@ -48,7 +48,7 @@ namespace FrameworkTester.ViewModels
                         var sendBuffer = File.ReadAllBytes(path);
                         var receiveBuffer = new byte[this.ReceiveBufferSize];
 
-                        var session = this.WindowRepository.SelectedWindow.Session;
+                        var session = this.HandleRepository.SelectedHandle.Session;
                         this.BiometricService.ControlUnit(session, 
                                                           this.SelectedUnit.UnitId,
                                                           this.SelectedComponent,
@@ -68,7 +68,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.WindowRepository?.SelectedWindow != null));
+                }, () => this.HandleRepository?.SelectedHandle != null));
             }
         }
 

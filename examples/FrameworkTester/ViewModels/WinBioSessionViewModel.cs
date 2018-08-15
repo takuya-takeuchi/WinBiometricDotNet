@@ -11,14 +11,14 @@ namespace FrameworkTester.ViewModels
 
         protected WinBioSessionViewModel()
         {
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionHandleViewModel>>();
+            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<ISessionHandleViewModel>>();
         }
 
         #endregion
 
         #region Properties
 
-        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }

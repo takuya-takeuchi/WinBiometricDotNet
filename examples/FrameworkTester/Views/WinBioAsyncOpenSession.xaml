@@ -81,8 +81,8 @@
                 <ComboBox
                     HorizontalAlignment="Stretch"
                     ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
-                    ItemsSource="{Binding WindowRepository.Windows}"
-                    SelectedItem="{Binding WindowRepository.SelectedWindow}" />
+                    ItemsSource="{Binding HandleRepository.Handles}"
+                    SelectedItem="{Binding HandleRepository.SelectedHandle}" />
             </Grid>
             <TextBlock
                 Grid.Row="6"

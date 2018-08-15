@@ -39,7 +39,7 @@ namespace FrameworkTester.ViewModels
             this._WinBiometricService = SimpleIoc.Default.GetInstance<IWinBiometricService>();
             this._NavigationService = SimpleIoc.Default.GetInstance<IFrameNavigationService>();
 
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionHandleViewModel>>();
+            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<ISessionHandleViewModel>>();
 
             var winBio = typeof(IWinBioViewModel);
             foreach (var type in Assembly.GetExecutingAssembly()
@@ -177,7 +177,7 @@ namespace FrameworkTester.ViewModels
                 {
                     if (value)
                     {
-                        this._SelectedSession = this.WindowRepository.SelectedWindow.Session;
+                        this._SelectedSession = this.HandleRepository.SelectedHandle.Session;
                         this._WinBiometricService.RegisterEventMonitor(this._SelectedSession, EventTypes.Unclaimed);
                     }
                     else
@@ -207,7 +207,7 @@ namespace FrameworkTester.ViewModels
             get;
         } = new ObservableCollection<BiometricUnit>();
         
-        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
+        public IHandleRepositoryViewModel<ISessionHandleViewModel> HandleRepository
         {
             get;
         }
