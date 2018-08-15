@@ -1688,6 +1688,26 @@ namespace WinBiometricDotNet.Interop
         /// </summary>
         public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_INDICATOR = (0x00000040);
 
+        /// <summary>
+        /// The sensor adapter manages its own connection to the biometric hardware.
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_VIRTUAL_SENSOR = ((WINBIO_CAPABILITIES)0x00000080);
+
+        /// <summary>
+        /// The device supports security methods available in the WinBio engine adapter interface version 4.0 or later.
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_SECURE_SENSOR = ((WINBIO_CAPABILITIES)0x00000100);
+
+        /// <summary>
+        /// Secure Connection Protocol (SCP) V1
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_SCP_V1 = ((WINBIO_CAPABILITIES)0x00000200);
+
+        /// <summary>
+        /// Modern standby support
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_WAKE = ((WINBIO_CAPABILITIES)0x00000400);
+
         #endregion
 
         #region WINBIO_COMPONENT Constants
