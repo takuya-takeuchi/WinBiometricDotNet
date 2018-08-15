@@ -5,10 +5,15 @@ using FrameworkTester.ViewModels.Interfaces;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioEnumEnrollmentsViewModel : WinBioViewModel, IWinBioEnumEnrollmentsViewModel
+    public sealed class WinBioEnumEnrollmentsViewModel : WinBioViewModel, IWinBioEnumEnrollmentsViewModel, IWinBioAsyncSessionViewModel
     {
 
         public ObservableCollection<KeyValuePair<string, bool>> FingerPositions
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

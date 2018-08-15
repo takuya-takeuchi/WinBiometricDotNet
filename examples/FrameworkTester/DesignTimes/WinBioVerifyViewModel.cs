@@ -5,7 +5,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioVerifyViewModel : WinBioViewModel, IWinBioVerifyViewModel
+    public sealed class WinBioVerifyViewModel : WinBioViewModel, IWinBioVerifyViewModel, IWinBioAsyncSessionViewModel
     {
 
         public bool IsMatch
@@ -30,6 +30,11 @@ namespace FrameworkTester.DesignTimes
         }
 
         public IEnumerable<FingerPosition> FingerPositions
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

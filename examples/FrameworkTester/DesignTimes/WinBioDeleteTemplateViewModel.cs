@@ -5,7 +5,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioDeleteTemplateViewModel : WinBioViewModel, IWinBioDeleteTemplateViewModel
+    public sealed class WinBioDeleteTemplateViewModel : WinBioViewModel, IWinBioDeleteTemplateViewModel, IWinBioAsyncSessionViewModel
     {
 
         public FingerPosition CurrentFingerPosition
@@ -20,6 +20,11 @@ namespace FrameworkTester.DesignTimes
         }
 
         public IBiometricIdentityRepositoryViewModel IdentityRepository
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

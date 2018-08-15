@@ -3,10 +3,15 @@
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioLocateSensorViewModel : WinBioViewModel, IWinBioLocateSensorViewModel
+    public sealed class WinBioLocateSensorViewModel : WinBioViewModel, IWinBioLocateSensorViewModel, IWinBioAsyncSessionViewModel
     {
 
         public uint UnitId
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

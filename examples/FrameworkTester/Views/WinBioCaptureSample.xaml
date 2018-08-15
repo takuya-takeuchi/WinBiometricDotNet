@@ -16,6 +16,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="15" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
@@ -41,19 +43,48 @@
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Style="{StaticResource LabelTextBlock}"
+                Text="ChildWindows: " />
+            <Grid
+                Grid.Row="0"
+                Grid.Column="2"
+                HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ComboBox
+                    HorizontalAlignment="Stretch"
+                    ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                    ItemsSource="{Binding WindowRepository.Windows}"
+                    SelectedItem="{Binding WindowRepository.SelectedWindow}" />
+            </Grid>
+        </Grid>
         <Button
+            Grid.Row="2"
             Grid.Column="2"
             HorizontalAlignment="Right"
             Command="{Binding ExecuteCommand}"
             Content="Execute" />
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.Column="2"
             Margin="0,0,256,0"
             Style="{StaticResource LabelTextBlock}"
             Text="Captured Image: " />
         <Viewbox
-            Grid.Row="4"
+            Grid.Row="6"
             Grid.RowSpan="18"
             Grid.Column="2"
             HorizontalAlignment="Right"
@@ -62,102 +93,102 @@
             <Image Source="{Binding CaptureImage}" Stretch="UniformToFill" />
         </Viewbox>
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="UnitId: " />
         <TextBlock
-            Grid.Row="2"
+            Grid.Row="4"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding UnitId}" />
         <TextBlock
-            Grid.Row="4"
+            Grid.Row="6"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="SampleSize: " />
         <TextBlock
-            Grid.Row="4"
+            Grid.Row="6"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding SampleSize}" />
         <TextBlock
-            Grid.Row="6"
+            Grid.Row="8"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="RejectDetail: " />
         <TextBlock
-            Grid.Row="6"
+            Grid.Row="8"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding RejectDetail}" />
         <TextBlock
-            Grid.Row="8"
+            Grid.Row="10"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="Width: " />
         <TextBlock
-            Grid.Row="8"
+            Grid.Row="10"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageWidth}" />
         <TextBlock
-            Grid.Row="10"
+            Grid.Row="12"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="Height: " />
         <TextBlock
-            Grid.Row="10"
+            Grid.Row="12"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageHeight}" />
         <TextBlock
-            Grid.Row="12"
+            Grid.Row="14"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="HorizontalResolution: " />
         <TextBlock
-            Grid.Row="12"
+            Grid.Row="14"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageHorizontalResolution}" />
         <TextBlock
-            Grid.Row="14"
+            Grid.Row="16"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="VerticalResolution: " />
         <TextBlock
-            Grid.Row="14"
+            Grid.Row="16"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageVerticalResolution}" />
         <TextBlock
-            Grid.Row="16"
+            Grid.Row="18"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="ScanHorizontalResolution: " />
         <TextBlock
-            Grid.Row="16"
+            Grid.Row="18"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageScanHorizontalResolution}" />
         <TextBlock
-            Grid.Row="18"
+            Grid.Row="20"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="ScanVerticalResolution: " />
         <TextBlock
-            Grid.Row="18"
+            Grid.Row="20"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding CaptureImageScanVerticalResolution}" />
         <TextBlock
-            Grid.Row="20"
+            Grid.Row="22"
             Grid.Column="0"
             Style="{StaticResource LabelTextBlock}"
             Text="Result: " />
         <TextBlock
-            Grid.Row="20"
+            Grid.Row="22"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />

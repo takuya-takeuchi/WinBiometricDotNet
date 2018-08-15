@@ -9,7 +9,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioEnrollBeginViewModel : WinBioViewModel, IWinBioEnrollBeginViewModel
+    public sealed class WinBioEnrollBeginViewModel : WinBioSessionViewModel, IWinBioEnrollBeginViewModel
     {
 
         #region Constructors
@@ -36,7 +36,9 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        this.BiometricService.BeginEnroll(this.SelectedFingerPosition, this.CurrentUnit.UnitId);
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        this.BiometricService.BeginEnroll(session, this.SelectedFingerPosition, this.CurrentUnit.UnitId);
+
                         this.Result = "OK";
                     }
                     catch (Exception e)
@@ -44,7 +46,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 

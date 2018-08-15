@@ -38,7 +38,8 @@ namespace FrameworkTester.ViewModels
                 {
                     try
                     {
-                        this.BiometricService.Cancel();
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        this.BiometricService.Cancel(session);
 
                         this.WaitCallback = false;
                     }
@@ -70,14 +71,15 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        this.BiometricService.VerifyWithCallback(this.CurrentUnit, this.SelectedFingerPosition);
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        this.BiometricService.VerifyWithCallback(session, this.CurrentUnit, this.SelectedFingerPosition);
 
                         this.WaitCallback = true;
 
                         if (this.EnableWait)
                         {
                             name = "WinBioWait";
-                            this.BiometricService.Wait();
+                            this.BiometricService.Wait(session);
                         }
                     }
                     catch (Exception e)
@@ -87,7 +89,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = false;
                     }
-                }, () => !this.WaitCallback));
+                }, () => this.WaitCallback && this.WindowRepository?.SelectedWindow != null));
             }
         }
 

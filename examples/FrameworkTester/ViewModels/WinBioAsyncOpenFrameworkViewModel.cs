@@ -13,7 +13,7 @@ using WINBIO_FRAMEWORK_HANDLE = System.UInt32;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioAsyncOpenFrameworkViewModel : WinBioWithCallbackViewModel, IWinBioAsyncOpenFrameworkViewModel, IWinBioAsyncChildWindowViewModel
+    public sealed class WinBioAsyncOpenFrameworkViewModel : WinBioViewModel, IWinBioAsyncOpenFrameworkViewModel, IWinBioAsyncChildWindowViewModel
     {
 
         #region Constructors
@@ -94,63 +94,18 @@ namespace FrameworkTester.ViewModels
                                 break;
                         }
 
-                        this.WaitCallback = true;
                         this.Result = "OK";
-
-                        if (this.EnableWait)
-                        {
-                            name = "WinBioWait";
-                            this.BiometricService.Wait();
-                        }
                     }
                     catch (Exception e)
                     {
                         MessageBox.Show(e.Message, name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
-
-                        this.WaitCallback = false;
                     }
                 }, this.CanExecuteCommand));
             }
         }
 
         public override string Name => "WinBioAsyncOpenFramework";
-
-        private RelayCommand _CancelCommand;
-
-        public override RelayCommand CancelCommand
-        {
-            get
-            {
-                return this._CancelCommand ?? (this._CancelCommand = new RelayCommand(() =>
-                {
-                    try
-                    {
-                        this.BiometricService.Cancel();
-
-                        this.WaitCallback = false;
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message, "WinBioCancel", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        this.WaitCallback = true;
-                    }
-                }, () => this.WaitCallback));
-            }
-        }
-
-        private bool _EnableWait;
-
-        public override bool EnableWait
-        {
-            get => this._EnableWait;
-            set
-            {
-                this._EnableWait = value;
-                this.RaisePropertyChanged();
-            }
-        }
 
         private bool _EnableChildWindows;
 

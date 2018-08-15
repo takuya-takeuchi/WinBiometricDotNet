@@ -35,9 +35,6 @@ namespace FrameworkTester.ViewModels
 
         public void Add(ISessionHandleViewModel childWindow)
         {
-            if (childWindow?.Handle == IntPtr.Zero)
-                return;
-
             if (this.Windows.Any())
             {
                 if(this.Windows.All(h => h != childWindow))

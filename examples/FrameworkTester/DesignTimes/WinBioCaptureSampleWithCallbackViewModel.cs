@@ -6,7 +6,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioViewModel, IWinBioCaptureSampleWithCallbackViewModel
+    public sealed class WinBioCaptureSampleWithCallbackViewModel : WinBioViewModel, IWinBioCaptureSampleWithCallbackViewModel, IWinBioAsyncSessionViewModel
     {
 
         public RelayCommand CancelCommand
@@ -72,6 +72,11 @@ namespace FrameworkTester.DesignTimes
         }
 
         public uint UnitId
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

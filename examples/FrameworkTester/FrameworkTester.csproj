@@ -113,6 +113,7 @@
     <Compile Include="DesignTimes\WinBioReleaseFocusViewModel.cs" />
     <Compile Include="DesignTimes\WinBioViewModel.cs" />
     <Compile Include="Helpers\BitmapSourceHelper.cs" />
+    <Compile Include="Selectors\OpenSessionTemplateSlector.cs" />
     <Compile Include="Services\DispatcherService.cs" />
     <Compile Include="Services\FrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IDispatcherService.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncMonitorFrameworkChangesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
+    <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\SessionWindowRepositoryViewModel.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
     <Compile Include="Selectors\ChildWindowTemplateSlector.cs" />
@@ -212,6 +214,7 @@
     <Compile Include="ViewModels\WinBioEnrollCaptureWithCallbackViewModel.cs" />
     <Compile Include="ViewModels\WinBioEnrollDiscardViewModel.cs" />
     <Compile Include="ViewModels\WinBioPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WinBioSessionViewModel.cs" />
     <Compile Include="ViewModels\WinBioUnlockUnitViewModel.cs" />
     <Compile Include="ViewModels\WinBioLockUnitViewModel.cs" />
     <Compile Include="ViewModels\WinBioLocateSensorViewModel.cs" />

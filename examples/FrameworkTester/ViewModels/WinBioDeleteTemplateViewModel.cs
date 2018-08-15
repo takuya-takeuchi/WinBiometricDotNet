@@ -10,7 +10,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioDeleteTemplateViewModel : WinBioViewModel, IWinBioDeleteTemplateViewModel
+    public sealed class WinBioDeleteTemplateViewModel : WinBioSessionViewModel, IWinBioDeleteTemplateViewModel
     {
 
         #region Constructors
@@ -57,11 +57,13 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
+                        var session = this.WindowRepository.SelectedWindow.Session;
                         var unitId = this.CurrentUnit;
                         var identity = this.IdentityRepository.CurrentBiometricIdentity;
                         var fingerPosition = this.CurrentFingerPosition;
-               
-                        this.BiometricService.DeleteTemplate(unitId.UnitId,
+
+                        this.BiometricService.DeleteTemplate(session,
+                                                             unitId.UnitId,
                                                              identity,
                                                              fingerPosition);
                
@@ -72,7 +74,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.IdentityRepository?.CurrentBiometricIdentity != null));
+                }, () => this.IdentityRepository?.CurrentBiometricIdentity != null && this.WindowRepository?.SelectedWindow != null));
             }
         }
 

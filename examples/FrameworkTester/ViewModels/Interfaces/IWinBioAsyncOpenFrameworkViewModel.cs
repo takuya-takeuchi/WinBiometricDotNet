@@ -3,7 +3,7 @@
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IWinBioAsyncOpenFrameworkViewModel : IWinBioWithCallbackViewModel, IWinBioAsyncFrameworkViewModel, IWinBioViewModel
+    public interface IWinBioAsyncOpenFrameworkViewModel : IWinBioAsyncFrameworkViewModel, IWinBioViewModel
     {
 
         WINBIO_FRAMEWORK_HANDLE FrameworkHandle

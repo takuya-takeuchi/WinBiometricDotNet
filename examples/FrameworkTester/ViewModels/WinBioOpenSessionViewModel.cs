@@ -8,7 +8,7 @@ using WINBIO_SESSION_HANDLE = System.UInt32;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioOpenSessionViewModel : WinBioViewModel, IWinBioOpenSessionViewModel
+    public sealed class WinBioOpenSessionViewModel : WinBioSessionViewModel, IWinBioOpenSessionViewModel
     {
 
         #region Properties
@@ -29,6 +29,8 @@ namespace FrameworkTester.ViewModels
                         var session = this.BiometricService.OpenSession();
 
                         this.Result = "OK";
+
+                        this.WindowRepository.Add(new SessionViewModel(session));
 
                         this.SessionHandle = session.Handle;
                     }

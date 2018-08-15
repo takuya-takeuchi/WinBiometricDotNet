@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:FrameworkTester.ViewModels"
+    xmlns:selectors="clr-namespace:FrameworkTester.Selectors"
     d1p1:Ignorable="d"
     StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
@@ -52,6 +53,47 @@
                 <Setter Property="HorizontalAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Center" />
             </Style>
+            
+            <!-- DataTemplate -->
+            <DataTemplate x:Key="OpenSessionDataTemplate" DataType="viewModels:SessionViewModel">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="[OpenSession]" />
+                    <TextBlock Grid.Column="2" Text="{Binding Session.Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="AsyncOpenSessionMessageDataTemplate" DataType="viewModels:SessionViewModel">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="[AsyncOpenSession (Message)]" />
+                    <TextBlock Grid.Column="2" Text="{Binding Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
+                    <TextBlock Grid.Column="4" Text="{Binding MessageCode, StringFormat={}(0x{0:X8})}" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="AsyncOpenSessionCallbackDataTemplate" DataType="viewModels:SessionViewModel">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="[AsyncOpenSession (Callback)]" />
+                    <TextBlock Grid.Column="2" Text="{Binding Session.Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
+                </Grid>
+            </DataTemplate>
+            <selectors:OpenSessionTemplateSlector x:Key="OpenSessionTemplateSlector" Normal="{StaticResource OpenSessionDataTemplate}" 
+                                                                                     AsyncMessage="{StaticResource AsyncOpenSessionMessageDataTemplate}"
+                                                                                     AsyncCallback="{StaticResource AsyncOpenSessionCallbackDataTemplate}" />
 
         </ResourceDictionary>
     </Application.Resources>

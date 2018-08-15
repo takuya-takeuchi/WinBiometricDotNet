@@ -5,7 +5,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioIdentifyViewModel : WinBioViewModel, IWinBioIdentifyViewModel
+    public sealed class WinBioIdentifyViewModel : WinBioViewModel, IWinBioIdentifyViewModel, IWinBioAsyncSessionViewModel
     {
 
         public IBiometricIdentityRepositoryViewModel IdentityRepository
@@ -39,6 +39,11 @@ namespace FrameworkTester.DesignTimes
         }
 
         public IdentityTypes Type
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

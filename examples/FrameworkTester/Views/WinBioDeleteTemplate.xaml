@@ -31,6 +31,7 @@
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -71,6 +72,18 @@
                 HorizontalAlignment="Stretch"
                 ItemsSource="{Binding FingerPositions}"
                 SelectedItem="{Binding CurrentFingerPosition}" />
+            <TextBlock
+                Grid.Row="4"
+                Grid.Column="0"
+                Style="{StaticResource LabelTextBlock}"
+                Text="ChildWindows: " />
+            <ComboBox
+                Grid.Row="4"
+                Grid.Column="2"
+                HorizontalAlignment="Stretch"
+                ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
+                ItemsSource="{Binding WindowRepository.Windows}"
+                SelectedItem="{Binding WindowRepository.SelectedWindow}" />
         </Grid>
         <Button
             Grid.Row="2"

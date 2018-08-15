@@ -10,7 +10,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioGetPropertyViewModel : WinBioViewModel, IWinBioGetPropertyViewModel
+    public sealed class WinBioGetPropertyViewModel : WinBioSessionViewModel, IWinBioGetPropertyViewModel
     {
 
         #region Constructors
@@ -87,13 +87,15 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
+                        var session = this.WindowRepository.SelectedWindow.Session;
                         var propertyType = this.CurrentPropertyType;
                         var propertyId = this.CurrentPropertyId;
                         var unitId = this.CurrentUnit;
                         var identity = this.IdentityRepository.CurrentBiometricIdentity;
                         var fingerPosition = this.CurrentFingerPosition;
 
-                        this.BiometricService.GetProperty(propertyType,
+                        this.BiometricService.GetProperty(session,
+                                                          propertyType,
                                                           propertyId,
                                                           unitId.UnitId,
                                                           identity,
@@ -109,7 +111,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 

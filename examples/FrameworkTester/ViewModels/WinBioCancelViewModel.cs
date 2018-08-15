@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Command;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioCancelViewModel : WinBioViewModel, IWinBioCancelViewModel
+    public sealed class WinBioCancelViewModel : WinBioSessionViewModel, IWinBioCancelViewModel
     {
 
         #region Properties
@@ -24,7 +24,9 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        this.BiometricService.Cancel();
+                        var session = this.WindowRepository.SelectedWindow.Session;
+                        this.BiometricService.Cancel(session);
+
                         this.Result = "OK";
                     }
                     catch (Exception e)
@@ -32,7 +34,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }));
+                }, () => this.WindowRepository?.SelectedWindow != null));
             }
         }
 

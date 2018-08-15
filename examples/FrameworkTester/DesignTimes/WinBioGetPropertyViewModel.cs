@@ -5,7 +5,7 @@ using WinBiometricDotNet;
 namespace FrameworkTester.DesignTimes
 {
 
-    public sealed class WinBioGetPropertyViewModel : WinBioViewModel, IWinBioGetPropertyViewModel
+    public sealed class WinBioGetPropertyViewModel : WinBioViewModel, IWinBioGetPropertyViewModel, IWinBioAsyncSessionViewModel
     {
 
         public FingerPosition CurrentFingerPosition
@@ -47,6 +47,11 @@ namespace FrameworkTester.DesignTimes
         }
 
         public IEnumerable<PropertyId> PropertyIds
+        {
+            get;
+        }
+
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

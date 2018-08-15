@@ -80,22 +80,9 @@
                 </Grid.ColumnDefinitions>
                 <ComboBox
                     HorizontalAlignment="Stretch"
+                    ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
                     ItemsSource="{Binding WindowRepository.Windows}"
-                    SelectedItem="{Binding WindowRepository.SelectedWindow}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="5" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
-                                <TextBlock Grid.Column="2" Text="{Binding MessageCode, StringFormat={}(0x{0:X8})}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                    SelectedItem="{Binding WindowRepository.SelectedWindow}" />
             </Grid>
             <TextBlock
                 Grid.Row="6"
