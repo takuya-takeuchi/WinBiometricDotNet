@@ -950,6 +950,30 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        public static void RemoveAllCredentials()
+        {
+            var hr = SafeNativeMethods.WinBioRemoveAllCredentials();
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void RemoveAllDomainCredentials()
+        {
+            var hr = SafeNativeMethods.WinBioRemoveAllDomainCredentials();
+
+            ThrowWinBiometricException(hr);
+        }
+
+        public static void RemoveCredential(BiometricIdentity identity, CredentialTypes credentialType)
+        {
+            if (identity == null)
+                throw new ArgumentNullException(nameof(identity));
+
+            var hr = SafeNativeMethods.WinBioRemoveCredential(identity.Source, (SafeNativeMethods.WINBIO_CREDENTIAL_TYPE)credentialType);
+
+            ThrowWinBiometricException(hr);
+        }
+
         public static void RemoveDatabase(BiometricUnit unit, Guid databaseId)
         {
             if (unit == null)

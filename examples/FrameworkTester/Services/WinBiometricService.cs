@@ -345,6 +345,21 @@ namespace FrameworkTester.Services
             WinBiometric.ReleaseFocus();
         }
 
+        public void RemoveAllCredentials()
+        {
+            WinBiometric.RemoveAllCredentials();
+        }
+
+        public void RemoveAllDomainCredentials()
+        {
+            WinBiometric.RemoveAllDomainCredentials();
+        }
+
+        public void RemoveCredential(BiometricIdentity identity, CredentialTypes credentialType)
+        {
+            WinBiometric.RemoveCredential(identity, credentialType);
+        }
+
         public void RemoveDatabase(BiometricUnit unit, Guid databaseId)
         {
             if (unit == null)

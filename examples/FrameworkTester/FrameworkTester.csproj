@@ -131,9 +131,18 @@
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncMonitorFrameworkChangesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumServiceProvidersViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
+    <Compile Include="ViewModels\WinBioRemoveCredentialViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioControlUnitPrivilegedViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioControlUnitViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioMonitorPresenceViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioRemoveAllCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioRemoveAllDomainCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioRemoveCredentialViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioRemoveCredentialViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioRemoveAllDomainCredentialsViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioRemoveAllCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\WinBioRemoveAllCredentialsViewModel.cs" />
+    <Compile Include="ViewModels\WinBioRemoveAllDomainCredentialsViewModel.cs" />
     <Compile Include="ViewModels\SessionViewModel.cs" />
     <Compile Include="ViewModels\SessionWindowRepositoryViewModel.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
@@ -274,6 +283,15 @@
     </Compile>
     <Compile Include="Views\WinBioControlUnitPrivileged.xaml.cs">
       <DependentUpon>WinBioControlUnitPrivileged.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioRemoveAllCredentials.xaml.cs">
+      <DependentUpon>WinBioRemoveAllCredentials.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioRemoveAllDomainCredentials.xaml.cs">
+      <DependentUpon>WinBioRemoveAllDomainCredentials.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioRemoveCredential.xaml.cs">
+      <DependentUpon>WinBioRemoveCredential.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioMonitorPresence.xaml.cs">
       <DependentUpon>WinBioMonitorPresence.xaml</DependentUpon>
@@ -425,6 +443,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioControlUnitPrivileged.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioRemoveAllCredentials.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioRemoveAllDomainCredentials.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioRemoveCredential.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -129,6 +129,12 @@ namespace FrameworkTester.Services.Interfaces
 
         void ReleaseFocus();
 
+        void RemoveAllCredentials();
+
+        void RemoveAllDomainCredentials();
+
+        void RemoveCredential(BiometricIdentity identity, CredentialTypes credentialType);
+
         void RemoveDatabase(BiometricUnit unit, Guid databaseId);
 
         void SelectEnroll(Session session, ulong selectorValue);
