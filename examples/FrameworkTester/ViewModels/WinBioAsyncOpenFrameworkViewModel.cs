@@ -8,6 +8,8 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
+using WINBIO_FRAMEWORK_HANDLE = System.UInt32;
+
 namespace FrameworkTester.ViewModels
 {
 
@@ -70,7 +72,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this.FrameworkHandle = UIntPtr.Zero;
+                        this.FrameworkHandle = 0;
                         this.UpdateUIImmediately();
 
                         switch (this.SelectedMethod)
@@ -174,9 +176,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private UIntPtr _FrameworkHandle;
+        private WINBIO_FRAMEWORK_HANDLE _FrameworkHandle;
 
-        public UIntPtr FrameworkHandle
+        public WINBIO_FRAMEWORK_HANDLE FrameworkHandle
         {
             get => this._FrameworkHandle;
             private set

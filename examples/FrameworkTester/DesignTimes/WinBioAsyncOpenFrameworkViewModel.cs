@@ -4,6 +4,8 @@ using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using WinBiometricDotNet;
 
+using WINBIO_FRAMEWORK_HANDLE = System.UInt32;
+
 namespace FrameworkTester.DesignTimes
 {
 
@@ -65,7 +67,7 @@ namespace FrameworkTester.DesignTimes
             set;
         }
 
-        public UIntPtr FrameworkHandle
+        public WINBIO_FRAMEWORK_HANDLE FrameworkHandle
         {
             get;
         }

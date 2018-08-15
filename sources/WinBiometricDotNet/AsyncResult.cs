@@ -2,6 +2,7 @@
 using WinBiometricDotNet.Interop;
 
 using HRESULT = System.Int32;
+using WINBIO_SESSION_HANDLE = System.UInt32;
 
 namespace WinBiometricDotNet
 {
@@ -20,12 +21,34 @@ namespace WinBiometricDotNet
             switch (this.OperationType)
             {
                 case OperationTypes.Open:
+                case OperationTypes.Close:
+                case OperationTypes.Verify:
+                case OperationTypes.Identify:
+                case OperationTypes.LocateSensor:
+                case OperationTypes.EnrollBegin:
+                case OperationTypes.EnrollCapture:
+                case OperationTypes.EnrollCommit:
+                case OperationTypes.EnrollDiscard:
+                case OperationTypes.EnumEnrollments:
+                case OperationTypes.DeleteTemplate:
+                case OperationTypes.CaptureSample:
+                case OperationTypes.GetProperty:
+                case OperationTypes.SetProperty:
+                case OperationTypes.GetEvent:
+                case OperationTypes.LockUnit:
+                case OperationTypes.UnlockUnit:
+                case OperationTypes.ControlUnit:
+                case OperationTypes.ControlUnitPrivileged:
                     this.Session = new Session(result->SessionHandle);
-                    this.Framework = new Framework(result->SessionHandle);
                     break;
                 case OperationTypes.OpenFramework:
-                    // Even though call AsyncOpenFramework, WINBIO_OPERATION_OPEN_FRAMEWORK is not set to WINBIO_ASYNC_RESULT::Operation.
-                    // Why?
+                case OperationTypes.CloseFramework:
+                case OperationTypes.EnumServiceProviders:
+                case OperationTypes.EnumBiometricUnits:
+                case OperationTypes.EnumDatabases:
+                case OperationTypes.UnitArrival:
+                case OperationTypes.UnitRemoval:
+                    this.Framework = new Framework(result->SessionHandle);
                     break;
             }
 
@@ -58,7 +81,7 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public UIntPtr SessionHandle
+        public WINBIO_SESSION_HANDLE SessionHandle
         {
             get;
         }

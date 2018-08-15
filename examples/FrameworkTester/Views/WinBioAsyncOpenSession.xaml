@@ -90,7 +90,7 @@
                                     <ColumnDefinition Width="5" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Handle, Converter={StaticResource PtrToHexStringConveter}}" />
+                                <TextBlock Text="{Binding Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
                                 <TextBlock Grid.Column="2" Text="{Binding MessageCode, StringFormat={}(0x{0:X8})}" />
                             </Grid>
                         </DataTemplate>
@@ -144,7 +144,7 @@
             Grid.Row="4"
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
-            Text="{Binding SessionHandle, Converter={StaticResource PtrToHexStringConveter}}" />
+            Text="{Binding SessionHandle, Converter={StaticResource IntegerToHexStringConveter}}" />
         <TextBlock
             Grid.Row="6"
             Grid.Column="0"

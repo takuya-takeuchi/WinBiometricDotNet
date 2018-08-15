@@ -13,7 +13,7 @@
             <viewModels:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
             <!--  Conveters  -->
-            <converters:PtrToHexStringConveter x:Key="PtrToHexStringConveter" />
+            <converters:IntegerToHexStringConveter x:Key="IntegerToHexStringConveter" />
             <converters:BooleanToVisibilityConverter x:Key="HiddenIfFalse"
                                                      IsHidden="True"
                                                      TriggerValue="False" />

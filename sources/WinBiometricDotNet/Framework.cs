@@ -1,4 +1,4 @@
-﻿using System;
+﻿using WINBIO_FRAMEWORK_HANDLE = System.UInt32;
 
 namespace WinBiometricDotNet
 {
@@ -8,7 +8,7 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal Framework(UIntPtr handle)
+        internal Framework(WINBIO_FRAMEWORK_HANDLE handle)
         {
             this.Handle = handle;
         }
@@ -17,7 +17,7 @@ namespace WinBiometricDotNet
 
         #region Properties
 
-        public UIntPtr Handle
+        public WINBIO_FRAMEWORK_HANDLE Handle
         {
             get;
         }

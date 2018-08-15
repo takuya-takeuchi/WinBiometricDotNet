@@ -8,6 +8,8 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
+using WINBIO_SESSION_HANDLE = System.UInt32;
+
 namespace FrameworkTester.ViewModels
 {
 
@@ -70,7 +72,7 @@ namespace FrameworkTester.ViewModels
                     try
                     {
                         this.Result = "WAIT";
-                        this.SessionHandle = UIntPtr.Zero;
+                        this.SessionHandle = 0;
                         this.UpdateUIImmediately();
 
                         switch (this.SelectedMethod)
@@ -174,9 +176,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private UIntPtr _SessionHandle;
+        private WINBIO_SESSION_HANDLE _SessionHandle;
 
-        public UIntPtr SessionHandle
+        public WINBIO_SESSION_HANDLE SessionHandle
         {
             get => this._SessionHandle;
             private set

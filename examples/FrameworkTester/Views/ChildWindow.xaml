@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:selectors="clr-namespace:FrameworkTester.Selectors"
     x:Name="_Window"
-    Title="{Binding Handle, Converter={StaticResource PtrToHexStringConveter}}"
+    Title="{Binding Handle, Converter={StaticResource IntegerToHexStringConveter}}"
     Width="600"
     Height="450"
     d:DataContext="{d:DesignInstance {x:Type designTimes:ChildWindowViewModel}}"
@@ -90,7 +90,7 @@
                     Grid.Row="8"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding Framework.Handle, Converter={StaticResource PtrToHexStringConveter}}" />
+                    Text="{Binding Framework.Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
                 <TextBlock
                     Grid.Row="10"
                     Grid.Column="0"
@@ -110,7 +110,7 @@
                     Grid.Row="12"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding UserData, Converter={StaticResource PtrToHexStringConveter}}" />
+                    Text="{Binding UserData, Converter={StaticResource IntegerToHexStringConveter}}" />
                 <TextBlock
                     Grid.Row="14"
                     Grid.Column="0"
@@ -197,7 +197,7 @@
                     Grid.Row="8"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding Session.Handle, Converter={StaticResource PtrToHexStringConveter}}" />
+                    Text="{Binding Session.Handle, Converter={StaticResource IntegerToHexStringConveter}}" />
                 <TextBlock
                     Grid.Row="10"
                     Grid.Column="0"
@@ -217,7 +217,7 @@
                     Grid.Row="12"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding UserData, Converter={StaticResource PtrToHexStringConveter}}" />
+                    Text="{Binding UserData, Converter={StaticResource IntegerToHexStringConveter}}" />
                 <TextBlock
                     Grid.Row="14"
                     Grid.Column="0"

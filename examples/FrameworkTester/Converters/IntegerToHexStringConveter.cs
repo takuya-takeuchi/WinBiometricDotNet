@@ -4,7 +4,7 @@ using System.Windows.Data;
 namespace FrameworkTester.Converters
 {
 
-    public sealed class PtrToHexStringConveter : IValueConverter
+    public sealed class IntegerToHexStringConveter : IValueConverter
     {
 
         #region Methods
@@ -17,6 +17,10 @@ namespace FrameworkTester.Converters
                 return $"0x{ptr.ToString("X16")}";
             if (value is UIntPtr uptr)
                 return $"0x{((ulong)uptr).ToString("X16")}";
+            if (value is uint ui)
+                return $"0x{ui.ToString("X16")}";
+            if (value is int i)
+                return $"0x{i.ToString("X16")}";
 
             throw new ArgumentException();
         }
