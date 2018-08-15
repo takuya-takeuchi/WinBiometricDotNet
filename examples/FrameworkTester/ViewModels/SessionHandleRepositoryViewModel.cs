@@ -11,14 +11,14 @@ namespace FrameworkTester.ViewModels
 
         #region Properties
 
-        private ISessionHandleViewModel _SelectedWindow;
+        private ISessionHandleViewModel _SelectedHandle;
 
         public ISessionHandleViewModel SelectedHandle
         {
-            get => this._SelectedWindow;
+            get => this._SelectedHandle;
             set
             {
-                this._SelectedWindow = value;
+                this._SelectedHandle = value;
                 this.RaisePropertyChanged();
             }
         }
