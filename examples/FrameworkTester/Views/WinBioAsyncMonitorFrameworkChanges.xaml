@@ -54,7 +54,7 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Style="{StaticResource LabelTextBlock}"
-                Text="ChildWindows: " />
+                Text="Target Framework: " />
             <Grid
                 Grid.Row="2"
                 Grid.Column="2"

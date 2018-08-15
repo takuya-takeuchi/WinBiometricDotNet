@@ -76,7 +76,7 @@
                 Grid.Row="4"
                 Grid.Column="0"
                 Style="{StaticResource LabelTextBlock}"
-                Text="ChildWindows: " />
+                Text="Target Session: " />
             <ComboBox
                 Grid.Row="4"
                 Grid.Column="2"

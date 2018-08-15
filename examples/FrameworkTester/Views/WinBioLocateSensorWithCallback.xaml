@@ -40,7 +40,7 @@
                 Grid.Row="0"
                 Grid.Column="0"
                 Style="{StaticResource LabelTextBlock}"
-                Text="ChildWindows: " />
+                Text="Target Session: " />
             <Grid
                 Grid.Row="0"
                 Grid.Column="2"

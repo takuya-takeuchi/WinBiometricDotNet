@@ -69,7 +69,7 @@
                 Grid.Column="0"
                 IsEnabled="{Binding EnableChildWindows}"
                 Style="{StaticResource LabelTextBlock}"
-                Text="ChildWindows: " />
+                Text="Target Framework: " />
             <Grid
                 Grid.Row="4"
                 Grid.Column="2"
