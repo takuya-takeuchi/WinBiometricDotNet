@@ -4,7 +4,7 @@ Windows Biometric Framework .NET wrapper
 
 [![NuGet version](https://badge.fury.io/nu/WinBiometricDotNet.svg)](https://badge.fury.io/nu/WinBiometricDotNet)
 [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-90.3%25%20(47/52)-green.svg)]()
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-96.1%25%20(50/52)-green.svg)]()
 
 ## Support API
 
@@ -52,9 +52,9 @@ Windows Biometric Framework .NET wrapper
 |WinBioOpenSession|✓|✓|✓|✓||
 |WinBioRegisterEventMonitor|✓|✓|✓|✓||
 |WinBioReleaseFocus|✓|✓|✓|✓||
-|WinBioRemoveAllCredentials||✓|✓|✓||
-|WinBioRemoveAllDomainCredentials||✓|✓|✓||
-|WinBioRemoveCredential||✓|✓|✓||
+|WinBioRemoveAllCredentials|✓|✓|✓|✓||
+|WinBioRemoveAllDomainCredentials|✓|✓|✓|✓||
+|WinBioRemoveCredential|✓|✓|✓|✓||
 |WinBioSetCredential||✓|✓|✓||
 |WinBioSetProperty||||✓||
 |WinBioUnlockUnit|✓|✓|✓|✓||
