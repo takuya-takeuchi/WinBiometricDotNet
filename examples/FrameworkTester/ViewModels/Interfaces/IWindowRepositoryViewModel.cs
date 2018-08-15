@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels.Interfaces
 {

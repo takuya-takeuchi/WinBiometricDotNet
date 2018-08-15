@@ -1,18 +1,22 @@
 ﻿using System;
+using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
+using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class SessionViewModel : ISessionHandleViewModel
+    public sealed class AsyncMessagedSessionViewModel : ISessionHandleViewModel
     {
 
         #region Constructors
 
-        public SessionViewModel(Session session)
+        public AsyncMessagedSessionViewModel(Session session, uint messageCode, IntPtr handle)
         {
             this.Session = session;
+            this.MessageCode = messageCode;
+            this.Handle = handle;
         }
 
         #endregion

@@ -5,12 +5,12 @@ using WinBiometricDotNet;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class SessionViewModel : ISessionHandleViewModel
+    public sealed class AsyncCallbackedSessionViewModel : ISessionHandleViewModel
     {
 
         #region Constructors
 
-        public SessionViewModel(Session session)
+        public AsyncCallbackedSessionViewModel(Session session)
         {
             this.Session = session;
         }
@@ -37,7 +37,7 @@ namespace FrameworkTester.ViewModels
         #endregion
 
         #region Methods
-
+        
         public void Attach(Session session)
         {
         }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
+using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
+using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 using WinBiometricDotNet.Runtime.InteropServices;
 
@@ -31,6 +33,24 @@ namespace FrameworkTester.ViewModels
                 this._Framework = value;
                 this.RaisePropertyChanged();
             }
+        }
+
+        public void Attach(Framework framework)
+        {
+            if (framework == null)
+                throw new ArgumentNullException(nameof(framework));
+
+            try
+            {
+                if (this._Framework != null)
+                    SimpleIoc.Default.GetInstance<IWinBiometricService>().CloseFramework(this._Framework);
+            }
+            catch
+            {
+
+            }
+
+            this.Framework = framework;
         }
 
         #endregion

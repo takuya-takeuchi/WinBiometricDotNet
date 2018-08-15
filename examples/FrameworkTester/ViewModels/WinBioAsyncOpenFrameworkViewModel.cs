@@ -90,7 +90,12 @@ namespace FrameworkTester.ViewModels
                                 if (this.Async)
                                     this.BiometricService.AsyncOpenFramework(handle, code);
                                 else
-                                    this.FrameworkHandle = this.BiometricService.OpenFramework(handle, code).Handle;
+                                {
+                                    var result = this.BiometricService.OpenFramework(handle, code);
+                                    this.FrameworkHandle = result.Handle;
+
+                                    childWindow.Attach(result);
+                                }
                                 break;
                         }
 

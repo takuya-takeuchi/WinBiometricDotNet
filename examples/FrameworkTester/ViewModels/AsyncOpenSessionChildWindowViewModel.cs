@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows;
+using FrameworkTester.Services.Interfaces;
 using FrameworkTester.ViewModels.Interfaces;
+using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 using WinBiometricDotNet.Runtime.InteropServices;
 
@@ -31,6 +33,24 @@ namespace FrameworkTester.ViewModels
                 this._Session = value;
                 this.RaisePropertyChanged();
             }
+        }
+
+        public void Attach(Session session)
+        {
+            if (session == null)
+                throw new ArgumentNullException(nameof(session));
+
+            try
+            {
+                if (this.Session != null)
+                    SimpleIoc.Default.GetInstance<IWinBiometricService>().CloseSession(this.Session);
+            }
+            catch
+            {
+
+            }
+
+            this.Session = session;
         }
 
         #endregion

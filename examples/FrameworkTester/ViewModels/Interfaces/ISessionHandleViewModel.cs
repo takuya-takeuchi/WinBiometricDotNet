@@ -10,6 +10,8 @@ namespace FrameworkTester.ViewModels.Interfaces
         {
             get;
         }
+        
+        void Attach(Session session);
 
     }
 

@@ -91,7 +91,12 @@ namespace FrameworkTester.ViewModels
                                 if (this.Async)
                                     this.BiometricService.AsyncOpenSession(handle, code);
                                 else
-                                    this.SessionHandle = this.BiometricService.OpenSession(handle, code).Handle;
+                                {
+                                    var result = this.BiometricService.OpenSession(handle, code);
+                                    this.SessionHandle = result.Handle;
+
+                                    childWindow.Attach(result);
+                                }
                                 break;
                         }
 

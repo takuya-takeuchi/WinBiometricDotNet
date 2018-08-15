@@ -120,6 +120,8 @@
     <Compile Include="Services\Interfaces\IFrameNavigationService.cs" />
     <Compile Include="Services\Interfaces\IWinBiometricService.cs" />
     <Compile Include="Services\WinBiometricService.cs" />
+    <Compile Include="ViewModels\AsyncCallbackedSessionViewModel.cs" />
+    <Compile Include="ViewModels\AsyncMessagedSessionViewModel.cs" />
     <Compile Include="ViewModels\AsyncOpenSessionChildWindowViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumDatabasesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumBiometricUnitsViewModel.cs" />
