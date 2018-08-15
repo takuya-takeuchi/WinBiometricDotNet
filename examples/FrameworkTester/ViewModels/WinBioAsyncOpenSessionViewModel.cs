@@ -30,7 +30,7 @@ namespace FrameworkTester.ViewModels
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
 
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionWindowViewModel>>();
+            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<ISessionHandleViewModel>>();
             this.WindowRepository.PropertyChanged += (sender, args) =>
             {
                 this.ExecuteCommand.RaiseCanExecuteChanged();
@@ -202,7 +202,7 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public IWindowRepositoryViewModel<ISessionWindowViewModel> WindowRepository
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

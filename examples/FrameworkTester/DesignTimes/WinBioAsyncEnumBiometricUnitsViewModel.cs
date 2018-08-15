@@ -9,7 +9,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioAsyncEnumBiometricUnitsViewModel : WinBioViewModel, IWinBioAsyncEnumBiometricUnitsViewModel
     {
 
-        public IWindowRepositoryViewModel<IFrameworkWindowViewModel> WindowRepository
+        public IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
         {
             get;
         }

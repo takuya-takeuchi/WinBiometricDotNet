@@ -7,7 +7,7 @@ using WinBiometricDotNet.Runtime.InteropServices;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class AsyncOpenFrameworkChildWindowViewModel : ChildWindowViewModel<IFrameworkWindowViewModel>, IAsyncOpenFrameworkChildWindowViewModel, IFrameworkWindowViewModel
+    public sealed class AsyncOpenFrameworkChildWindowViewModel : ChildWindowViewModel<IFrameworkHandleViewModel>, IAsyncOpenFrameworkChildWindowViewModel, IFrameworkHandleViewModel
     {
 
         #region Constructors

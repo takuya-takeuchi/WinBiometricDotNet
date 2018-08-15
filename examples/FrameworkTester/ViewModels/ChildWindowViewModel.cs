@@ -14,7 +14,7 @@ namespace FrameworkTester.ViewModels
 {
 
     public abstract class ChildWindowViewModel<T> : ViewModelBase, IChildWindowViewModel
-        where T: class, IChildWindowViewModel
+        where T: class, IHandleViewModel
     {
 
         #region Fields

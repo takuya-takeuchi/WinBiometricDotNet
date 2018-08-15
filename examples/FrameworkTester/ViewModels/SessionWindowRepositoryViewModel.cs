@@ -7,14 +7,14 @@ using GalaSoft.MvvmLight;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class SessionWindowRepositoryViewModel : ViewModelBase, IWindowRepositoryViewModel<ISessionWindowViewModel>
+    public sealed class SessionWindowRepositoryViewModel : ViewModelBase, IWindowRepositoryViewModel<ISessionHandleViewModel>
     {
 
         #region Properties
 
-        private ISessionWindowViewModel _SelectedWindow;
+        private ISessionHandleViewModel _SelectedWindow;
 
-        public ISessionWindowViewModel SelectedWindow
+        public ISessionHandleViewModel SelectedWindow
         {
             get => this._SelectedWindow;
             set
@@ -24,16 +24,16 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public ObservableCollection<ISessionWindowViewModel> Windows
+        public ObservableCollection<ISessionHandleViewModel> Windows
         {
             get;
-        } = new ObservableCollection<ISessionWindowViewModel>();
+        } = new ObservableCollection<ISessionHandleViewModel>();
 
         #endregion
 
         #region Methods
 
-        public void Add(ISessionWindowViewModel childWindow)
+        public void Add(ISessionHandleViewModel childWindow)
         {
             if (childWindow?.Handle == IntPtr.Zero)
                 return;

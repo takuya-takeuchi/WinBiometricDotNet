@@ -19,7 +19,7 @@ namespace FrameworkTester.ViewModels
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
 
-            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<IFrameworkWindowViewModel>>();
+            this.WindowRepository = SimpleIoc.Default.GetInstance<IWindowRepositoryViewModel<IFrameworkHandleViewModel>>();
             this.WindowRepository.PropertyChanged += (sender, args) =>
             {
                 this.ExecuteCommand.RaiseCanExecuteChanged();
@@ -72,7 +72,7 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioAsyncEnumServiceProviders";
 
-        public IWindowRepositoryViewModel<IFrameworkWindowViewModel> WindowRepository
+        public IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
         {
             get;
         }

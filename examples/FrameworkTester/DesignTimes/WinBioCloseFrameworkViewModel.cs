@@ -6,7 +6,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioCloseFrameworkViewModel : WinBioViewModel, IWinBioCloseFrameworkViewModel
     {
 
-        public IWindowRepositoryViewModel<IFrameworkWindowViewModel> WindowRepository
+        public IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
         {
             get;
         }

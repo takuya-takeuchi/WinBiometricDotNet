@@ -5,7 +5,7 @@ namespace FrameworkTester.ViewModels.Interfaces
 {
 
     public interface IWindowRepositoryViewModel<T> : INotifyPropertyChanged
-        where T : IChildWindowViewModel
+        where T : IHandleViewModel
     {
 
         void Add(T window);

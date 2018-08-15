@@ -3,10 +3,15 @@
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IWinBioAsyncFrameworkViewModel
+    public interface IHandleViewModel
     {
 
-        IWindowRepositoryViewModel<IFrameworkHandleViewModel> WindowRepository
+        IntPtr Handle
+        {
+            get;
+        }
+
+        uint MessageCode
         {
             get;
         }

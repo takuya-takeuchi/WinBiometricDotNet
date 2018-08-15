@@ -42,7 +42,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public IWindowRepositoryViewModel<ISessionWindowViewModel> WindowRepository
+        public IWindowRepositoryViewModel<ISessionHandleViewModel> WindowRepository
         {
             get;
         }

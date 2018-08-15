@@ -3,7 +3,7 @@
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface IFrameworkWindowViewModel : IChildWindowViewModel
+    public interface IFrameworkHandleViewModel : IHandleViewModel
     {
 
         Framework Framework

@@ -124,6 +124,7 @@
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumBiometricUnitsViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncMonitorFrameworkChangesViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncEnumServiceProvidersViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
     <Compile Include="ViewModels\SessionWindowRepositoryViewModel.cs" />
     <Compile Include="ViewModels\BiometricIdentityRepositoryViewModel.cs" />
     <Compile Include="Selectors\ChildWindowTemplateSlector.cs" />
@@ -134,8 +135,8 @@
     <Compile Include="ViewModels\Interfaces\IAsyncOpenFrameworkChildWindowViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWindowRepositoryViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IChildWindowViewModel.cs" />
-    <Compile Include="ViewModels\Interfaces\IFrameworkWindowViewModel.cs" />
-    <Compile Include="ViewModels\Interfaces\ISessionWindowViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IFrameworkHandleViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ISessionHandleViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncChildWindowViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioAsyncSessionViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioCloseFrameworkViewModel.cs" />

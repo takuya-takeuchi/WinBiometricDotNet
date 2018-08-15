@@ -3,7 +3,7 @@
 namespace FrameworkTester.ViewModels.Interfaces
 {
 
-    public interface ISessionWindowViewModel : IChildWindowViewModel
+    public interface ISessionHandleViewModel : IHandleViewModel
     {
 
         Session Session
