@@ -17,28 +17,15 @@ using ULONGLONG = System.UInt64;
 using WINBIO_BIOMETRIC_SENSOR_SUBTYPE = System.UInt32;
 using WINBIO_BIOMETRIC_SUBTYPE = System.Byte;
 using WINBIO_BIOMETRIC_TYPE = System.UInt32;
-using WINBIO_BIR_DATA_FLAGS = System.Byte;
-using WINBIO_BIR_PURPOSE = System.Byte;
-using WINBIO_BIR_QUALITY = System.SByte;
-using WINBIO_BIR_VERSION = System.Byte;
 using WINBIO_CAPABILITIES = System.UInt32;
 using WINBIO_COMPONENT = System.UInt32;
 using WINBIO_EVENT_TYPE = System.UInt32;
 using WINBIO_FRAMEWORK_CHANGE_TYPE = System.UInt32;
-using WINBIO_FRAMEWORK_HANDLE = System.IntPtr;
-using WINBIO_IDENTITY_TYPE = System.UInt32;
-using WINBIO_INDICATOR_STATUS = System.UInt32;
-using WINBIO_OPERATION_TYPE = System.UInt32;
 using WINBIO_POOL_TYPE = System.UInt32;
 using WINBIO_PROPERTY_ID = System.UInt32;
 using WINBIO_PROPERTY_TYPE = System.UInt32;
 using WINBIO_REJECT_DETAIL = System.UInt32;
-using WINBIO_SENSOR_MODE = System.UInt32;
-using WINBIO_SESSION_FLAGS = System.UInt32;
-using WINBIO_SESSION_HANDLE = System.IntPtr;
-using WINBIO_SETTING_SOURCE_TYPE = System.UInt32;
 using WINBIO_UNIT_ID = System.UInt32;
-using WINBIO_UUID = System.Guid;
 
 namespace WinBiometricDotNet
 {
@@ -1135,6 +1122,27 @@ namespace WinBiometricDotNet
                                                              propertyBufferSize);
 
                 ThrowWinBiometricException(hr);
+            }
+        }
+
+        public static void SetCredential(CredentialTypes credentialType,
+                                         byte[] credential,
+                                         CredentialFormat format)
+        {
+            if (credential == null)
+                throw new ArgumentNullException(nameof(credential));
+
+            unsafe
+            {
+                fixed (byte* pCredential = &credential[0])
+                {
+                    var hr = SafeNativeMethods.WinBioSetCredential((SafeNativeMethods.WINBIO_CREDENTIAL_TYPE)credentialType,
+                                                                   (IntPtr)pCredential,
+                                                                   (SIZE_T)credential.Length,
+                                                                   (SafeNativeMethods.WINBIO_CREDENTIAL_FORMAT)format);
+
+                    ThrowWinBiometricException(hr);
+                }
             }
         }
 

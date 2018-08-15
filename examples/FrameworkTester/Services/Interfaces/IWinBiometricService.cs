@@ -152,6 +152,10 @@ namespace FrameworkTester.Services.Interfaces
                                         BiometricIdentity identity,
                                         AntiSpoofPolicy antiSpoofPolicy);
 
+        void SetCredential(CredentialTypes credentialType,
+                           byte[] credential,
+                           CredentialFormat format);
+
         void UnlockUnit(Session session, uint unitId);
 
         void UnregisterEventMonitor(Session session);

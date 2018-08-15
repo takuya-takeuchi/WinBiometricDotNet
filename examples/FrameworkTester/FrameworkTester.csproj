@@ -88,6 +88,7 @@
     <Compile Include="DesignTimes\WinBioCloseFrameworkViewModel.cs" />
     <Compile Include="DesignTimes\WinBioAsyncOpenSessionViewModel.cs" />
     <Compile Include="DesignTimes\WinBioControlUnitPrivilegedViewModel.cs" />
+    <Compile Include="DesignTimes\WinBioSetCredentialViewModel.cs" />
     <Compile Include="DesignTimes\WinBioEnrollBeginViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnabledSettingViewModel.cs" />
     <Compile Include="DesignTimes\WinBioGetEnrolledFactorsViewModel.cs" />
@@ -118,6 +119,7 @@
     <Compile Include="DesignTimes\WinBioViewModel.cs" />
     <Compile Include="Helpers\BitmapSourceHelper.cs" />
     <Compile Include="ViewModels\CustomPropertyViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IWinBioSetCredentialViewModel.cs" />
     <Compile Include="ViewModels\SampleHintPropertyViewModel.cs" />
     <Compile Include="ViewModels\AntiSpoofPolicyPropertyViewModel.cs" />
     <Compile Include="Selectors\PropertyTemplateSlector.cs" />
@@ -139,6 +141,7 @@
     <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioSetPropertyViewModel.cs" />
     <Compile Include="DesignTimes\WinBioSetPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WinBioSetCredentialViewModel.cs" />
     <Compile Include="ViewModels\WinBioSetPropertyViewModel.cs" />
     <Compile Include="ViewModels\WinBioRemoveCredentialViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioControlUnitPrivilegedViewModel.cs" />
@@ -292,6 +295,9 @@
     </Compile>
     <Compile Include="Views\WinBioControlUnitPrivileged.xaml.cs">
       <DependentUpon>WinBioControlUnitPrivileged.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WinBioSetCredential.xaml.cs">
+      <DependentUpon>WinBioSetCredential.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WinBioSetProperty.xaml.cs">
       <DependentUpon>WinBioSetProperty.xaml</DependentUpon>
@@ -455,6 +461,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WinBioControlUnitPrivileged.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WinBioSetCredential.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,17 +1,3 @@
-/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:FrameworkTester"
-                           x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-
-  You can also use Blend to do all this with the tool's support.
-  See http://www.galasoft.ch/mvvm
-*/
-
 using System;
 using System.Linq;
 using System.Reflection;
@@ -25,29 +11,20 @@ using GalaSoft.MvvmLight.Ioc;
 
 namespace FrameworkTester.ViewModels
 {
+
     /// <summary>
     /// This class contains static references to all the view models in the
     /// application and provides an entry point for the bindings.
     /// </summary>
     public class ViewModelLocator
     {
+
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
 
             SimpleIoc.Default.Register<IDispatcherService>(() => new DispatcherService(Application.Current.Dispatcher));
             SimpleIoc.Default.Register<IWinBiometricService, WinBiometricService>();
@@ -115,19 +92,14 @@ namespace FrameworkTester.ViewModels
             SimpleIoc.Default.Register<IWinBioRemoveAllCredentialsViewModel>(() => new WinBioRemoveAllCredentialsViewModel(), true);
             SimpleIoc.Default.Register<IWinBioRemoveAllDomainCredentialsViewModel>(() => new WinBioRemoveAllDomainCredentialsViewModel(), true);
             SimpleIoc.Default.Register<IWinBioRemoveCredentialViewModel>(() => new WinBioRemoveCredentialViewModel(), true);
+            SimpleIoc.Default.Register<IWinBioSetCredentialViewModel>(() => new WinBioSetCredentialViewModel(), true);
             SimpleIoc.Default.Register<IWinBioSetPropertyViewModel>(() => new WinBioSetPropertyViewModel(), true);
             SimpleIoc.Default.Register<IWinBioUnlockUnitViewModel>(() => new WinBioUnlockUnitViewModel(), true);
             SimpleIoc.Default.Register<IWinBioVerifyViewModel>(() => new WinBioVerifyViewModel(), true);
             SimpleIoc.Default.Register<IWinBioVerifyWithCallbackViewModel>(() => new WinBioVerifyWithCallbackViewModel(), true);
         }
 
-        public IMainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<IMainViewModel>();
-            }
-        }
+        public IMainViewModel Main => ServiceLocator.Current.GetInstance<IMainViewModel>();
 
         public IWinBioAcquireFocusViewModel WinBioAcquireFocus => ServiceLocator.Current.GetInstance<IWinBioAcquireFocusViewModel>();
 
@@ -215,6 +187,8 @@ namespace FrameworkTester.ViewModels
 
         public IWinBioRemoveCredentialViewModel WinBioRemoveCredential => ServiceLocator.Current.GetInstance<IWinBioRemoveCredentialViewModel>();
 
+        public IWinBioSetCredentialViewModel WinBioSetCredential => ServiceLocator.Current.GetInstance<IWinBioSetCredentialViewModel>();
+
         public IWinBioSetPropertyViewModel WinBioSetProperty => ServiceLocator.Current.GetInstance<IWinBioSetPropertyViewModel>();
 
         public IWinBioUnlockUnitViewModel WinBioUnlockUnit => ServiceLocator.Current.GetInstance<IWinBioUnlockUnitViewModel>();
@@ -222,11 +196,6 @@ namespace FrameworkTester.ViewModels
         public IWinBioVerifyViewModel WinBioVerify => ServiceLocator.Current.GetInstance<IWinBioVerifyViewModel>();
 
         public IWinBioVerifyWithCallbackViewModel WinBioVerifyWithCallback => ServiceLocator.Current.GetInstance<IWinBioVerifyWithCallbackViewModel>();
-
-        public static void Cleanup()
-        {
-            // TODO Clear the ViewModels
-        }
 
     }
 
