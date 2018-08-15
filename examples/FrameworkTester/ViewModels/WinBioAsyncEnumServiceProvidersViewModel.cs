@@ -77,14 +77,14 @@ namespace FrameworkTester.ViewModels
             get;
         }
 
-        private BiometricServiceProvider _CurrentServiceProvider;
+        private BiometricServiceProvider _SelectedServiceProvider;
 
-        public BiometricServiceProvider CurrentServiceProvider
+        public BiometricServiceProvider SelectedServiceProvider
         {
-            get => this._CurrentServiceProvider;
+            get => this._SelectedServiceProvider;
             set
             {
-                this._CurrentServiceProvider = value;
+                this._SelectedServiceProvider = value;
                 this.RaisePropertyChanged();
             }
         }

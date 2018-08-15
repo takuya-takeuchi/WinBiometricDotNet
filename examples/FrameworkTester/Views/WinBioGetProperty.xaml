@@ -36,7 +36,7 @@
                     HorizontalAlignment="Stretch"
                     ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
                     ItemsSource="{Binding PropertyTypes}"
-                    SelectedItem="{Binding CurrentPropertyType}" />
+                    SelectedItem="{Binding SelectedPropertyType}" />
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="InputAntiSpoofPolicyDataTemplate" DataType="viewModels:AntiSpoofPolicyPropertyViewModel">
@@ -62,7 +62,7 @@
                     HorizontalAlignment="Stretch"
                     ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
                     ItemsSource="{Binding PropertyTypes}"
-                    SelectedItem="{Binding CurrentPropertyType}" />
+                    SelectedItem="{Binding SelectedPropertyType}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -74,7 +74,7 @@
                     HorizontalAlignment="Stretch"
                     ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
                     ItemsSource="{Binding IdentityRepository.Identities}"
-                    SelectedItem="{Binding IdentityRepository.CurrentBiometricIdentity}" />
+                    SelectedItem="{Binding IdentityRepository.SelectedIdentity}" />
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="InputCustomDataTemplate" DataType="viewModels:CustomPropertyViewModel">
@@ -103,7 +103,7 @@
                     Grid.Column="2"
                     HorizontalAlignment="Stretch"
                     ItemsSource="{Binding PropertyTypes}"
-                    SelectedItem="{Binding CurrentPropertyType}" />
+                    SelectedItem="{Binding SelectedPropertyType}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -114,7 +114,7 @@
                     Grid.Column="2"
                     HorizontalAlignment="Stretch"
                     ItemsSource="{Binding PropertyIds}"
-                    SelectedItem="{Binding CurrentPropertyId}" />
+                    SelectedItem="{Binding SelectedPropertyId}" />
                 <TextBlock
                     Grid.Row="4"
                     Grid.Column="0"
@@ -125,7 +125,7 @@
                     Grid.Column="2"
                     HorizontalAlignment="Stretch"
                     ItemsSource="{Binding IdentityRepository.Identities}"
-                    SelectedItem="{Binding IdentityRepository.CurrentBiometricIdentity}">
+                    SelectedItem="{Binding IdentityRepository.SelectedIdentity}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -148,7 +148,7 @@
                     Grid.Column="2"
                     HorizontalAlignment="Stretch"
                     ItemsSource="{Binding FingerPositions}"
-                    SelectedItem="{Binding CurrentFingerPosition}" />
+                    SelectedItem="{Binding SelectedFingerPosition}" />
             </Grid>
         </DataTemplate>
 

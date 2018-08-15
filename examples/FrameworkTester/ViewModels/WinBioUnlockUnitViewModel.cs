@@ -25,7 +25,7 @@ namespace FrameworkTester.ViewModels
                         this.UpdateUIImmediately();
 
                         var session = this.WindowRepository.SelectedWindow.Session;
-                        this.BiometricService.UnlockUnit(session, this.CurrentUnit.UnitId);
+                        this.BiometricService.UnlockUnit(session, this.SelectedUnit.UnitId);
 
                         this.Result = "OK";
                     }

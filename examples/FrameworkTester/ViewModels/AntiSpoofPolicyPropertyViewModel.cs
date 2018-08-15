@@ -66,7 +66,7 @@ namespace FrameworkTester.ViewModels
 
         public override bool CanExecute()
         {
-            return this.IdentityRepository.CurrentBiometricIdentity != null;
+            return this.IdentityRepository.SelectedIdentity != null;
         }
 
         #endregion

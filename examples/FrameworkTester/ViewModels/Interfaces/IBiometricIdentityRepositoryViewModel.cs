@@ -10,7 +10,7 @@ namespace FrameworkTester.ViewModels.Interfaces
 
         void Add(BiometricIdentity identity);
 
-        BiometricIdentity CurrentBiometricIdentity
+        BiometricIdentity SelectedIdentity
         {
             get;
             set;

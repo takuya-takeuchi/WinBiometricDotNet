@@ -8,7 +8,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioDeleteTemplateViewModel : WinBioViewModel, IWinBioDeleteTemplateViewModel, IWinBioAsyncSessionViewModel
     {
 
-        public FingerPosition CurrentFingerPosition
+        public FingerPosition SelectedFingerPosition
         {
             get;
             set;

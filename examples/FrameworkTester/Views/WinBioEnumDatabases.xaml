@@ -71,7 +71,7 @@
             Grid.Column="2"
             VerticalAlignment="Stretch"
             ItemsSource="{Binding Databases}"
-            SelectedItem="{Binding CurrentDatabase}">
+            SelectedItem="{Binding SelectedDatabase}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

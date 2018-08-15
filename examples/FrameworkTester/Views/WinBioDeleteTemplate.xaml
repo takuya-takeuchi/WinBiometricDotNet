@@ -48,7 +48,7 @@
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
                 ItemsSource="{Binding IdentityRepository.Identities}"
-                SelectedItem="{Binding IdentityRepository.CurrentBiometricIdentity}">
+                SelectedItem="{Binding IdentityRepository.SelectedIdentity}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -71,7 +71,7 @@
                 Grid.Column="2"
                 HorizontalAlignment="Stretch"
                 ItemsSource="{Binding FingerPositions}"
-                SelectedItem="{Binding CurrentFingerPosition}" />
+                SelectedItem="{Binding SelectedFingerPosition}" />
             <TextBlock
                 Grid.Row="4"
                 Grid.Column="0"

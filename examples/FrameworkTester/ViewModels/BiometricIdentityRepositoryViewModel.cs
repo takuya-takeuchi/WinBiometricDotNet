@@ -12,14 +12,14 @@ namespace FrameworkTester.ViewModels
 
         #region Properties
 
-        private BiometricIdentity _CurrentBiometricIdentity;
+        private BiometricIdentity _SelectedIdentity;
 
-        public BiometricIdentity CurrentBiometricIdentity
+        public BiometricIdentity SelectedIdentity
         {
-            get => this._CurrentBiometricIdentity;
+            get => this._SelectedIdentity;
             set
             {
-                this._CurrentBiometricIdentity = value;
+                this._SelectedIdentity = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -48,7 +48,7 @@ namespace FrameworkTester.ViewModels
                 this.Identities.Add(identity);
             }
 
-            this.CurrentBiometricIdentity = identity;
+            this.SelectedIdentity = identity;
         }
 
         #endregion

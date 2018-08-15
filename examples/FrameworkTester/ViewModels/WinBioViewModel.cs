@@ -24,17 +24,17 @@ namespace FrameworkTester.ViewModels
 
         #region Properties
 
-        private BiometricUnit _CurrentUnit;
+        private BiometricUnit _SelectedUnit;
 
-        public BiometricUnit CurrentUnit
+        public BiometricUnit SelectedUnit
         {
             get
             {
-                return this._CurrentUnit;
+                return this._SelectedUnit;
             }
             set
             {
-                this._CurrentUnit = value;
+                this._SelectedUnit = value;
                 this.RaisePropertyChanged();
             }
         }

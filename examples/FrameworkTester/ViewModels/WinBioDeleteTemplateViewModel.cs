@@ -19,7 +19,7 @@ namespace FrameworkTester.ViewModels
         {
             this.FingerPositions = Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>().ToArray();
 
-            this.CurrentFingerPosition = this.FingerPositions.First();
+            this.SelectedFingerPosition = this.FingerPositions.First();
 
             this.IdentityRepository = SimpleIoc.Default.GetInstance<IBiometricIdentityRepositoryViewModel>();
             this.IdentityRepository.PropertyChanged += (sender, args) =>
@@ -32,14 +32,14 @@ namespace FrameworkTester.ViewModels
 
         #region Properties
 
-        private FingerPosition _CurrentFingerPosition;
+        private FingerPosition _SelectedFingerPosition;
 
-        public FingerPosition CurrentFingerPosition
+        public FingerPosition SelectedFingerPosition
         {
-            get => this._CurrentFingerPosition;
+            get => this._SelectedFingerPosition;
             set
             {
-                this._CurrentFingerPosition = value;
+                this._SelectedFingerPosition = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -58,9 +58,9 @@ namespace FrameworkTester.ViewModels
                         this.UpdateUIImmediately();
 
                         var session = this.WindowRepository.SelectedWindow.Session;
-                        var unitId = this.CurrentUnit;
-                        var identity = this.IdentityRepository.CurrentBiometricIdentity;
-                        var fingerPosition = this.CurrentFingerPosition;
+                        var unitId = this.SelectedUnit;
+                        var identity = this.IdentityRepository.SelectedIdentity;
+                        var fingerPosition = this.SelectedFingerPosition;
 
                         this.BiometricService.DeleteTemplate(session,
                                                              unitId.UnitId,
@@ -74,7 +74,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.IdentityRepository?.CurrentBiometricIdentity != null && this.WindowRepository?.SelectedWindow != null));
+                }, () => this.IdentityRepository?.SelectedIdentity != null && this.WindowRepository?.SelectedWindow != null));
             }
         }
 

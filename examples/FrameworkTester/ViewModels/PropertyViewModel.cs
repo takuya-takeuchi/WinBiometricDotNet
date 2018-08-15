@@ -18,7 +18,7 @@ namespace FrameworkTester.ViewModels
         {
             this.PropertyTypes = Enum.GetValues(typeof(PropertyTypes)).Cast<PropertyTypes>().ToArray();
 
-            this.CurrentPropertyType = this.PropertyTypes.First();
+            this.SelectedPropertyType = this.PropertyTypes.First();
 
             this.IdentityRepository = SimpleIoc.Default.GetInstance<IBiometricIdentityRepositoryViewModel>();
         }
@@ -27,14 +27,14 @@ namespace FrameworkTester.ViewModels
 
         #region Properties
 
-        private PropertyTypes _CurrentPropertyType;
+        private PropertyTypes _SelectedPropertyType;
 
-        public PropertyTypes CurrentPropertyType
+        public PropertyTypes SelectedPropertyType
         {
-            get => this._CurrentPropertyType;
+            get => this._SelectedPropertyType;
             set
             {
-                this._CurrentPropertyType = value;
+                this._SelectedPropertyType = value;
                 this.RaisePropertyChanged();
             }
         }

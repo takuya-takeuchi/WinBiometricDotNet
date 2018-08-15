@@ -58,8 +58,8 @@ namespace FrameworkTester.ViewModels
                                 };
 
                                 this.BiometricService.SetAntiSpoofPolicyProperty(session,
-                                                                                 anti.CurrentPropertyType,
-                                                                                 anti.IdentityRepository.CurrentBiometricIdentity,
+                                                                                 anti.SelectedPropertyType,
+                                                                                 anti.IdentityRepository.SelectedIdentity,
                                                                                  asp);
                                 break;
                             case CustomPropertyViewModel _:

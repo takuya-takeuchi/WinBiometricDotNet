@@ -25,7 +25,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public BiometricServiceProvider CurrentServiceProvider
+        public BiometricServiceProvider SelectedServiceProvider
         {
             get;
             set;

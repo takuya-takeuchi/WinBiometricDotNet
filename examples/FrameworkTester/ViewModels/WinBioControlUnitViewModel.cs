@@ -50,7 +50,7 @@ namespace FrameworkTester.ViewModels
 
                         var session = this.WindowRepository.SelectedWindow.Session;
                         this.BiometricService.ControlUnit(session, 
-                                                          this.CurrentUnit.UnitId,
+                                                          this.SelectedUnit.UnitId,
                                                           this.SelectedComponent,
                                                           this.ControlCode,
                                                           sendBuffer,

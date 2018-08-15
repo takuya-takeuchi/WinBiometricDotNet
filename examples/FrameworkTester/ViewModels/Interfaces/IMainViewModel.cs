@@ -13,13 +13,13 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        IWinBioViewModel CurrentTestTarget
+        IWinBioViewModel SelectedTestTarget
         {
             get;
             set;
         }
 
-        BiometricUnit CurrentUnit
+        BiometricUnit SelectedUnit
         {
             get;
             set;

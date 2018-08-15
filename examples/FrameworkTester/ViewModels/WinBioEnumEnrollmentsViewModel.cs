@@ -31,7 +31,7 @@ namespace FrameworkTester.ViewModels
                         this._FingerPositions.Clear();
 
                         var session = this.WindowRepository.SelectedWindow.Session;
-                        var positions = this.BiometricService.EnumEnrollments(session, this.CurrentUnit);
+                        var positions = this.BiometricService.EnumEnrollments(session, this.SelectedUnit);
                         var resuls = new List<KeyValuePair<string, bool>>();
                         foreach (var value in Enum.GetValues(typeof(FingerPosition)).Cast<FingerPosition>())
                         {

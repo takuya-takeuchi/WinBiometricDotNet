@@ -7,7 +7,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioViewModel
     {
 
-        BiometricUnit CurrentUnit
+        BiometricUnit SelectedUnit
         {
             get;
             set;

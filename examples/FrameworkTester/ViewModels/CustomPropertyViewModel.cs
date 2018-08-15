@@ -19,9 +19,9 @@ namespace FrameworkTester.ViewModels
             this.PropertyTypes = Enum.GetValues(typeof(PropertyTypes)).Cast<PropertyTypes>().ToArray();
             this.PropertyIds = Enum.GetValues(typeof(PropertyId)).Cast<PropertyId>().ToArray();
 
-            this.CurrentFingerPosition = this.FingerPositions.First();
-            this.CurrentPropertyType = this.PropertyTypes.First();
-            this.CurrentPropertyId = this.PropertyIds.First();
+            this.SelectedFingerPosition = this.FingerPositions.First();
+            this.SelectedPropertyType = this.PropertyTypes.First();
+            this.SelectedPropertyId = this.PropertyIds.First();
 
             this.IdentityRepository = SimpleIoc.Default.GetInstance<IBiometricIdentityRepositoryViewModel>();
         }
@@ -32,26 +32,26 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "Custom";
 
-        private FingerPosition _CurrentFingerPosition;
+        private FingerPosition _SelectedFingerPosition;
 
-        public FingerPosition CurrentFingerPosition
+        public FingerPosition SelectedFingerPosition
         {
-            get => this._CurrentFingerPosition;
+            get => this._SelectedFingerPosition;
             set
             {
-                this._CurrentFingerPosition = value;
+                this._SelectedFingerPosition = value;
                 this.RaisePropertyChanged();
             }
         }
 
-        private PropertyId _CurrentPropertyId;
+        private PropertyId _SelectedPropertyId;
 
-        public PropertyId CurrentPropertyId
+        public PropertyId SelectedPropertyId
         {
-            get => this._CurrentPropertyId;
+            get => this._SelectedPropertyId;
             set
             {
-                this._CurrentPropertyId = value;
+                this._SelectedPropertyId = value;
                 this.RaisePropertyChanged();
             }
         }
@@ -94,7 +94,7 @@ namespace FrameworkTester.ViewModels
 
         public override bool CanExecute()
         {
-            return this.IdentityRepository.CurrentBiometricIdentity != null;
+            return this.IdentityRepository.SelectedIdentity != null;
         }
 
         #endregion

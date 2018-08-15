@@ -42,7 +42,7 @@
                     HorizontalAlignment="Stretch"
                     ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
                     ItemsSource="{Binding PropertyTypes}"
-                    SelectedItem="{Binding CurrentPropertyType}" />
+                    SelectedItem="{Binding SelectedPropertyType}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -78,7 +78,7 @@
                     HorizontalAlignment="Stretch"
                     ItemTemplateSelector="{StaticResource OpenSessionTemplateSlector}"
                     ItemsSource="{Binding IdentityRepository.Identities}"
-                    SelectedItem="{Binding IdentityRepository.CurrentBiometricIdentity}" />
+                    SelectedItem="{Binding IdentityRepository.SelectedIdentity}" />
             </Grid>
         </DataTemplate>
 

@@ -51,7 +51,7 @@
             Grid.Column="2"
             VerticalAlignment="Stretch"
             ItemsSource="{Binding ServiceProviders}"
-            SelectedItem="{Binding CurrentServiceProvider}">
+            SelectedItem="{Binding SelectedServiceProvider}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

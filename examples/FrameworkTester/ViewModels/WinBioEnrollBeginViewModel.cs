@@ -37,7 +37,7 @@ namespace FrameworkTester.ViewModels
                         this.UpdateUIImmediately();
 
                         var session = this.WindowRepository.SelectedWindow.Session;
-                        this.BiometricService.BeginEnroll(session, this.SelectedFingerPosition, this.CurrentUnit.UnitId);
+                        this.BiometricService.BeginEnroll(session, this.SelectedFingerPosition, this.SelectedUnit.UnitId);
 
                         this.Result = "OK";
                     }

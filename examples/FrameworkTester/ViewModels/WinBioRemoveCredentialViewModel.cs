@@ -45,7 +45,7 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        var identity = this.IdentityRepository.CurrentBiometricIdentity;
+                        var identity = this.IdentityRepository.SelectedIdentity;
                         var credentialType = this.SelectedCredentialType;
 
                         this.BiometricService.RemoveCredential(identity, credentialType);
@@ -57,7 +57,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message, this.Name, MessageBoxButton.OK, MessageBoxImage.Error);
                         this.Result = "FAIL";
                     }
-                }, () => this.IdentityRepository?.CurrentBiometricIdentity != null));
+                }, () => this.IdentityRepository?.SelectedIdentity != null));
             }
         }
 

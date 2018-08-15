@@ -72,8 +72,8 @@ namespace FrameworkTester.ViewModels
                         {
                             case AntiSpoofPolicyPropertyViewModel anti:
                                 var asp = this.BiometricService.GetAntiSpoofPolicyProperty(session,
-                                                                                           anti.CurrentPropertyType,
-                                                                                           anti.IdentityRepository.CurrentBiometricIdentity);
+                                                                                           anti.SelectedPropertyType,
+                                                                                           anti.IdentityRepository.SelectedIdentity);
 
                                 this._AntiSpoofPolicyPropertyResult.SelectedAction = asp.Action;
                                 this._AntiSpoofPolicyPropertyResult.SelectedSource = asp.Source;
@@ -82,19 +82,19 @@ namespace FrameworkTester.ViewModels
                                 break;
                             case SampleHintPropertyViewModel sample:
                                 var num = this.BiometricService.GetSampleHintProperty(session,
-                                                                                      sample.CurrentPropertyType,
-                                                                                      this.CurrentUnit.UnitId);
+                                                                                      sample.SelectedPropertyType,
+                                                                                      this.SelectedUnit.UnitId);
 
                                 this._SampleHintPropertyResult.MaximumNumberOfGoodBiometricSamples = num;
 
                                 this.ResultProperty = this._SampleHintPropertyResult;
                                 break;
                             case CustomPropertyViewModel custom:
-                                var propertyType = custom.CurrentPropertyType;
-                                var propertyId = custom.CurrentPropertyId;
-                                var unitId = this.CurrentUnit;
-                                var identity = this.IdentityRepository.CurrentBiometricIdentity;
-                                var fingerPosition = custom.CurrentFingerPosition;
+                                var propertyType = custom.SelectedPropertyType;
+                                var propertyId = custom.SelectedPropertyId;
+                                var unitId = this.SelectedUnit;
+                                var identity = this.IdentityRepository.SelectedIdentity;
+                                var fingerPosition = custom.SelectedFingerPosition;
 
                                 this.BiometricService.GetProperty(session,
                                                                   propertyType,
