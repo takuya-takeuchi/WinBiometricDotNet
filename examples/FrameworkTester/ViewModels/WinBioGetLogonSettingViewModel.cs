@@ -11,7 +11,7 @@ namespace FrameworkTester.ViewModels
 
         protected override void GetValueAndSource(out bool value, out SettingSourceTypes source)
         {
-            this.BiometricService.GetDomainLogonSetting(out value, out source);
+            this.BiometricService.GetLogonSetting(out value, out source);
         }
 
     }
