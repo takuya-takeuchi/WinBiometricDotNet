@@ -10,7 +10,7 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultDeleteTemplate(SafeNativeMethods.WINBIO_ASYNC_RESULT_DELETESAMPLE* deleteSample)
         {
-            this.Identity = new BiometricIdentity(deleteSample->Identity);
+            this.Identity = new BiometricIdentity(&deleteSample->Identity);
             this.FingerPosition = (FingerPosition)deleteSample->SubFactor;
         }
 

@@ -22,7 +22,7 @@ namespace WinBiometricDotNet
                     var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
                     this.Parameter = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
                         (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
-                        new BiometricIdentity(winbioEventUnclaimedidentity.Identity),
+                        new BiometricIdentity(&winbioEventUnclaimedidentity.Identity),
                         (RejectDetails)winbioEventUnclaimedidentity.RejectDetail);
                     break;
                 case SafeNativeMethods.WINBIO_EVENT_ERROR:

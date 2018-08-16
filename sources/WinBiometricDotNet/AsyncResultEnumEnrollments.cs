@@ -12,7 +12,7 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultEnumEnrollments(SafeNativeMethods.WINBIO_ASYNC_RESULT_ENUMENROLLMENTS* enumEnrollments)
         {
-            this.Identity = new BiometricIdentity(enumEnrollments->Identity);
+            this.Identity = new BiometricIdentity(&enumEnrollments->Identity);
 
             var array = new byte[(int)enumEnrollments->SubFactorCount];
             Marshal.Copy(enumEnrollments->SubFactorArray, array, 0, (int)enumEnrollments->SubFactorCount);

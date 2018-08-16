@@ -12,7 +12,7 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultSetProperty(SafeNativeMethods.WINBIO_ASYNC_RESULT_SETPROPERTY* setProperty)
         {
-            this.Identity = new BiometricIdentity(setProperty->Identity);
+            this.Identity = new BiometricIdentity(&setProperty->Identity);
             this.FingerPosition = (FingerPosition)setProperty->SubFactor;
             this.PropertyType = (PropertyTypes)setProperty->PropertyType;
             this.PropertyId = (PropertyId)setProperty->PropertyId;

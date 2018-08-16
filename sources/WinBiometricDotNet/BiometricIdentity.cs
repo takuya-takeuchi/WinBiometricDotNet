@@ -14,10 +14,10 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal BiometricIdentity(SafeNativeMethods.WINBIO_IDENTITY identity)
+        internal unsafe BiometricIdentity(SafeNativeMethods.WINBIO_IDENTITY* identity)
         {
-            this.Type = (IdentityTypes)identity.Type;
-            var value = identity.Value;
+            this.Type = (IdentityTypes)identity->Type;
+            var value = identity->Value;
 
             switch (this.Type)
             {
@@ -48,7 +48,7 @@ namespace WinBiometricDotNet
                     break;
             }
 
-            this.Source = identity;
+            this.Source = *identity;
         }
 
         #endregion

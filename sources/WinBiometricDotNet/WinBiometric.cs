@@ -331,13 +331,16 @@ namespace WinBiometricDotNet
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
 
-            var hr = SafeNativeMethods.WinBioEnrollCommit(session.Handle,
-                                                          out var identity,
-                                                          out _);
+            unsafe
+            {
+                var hr = SafeNativeMethods.WinBioEnrollCommit(session.Handle,
+                                                              out var identity,
+                                                              out _);
 
-            ThrowWinBiometricException(hr);
+                ThrowWinBiometricException(hr);
 
-            return new BiometricIdentity(identity);
+                return new BiometricIdentity(&identity);
+            }
         }
 
         public static void ControlUnit(Session session,
@@ -787,19 +790,22 @@ namespace WinBiometricDotNet
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
 
-            var hr = SafeNativeMethods.WinBioIdentify(session.Handle,
-                                                      out var unitId,
-                                                      out var identity,
-                                                      out var subFactor,
-                                                      out var rejectDetail);
+            unsafe
+            {
+                var hr = SafeNativeMethods.WinBioIdentify(session.Handle,
+                                                          out var unitId,
+                                                          out var identity,
+                                                          out var subFactor,
+                                                          out var rejectDetail);
 
-            ThrowWinBiometricException(hr);
+                ThrowWinBiometricException(hr);
 
-            return new IdentifyResult(unitId,
-                                      OperationStatus.OK,
-                                      new BiometricIdentity(identity),
-                                      (FingerPosition)subFactor,
-                                      (RejectDetails)rejectDetail);
+                return new IdentifyResult(unitId,
+                                          OperationStatus.OK,
+                                          new BiometricIdentity(&identity),
+                                          (FingerPosition)subFactor,
+                                          (RejectDetails)rejectDetail);
+            }
         }
 
         public static void IdentifyWithCallback(Session session)
@@ -1634,12 +1640,13 @@ namespace WinBiometricDotNet
                                                                IntPtr.Zero,
                                                                tokenInfLength,
                                                                out tokenInfLength);
-                    if (hr == 0)
-                    {
-                        var win32Status = Marshal.GetLastWin32Error();
-                        hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)win32Status);
-                        return hr;
-                    }
+                    // NOT CHECK RETURN VALUE!!
+                    //if (hr == 0)
+                    //{
+                    //    var win32Status = Marshal.GetLastWin32Error();
+                    //    hr = SafeNativeMethods.Macros.HRESULT_FROM_WIN32((uint)win32Status);
+                    //    return hr;
+                    //}
 
                     var tokenInformation = Marshal.AllocHGlobal((int)tokenInfLength);
                     hr = SafeNativeMethods.GetTokenInformation(tokenHandle,
@@ -2241,7 +2248,7 @@ namespace WinBiometricDotNet
                         var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
                         var unclaimedIdentify = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
                                                                            (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
-                                                                           new BiometricIdentity(winbioEventUnclaimedidentity.Identity),
+                                                                           new BiometricIdentity(&winbioEventUnclaimedidentity.Identity),
                                                                            (RejectDetails)winbioEventUnclaimedidentity.RejectDetail);
 
                         args = new EventMonitoredEventArgs(EventTypes.UnclaimedIdentify,
@@ -2287,7 +2294,7 @@ namespace WinBiometricDotNet
             if (@event != null)
             {
                 var result = new IdentifyResult(unitId, status,
-                                                new BiometricIdentity(*identity),
+                                                new BiometricIdentity(identity),
                                                 (FingerPosition)subFactor,
                                                 (RejectDetails)rejectDetail);
 

@@ -10,7 +10,7 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultEnrollCommit(SafeNativeMethods.WINBIO_ASYNC_RESULT_ENROLLCOMMIT* enrollCommit)
         {
-            this.Identity = new BiometricIdentity(enrollCommit->Identity);
+            this.Identity = new BiometricIdentity(&enrollCommit->Identity);
             this.IsNewTemplate = enrollCommit->IsNewTemplate;
         }
 

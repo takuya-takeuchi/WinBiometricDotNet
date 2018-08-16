@@ -10,7 +10,7 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultIdentity(SafeNativeMethods.WINBIO_ASYNC_RESULT_IDENTITY* identity)
         {
-            this.Identity = new BiometricIdentity(identity->Identity);
+            this.Identity = new BiometricIdentity(&identity->Identity);
             this.FingerPosition = (FingerPosition)identity->SubFactor;
             this.RejectDetail = (RejectDetails)identity->RejectDetail;
         }
