@@ -209,9 +209,10 @@
             </Grid>
         </DataTemplate>
 
-        <selectors:ChildWindowTemplateSlector x:Key="ChildWindowTemplateSlector"
-                                              AsyncOpenFramework="{StaticResource AsyncOpenFrameworkTemplate}"
-                                              AsyncOpenSession="{StaticResource AsyncOpenSessionTemplate}" />
+        <selectors:ChildWindowTemplateSlector
+            x:Key="ChildWindowTemplateSlector"
+            AsyncOpenFramework="{StaticResource AsyncOpenFrameworkTemplate}"
+            AsyncOpenSession="{StaticResource AsyncOpenSessionTemplate}" />
 
         <DataTemplate x:Key="ChildWindowLogTemplateSlectorCaptureSample" DataType="viewModels:AsyncResultCaptureSampleDummy">
             <Grid>
@@ -357,6 +358,7 @@
                 <Grid
                     Grid.Row="0"
                     Grid.Column="2"
+                    Margin="0,15,0,0"
                     DataContext="{Binding Identity}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -481,6 +483,7 @@
                 <Grid
                     Grid.Row="0"
                     Grid.Column="2"
+                    Margin="0,15,0,0"
                     DataContext="{Binding Identity}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -540,7 +543,6 @@
         <DataTemplate x:Key="ChildWindowLogTemplateSlectorEnumBiometricUnits" DataType="winBiometricDotNet:AsyncResultEnumBiometricUnits">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -558,11 +560,149 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     VerticalAlignment="Stretch">
-                    <ListBox Height="300" ItemsSource="{Binding BiometricUnits}">
+                    <ListBox ItemsSource="{Binding BiometricUnits}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
-                                    <TextBlock Text="{Binding Description}" />
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Capabilities: " />
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Capabilities}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="PoolType: " />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding PoolType}" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="SensorSubType: " />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding SensorSubType}" />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="BiometricFactor: " />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding BiometricFactor}" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="MajorVersion: " />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding FirmwareVersion.MajorVersion}" />
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="MinorVersion: " />
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding FirmwareVersion.MinorVersion}" />
+                                    <TextBlock
+                                        Grid.Row="6"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Description: " />
+                                    <TextBlock
+                                        Grid.Row="6"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Description}" />
+                                    <TextBlock
+                                        Grid.Row="7"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="DeviceInstanceId: " />
+                                    <TextBlock
+                                        Grid.Row="7"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding DeviceInstanceId}" />
+                                    <TextBlock
+                                        Grid.Row="8"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Manufacturer: " />
+                                    <TextBlock
+                                        Grid.Row="8"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Manufacturer}" />
+                                    <TextBlock
+                                        Grid.Row="9"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Model: " />
+                                    <TextBlock
+                                        Grid.Row="9"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Model}" />
+                                    <TextBlock
+                                        Grid.Row="10"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="SerialNumber: " />
+                                    <TextBlock
+                                        Grid.Row="10"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding SerialNumber}" />
+                                    <TextBlock
+                                        Grid.Row="11"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="UnitId: " />
+                                    <TextBlock
+                                        Grid.Row="11"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding UnitId}" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -573,7 +713,6 @@
         <DataTemplate x:Key="ChildWindowLogTemplateSlectorEnumDatabases" DataType="winBiometricDotNet:AsyncResultEnumDatabases">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -587,108 +726,108 @@
                     VerticalAlignment="Top"
                     Style="{StaticResource LabelTextBlock}"
                     Text="Databases: " />
-                <ComboBox
+                <ScrollViewer
                     Grid.Row="0"
                     Grid.Column="2"
-                    VerticalAlignment="Stretch"
-                    ItemsSource="{Binding Databases}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="5" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="DatabaseId: " />
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding DatabaseId}" />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="DataFormat: " />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding DataFormat}" />
-                                <TextBlock
-                                    Grid.Row="2"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="BiometricFactor: " />
-                                <TextBlock
-                                    Grid.Row="2"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding BiometricFactor}" />
-                                <TextBlock
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="DatabaseFlag: " />
-                                <TextBlock
-                                    Grid.Row="3"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding DatabaseFlag}" />
-                                <TextBlock
-                                    Grid.Row="4"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="DatabaseTypes: " />
-                                <TextBlock
-                                    Grid.Row="4"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding DatabaseTypes}" />
-                                <TextBlock
-                                    Grid.Row="5"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="ConnectionString: " />
-                                <TextBlock
-                                    Grid.Row="5"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding ConnectionString}" />
-                                <TextBlock
-                                    Grid.Row="6"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="FilePath: " />
-                                <TextBlock
-                                    Grid.Row="6"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding FilePath}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                    VerticalAlignment="Stretch">
+                    <ListBox ItemsSource="{Binding Databases}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="DatabaseId: " />
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding DatabaseId}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="DataFormat: " />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding DataFormat}" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="BiometricFactor: " />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding BiometricFactor}" />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="DatabaseFlag: " />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding DatabaseFlag}" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="DatabaseTypes: " />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding DatabaseTypes}" />
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="ConnectionString: " />
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding ConnectionString}" />
+                                    <TextBlock
+                                        Grid.Row="6"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="FilePath: " />
+                                    <TextBlock
+                                        Grid.Row="6"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding FilePath}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ChildWindowLogTemplateSlectorEnumEnrollments" DataType="viewModels:AsyncResultEnumEnrollmentsDummy">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -706,8 +845,8 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     VerticalAlignment="Stretch">
-                    <ItemsControl ItemsSource="{Binding FingerPositions}">
-                        <ItemsControl.ItemTemplate>
+                    <ListBox ItemsSource="{Binding FingerPositions}">
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <CheckBox
@@ -716,15 +855,14 @@
                                         IsEnabled="False" />
                                 </Grid>
                             </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </ScrollViewer>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ChildWindowLogTemplateSlectorEnumServiceProviders" DataType="winBiometricDotNet:AsyncResultEnumServiceProviders">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -738,92 +876,92 @@
                     VerticalAlignment="Top"
                     Style="{StaticResource LabelTextBlock}"
                     Text="ServiceProviders: " />
-                <ComboBox
+                <ScrollViewer
                     Grid.Row="0"
                     Grid.Column="2"
-                    VerticalAlignment="Stretch"
-                    ItemsSource="{Binding ServiceProviders}"
-                    SelectedItem="{Binding SelectedServiceProvider}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="5" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="Id: " />
-                                <TextBlock
-                                    Grid.Row="0"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding Id}" />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="MajorVersion: " />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding Version.MajorVersion}" />
-                                <TextBlock
-                                    Grid.Row="2"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="MinorVersion: " />
-                                <TextBlock
-                                    Grid.Row="2"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding Version.MinorVersion}" />
-                                <TextBlock
-                                    Grid.Row="3"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="BiometricFactor: " />
-                                <TextBlock
-                                    Grid.Row="3"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding BiometricFactor}" />
-                                <TextBlock
-                                    Grid.Row="4"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="Vendor: " />
-                                <TextBlock
-                                    Grid.Row="4"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding Vendor}" />
-                                <TextBlock
-                                    Grid.Row="5"
-                                    Grid.Column="0"
-                                    Style="{StaticResource LabelTextBlock}"
-                                    Text="Description: " />
-                                <TextBlock
-                                    Grid.Row="5"
-                                    Grid.Column="2"
-                                    Style="{StaticResource ValueTextBlock}"
-                                    Text="{Binding Description}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                    VerticalAlignment="Stretch">
+                    <ListBox ItemsSource="{Binding ServiceProviders}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="5" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Id: " />
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Id}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="MajorVersion: " />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Version.MajorVersion}" />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="MinorVersion: " />
+                                    <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Version.MinorVersion}" />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="BiometricFactor: " />
+                                    <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding BiometricFactor}" />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Vendor: " />
+                                    <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Vendor}" />
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Description: " />
+                                    <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Description}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="ChildWindowLogTemplateSlectorIdentity" DataType="winBiometricDotNet:AsyncResultIdentity">
@@ -850,6 +988,7 @@
                 <Grid
                     Grid.Row="0"
                     Grid.Column="2"
+                    Margin="0,15,0,0"
                     DataContext="{Binding Identity}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -952,18 +1091,19 @@
             </Grid>
         </DataTemplate>
 
-        <selectors:ChildWindowLogTemplateSlector x:Key="ChildWindowLogTemplateSlector"
-                                                 CaptureSample="{StaticResource ChildWindowLogTemplateSlectorCaptureSample}"
-                                                 DeleteTemplate="{StaticResource ChildWindowLogTemplateSlectorDeleteTemplate}"
-                                                 EnrollBegin="{StaticResource ChildWindowLogTemplateSlectorEnrollBegin}"
-                                                 EnrollCapture="{StaticResource ChildWindowLogTemplateSlectorEnrollCapture}"
-                                                 EnrollCommit="{StaticResource ChildWindowLogTemplateSlectorEnrollCommit}"
-                                                 EnumBiometricUnits="{StaticResource ChildWindowLogTemplateSlectorEnumBiometricUnits}"
-                                                 EnumDatabases="{StaticResource ChildWindowLogTemplateSlectorEnumDatabases}"
-                                                 EnumEnrollments="{StaticResource ChildWindowLogTemplateSlectorEnumEnrollments}"
-                                                 EnumServiceProviders="{StaticResource ChildWindowLogTemplateSlectorEnumServiceProviders}"
-                                                 Identity="{StaticResource ChildWindowLogTemplateSlectorIdentity}"
-                                                 Verify="{StaticResource ChildWindowLogTemplateSlectorVerify}" />
+        <selectors:ChildWindowLogTemplateSlector
+            x:Key="ChildWindowLogTemplateSlector"
+            CaptureSample="{StaticResource ChildWindowLogTemplateSlectorCaptureSample}"
+            DeleteTemplate="{StaticResource ChildWindowLogTemplateSlectorDeleteTemplate}"
+            EnrollBegin="{StaticResource ChildWindowLogTemplateSlectorEnrollBegin}"
+            EnrollCapture="{StaticResource ChildWindowLogTemplateSlectorEnrollCapture}"
+            EnrollCommit="{StaticResource ChildWindowLogTemplateSlectorEnrollCommit}"
+            EnumBiometricUnits="{StaticResource ChildWindowLogTemplateSlectorEnumBiometricUnits}"
+            EnumDatabases="{StaticResource ChildWindowLogTemplateSlectorEnumDatabases}"
+            EnumEnrollments="{StaticResource ChildWindowLogTemplateSlectorEnumEnrollments}"
+            EnumServiceProviders="{StaticResource ChildWindowLogTemplateSlectorEnumServiceProviders}"
+            Identity="{StaticResource ChildWindowLogTemplateSlectorIdentity}"
+            Verify="{StaticResource ChildWindowLogTemplateSlectorVerify}" />
     </Window.Resources>
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -1024,3 +1164,4 @@
         </Grid>
     </Grid>
 </Window>
+

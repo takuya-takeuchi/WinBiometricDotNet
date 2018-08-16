@@ -17,7 +17,7 @@
             <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
@@ -49,11 +49,149 @@
             Grid.Row="4"
             Grid.Column="2"
             VerticalAlignment="Stretch">
-            <ListBox Height="300" ItemsSource="{Binding Units}">
+            <ListBox ItemsSource="{Binding Units}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
-                            <TextBlock Text="{Binding Description}" />
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Capabilities: " />
+                            <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Capabilities}" />
+                            <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="PoolType: " />
+                            <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding PoolType}" />
+                            <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="SensorSubType: " />
+                            <TextBlock
+                                        Grid.Row="2"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding SensorSubType}" />
+                            <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="BiometricFactor: " />
+                            <TextBlock
+                                        Grid.Row="3"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding BiometricFactor}" />
+                            <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="MajorVersion: " />
+                            <TextBlock
+                                        Grid.Row="4"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding FirmwareVersion.MajorVersion}" />
+                            <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="MinorVersion: " />
+                            <TextBlock
+                                        Grid.Row="5"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding FirmwareVersion.MinorVersion}" />
+                            <TextBlock
+                                        Grid.Row="6"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Description: " />
+                            <TextBlock
+                                        Grid.Row="6"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Description}" />
+                            <TextBlock
+                                        Grid.Row="7"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="DeviceInstanceId: " />
+                            <TextBlock
+                                        Grid.Row="7"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding DeviceInstanceId}" />
+                            <TextBlock
+                                        Grid.Row="8"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Manufacturer: " />
+                            <TextBlock
+                                        Grid.Row="8"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Manufacturer}" />
+                            <TextBlock
+                                        Grid.Row="9"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="Model: " />
+                            <TextBlock
+                                        Grid.Row="9"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding Model}" />
+                            <TextBlock
+                                        Grid.Row="10"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="SerialNumber: " />
+                            <TextBlock
+                                        Grid.Row="10"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding SerialNumber}" />
+                            <TextBlock
+                                        Grid.Row="11"
+                                        Grid.Column="0"
+                                        Style="{StaticResource LabelTextBlock}"
+                                        Text="UnitId: " />
+                            <TextBlock
+                                        Grid.Row="11"
+                                        Grid.Column="2"
+                                        Style="{StaticResource ValueTextBlock}"
+                                        Text="{Binding UnitId}" />
                         </Grid>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
