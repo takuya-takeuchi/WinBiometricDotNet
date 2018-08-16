@@ -930,7 +930,7 @@ namespace WinBiometricDotNet
 
                 ThrowWinBiometricException(hr);
 
-                return new Session(sessionHandle);
+                return new Session(sessionHandle, false);
             }
         }
 
@@ -955,7 +955,7 @@ namespace WinBiometricDotNet
 
                 ThrowWinBiometricException(hr);
 
-                return new Session(sessionHandle);
+                return new Session(sessionHandle, true);
             }
         }
 
@@ -980,7 +980,7 @@ namespace WinBiometricDotNet
 
                 ThrowWinBiometricException(hr);
 
-                return new Session(sessionHandle);
+                return new Session(sessionHandle, true);
             }
         }
 

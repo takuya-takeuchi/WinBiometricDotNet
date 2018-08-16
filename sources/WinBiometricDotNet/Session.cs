@@ -8,9 +8,10 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal Session(WINBIO_SESSION_HANDLE handle)
+        internal Session(WINBIO_SESSION_HANDLE handle, bool asynchronous)
         {
             this.Handle = handle;
+            this.IsAsynchronous = asynchronous;
         }
 
         #endregion
@@ -18,6 +19,11 @@ namespace WinBiometricDotNet
         #region Properties
 
         public WINBIO_SESSION_HANDLE Handle
+        {
+            get;
+        }
+
+        public bool IsAsynchronous
         {
             get;
         }

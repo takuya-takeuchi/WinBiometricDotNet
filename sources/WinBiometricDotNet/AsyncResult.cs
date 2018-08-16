@@ -40,7 +40,7 @@ namespace WinBiometricDotNet
                 case OperationTypes.UnlockUnit:
                 case OperationTypes.ControlUnit:
                 case OperationTypes.ControlUnitPrivileged:
-                    this.Session = new Session(result->SessionHandle);
+                    this.Session = new Session(result->SessionHandle, true);
                     break;
                 case OperationTypes.OpenFramework:
                 case OperationTypes.CloseFramework:
