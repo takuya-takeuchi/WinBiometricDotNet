@@ -6426,9 +6426,34 @@ namespace WinBiometricDotNet.Interop
         {
 
             /// <summary>
-            /// Reserved.
+            /// Source of the property information. Currently this will be <see cref="WINBIO_PROPERTY_TYPE_UNIT"/>.
             /// </summary>
-            public ULONG None;
+            public WINBIO_PROPERTY_TYPE PropertyType;
+
+            /// <summary>
+            /// The property that was queried. Currently this will be <see cref="WINBIO_PROPERTY_SAMPLE_HINT"/>.
+            /// </summary>
+            public WINBIO_PROPERTY_ID PropertyId;
+
+            /// <summary>
+            /// This is a reserved value and will be NULL.
+            /// </summary>
+            public WINBIO_IDENTITY Identity;
+
+            /// <summary>
+            /// This is reserved and will be WINBIO_SUBTYPE_NO_INFORMATION.
+            /// </summary>
+            public WINBIO_BIOMETRIC_SUBTYPE SubFactor;
+
+            /// <summary>
+            /// Size, in bytes, of the property value pointed to by the <see cref="PropertyBuffer"/> member.
+            /// </summary>
+            public SIZE_T PropertyBufferSize;
+
+            /// <summary>
+            /// Pointer to the property value.
+            /// </summary>
+            public PVOID PropertyBuffer;
 
         }
 
