@@ -1,7 +1,7 @@
 ﻿namespace WinBiometricDotNet
 {
 
-    public sealed class UnclaimedEvent
+    public sealed class UnclaimedEvent : EventParameter
     {
 
         #region Constructors

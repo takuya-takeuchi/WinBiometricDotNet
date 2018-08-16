@@ -1,7 +1,7 @@
 ﻿namespace WinBiometricDotNet
 {
 
-    public sealed class UnclaimedIdentifyEvent
+    public sealed class UnclaimedIdentifyEvent : EventParameter
     {
 
         #region Constructors
@@ -12,7 +12,6 @@
             this.FingerPosition = fingerPosition;
             this.Identity = identity;
             this.RejectDetail = rejectDetail;
-
         }
 
         #endregion
