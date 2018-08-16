@@ -5,6 +5,9 @@ using WINBIO_CAPABILITIES = System.UInt32;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Specifies the capabilities of biometric sensor.
+    /// </summary>
     [Flags]
     public enum BiometricCapabilities : WINBIO_CAPABILITIES
     {

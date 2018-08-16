@@ -6,6 +6,9 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="BiometricIdentity"/> class contains an identifying value associated with a biometric template.
+    /// </summary>
     public sealed class BiometricIdentity
     {
 
@@ -52,11 +55,17 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets the format of the identity information contained in this class.
+        /// </summary>
         public IdentityTypes Type
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that contains an account SID.
+        /// </summary>
         public SecurityIdentifier Sid
         {
             get;
@@ -67,6 +76,9 @@ namespace WinBiometricDotNet
             get;
         }
 
+        /// <summary>
+        /// Gets a 128-bit GUID value that identifies the template.
+        /// </summary>
         public Guid TemplateGuid
         {
             get;

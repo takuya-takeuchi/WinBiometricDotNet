@@ -1,60 +1,139 @@
 ﻿using System;
+using WinBiometricDotNet.Interop;
 
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Represent the standard biometric types defined by National Institute of Standards and Technology Information (NISTIR) 6529-A.
+    /// </summary>
     [Flags]
     public enum BiometricTypes : uint
     {
 
-        Mask = 0x00FFFFFF,
+        /// <summary>
+        /// Bitmask that specifies the supported set of biometric factors.
+        /// </summary>
+        Mask = SafeNativeMethods.WINBIO_STANDARD_TYPE_MASK,
 
-        NoAvailable = 0x00000000,
+        /// <summary>
+        /// No biometric type is available.
+        /// </summary>
+        NoAvailable = SafeNativeMethods.WINBIO_NO_TYPE_AVAILABLE,
 
-        Multiple = 0x00000001,
+        /// <summary>
+        /// Multiple types are specified.
+        /// </summary>
+        Multiple = SafeNativeMethods.WINBIO_TYPE_MULTIPLE,
 
-        FacialFeatures = 0x00000002,
+        /// <summary>
+        /// The biometric sensor captures facial features.
+        /// </summary>
+        FacialFeatures = SafeNativeMethods.WINBIO_TYPE_FACIAL_FEATURES,
 
-        Voice = 0x00000004,
+        /// <summary>
+        /// The biometric sensor captures voice data.
+        /// </summary>
+        Voice = SafeNativeMethods.WINBIO_TYPE_VOICE,
 
-        Fingerprint = 0x00000008,
+        /// <summary>
+        /// The biometric sensor captures fingerprint data.
+        /// </summary>
+        Fingerprint = SafeNativeMethods.WINBIO_TYPE_FINGERPRINT,
 
-        Iris = 0x00000010,
+        /// <summary>
+        /// The biometric sensor captures iris data.
+        /// </summary>
+        Iris = SafeNativeMethods.WINBIO_TYPE_IRIS,
 
-        Retina = 0x00000020,
+        /// <summary>
+        /// The biometric sensor captures retina data.
+        /// </summary>
+        Retina = SafeNativeMethods.WINBIO_TYPE_RETINA,
 
-        HandGeometry = 0x00000040,
+        /// <summary>
+        /// The biometric sensor captures hand data.
+        /// </summary>
+        HandGeometry = SafeNativeMethods.WINBIO_TYPE_HAND_GEOMETRY,
 
-        SignatureDynamics = 0x00000080,
+        /// <summary>
+        /// The biometric sensor captures signatures.
+        /// </summary>
+        SignatureDynamics = SafeNativeMethods.WINBIO_TYPE_SIGNATURE_DYNAMICS,
 
-        KeystrokeDynamics = 0x00000100,
+        /// <summary>
+        /// The biometric sensor captures keystrokes.
+        /// </summary>
+        KeystrokeDynamics = SafeNativeMethods.WINBIO_TYPE_KEYSTROKE_DYNAMICS,
 
-        LipMovement = 0x00000200,
+        /// <summary>
+        /// The biometric sensor captures lip data.
+        /// </summary>
+        LipMovement = SafeNativeMethods.WINBIO_TYPE_LIP_MOVEMENT,
 
-        ThermalFaceImage = 0x00000400,
+        /// <summary>
+        /// The biometric sensor captures thermal face imaging.
+        /// </summary>
+        ThermalFaceImage = SafeNativeMethods.WINBIO_TYPE_THERMAL_FACE_IMAGE,
 
-        ThermalHandImage = 0x00000800,
+        /// <summary>
+        /// The biometric sensor captures thermal hand imaging.
+        /// </summary>
+        ThermalHandImage = SafeNativeMethods.WINBIO_TYPE_THERMAL_HAND_IMAGE,
 
-        Gait = 0x00001000,
+        /// <summary>
+        /// The biometric sensor captures walking gait data.
+        /// </summary>
+        Gait = SafeNativeMethods.WINBIO_TYPE_GAIT,
 
-        Scent = 0x00002000,
+        /// <summary>
+        /// The biometric sensor captures scent data.
+        /// </summary>
+        Scent = SafeNativeMethods.WINBIO_TYPE_SCENT,
 
-        Dna = 0x00004000,
+        /// <summary>
+        /// The biometric sensor captures DNA data.
+        /// </summary>
+        Dna = SafeNativeMethods.WINBIO_TYPE_DNA,
 
-        EarShape = 0x00008000,
+        /// <summary>
+        /// The biometric sensor captures ear information.
+        /// </summary>
+        EarShape = SafeNativeMethods.WINBIO_TYPE_EAR_SHAPE,
 
-        FingerGeometry = 0x00010000,
+        /// <summary>
+        /// The biometric sensor captures finger shape information.
+        /// </summary>
+        FingerGeometry = SafeNativeMethods.WINBIO_TYPE_FINGER_GEOMETRY,
 
-        Palmprint = 0x00020000,
+        /// <summary>
+        /// The biometric sensor captures palm prints.
+        /// </summary>
+        Palmprint = SafeNativeMethods.WINBIO_TYPE_PALM_PRINT,
 
-        VeinPattern = 0x00040000,
+        /// <summary>
+        /// The biometric sensor captures blood vein pattern data.
+        /// </summary>
+        VeinPattern = SafeNativeMethods.WINBIO_TYPE_VEIN_PATTERN,
 
-        FootPrint = 0x00080000,
+        /// <summary>
+        /// The biometric sensor captures foot prints.
+        /// </summary>
+        FootPrint = SafeNativeMethods.WINBIO_TYPE_FOOT_PRINT,
 
-        Other = 0x40000000,
+        /// <summary>
+        /// The supported biometric data is not defined by the current constants.
+        /// </summary>
+        Other = SafeNativeMethods.WINBIO_TYPE_OTHER,
 
-        Password = 0x80000000,
+        /// <summary>
+        /// The biometric sensor captures password data.
+        /// </summary>
+        Password = SafeNativeMethods.WINBIO_TYPE_PASSWORD,
 
+        /// <summary>
+        /// The biometric sensor captures any type of data.
+        /// </summary>
         Any = (Mask | Other | Password)
 
     }

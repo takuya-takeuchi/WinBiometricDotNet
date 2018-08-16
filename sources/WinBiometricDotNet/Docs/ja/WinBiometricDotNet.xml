@@ -41,7 +41,7 @@
         </member>
         <member name="F:WinBiometricDotNet.AntiSpoofPolicyAction.Remove">
             <summary>
-            アカウントから生体要素に対す全てのアンチ スプーフィング ポリシーを削除します。
+            アカウントからバイオメトリックス要素に対する全てのアンチ スプーフィング ポリシーを削除します。
             </summary>
         </member>
         <member name="T:WinBiometricDotNet.AsyncCompletedEventArgs">
@@ -130,6 +130,241 @@
         <member name="P:WinBiometricDotNet.AsyncResult.UserData">
             <summary>
             呼び出し側によって提供されたオプション バッファーのアドレスを取得します。
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricCapabilities">
+            <summary>
+            バイオメトリックス センサーの能力を指定します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Sensor">
+            <summary>
+            デバイスはバイオメトリックス データを収集可能です。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Matching">
+            <summary>
+            デバイスは照合操作を実行可能です。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Database">
+            <summary>
+            センサーはオンボード データベースを格納します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Proccessing">
+            <summary>            
+            デバイスはサンプルを処理しバイオメトリックス テンプレートに変換可能です。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Encryption">
+            <summary>
+            デバイスはサンプルとテンプレートの暗号化をサポートします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Navigation">
+            <summary>
+            デバイスはナビゲーション デバイスとして利用可能です。いくつかのデバイス、ドライバーは、マウスのようなナビゲーション イベントへユーザーモード アプリケーションにより翻訳が可能なフォーマット内部にデータをキャプチャ可能です。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Indicator">
+            <summary>
+            デバイスはオン/オフが可能なインジケ一夕ーを備えています。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.VirtualSensor">
+            <summary>
+            センサー アダプターはバイオメトリックス ハードウェアへの接続を管理します。
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricDatabase">
+            <summary>
+            <see cref="T:WinBiometricDotNet.BiometricDatabase"/> クラスはバイオメトリックス ストレージ アダプターの能力を表現します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.BiometricFactor">
+            <summary>
+            データベース内に保存されたバイオメトリックス測定の種類を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.ConnectionString">
+            <summary>
+            データベースを識別するデータベース サーバーに送信される文字列の値を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DatabaseFlag">
+            <summary>
+            データベースの特性についてのフラグを取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DatabaseId">
+            <summary>
+            データベースを識別する GUID (グローバル一意識別子) を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DatabaseTypes">
+            <summary>
+            データベースの特性についての種別を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DataFormat">
+            <summary>
+            データベース内のテンプレート フォーマットを識別する GUID (グローバル一意識別子) を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.FilePath">
+            <summary>
+            コンピュータ ディスク上に存在する場合、データベースのパスとファイル名を取得します。
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricIdentity">
+            <summary>
+            <see cref="T:WinBiometricDotNet.BiometricIdentity"/> クラスはバイオメトリックス テンプレートに関連付けられた識別値を格納します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricIdentity.Type">
+            <summary>
+            このクラスに格納された情報を識別情報のフォーマットを取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricIdentity.Sid">
+            <summary>
+            アカウントの SID (セキュリティ識別子) を格納する値を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricIdentity.TemplateGuid">
+            <summary>
+            テンプレートを識別する 128 ビットの GUID (グローバル一意識別子) を取得します。
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricTypes">
+            <summary>
+            NISTIR 6529-A (米国標準技術局内部機関報告書 6529-A) によって定義された標準的なバイオメトリックスの種類を表現します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Mask">
+            <summary>
+            バイオメトリックス要素のサポートされた組み合わせを指定するビットマスクです。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.NoAvailable">
+            <summary>
+            利用可能なバイオメトリックスの種類がありません。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Multiple">
+            <summary>
+            複数の種類が指定されています。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.FacialFeatures">
+            <summary>
+            バイオメトリックス センサーは顔特徴をキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Voice">
+            <summary>
+            バイオメトリックス センサーは音声データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Fingerprint">
+            <summary>
+            バイオメトリックス センサーは指紋データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Iris">
+            <summary>
+            バイオメトリックス センサーは虹彩データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Retina">
+            <summary>
+            バイオメトリックス センサーは網膜データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.HandGeometry">
+            <summary>
+            バイオメトリックス センサーは掌形データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.SignatureDynamics">
+            <summary>
+            バイオメトリックス センサーは動的署名をキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.KeystrokeDynamics">
+            <summary>
+            バイオメトリックス センサーはキー操作をキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.LipMovement">
+            <summary>
+            バイオメトリックス センサーはリップムーブメントをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.ThermalFaceImage">
+            <summary>
+            バイオメトリックス センサーは顔面熱画像をキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.ThermalHandImage">
+            <summary>
+            バイオメトリックス センサーは掌熱画像をキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Gait">
+            <summary>
+            バイオメトリックス センサーは歩行・歩容データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Scent">
+            <summary>
+            バイオメトリックス センサーは臭跡データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Dna">
+            <summary>
+            バイオメトリックス センサーは DNA (デオキシリボ核酸) データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.EarShape">
+            <summary>
+            バイオメトリックス センサーは耳情報をキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.FingerGeometry">
+            <summary>
+            バイオメトリックス センサーは指形データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Palmprint">
+            <summary>
+            バイオメトリックス センサーは掌紋データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.VeinPattern">
+            <summary>
+            バイオメトリックス センサーは静脈パターンデータをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.FootPrint">
+            <summary>
+            バイオメトリックス センサーは足紋データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Other">
+            <summary>
+            サポートしているバイオメトリックス データは現時点で定義されていません。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Password">
+            <summary>
+            バイオメトリックス センサーはパスワード データをキャプチャします。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Any">
+            <summary>
+            バイオメトリックス センサーは任意のデータをキャプチャします。
             </summary>
         </member>
         <member name="F:WinBiometricDotNet.Interop.SafeNativeMethods.ERROR_SUCCESS">
