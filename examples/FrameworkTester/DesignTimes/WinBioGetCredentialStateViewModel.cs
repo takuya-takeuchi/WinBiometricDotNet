@@ -12,7 +12,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public CredentialStates State
+        public CredentialState State
         {
             get;
         }

@@ -17,7 +17,7 @@
             <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="5" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -41,6 +41,109 @@
             Grid.Column="2"
             Style="{StaticResource ValueTextBlock}"
             Text="{Binding Result}" />
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="0"
+            VerticalAlignment="Top"
+            Style="{StaticResource LabelTextBlock}"
+            Text="Databases: " />
+        <ScrollViewer
+            Grid.Row="4"
+            Grid.Column="2"
+            VerticalAlignment="Stretch">
+            <ListBox ItemsSource="{Binding Databases}" SelectedItem="{Binding SelectedDatabase}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="DatabaseId: " />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding DatabaseId}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="DataFormat: " />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding DataFormat}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="BiometricFactor: " />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding BiometricFactor}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="DatabaseFlag: " />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding DatabaseFlag}" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="DatabaseTypes: " />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding DatabaseTypes}" />
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="ConnectionString: " />
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding ConnectionString}" />
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="FilePath: " />
+                            <TextBlock
+                                Grid.Row="6"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding FilePath}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
         <StackPanel
             Grid.Row="6"
             Grid.Column="2"
@@ -60,108 +163,5 @@
                 Command="{Binding RemoveDatabaseCommand}"
                 Content="Remove" />
         </StackPanel>
-        <TextBlock
-            Grid.Row="4"
-            Grid.Column="0"
-            VerticalAlignment="Top"
-            Style="{StaticResource LabelTextBlock}"
-            Text="Databases: " />
-        <ComboBox
-            Grid.Row="4"
-            Grid.Column="2"
-            VerticalAlignment="Stretch"
-            ItemsSource="{Binding Databases}"
-            SelectedItem="{Binding SelectedDatabase}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="5" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="DatabaseId: " />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding DatabaseId}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="DataFormat: " />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding DataFormat}" />
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="BiometricFactor: " />
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding BiometricFactor}" />
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="DatabaseFlag: " />
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding DatabaseFlag}" />
-                        <TextBlock
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="DatabaseTypes: " />
-                        <TextBlock
-                            Grid.Row="4"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding DatabaseTypes}" />
-                        <TextBlock
-                            Grid.Row="5"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="ConnectionString: " />
-                        <TextBlock
-                            Grid.Row="5"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding ConnectionString}" />
-                        <TextBlock
-                            Grid.Row="6"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="FilePath: " />
-                        <TextBlock
-                            Grid.Row="6"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding FilePath}" />
-                    </Grid>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
     </Grid>
 </Page>

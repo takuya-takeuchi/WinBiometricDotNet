@@ -5,6 +5,9 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="BiometricDatabase"/> class describes the capabilities of a biometric storage adapter.
+    /// </summary>
     public sealed class BiometricDatabase
     {
 
@@ -25,36 +28,57 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets the type of biometric measurement saved in the database.
+        /// </summary>
         public BiometricTypes BiometricFactor
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a string value that can be sent to a database server to identify the database.
+        /// </summary>
         public string ConnectionString
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a flag about the characteristics of the database.
+        /// </summary>
         public DatabaseFlags DatabaseFlag
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a GUID that identifies the database.
+        /// </summary>
         public Guid DatabaseId
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a type about the characteristics of the database.
+        /// </summary>
         public DatabaseTypes DatabaseTypes
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a GUID that identifies the format of the templates in the database.
+        /// </summary>
         public Guid DataFormat
         {
             get;
         }
 
+        /// <summary>
+        /// Gets the path and file name of the database if it resides on the computer disk.
+        /// </summary>
         public string FilePath
         {
             get;

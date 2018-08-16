@@ -6,12 +6,12 @@
 
         #region Constructors
 
-        internal CaptureEnrollResult(OperationStatus operationStatus, RejectDetails rejectDetail):
+        internal CaptureEnrollResult(OperationStatus operationStatus, RejectDetail rejectDetail):
             this(operationStatus, rejectDetail, false)
         {
         }
 
-        internal CaptureEnrollResult(OperationStatus operationStatus, RejectDetails rejectDetail, bool isRequiredMoreData)
+        internal CaptureEnrollResult(OperationStatus operationStatus, RejectDetail rejectDetail, bool isRequiredMoreData)
         {
             this.OperationStatus = operationStatus;
             this.RejectDetail = rejectDetail;
@@ -27,7 +27,7 @@
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

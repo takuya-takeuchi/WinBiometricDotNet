@@ -7,7 +7,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioGetDomainLogonSettingViewModel : WinBioViewModel, IWinBioGetDomainLogonSettingViewModel
     {
 
-        public SettingSourceTypes Source
+        public SettingSourceType Source
         {
             get;
         }

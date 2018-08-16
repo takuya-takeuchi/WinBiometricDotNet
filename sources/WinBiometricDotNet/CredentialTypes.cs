@@ -1,12 +1,16 @@
-﻿namespace WinBiometricDotNet
+﻿using System;
+using WinBiometricDotNet.Interop;
+
+namespace WinBiometricDotNet
 {
 
+    [Flags]
     public enum CredentialTypes : uint
     {
 
-        Password = 0x00000001,
+        Password = SafeNativeMethods.WINBIO_CREDENTIAL_TYPE.WINBIO_CREDENTIAL_PASSWORD,
 
-        All = 0xffffffff
+        All = SafeNativeMethods.WINBIO_CREDENTIAL_TYPE.WINBIO_CREDENTIAL_ALL
 
     }
 

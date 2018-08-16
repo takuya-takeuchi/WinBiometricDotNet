@@ -1,12 +1,12 @@
 ﻿namespace WinBiometricDotNet
 {
 
-    public sealed class UnclaimedEvent
+    public sealed class UnclaimedEvent : EventParameter
     {
 
         #region Constructors
 
-        internal UnclaimedEvent(uint unidId, RejectDetails rejectDetail)
+        internal UnclaimedEvent(uint unidId, RejectDetail rejectDetail)
         {
             this.UnidId = unidId;
             this.RejectDetail = rejectDetail;
@@ -17,7 +17,7 @@
 
         #region Properties
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

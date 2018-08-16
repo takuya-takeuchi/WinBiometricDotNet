@@ -1,26 +1,72 @@
 ﻿using System;
+using WinBiometricDotNet.Interop;
+using WINBIO_CAPABILITIES = System.UInt32;
 
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Specifies the capabilities of biometric sensor.
+    /// </summary>
     [Flags]
-    public enum BiometricCapabilities
+    public enum BiometricCapabilities : WINBIO_CAPABILITIES
     {
 
-        Sensor = (0x00000001),
+        /// <summary>
+        /// The device can collect biometric data.
+        /// </summary>
+        Sensor = SafeNativeMethods.WINBIO_CAPABILITY_SENSOR,
 
-        Matching = (0x00000002),
+        /// <summary>
+        /// The device can perform match operations.
+        /// </summary>
+        Matching = SafeNativeMethods.WINBIO_CAPABILITY_MATCHING,
 
-        Database = (0x00000004),
+        /// <summary>
+        /// The sensor contains an onboard database.
+        /// </summary>
+        Database = SafeNativeMethods.WINBIO_CAPABILITY_DATABASE,
 
-        Proccessing = (0x00000008),
+        /// <summary>
+        /// The device can process samples and turn them into biometric templates.
+        /// </summary>
+        Proccessing = SafeNativeMethods.WINBIO_CAPABILITY_PROCESSING,
 
-        Encryption = (0x00000010),
+        /// <summary>
+        /// The device supports encryption of samples and templates.
+        /// </summary>
+        Encryption = SafeNativeMethods.WINBIO_CAPABILITY_ENCRYPTION,
 
-        Navigation = (0x00000020),
+        /// <summary>
+        /// The device can be used as a navigation device. Some devices and drivers can capture data in a format that can be translated by a user-mode application into navigation events, much like a mouse.
+        /// </summary>
+        Navigation = SafeNativeMethods.WINBIO_CAPABILITY_NAVIGATION,
 
-        Indicator = (0x00000040)
+        /// <summary>
+        /// The device has an indicator that can be turned on or off.
+        /// </summary>
+        Indicator = SafeNativeMethods.WINBIO_CAPABILITY_INDICATOR,
 
-    }
+        /// <summary>
+        /// The sensor adapter manages its own connection to the biometric hardware.
+        /// </summary>
+        VirtualSensor = SafeNativeMethods.WINBIO_CAPABILITY_VIRTUAL_SENSOR,
+
+        ///// <summary>
+        ///// The device supports security methods available in the WinBio engine adapter interface version 4.0 or later.
+        ///// </summary>
+        //SecureSensor = SafeNativeMethods.WINBIO_CAPABILITY_SECURE_SENSOR,
+
+        ///// <summary>
+        ///// Secure Connection Protocol (SCP) V1
+        ///// </summary>
+        //ScpV1 = SafeNativeMethods.WINBIO_CAPABILITY_SCP_V1,
+
+        ///// <summary>
+        ///// Modern standby support
+        ///// </summary>
+        //Wake = SafeNativeMethods.WINBIO_CAPABILITY_WAKE,
+
+}
 
 }

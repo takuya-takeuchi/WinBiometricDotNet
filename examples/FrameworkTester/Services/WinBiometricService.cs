@@ -220,7 +220,7 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumServiceProviders();
         }
 
-        public CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
+        public CredentialState GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
         {
             if (identity == null)
                 throw new ArgumentNullException(nameof(identity));
@@ -228,12 +228,12 @@ namespace FrameworkTester.Services
             return WinBiometric.GetCredentialState(identity, credentialType);
         }
 
-        public void GetDomainLogonSetting(out bool value, out SettingSourceTypes source)
+        public void GetDomainLogonSetting(out bool value, out SettingSourceType source)
         {
             WinBiometric.GetDomainLogonSetting(out value, out source);
         }
 
-        public void GetEnabledSetting(out bool value, out SettingSourceTypes source)
+        public void GetEnabledSetting(out bool value, out SettingSourceType source)
         {
             WinBiometric.GetEnabledSetting(out value, out source);
         }
@@ -243,27 +243,27 @@ namespace FrameworkTester.Services
             return WinBiometric.GetEnrolledFactors(accountOwner);
         }
 
-        public void GetLogonSetting(out bool value, out SettingSourceTypes source)
+        public void GetLogonSetting(out bool value, out SettingSourceType source)
         {
             WinBiometric.GetLogonSetting(out value, out source);
         }
 
         public AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
-                                               PropertyTypes propertyType,
+                                               PropertyType propertyType,
                                                BiometricIdentity identity)
         {
             return WinBiometric.GetAntiSpoofPolicyProperty(session, propertyType, identity);
         }
 
         public ULONG GetSampleHintProperty(Session session,
-                                                     PropertyTypes propertyType,
+                                                     PropertyType propertyType,
                                                      uint unitId)
         {
             return WinBiometric.GetSampleHintProperty(session, propertyType, unitId);
         }
 
         public void GetProperty(Session session,
-                                PropertyTypes propertyType, 
+                                PropertyType propertyType, 
                                 PropertyId propertyId, 
                                 uint unitId, 
                                 BiometricIdentity identity,
@@ -387,7 +387,7 @@ namespace FrameworkTester.Services
         }
 
         public void SetAntiSpoofPolicyProperty(Session session,
-                                               PropertyTypes propertyType,
+                                               PropertyType propertyType,
                                                BiometricIdentity identity,
                                                AntiSpoofPolicy antiSpoofPolicy)
         {

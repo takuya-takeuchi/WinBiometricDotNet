@@ -58,7 +58,7 @@ namespace FrameworkTester.ViewModels
                     {
                         this._DispatcherService.SafeAction(() =>
                         {
-                            this.Logs.Clear();
+                            this.AsyncResultLogs.Clear();
                         });
                     });
                 }));
@@ -108,10 +108,47 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        public ObservableCollection<string> Logs
+        public ObservableCollection<AsyncResult> AsyncResultLogs
         {
             get;
-        } = new ObservableCollection<string>();
+        } = new ObservableCollection<AsyncResult>();
+
+        private AsyncResult _SelectedAsyncResult;
+
+        public AsyncResult SelectedAsyncResult
+        {
+            get => this._SelectedAsyncResult;
+            set
+            {
+                this._SelectedAsyncResult = value;
+                this.RaisePropertyChanged();
+
+                if (value?.Parameter is AsyncResultCaptureSample sample)
+                {
+                    this.SelectedAsyncResultParameter = new AsyncResultCaptureSampleDummy(sample);
+                }
+                else if (value?.Parameter is AsyncResultEnumEnrollments enumEnrollments)
+                {
+                    this.SelectedAsyncResultParameter = new AsyncResultEnumEnrollmentsDummy(enumEnrollments);
+                }
+                else
+                {
+                    this.SelectedAsyncResultParameter = value?.Parameter;
+                }
+            }
+        }
+
+        private AsyncResultParameter _SelectedAsyncResultParameter;
+
+        public AsyncResultParameter SelectedAsyncResultParameter
+        {
+            get => this._SelectedAsyncResultParameter;
+            private set
+            {
+                this._SelectedAsyncResultParameter = value;
+                this.RaisePropertyChanged();
+            }
+        }
 
         public uint MessageCode
         {
@@ -130,9 +167,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private OperationTypes _OperationType;
+        private OperationType _OperationType;
 
-        public OperationTypes OperationType
+        public OperationType OperationType
         {
             get => this._OperationType;
             private set

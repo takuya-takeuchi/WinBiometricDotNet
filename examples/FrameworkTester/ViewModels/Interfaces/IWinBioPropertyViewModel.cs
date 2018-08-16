@@ -6,7 +6,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioPropertyViewModel
     {
 
-        SettingSourceTypes Source
+        SettingSourceType Source
         {
             get;
         }

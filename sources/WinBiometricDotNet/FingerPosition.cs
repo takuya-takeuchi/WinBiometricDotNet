@@ -1,56 +1,59 @@
-﻿namespace WinBiometricDotNet
+﻿using WinBiometricDotNet.Interop;
+using WINBIO_BIOMETRIC_SUBTYPE = System.Byte;
+
+namespace WinBiometricDotNet
 {
 
-    public enum FingerPosition
+    public enum FingerPosition : WINBIO_BIOMETRIC_SUBTYPE
     {
 
-        Unknown = 0,
+        Unknown = SafeNativeMethods.WINBIO_ANSI_381_POS_UNKNOWN,
 
-        RightThumb = 1,
+        RightThumb = SafeNativeMethods.WINBIO_ANSI_381_POS_RH_THUMB,
 
-        RightIndex = 2,
+        RightIndex = SafeNativeMethods.WINBIO_ANSI_381_POS_RH_INDEX_FINGER,
 
-        RightMiddle = 3,
+        RightMiddle = SafeNativeMethods.WINBIO_ANSI_381_POS_RH_MIDDLE_FINGER,
 
-        RightRing = 4,
+        RightRing = SafeNativeMethods.WINBIO_ANSI_381_POS_RH_RING_FINGER,
 
-        RightLittle = 5,
+        RightLittle = SafeNativeMethods.WINBIO_ANSI_381_POS_RH_LITTLE_FINGER,
 
-        LeftThumb = 6,
+        LeftThumb = SafeNativeMethods.WINBIO_ANSI_381_POS_LH_THUMB,
 
-        LeftIndex = 7,
+        LeftIndex = SafeNativeMethods.WINBIO_ANSI_381_POS_LH_INDEX_FINGER,
 
-        LeftMiddle = 8,
+        LeftMiddle = SafeNativeMethods.WINBIO_ANSI_381_POS_LH_MIDDLE_FINGER,
 
-        LeftRing = 9,
+        LeftRing = SafeNativeMethods.WINBIO_ANSI_381_POS_LH_RING_FINGER,
 
-        LeftLittle = 10,
+        LeftLittle = SafeNativeMethods.WINBIO_ANSI_381_POS_LH_LITTLE_FINGER,
 
-        RightSlap = 13,
+        RightSlap = SafeNativeMethods.WINBIO_ANSI_381_POS_RH_FOUR_FINGERS,
 
-        LeftSlap = 14,
+        LeftSlap = SafeNativeMethods.WINBIO_ANSI_381_POS_LH_FOUR_FINGERS,
 
-        TwoThumbs = 15,
+        TwoThumbs = SafeNativeMethods.WINBIO_ANSI_381_POS_TWO_THUMBS,
 
-        UnspecifiedPosition01 = 0xF5,
+        UnspecifiedPosition01 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_01,
 
-        UnspecifiedPosition02 = 0xF6,
+        UnspecifiedPosition02 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_02,
 
-        UnspecifiedPosition03 = 0xF7,
+        UnspecifiedPosition03 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_03,
 
-        UnspecifiedPosition04 = 0xF8,
+        UnspecifiedPosition04 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_04,
 
-        UnspecifiedPosition05 = 0xF9,
+        UnspecifiedPosition05 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_05,
 
-        UnspecifiedPosition06 = 0xFA,
+        UnspecifiedPosition06 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_06,
 
-        UnspecifiedPosition07 = 0xFB,
+        UnspecifiedPosition07 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_07,
 
-        UnspecifiedPosition08 = 0xFC,
+        UnspecifiedPosition08 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_08,
 
-        UnspecifiedPosition09 = 0xFD,
+        UnspecifiedPosition09 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_09,
 
-        UnspecifiedPosition10 = 0xFE
+        UnspecifiedPosition10 = SafeNativeMethods.WINBIO_FINGER_UNSPECIFIED_POS_10
 
     }
 

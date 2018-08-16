@@ -34,7 +34,7 @@ namespace FrameworkTester.ViewModels
             {
                 return this._ExecuteCommand ?? (this._ExecuteCommand = new RelayCommand(() =>
                 {
-                    this.State = CredentialStates.NotSet;
+                    this.State = CredentialState.NotSet;
 
                     try
                     {
@@ -62,9 +62,9 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioGetCredentialState";
 
-        private CredentialStates _State;
+        private CredentialState _State;
 
-        public CredentialStates State
+        public CredentialState State
         {
             get => this._State;
             private set

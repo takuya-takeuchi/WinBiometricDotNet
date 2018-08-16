@@ -17,7 +17,6 @@
             <RowDefinition Height="15" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="5" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -46,91 +45,91 @@
             VerticalAlignment="Top"
             Style="{StaticResource LabelTextBlock}"
             Text="ServiceProviders: " />
-        <ComboBox
+        <ScrollViewer
             Grid.Row="4"
             Grid.Column="2"
-            VerticalAlignment="Stretch"
-            ItemsSource="{Binding ServiceProviders}"
-            SelectedItem="{Binding SelectedServiceProvider}">
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="5" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="Id: " />
-                        <TextBlock
-                            Grid.Row="0"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding Id}" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="MajorVersion: " />
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding Version.MajorVersion}" />
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="MinorVersion: " />
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding Version.MinorVersion}" />
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="BiometricFactor: " />
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding BiometricFactor}" />
-                        <TextBlock
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="Vendor: " />
-                        <TextBlock
-                            Grid.Row="4"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding Vendor}" />
-                        <TextBlock
-                            Grid.Row="5"
-                            Grid.Column="0"
-                            Style="{StaticResource LabelTextBlock}"
-                            Text="Description: " />
-                        <TextBlock
-                            Grid.Row="5"
-                            Grid.Column="2"
-                            Style="{StaticResource ValueTextBlock}"
-                            Text="{Binding Description}" />
-                    </Grid>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+            VerticalAlignment="Stretch">
+            <ListBox ItemsSource="{Binding ServiceProviders}" SelectedItem="{Binding SelectedServiceProvider}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="Id: " />
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding Id}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="MajorVersion: " />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding Version.MajorVersion}" />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="MinorVersion: " />
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding Version.MinorVersion}" />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="BiometricFactor: " />
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding BiometricFactor}" />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="Vendor: " />
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding Vendor}" />
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="0"
+                                Style="{StaticResource LabelTextBlock}"
+                                Text="Description: " />
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="2"
+                                Style="{StaticResource ValueTextBlock}"
+                                Text="{Binding Description}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
     </Grid>
 </Page>

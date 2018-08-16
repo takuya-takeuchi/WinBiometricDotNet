@@ -118,6 +118,9 @@
     <Compile Include="DesignTimes\WinBioReleaseFocusViewModel.cs" />
     <Compile Include="DesignTimes\WinBioViewModel.cs" />
     <Compile Include="Helpers\BitmapSourceHelper.cs" />
+    <Compile Include="Selectors\ChildWindowLogTemplateSlector.cs" />
+    <Compile Include="ViewModels\AsyncResultCaptureSampleDummy.cs" />
+    <Compile Include="ViewModels\AsyncResultEnumEnrollmentsDummy.cs" />
     <Compile Include="ViewModels\CustomPropertyViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioSetCredentialViewModel.cs" />
     <Compile Include="ViewModels\SampleHintPropertyViewModel.cs" />
@@ -141,6 +144,7 @@
     <Compile Include="ViewModels\Interfaces\IHandleViewModel.cs" />
     <Compile Include="ViewModels\Interfaces\IWinBioSetPropertyViewModel.cs" />
     <Compile Include="DesignTimes\WinBioSetPropertyViewModel.cs" />
+    <Compile Include="ViewModels\WinBioFrameworkViewModel.cs" />
     <Compile Include="ViewModels\WinBioSetCredentialViewModel.cs" />
     <Compile Include="ViewModels\WinBioSetPropertyViewModel.cs" />
     <Compile Include="ViewModels\WinBioRemoveCredentialViewModel.cs" />

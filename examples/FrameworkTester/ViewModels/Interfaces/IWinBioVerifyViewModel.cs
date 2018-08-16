@@ -12,7 +12,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        RejectDetails RejectDetail
+        RejectDetail RejectDetail
         {
             get;
         }

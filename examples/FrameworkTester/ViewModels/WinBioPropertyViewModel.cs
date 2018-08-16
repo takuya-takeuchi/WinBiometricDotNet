@@ -44,9 +44,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private SettingSourceTypes _Source;
+        private SettingSourceType _Source;
 
-        public SettingSourceTypes Source
+        public SettingSourceType Source
         {
             get => this._Source;
             private set
@@ -72,7 +72,7 @@ namespace FrameworkTester.ViewModels
 
         #region Methods
 
-        protected abstract void GetValueAndSource(out bool value, out SettingSourceTypes source);
+        protected abstract void GetValueAndSource(out bool value, out SettingSourceType source);
 
         #endregion
 

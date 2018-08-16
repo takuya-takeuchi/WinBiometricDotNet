@@ -6,7 +6,7 @@
 
         #region Constructors
 
-        internal VerifyResult(bool match, uint unitId, OperationStatus operationStatus, RejectDetails rejectDetail)
+        internal VerifyResult(bool match, uint unitId, OperationStatus operationStatus, RejectDetail rejectDetail)
         {
             this.IsMatch = match;
             this.UnitId = unitId;
@@ -28,7 +28,7 @@
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

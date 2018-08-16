@@ -1,8 +1,10 @@
-﻿using WinBiometricDotNet.Interop;
+﻿using System;
+using WinBiometricDotNet.Interop;
 
 namespace WinBiometricDotNet
 {
 
+    [Flags]
     public enum EventTypes : uint
     {
 

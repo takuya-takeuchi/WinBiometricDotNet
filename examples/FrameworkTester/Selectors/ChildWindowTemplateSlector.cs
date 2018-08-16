@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using FrameworkTester.ViewModels.Interfaces;
+using WinBiometricDotNet;
 
 namespace FrameworkTester.Selectors
 {
@@ -30,10 +31,13 @@ namespace FrameworkTester.Selectors
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is IAsyncOpenFrameworkChildWindowViewModel)
-                return this.AsyncOpenFramework;
-            if (item is IAsyncOpenSessionChildWindowViewModel)
-                return this.AsyncOpenSession;
+            if (item is AsyncResult result)
+            {
+                if (result.Session != null)
+                    return this.AsyncOpenSession;
+                if (result.Framework != null)
+                    return this.AsyncOpenFramework;
+            }
 
             return null;
         }

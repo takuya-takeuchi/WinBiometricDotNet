@@ -16,7 +16,7 @@ namespace FrameworkTester.ViewModels
 
         protected PropertyViewModel()
         {
-            this.PropertyTypes = Enum.GetValues(typeof(PropertyTypes)).Cast<PropertyTypes>().ToArray();
+            this.PropertyTypes = Enum.GetValues(typeof(PropertyType)).Cast<PropertyType>().ToArray();
 
             this.SelectedPropertyType = this.PropertyTypes.First();
 
@@ -27,9 +27,9 @@ namespace FrameworkTester.ViewModels
 
         #region Properties
 
-        private PropertyTypes _SelectedPropertyType;
+        private PropertyType _SelectedPropertyType;
 
-        public PropertyTypes SelectedPropertyType
+        public PropertyType SelectedPropertyType
         {
             get => this._SelectedPropertyType;
             set
@@ -49,7 +49,7 @@ namespace FrameworkTester.ViewModels
             get;
         }
 
-        public IEnumerable<PropertyTypes> PropertyTypes
+        public IEnumerable<PropertyType> PropertyTypes
         {
             get;
         }

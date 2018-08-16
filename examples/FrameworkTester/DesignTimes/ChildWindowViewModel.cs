@@ -26,7 +26,18 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public ObservableCollection<string> Logs
+        public ObservableCollection<AsyncResult> AsyncResultLogs
+        {
+            get;
+        }
+
+        public AsyncResult SelectedAsyncResult
+        {
+            get;
+            set;
+        }
+
+        public AsyncResultParameter SelectedAsyncResultParameter
         {
             get;
         }
@@ -41,7 +52,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public OperationTypes OperationType
+        public OperationType OperationType
         {
             get;
         }

@@ -6,7 +6,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioEnrollCaptureViewModel : IWinBioViewModel
     {
 
-        RejectDetails RejectDetail
+        RejectDetail RejectDetail
         {
             get;
         }

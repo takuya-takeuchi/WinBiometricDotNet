@@ -1,7 +1,7 @@
 ﻿namespace WinBiometricDotNet
 {
 
-    public sealed class ErrorEvent
+    public sealed class ErrorEvent : EventParameter
     {
 
         #region Constructors

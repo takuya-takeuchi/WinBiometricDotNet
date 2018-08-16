@@ -1,19 +1,21 @@
 ﻿using System;
+using WinBiometricDotNet.Interop;
+using ULONG = System.UInt32;
 
 namespace WinBiometricDotNet
 {
 
     [Flags]
-    public enum DatabaseTypes
+    public enum DatabaseTypes: ULONG
     {
 
-        File = 0x00000001,
+        File = SafeNativeMethods.WINBIO_DATABASE_TYPE_FILE,
 
-        DatabaseManagementSystem = 0x00000002,
+        DatabaseManagementSystem = SafeNativeMethods.WINBIO_DATABASE_TYPE_DBMS,
 
-        OnChip = 0x00000003,
+        OnChip = SafeNativeMethods.WINBIO_DATABASE_TYPE_ONCHIP,
 
-        SmartCard = 0x00000004
+        SmartCard = SafeNativeMethods.WINBIO_DATABASE_TYPE_SMARTCARD
 
     }
 

@@ -1688,6 +1688,26 @@ namespace WinBiometricDotNet.Interop
         /// </summary>
         public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_INDICATOR = (0x00000040);
 
+        /// <summary>
+        /// The sensor adapter manages its own connection to the biometric hardware.
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_VIRTUAL_SENSOR = ((WINBIO_CAPABILITIES)0x00000080);
+
+        /// <summary>
+        /// The device supports security methods available in the WinBio engine adapter interface version 4.0 or later.
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_SECURE_SENSOR = ((WINBIO_CAPABILITIES)0x00000100);
+
+        /// <summary>
+        /// Secure Connection Protocol (SCP) V1
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_SCP_V1 = ((WINBIO_CAPABILITIES)0x00000200);
+
+        /// <summary>
+        /// Modern standby support
+        /// </summary>
+        public const WINBIO_CAPABILITIES WINBIO_CAPABILITY_WAKE = ((WINBIO_CAPABILITIES)0x00000400);
+
         #endregion
 
         #region WINBIO_COMPONENT Constants
@@ -2111,19 +2131,24 @@ namespace WinBiometricDotNet.Interop
         #region WINBIO_PROPERTY_TYPE Constants
 
         /// <summary>
-        /// A biometric session.
+        /// The property applies to a specific biometric session.
         /// </summary>
         public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_SESSION = 1;
 
         /// <summary>
-        /// A biometric unit.
+        /// The property applies to a specific biometric unit.
         /// </summary>
         public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_UNIT = 2;
 
         /// <summary>
-        /// A biometric template.
+        /// The property applies to a specific biometric template.
         /// </summary>
         public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_TEMPLATE = 3;
+
+        /// <summary>
+        /// The property applies to a specific user account that has a biometric enrollment.
+        /// </summary>
+        public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_ACCOUNT = 4;
 
         #endregion
 
@@ -6406,9 +6431,34 @@ namespace WinBiometricDotNet.Interop
         {
 
             /// <summary>
-            /// Reserved.
+            /// Source of the property information. Currently this will be <see cref="WINBIO_PROPERTY_TYPE_UNIT"/>.
             /// </summary>
-            public ULONG None;
+            public WINBIO_PROPERTY_TYPE PropertyType;
+
+            /// <summary>
+            /// The property that was queried. Currently this will be <see cref="WINBIO_PROPERTY_SAMPLE_HINT"/>.
+            /// </summary>
+            public WINBIO_PROPERTY_ID PropertyId;
+
+            /// <summary>
+            /// This is a reserved value and will be NULL.
+            /// </summary>
+            public WINBIO_IDENTITY Identity;
+
+            /// <summary>
+            /// This is reserved and will be WINBIO_SUBTYPE_NO_INFORMATION.
+            /// </summary>
+            public WINBIO_BIOMETRIC_SUBTYPE SubFactor;
+
+            /// <summary>
+            /// Size, in bytes, of the property value pointed to by the <see cref="PropertyBuffer"/> member.
+            /// </summary>
+            public SIZE_T PropertyBufferSize;
+
+            /// <summary>
+            /// Pointer to the property value.
+            /// </summary>
+            public PVOID PropertyBuffer;
 
         }
 

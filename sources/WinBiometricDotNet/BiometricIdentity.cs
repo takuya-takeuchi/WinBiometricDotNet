@@ -6,23 +6,26 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="BiometricIdentity"/> class contains an identifying value associated with a biometric template.
+    /// </summary>
     public sealed class BiometricIdentity
     {
 
         #region Constructors
 
-        internal BiometricIdentity(SafeNativeMethods.WINBIO_IDENTITY identity)
+        internal unsafe BiometricIdentity(SafeNativeMethods.WINBIO_IDENTITY* identity)
         {
-            this.Type = (IdentityTypes)identity.Type;
-            var value = identity.Value;
+            this.Type = (IdentityType)identity->Type;
+            var value = identity->Value;
 
             switch (this.Type)
             {
-                case IdentityTypes.Null:
+                case IdentityType.Null:
                     break;
-                case IdentityTypes.WildCard:
+                case IdentityType.WildCard:
                     break;
-                case IdentityTypes.Guid:
+                case IdentityType.Guid:
                     unsafe
                     {
                         var templateGuid = value.TemplateGuid;
@@ -34,7 +37,7 @@ namespace WinBiometricDotNet
                         this.TemplateGuid = new Guid(a, b, c, d);
                     }
                     break;
-                case IdentityTypes.Sid:
+                case IdentityType.Sid:
                     unsafe
                     {
                         var accountSid = value.AccountSid;
@@ -45,18 +48,24 @@ namespace WinBiometricDotNet
                     break;
             }
 
-            this.Source = identity;
+            this.Source = *identity;
         }
 
         #endregion
 
         #region Properties
 
-        public IdentityTypes Type
+        /// <summary>
+        /// Gets the format of the identity information contained in this class.
+        /// </summary>
+        public IdentityType Type
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that contains an account SID.
+        /// </summary>
         public SecurityIdentifier Sid
         {
             get;
@@ -67,6 +76,9 @@ namespace WinBiometricDotNet
             get;
         }
 
+        /// <summary>
+        /// Gets a 128-bit GUID value that identifies the template.
+        /// </summary>
         public Guid TemplateGuid
         {
             get;

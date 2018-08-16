@@ -8,7 +8,7 @@ namespace FrameworkTester.DesignTimes
     public sealed class WinBioEnrollCommitViewModel : WinBioViewModel, IWinBioEnrollCommitViewModel, IWinBioAsyncSessionViewModel
     {
 
-        public IdentityTypes Type
+        public IdentityType Type
         {
             get;
         }

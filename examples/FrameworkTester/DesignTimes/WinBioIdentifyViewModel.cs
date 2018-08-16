@@ -18,7 +18,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }
@@ -38,7 +38,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public IdentityTypes Type
+        public IdentityType Type
         {
             get;
         }

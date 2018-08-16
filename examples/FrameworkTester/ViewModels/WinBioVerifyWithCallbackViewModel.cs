@@ -89,7 +89,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = false;
                     }
-                }, () => this.WaitCallback && this.HandleRepository?.SelectedHandle != null));
+                }, () => !this.WaitCallback && this.HandleRepository?.SelectedHandle != null));
             }
         }
 
@@ -122,9 +122,9 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioVerifyWithCallback";
 
-        private RejectDetails _RejectDetail;
+        private RejectDetail _RejectDetail;
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get
             {
