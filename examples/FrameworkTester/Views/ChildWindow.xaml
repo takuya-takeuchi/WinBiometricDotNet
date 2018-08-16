@@ -351,13 +351,56 @@
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
+                    VerticalAlignment="Top"
                     Style="{StaticResource LabelTextBlock}"
                     Text="Identity: " />
-                <TextBlock
+                <Grid
                     Grid.Row="0"
                     Grid.Column="2"
-                    Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding Identity}" />
+                    DataContext="{Binding Identity}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="Type: " />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding Type}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="TemplateGuid: " />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding TemplateGuid}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="Sid: " />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding Sid}" />
+                </Grid>
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -432,13 +475,56 @@
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
+                    VerticalAlignment="Top"
                     Style="{StaticResource LabelTextBlock}"
                     Text="Identity: " />
-                <TextBlock
+                <Grid
                     Grid.Row="0"
                     Grid.Column="2"
-                    Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding Identity}" />
+                    DataContext="{Binding Identity}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="Type: " />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding Type}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="TemplateGuid: " />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding TemplateGuid}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="Sid: " />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding Sid}" />
+                </Grid>
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -758,13 +844,56 @@
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
+                    VerticalAlignment="Top"
                     Style="{StaticResource LabelTextBlock}"
                     Text="Identity: " />
-                <TextBlock
+                <Grid
                     Grid.Row="0"
                     Grid.Column="2"
-                    Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding Identity}" />
+                    DataContext="{Binding Identity}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="Type: " />
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding Type}" />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="TemplateGuid: " />
+                    <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding TemplateGuid}" />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Style="{StaticResource LabelTextBlock}"
+                        Text="Sid: " />
+                    <TextBlock
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        Style="{StaticResource ValueTextBlock}"
+                        Text="{Binding Sid}" />
+                </Grid>
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -846,8 +975,7 @@
         <controls:ObservableContentControl
             Grid.Row="0"
             Content="{Binding SelectedAsyncResult}"
-            ContentTemplateSelector="{StaticResource ChildWindowTemplateSlector}">
-        </controls:ObservableContentControl>
+            ContentTemplateSelector="{StaticResource ChildWindowTemplateSlector}" />
 
         <controls:ObservableContentControl
             Grid.Row="1"
