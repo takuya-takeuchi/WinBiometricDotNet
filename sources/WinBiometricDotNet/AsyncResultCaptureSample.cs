@@ -13,6 +13,7 @@ namespace WinBiometricDotNet
         internal unsafe AsyncResultCaptureSample(SafeNativeMethods.WINBIO_ASYNC_RESULT_CAPTURESAMPLE* captureSample)
         {
             this.RejectDetail = (RejectDetails)captureSample->RejectDetail;
+            this.SampleSize = (int)captureSample->SampleSize;
 
             var sample = (SafeNativeMethods.WINBIO_BIR*)captureSample->Sample;
             if (captureSample != null)
@@ -28,12 +29,12 @@ namespace WinBiometricDotNet
                 Marshal.Copy(firstPixel, image, 0, image.Length);
 
                 this.Sample = new CaptureSample(ansiBdbRecord->HorizontalLineLength,
-                    ansiBdbRecord->VerticalLineLength,
-                    ansiBdbHeader->HorizontalScanResolution,
-                    ansiBdbHeader->VerticalScanResolution,
-                    ansiBdbHeader->HorizontalImageResolution,
-                    ansiBdbHeader->VerticalImageResolution,
-                    image);
+                                                ansiBdbRecord->VerticalLineLength,
+                                                ansiBdbHeader->HorizontalScanResolution,
+                                                ansiBdbHeader->VerticalScanResolution,
+                                                ansiBdbHeader->HorizontalImageResolution,
+                                                ansiBdbHeader->VerticalImageResolution,
+                                                image);
             }
         }
 
@@ -42,6 +43,11 @@ namespace WinBiometricDotNet
         #region Properties
 
         public CaptureSample Sample
+        {
+            get;
+        }
+
+        public int SampleSize
         {
             get;
         }
