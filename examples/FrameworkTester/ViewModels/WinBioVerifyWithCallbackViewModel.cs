@@ -89,7 +89,7 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = false;
                     }
-                }, () => this.WaitCallback && this.HandleRepository?.SelectedHandle != null));
+                }, () => !this.WaitCallback && this.HandleRepository?.SelectedHandle != null));
             }
         }
 
