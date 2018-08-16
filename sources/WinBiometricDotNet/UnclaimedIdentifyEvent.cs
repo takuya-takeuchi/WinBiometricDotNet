@@ -6,7 +6,7 @@
 
         #region Constructors
 
-        internal UnclaimedIdentifyEvent(uint unidId, FingerPosition fingerPosition, BiometricIdentity identity, RejectDetails rejectDetail)
+        internal UnclaimedIdentifyEvent(uint unidId, FingerPosition fingerPosition, BiometricIdentity identity, RejectDetail rejectDetail)
         {
             this.UnidId = unidId;
             this.FingerPosition = fingerPosition;
@@ -28,7 +28,7 @@
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

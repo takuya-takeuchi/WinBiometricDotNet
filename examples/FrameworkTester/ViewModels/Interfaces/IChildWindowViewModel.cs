@@ -50,7 +50,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        OperationTypes OperationType
+        OperationType OperationType
         {
             get;
         }

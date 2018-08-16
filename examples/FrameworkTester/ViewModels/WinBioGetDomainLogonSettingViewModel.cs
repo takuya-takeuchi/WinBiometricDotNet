@@ -9,7 +9,7 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioGetDomainLogonSetting";
 
-        protected override void GetValueAndSource(out bool value, out SettingSourceTypes source)
+        protected override void GetValueAndSource(out bool value, out SettingSourceType source)
         {
             this.BiometricService.GetDomainLogonSetting(out value, out source);
         }

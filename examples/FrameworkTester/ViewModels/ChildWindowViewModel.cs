@@ -167,9 +167,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private OperationTypes _OperationType;
+        private OperationType _OperationType;
 
-        public OperationTypes OperationType
+        public OperationType OperationType
         {
             get => this._OperationType;
             private set

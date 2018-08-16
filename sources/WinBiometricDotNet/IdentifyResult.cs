@@ -6,7 +6,7 @@
 
         #region Constructors
 
-        internal IdentifyResult(uint unitId, OperationStatus operationStatus, BiometricIdentity identity, FingerPosition fingerPosition, RejectDetails rejectDetail)
+        internal IdentifyResult(uint unitId, OperationStatus operationStatus, BiometricIdentity identity, FingerPosition fingerPosition, RejectDetail rejectDetail)
         {
             this.UnitId = unitId;
             this.OperationStatus = operationStatus;
@@ -29,7 +29,7 @@
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

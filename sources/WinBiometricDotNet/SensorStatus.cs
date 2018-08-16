@@ -1,10 +1,11 @@
 ﻿using System;
 using WinBiometricDotNet.Interop;
+using WINBIO_SENSOR_STATUS = System.UInt32;
 
 namespace WinBiometricDotNet
 {
 
-    public enum SensorStatus : UInt32
+    public enum SensorStatus : WINBIO_SENSOR_STATUS
     {
 
         StatusUnknown = SafeNativeMethods.WINBIO_SENSOR_STATUS_UNKNOWN,

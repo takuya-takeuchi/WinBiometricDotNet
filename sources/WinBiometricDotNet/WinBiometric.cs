@@ -252,7 +252,7 @@ namespace WinBiometricDotNet
                     break;
             }
 
-            return new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
+            return new CaptureEnrollResult(status, (RejectDetail)rejectDetail, status == OperationStatus.MoreData);
         }
 
         public static void CaptureEnrollWithCallback(Session session)
@@ -588,7 +588,7 @@ namespace WinBiometricDotNet
                 yield return new BiometricServiceProvider(schema);
         }
 
-        public static CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
+        public static CredentialState GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
         {
             if (identity == null)
                 throw new ArgumentNullException(nameof(identity));
@@ -599,25 +599,25 @@ namespace WinBiometricDotNet
 
             ThrowWinBiometricException(hr);
 
-            return (CredentialStates)state;
+            return (CredentialState)state;
         }
 
-        public static void GetDomainLogonSetting(out bool value, out SettingSourceTypes source)
+        public static void GetDomainLogonSetting(out bool value, out SettingSourceType source)
         {
             var hr = SafeNativeMethods.WinBioGetDomainLogonSetting(out value, out var tmp);
 
             ThrowWinBiometricException(hr);
 
-            source = (SettingSourceTypes)tmp;
+            source = (SettingSourceType)tmp;
         }
 
-        public static void GetEnabledSetting(out bool value, out SettingSourceTypes source)
+        public static void GetEnabledSetting(out bool value, out SettingSourceType source)
         {
             var hr = SafeNativeMethods.WinBioGetEnabledSetting(out value, out var tmp);
 
             ThrowWinBiometricException(hr);
 
-            source = (SettingSourceTypes)tmp;
+            source = (SettingSourceType)tmp;
         }
 
         public static BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner)
@@ -638,17 +638,17 @@ namespace WinBiometricDotNet
             }
         }
 
-        public static void GetLogonSetting(out bool value, out SettingSourceTypes source)
+        public static void GetLogonSetting(out bool value, out SettingSourceType source)
         {
             var hr = SafeNativeMethods.WinBioGetLogonSetting(out value, out var tmp);
 
             ThrowWinBiometricException(hr);
 
-            source = (SettingSourceTypes)tmp;
+            source = (SettingSourceType)tmp;
         }
 
         public static AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
-                                                                 PropertyTypes propertyType,
+                                                                 PropertyType propertyType,
                                                                  BiometricIdentity identity)
         {
             if (session == null)
@@ -686,7 +686,7 @@ namespace WinBiometricDotNet
         }
 
         public static ULONG GetSampleHintProperty(Session session,
-                                                  PropertyTypes propertyType,
+                                                  PropertyType propertyType,
                                                   uint unitId)
         {
             if (session == null)
@@ -719,7 +719,7 @@ namespace WinBiometricDotNet
         }
 
         public static void GetProperty(Session session,
-                                       PropertyTypes propertyType,
+                                       PropertyType propertyType,
                                        PropertyId propertyId,
                                        uint unitId,
                                        BiometricIdentity identity,
@@ -804,7 +804,7 @@ namespace WinBiometricDotNet
                                           OperationStatus.OK,
                                           new BiometricIdentity(&identity),
                                           (FingerPosition)subFactor,
-                                          (RejectDetails)rejectDetail);
+                                          (RejectDetail)rejectDetail);
             }
         }
 
@@ -1083,7 +1083,7 @@ namespace WinBiometricDotNet
         }
 
         public static void SetAntiSpoofPolicyProperty(Session session,
-                                                      PropertyTypes propertyType,
+                                                      PropertyType propertyType,
                                                       BiometricIdentity identity,
                                                       AntiSpoofPolicy antiSpoofPolicy)
         {
@@ -1202,7 +1202,7 @@ namespace WinBiometricDotNet
                     break;
             }
 
-            return new VerifyResult(match, unitId, status, (RejectDetails)rejectDetail);
+            return new VerifyResult(match, unitId, status, (RejectDetail)rejectDetail);
         }
 
         public static void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position)
@@ -1321,7 +1321,7 @@ namespace WinBiometricDotNet
                                                                             IntPtr sampleSize,
                                                                             WINBIO_REJECT_DETAIL rejectDetail)
         {
-            var result = new CaptureSampleResult(unitId, status, (RejectDetails)rejectDetail, (uint)sampleSize);
+            var result = new CaptureSampleResult(unitId, status, (RejectDetail)rejectDetail, (uint)sampleSize);
             if (sample != null)
             {
                 var tmp = (UIntPtr)((ulong)sample + sample->StandardDataBlock.Offset);
@@ -2181,7 +2181,7 @@ namespace WinBiometricDotNet
             var @event = EnrollCaptured;
             if (@event != null)
             {
-                var result = new CaptureEnrollResult(status, (RejectDetails)rejectDetail, status == OperationStatus.MoreData);
+                var result = new CaptureEnrollResult(status, (RejectDetail)rejectDetail, status == OperationStatus.MoreData);
                 var args = new EnrollCapturedEventArgs(result);
                 @event.Invoke(null, args);
             }
@@ -2236,7 +2236,7 @@ namespace WinBiometricDotNet
                     case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED:
                         var winbioEventUnclaimed = @event->Parameters.Unclaimed;
                         var unclaimed = new UnclaimedEvent(winbioEventUnclaimed.UnitId,
-                                                           (RejectDetails)winbioEventUnclaimed.RejectDetail);
+                                                           (RejectDetail)winbioEventUnclaimed.RejectDetail);
 
                         args = new EventMonitoredEventArgs(EventTypes.Unclaimed,
                                                            status,
@@ -2249,7 +2249,7 @@ namespace WinBiometricDotNet
                         var unclaimedIdentify = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
                                                                            (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
                                                                            new BiometricIdentity(&winbioEventUnclaimedidentity.Identity),
-                                                                           (RejectDetails)winbioEventUnclaimedidentity.RejectDetail);
+                                                                           (RejectDetail)winbioEventUnclaimedidentity.RejectDetail);
 
                         args = new EventMonitoredEventArgs(EventTypes.UnclaimedIdentify,
                                                            status,
@@ -2296,7 +2296,7 @@ namespace WinBiometricDotNet
                 var result = new IdentifyResult(unitId, status,
                                                 new BiometricIdentity(identity),
                                                 (FingerPosition)subFactor,
-                                                (RejectDetails)rejectDetail);
+                                                (RejectDetail)rejectDetail);
 
                 var args = new IdentifiedEventArgs(result);
                 @event.Invoke(null, args);
@@ -2328,7 +2328,7 @@ namespace WinBiometricDotNet
             var @event = Verified;
             if (@event != null)
             {
-                var args = new VerifyEventArgs(new VerifyResult(match, unitId, status, (RejectDetails)rejectDetail));
+                var args = new VerifyEventArgs(new VerifyResult(match, unitId, status, (RejectDetail)rejectDetail));
                 @event.Invoke(null, args);
             }
         }

@@ -12,7 +12,7 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultCaptureSample(SafeNativeMethods.WINBIO_ASYNC_RESULT_CAPTURESAMPLE* captureSample)
         {
-            this.RejectDetail = (RejectDetails)captureSample->RejectDetail;
+            this.RejectDetail = (RejectDetail)captureSample->RejectDetail;
             this.SampleSize = (int)captureSample->SampleSize;
 
             var sample = (SafeNativeMethods.WINBIO_BIR*)captureSample->Sample;
@@ -52,7 +52,7 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

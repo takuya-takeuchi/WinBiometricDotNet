@@ -10,14 +10,14 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultEnrollCapture(SafeNativeMethods.WINBIO_ASYNC_RESULT_ENROLLCAPTURE* enrollCapture)
         {
-            this.RejectDetail = (RejectDetails)enrollCapture->RejectDetail;
+            this.RejectDetail = (RejectDetail)enrollCapture->RejectDetail;
         }
 
         #endregion
 
         #region Properties
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

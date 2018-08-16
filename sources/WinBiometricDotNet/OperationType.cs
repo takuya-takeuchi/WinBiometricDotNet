@@ -3,7 +3,7 @@
 namespace WinBiometricDotNet
 {
 
-    public enum OperationTypes : uint
+    public enum OperationType : uint
     {
 
         None = SafeNativeMethods.WINBIO_OPERATION_NONE,

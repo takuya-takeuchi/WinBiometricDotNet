@@ -16,16 +16,16 @@ namespace WinBiometricDotNet
 
         internal unsafe BiometricIdentity(SafeNativeMethods.WINBIO_IDENTITY* identity)
         {
-            this.Type = (IdentityTypes)identity->Type;
+            this.Type = (IdentityType)identity->Type;
             var value = identity->Value;
 
             switch (this.Type)
             {
-                case IdentityTypes.Null:
+                case IdentityType.Null:
                     break;
-                case IdentityTypes.WildCard:
+                case IdentityType.WildCard:
                     break;
-                case IdentityTypes.Guid:
+                case IdentityType.Guid:
                     unsafe
                     {
                         var templateGuid = value.TemplateGuid;
@@ -37,7 +37,7 @@ namespace WinBiometricDotNet
                         this.TemplateGuid = new Guid(a, b, c, d);
                     }
                     break;
-                case IdentityTypes.Sid:
+                case IdentityType.Sid:
                     unsafe
                     {
                         var accountSid = value.AccountSid;
@@ -58,7 +58,7 @@ namespace WinBiometricDotNet
         /// <summary>
         /// Gets the format of the identity information contained in this class.
         /// </summary>
-        public IdentityTypes Type
+        public IdentityType Type
         {
             get;
         }

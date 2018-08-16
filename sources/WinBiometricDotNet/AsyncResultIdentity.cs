@@ -12,7 +12,7 @@ namespace WinBiometricDotNet
         {
             this.Identity = new BiometricIdentity(&identity->Identity);
             this.FingerPosition = (FingerPosition)identity->SubFactor;
-            this.RejectDetail = (RejectDetails)identity->RejectDetail;
+            this.RejectDetail = (RejectDetail)identity->RejectDetail;
         }
 
         #endregion
@@ -29,7 +29,7 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

@@ -46,7 +46,7 @@ namespace FrameworkTester.ViewModels
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

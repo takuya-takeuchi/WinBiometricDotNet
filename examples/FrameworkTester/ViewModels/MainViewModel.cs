@@ -237,17 +237,17 @@ namespace FrameworkTester.ViewModels
                     var identity = ui.Identity;
                     switch (ui.Identity.Type)
                     {
-                        case IdentityTypes.Null:
-                            subMessage = $"IdentityTypes: Null";
+                        case IdentityType.Null:
+                            subMessage = $"IdentityType: Null";
                             break;
-                        case IdentityTypes.WildCard:
-                            subMessage = $"IdentityTypes: WildCard";
+                        case IdentityType.WildCard:
+                            subMessage = $"IdentityType: WildCard";
                             break;
-                        case IdentityTypes.Guid:
-                            subMessage = $"IdentityTypes: Guid, TemplateGuid: {identity.TemplateGuid}";
+                        case IdentityType.Guid:
+                            subMessage = $"IdentityType: Guid, TemplateGuid: {identity.TemplateGuid}";
                             break;
-                        case IdentityTypes.Sid:
-                            subMessage = $"IdentityTypes: Guid, Sid: {identity.Sid}";
+                        case IdentityType.Sid:
+                            subMessage = $"IdentityType: Guid, Sid: {identity.Sid}";
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();

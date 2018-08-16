@@ -17,7 +17,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        RejectDetails RejectDetail
+        RejectDetail RejectDetail
         {
             get;
         }
@@ -37,7 +37,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        IdentityTypes Type
+        IdentityType Type
         {
             get;
         }

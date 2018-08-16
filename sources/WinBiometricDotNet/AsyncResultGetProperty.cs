@@ -14,7 +14,7 @@ namespace WinBiometricDotNet
         {
             this.Identity = new BiometricIdentity(&getProperty->Identity);
             this.FingerPosition = (FingerPosition)getProperty->SubFactor;
-            this.PropertyType = (PropertyTypes)getProperty->PropertyType;
+            this.PropertyType = (PropertyType)getProperty->PropertyType;
             this.PropertyId = (PropertyId)getProperty->PropertyId;
 
             if (getProperty->PropertyBuffer != IntPtr.Zero)
@@ -48,7 +48,7 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public PropertyTypes PropertyType
+        public PropertyType PropertyType
         {
             get;
         }

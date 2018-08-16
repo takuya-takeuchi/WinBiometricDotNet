@@ -11,7 +11,7 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        CredentialStates State
+        CredentialState State
         {
             get;
         }

@@ -11,7 +11,7 @@ namespace WinBiometricDotNet
         internal unsafe AsyncResultVerify(SafeNativeMethods.WINBIO_ASYNC_RESULT_VERIFY* verify)
         {
             this.Match = verify->Match;
-            this.RejectDetail = (RejectDetails)verify->RejectDetail;
+            this.RejectDetail = (RejectDetail)verify->RejectDetail;
         }
 
         #endregion
@@ -23,7 +23,7 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get;
         }

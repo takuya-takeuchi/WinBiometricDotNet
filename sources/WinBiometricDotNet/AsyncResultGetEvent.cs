@@ -16,14 +16,14 @@ namespace WinBiometricDotNet
                 case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED:
                     var winbioEventUnclaimed = @event->Parameters.Unclaimed;
                     this.Parameter = new UnclaimedEvent(winbioEventUnclaimed.UnitId,
-                        (RejectDetails)winbioEventUnclaimed.RejectDetail);
+                        (RejectDetail)winbioEventUnclaimed.RejectDetail);
                     break;
                 case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY:
                     var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
                     this.Parameter = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
                         (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
                         new BiometricIdentity(&winbioEventUnclaimedidentity.Identity),
-                        (RejectDetails)winbioEventUnclaimedidentity.RejectDetail);
+                        (RejectDetail)winbioEventUnclaimedidentity.RejectDetail);
                     break;
                 case SafeNativeMethods.WINBIO_EVENT_ERROR:
                     var winbioEventError = @event->Parameters.Error;

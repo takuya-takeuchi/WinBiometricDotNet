@@ -52,7 +52,7 @@ namespace FrameworkTester.DesignTimes
             get;
         }
 
-        public OperationTypes OperationType
+        public OperationType OperationType
         {
             get;
         }

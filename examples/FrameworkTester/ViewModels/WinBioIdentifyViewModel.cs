@@ -30,7 +30,7 @@ namespace FrameworkTester.ViewModels
             {
                 return this._ExecuteCommand ?? (this._ExecuteCommand = new RelayCommand(() =>
                 {
-                    this.Type = IdentityTypes.Null;
+                    this.Type = IdentityType.Null;
                     this.TemplateGuid = Guid.Empty;
                     this.Sid = "";
                     this.UnitId = 0;
@@ -84,9 +84,9 @@ namespace FrameworkTester.ViewModels
             get;
         }
 
-        private RejectDetails _RejectDetail;
+        private RejectDetail _RejectDetail;
 
-        public RejectDetails RejectDetail
+        public RejectDetail RejectDetail
         {
             get => this._RejectDetail;
             private set
@@ -135,9 +135,9 @@ namespace FrameworkTester.ViewModels
             }
         }
 
-        private IdentityTypes _Type;
+        private IdentityType _Type;
 
-        public IdentityTypes Type
+        public IdentityType Type
         {
             get
             {

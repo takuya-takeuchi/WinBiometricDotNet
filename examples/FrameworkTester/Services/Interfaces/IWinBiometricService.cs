@@ -82,26 +82,26 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<BiometricServiceProvider> EnumServiceProviders();
 
-        CredentialStates GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType);
+        CredentialState GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType);
 
-        void GetDomainLogonSetting(out bool value, out SettingSourceTypes source);
+        void GetDomainLogonSetting(out bool value, out SettingSourceType source);
 
-        void GetEnabledSetting(out bool value, out SettingSourceTypes source);
+        void GetEnabledSetting(out bool value, out SettingSourceType source);
 
         BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner);
 
-        void GetLogonSetting(out bool value, out SettingSourceTypes source);
+        void GetLogonSetting(out bool value, out SettingSourceType source);
 
         AntiSpoofPolicy GetAntiSpoofPolicyProperty(Session session,
-                                                   PropertyTypes propertyType,
+                                                   PropertyType propertyType,
                                                    BiometricIdentity identity);
 
         ULONG GetSampleHintProperty(Session session,
-                                    PropertyTypes propertyType,
+                                    PropertyType propertyType,
                                     uint unitId);
 
         void GetProperty(Session session,
-                         PropertyTypes propertyType,
+                         PropertyType propertyType,
                          PropertyId propertyId,
                          uint unitId,
                          BiometricIdentity identity,
@@ -147,7 +147,7 @@ namespace FrameworkTester.Services.Interfaces
         void SelectEnroll(Session session, ulong selectorValue);
 
         void SetAntiSpoofPolicyProperty(Session session,
-                                        PropertyTypes propertyType,
+                                        PropertyType propertyType,
                                         BiometricIdentity identity,
                                         AntiSpoofPolicy antiSpoofPolicy);
 

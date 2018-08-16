@@ -2131,19 +2131,24 @@ namespace WinBiometricDotNet.Interop
         #region WINBIO_PROPERTY_TYPE Constants
 
         /// <summary>
-        /// A biometric session.
+        /// The property applies to a specific biometric session.
         /// </summary>
         public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_SESSION = 1;
 
         /// <summary>
-        /// A biometric unit.
+        /// The property applies to a specific biometric unit.
         /// </summary>
         public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_UNIT = 2;
 
         /// <summary>
-        /// A biometric template.
+        /// The property applies to a specific biometric template.
         /// </summary>
         public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_TEMPLATE = 3;
+
+        /// <summary>
+        /// The property applies to a specific user account that has a biometric enrollment.
+        /// </summary>
+        public const WINBIO_PROPERTY_TYPE WINBIO_PROPERTY_TYPE_ACCOUNT = 4;
 
         #endregion
 

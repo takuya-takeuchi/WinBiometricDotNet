@@ -1,15 +1,17 @@
 ﻿using System;
+using WinBiometricDotNet.Interop;
+using ULONG = System.UInt32;
 
 namespace WinBiometricDotNet
 {
 
     [Flags]
-    public enum DatabaseFlags
+    public enum DatabaseFlags : ULONG
     {
 
-        Removable = 0x00010000,
+        Removable = SafeNativeMethods.WINBIO_DATABASE_FLAG_REMOVABLE,
 
-        Remote = 0x00020000
+        Remote = SafeNativeMethods.WINBIO_DATABASE_FLAG_REMOTE
 
     }
 

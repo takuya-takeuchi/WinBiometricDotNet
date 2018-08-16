@@ -16,89 +16,89 @@ namespace WinBiometricDotNet
         internal unsafe AsyncResult(SafeNativeMethods.WINBIO_ASYNC_RESULT* result)
         {
             this.ApiStatus = result->ApiStatus;
-            this.OperationType = (OperationTypes)result->Operation;
+            this.OperationType = (OperationType)result->Operation;
             this.SequenceNumber = result->SequenceNumber;
 
             switch (this.OperationType)
             {
-                case OperationTypes.Open:
-                case OperationTypes.Close:
-                case OperationTypes.Verify:
-                case OperationTypes.Identify:
-                case OperationTypes.LocateSensor:
-                case OperationTypes.EnrollBegin:
-                case OperationTypes.EnrollCapture:
-                case OperationTypes.EnrollCommit:
-                case OperationTypes.EnrollDiscard:
-                case OperationTypes.EnumEnrollments:
-                case OperationTypes.DeleteTemplate:
-                case OperationTypes.CaptureSample:
-                case OperationTypes.GetProperty:
-                case OperationTypes.SetProperty:
-                case OperationTypes.GetEvent:
-                case OperationTypes.LockUnit:
-                case OperationTypes.UnlockUnit:
-                case OperationTypes.ControlUnit:
-                case OperationTypes.ControlUnitPrivileged:
+                case OperationType.Open:
+                case OperationType.Close:
+                case OperationType.Verify:
+                case OperationType.Identify:
+                case OperationType.LocateSensor:
+                case OperationType.EnrollBegin:
+                case OperationType.EnrollCapture:
+                case OperationType.EnrollCommit:
+                case OperationType.EnrollDiscard:
+                case OperationType.EnumEnrollments:
+                case OperationType.DeleteTemplate:
+                case OperationType.CaptureSample:
+                case OperationType.GetProperty:
+                case OperationType.SetProperty:
+                case OperationType.GetEvent:
+                case OperationType.LockUnit:
+                case OperationType.UnlockUnit:
+                case OperationType.ControlUnit:
+                case OperationType.ControlUnitPrivileged:
                     this.Session = new Session(result->SessionHandle, true);
                     break;
-                case OperationTypes.OpenFramework:
-                case OperationTypes.CloseFramework:
-                case OperationTypes.EnumServiceProviders:
-                case OperationTypes.EnumBiometricUnits:
-                case OperationTypes.EnumDatabases:
-                case OperationTypes.UnitArrival:
-                case OperationTypes.UnitRemoval:
+                case OperationType.OpenFramework:
+                case OperationType.CloseFramework:
+                case OperationType.EnumServiceProviders:
+                case OperationType.EnumBiometricUnits:
+                case OperationType.EnumDatabases:
+                case OperationType.UnitArrival:
+                case OperationType.UnitRemoval:
                     this.Framework = new Framework(result->SessionHandle);
                     break;
             }
 
             switch (this.OperationType)
             {
-                case OperationTypes.Verify:
+                case OperationType.Verify:
                     this.Parameter = new AsyncResultVerify(&result->Parameter.Verify);
                     break;
-                case OperationTypes.Identify:
+                case OperationType.Identify:
                     this.Parameter = new AsyncResultIdentity(&result->Parameter.Identify);
                     break;
-                case OperationTypes.EnrollBegin:
+                case OperationType.EnrollBegin:
                     this.Parameter = new AsyncResultEnrollBegin(&result->Parameter.EnrollBegin);
                     break;
-                case OperationTypes.EnrollCapture:
+                case OperationType.EnrollCapture:
                     this.Parameter = new AsyncResultEnrollCapture(&result->Parameter.EnrollCapture);
                     break;
-                case OperationTypes.EnrollCommit:
+                case OperationType.EnrollCommit:
                     this.Parameter = new AsyncResultEnrollCommit(&result->Parameter.EnrollCommit);
                     break;
-                case OperationTypes.EnumEnrollments:
+                case OperationType.EnumEnrollments:
                     this.Parameter = new AsyncResultEnumEnrollments(&result->Parameter.EnumEnrollments);
                     break;
-                case OperationTypes.DeleteTemplate:
+                case OperationType.DeleteTemplate:
                     this.Parameter = new AsyncResultDeleteTemplate(&result->Parameter.DeleteTemplate);
                     break;
-                case OperationTypes.CaptureSample:
+                case OperationType.CaptureSample:
                     this.Parameter = new AsyncResultCaptureSample(&result->Parameter.CaptureSample);
                     break;
-                case OperationTypes.GetProperty:
+                case OperationType.GetProperty:
                     this.Parameter = new AsyncResultGetProperty(&result->Parameter.GetProperty);
                     break;
-                case OperationTypes.SetProperty:
+                case OperationType.SetProperty:
                     this.Parameter = new AsyncResultSetProperty(&result->Parameter.SetProperty);
                     break;
-                case OperationTypes.GetEvent:
+                case OperationType.GetEvent:
                     this.Parameter = new AsyncResultGetEvent(&result->Parameter.GetEvent);
                     break;
-                case OperationTypes.ControlUnit:
-                case OperationTypes.ControlUnitPrivileged:
+                case OperationType.ControlUnit:
+                case OperationType.ControlUnitPrivileged:
                     this.Parameter = new AsyncResultControlUnit(&result->Parameter.ControlUnit);
                     break;
-                case OperationTypes.EnumServiceProviders:
+                case OperationType.EnumServiceProviders:
                     this.Parameter = new AsyncResultEnumServiceProviders(&result->Parameter.EnumServiceProviders);
                     break;
-                case OperationTypes.EnumBiometricUnits:
+                case OperationType.EnumBiometricUnits:
                     this.Parameter = new AsyncResultEnumBiometricUnits(&result->Parameter.EnumBiometricUnits);
                     break;
-                case OperationTypes.EnumDatabases:
+                case OperationType.EnumDatabases:
                     this.Parameter = new AsyncResultEnumDatabases(&result->Parameter.EnumDatabases);
                     break;
             }
@@ -131,7 +131,7 @@ namespace WinBiometricDotNet
         /// <summary>
         /// Gets type of the asynchronous operation.
         /// </summary>
-        public OperationTypes OperationType
+        public OperationType OperationType
         {
             get;
         }

@@ -7,7 +7,7 @@ namespace FrameworkTester.ViewModels.Interfaces
     public interface IWinBioEnrollCommitViewModel : IWinBioViewModel
     {
 
-        IdentityTypes Type
+        IdentityType Type
         {
             get;
         }
