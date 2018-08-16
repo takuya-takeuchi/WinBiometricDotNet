@@ -53,6 +53,56 @@ namespace WinBiometricDotNet
                     break;
             }
 
+            switch (this.OperationType)
+            {
+                case OperationTypes.Verify:
+                    this.Parameter = new AsyncResultVerify(&result->Parameter.Verify);
+                    break;
+                case OperationTypes.Identify:
+                    this.Parameter = new AsyncResultIdentity(&result->Parameter.Identify);
+                    break;
+                case OperationTypes.EnrollBegin:
+                    this.Parameter = new AsyncResultEnrollBegin(&result->Parameter.EnrollBegin);
+                    break;
+                case OperationTypes.EnrollCapture:
+                    this.Parameter = new AsyncResultEnrollCapture(&result->Parameter.EnrollCapture);
+                    break;
+                case OperationTypes.EnrollCommit:
+                    this.Parameter = new AsyncResultEnrollCommit(&result->Parameter.EnrollCommit);
+                    break;
+                case OperationTypes.EnumEnrollments:
+                    this.Parameter = new AsyncResultEnumEnrollments(&result->Parameter.EnumEnrollments);
+                    break;
+                case OperationTypes.DeleteTemplate:
+                    this.Parameter = new AsyncResultDeleteTemplate(&result->Parameter.DeleteTemplate);
+                    break;
+                case OperationTypes.CaptureSample:
+                    this.Parameter = new AsyncResultCaptureSample(&result->Parameter.CaptureSample);
+                    break;
+                case OperationTypes.GetProperty:
+                    this.Parameter = new AsyncResultGetProperty(&result->Parameter.GetProperty);
+                    break;
+                case OperationTypes.SetProperty:
+                    this.Parameter = new AsyncResultSetProperty(&result->Parameter.SetProperty);
+                    break;
+                case OperationTypes.GetEvent:
+                    this.Parameter = new AsyncResultGetEvent(&result->Parameter.GetEvent);
+                    break;
+                case OperationTypes.ControlUnit:
+                case OperationTypes.ControlUnitPrivileged:
+                    this.Parameter = new AsyncResultControlUnit(&result->Parameter.ControlUnit);
+                    break;
+                case OperationTypes.EnumServiceProviders:
+                    this.Parameter = new AsyncResultEnumServiceProviders(&result->Parameter.EnumServiceProviders);
+                    break;
+                case OperationTypes.EnumBiometricUnits:
+                    this.Parameter = new AsyncResultEnumBiometricUnits(&result->Parameter.EnumBiometricUnits);
+                    break;
+                case OperationTypes.EnumDatabases:
+                    this.Parameter = new AsyncResultEnumDatabases(&result->Parameter.EnumDatabases);
+                    break;
+            }
+
             this.UnitId = result->UnitId;
             this.UserData = result->UserData;
             this.TimeStamp = DateTime.FromFileTime(result->TimeStamp);
@@ -82,6 +132,14 @@ namespace WinBiometricDotNet
         /// Gets type of the asynchronous operation.
         /// </summary>
         public OperationTypes OperationType
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets the data that contain additional information about the success or failure of asynchronous operations begun by the client application.
+        /// </summary>
+        public AsyncResultParameter Parameter
         {
             get;
         }

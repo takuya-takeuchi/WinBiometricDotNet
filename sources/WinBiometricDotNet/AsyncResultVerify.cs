@@ -1,16 +1,17 @@
-﻿namespace WinBiometricDotNet
+﻿using WinBiometricDotNet.Interop;
+
+namespace WinBiometricDotNet
 {
 
-    public sealed class AsyncResultVerify
+    public sealed class AsyncResultVerify : AsyncResultParameter
     {
 
         #region Constructors
 
-        internal AsyncResultVerify(bool match, RejectDetails rejectDetail)
+        internal unsafe AsyncResultVerify(SafeNativeMethods.WINBIO_ASYNC_RESULT_VERIFY* verify)
         {
-            this.Match = match;
-            this.RejectDetail = rejectDetail;
-
+            this.Match = verify->Match;
+            this.RejectDetail = (RejectDetails)verify->RejectDetail;
         }
 
         #endregion
