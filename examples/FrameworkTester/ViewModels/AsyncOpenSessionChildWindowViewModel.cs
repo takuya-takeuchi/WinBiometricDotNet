@@ -17,11 +17,17 @@ namespace FrameworkTester.ViewModels
         public AsyncOpenSessionChildWindowViewModel(Window window, uint messageCode)
             : base(window, messageCode)
         {
+            this.IdentityRepository = SimpleIoc.Default.GetInstance<IBiometricIdentityRepositoryViewModel>();
         }
 
         #endregion
 
         #region Properties
+
+        public IBiometricIdentityRepositoryViewModel IdentityRepository
+        {
+            get;
+        }
 
         private Session _Session;
 
@@ -62,13 +68,17 @@ namespace FrameworkTester.ViewModels
         protected override void ProcessMessage(IntPtr hwnd, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             var result = Marshal.PtrToAsyncResult(lParam);
+
             this.Result = result;
             this.Session = result.Session;
 
-            var dt = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss.fff");
-            var message = $"[{dt}] [{result.OperationType}]";
+            if(result.Parameter is AsyncResultIdentity identity)
+            {
+                this.IdentityRepository.Add(identity.Identity);
+            }
 
-            this.Logs.Insert(0, message);
+            this.AsyncResultLogs.Insert(0, result);
+            this.SelectedAsyncResult = result;
         }
 
         #endregion

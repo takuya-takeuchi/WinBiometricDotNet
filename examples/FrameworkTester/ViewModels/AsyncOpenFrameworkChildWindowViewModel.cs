@@ -65,10 +65,8 @@ namespace FrameworkTester.ViewModels
             this.Result = result;
             this.Framework = result.Framework;
 
-            var dt = DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss.fff");
-            var message = $"[{dt}] [{result.OperationType}]";
-
-            this.Logs.Insert(0, message);
+            this.AsyncResultLogs.Insert(0, result);
+            this.SelectedAsyncResult = result;
         }
 
         #endregion

@@ -107,6 +107,12 @@
             非同期操作の種類を取得します。
             </summary>
         </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.Parameter">
+            <summary>
+            クライアント アプリケーションによって開始された非同期操作の成功または失敗についての追加情報を格納するデータを取得します。
+            Gets encloses nested data that contain additional information about the success or failure of asynchronous operations begun by the client application.
+            </summary>
+        </member>
         <member name="P:WinBiometricDotNet.AsyncResult.SequenceNumber">
             <summary>
             非同期操作のシーケンス番号を取得します。

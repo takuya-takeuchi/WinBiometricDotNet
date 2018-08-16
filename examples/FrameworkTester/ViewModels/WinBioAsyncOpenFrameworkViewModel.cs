@@ -12,7 +12,7 @@ using WINBIO_FRAMEWORK_HANDLE = System.UInt32;
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioAsyncOpenFrameworkViewModel : WinBioViewModel, IWinBioAsyncOpenFrameworkViewModel, IWinBioAsyncChildWindowViewModel
+    public sealed class WinBioAsyncOpenFrameworkViewModel : WinBioFrameworkViewModel, IWinBioAsyncOpenFrameworkViewModel, IWinBioAsyncChildWindowViewModel
     {
 
         #region Constructors
@@ -28,12 +28,6 @@ namespace FrameworkTester.ViewModels
 
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
-
-            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<IFrameworkHandleViewModel>>();
-            this.HandleRepository.PropertyChanged += (sender, args) =>
-            {
-                this.ExecuteCommand.RaiseCanExecuteChanged();
-            };
         }
 
         #endregion
@@ -159,11 +153,6 @@ namespace FrameworkTester.ViewModels
 
                 this.ExecuteCommand.RaiseCanExecuteChanged();
             }
-        }
-
-        public IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
-        {
-            get;
         }
 
         private uint _MessageCode;

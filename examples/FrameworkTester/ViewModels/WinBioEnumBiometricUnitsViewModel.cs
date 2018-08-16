@@ -26,9 +26,9 @@ namespace FrameworkTester.ViewModels
                         this.Result = "WAIT";
                         this.UpdateUIImmediately();
 
-                        this._Units.Clear();
+                        this.Units.Clear();
                         foreach (var unit in this.BiometricService.EnumBiometricUnits())
-                            this._Units.Add(unit);
+                            this.Units.Add(unit);
 
                         this.Result = "OK";
                     }
@@ -43,15 +43,10 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioEnumBiometricUnits";
 
-        private readonly ObservableCollection<BiometricUnit> _Units = new ObservableCollection<BiometricUnit>();
-
         public ObservableCollection<BiometricUnit> Units
         {
-            get
-            {
-                return this._Units;
-            }
-        }
+            get;
+        } = new ObservableCollection<BiometricUnit>();
 
         #endregion
 

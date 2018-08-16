@@ -26,7 +26,7 @@ namespace FrameworkTester.ViewModels
         {
             this._DispatcherService = SimpleIoc.Default.GetInstance<IDispatcherService>();
 
-            this._Databases.CollectionChanged += (sender, args) =>
+            this.Databases.CollectionChanged += (sender, args) =>
             {
                 this._DispatcherService.SafeAction(() => this.RemoveDatabaseCommand.RaiseCanExecuteChanged());
             };
@@ -91,12 +91,12 @@ namespace FrameworkTester.ViewModels
                     {
                         this.SelectedDatabase = null;
 
-                        this._Databases.Clear();
+                        this.Databases.Clear();
                         foreach (var database in this.BiometricService.EnumBiometricDatabases())
-                            this._Databases.Add(database);
+                            this.Databases.Add(database);
 
-                        if (this._Databases.Any())
-                            this.SelectedDatabase = this._Databases.First();
+                        if (this.Databases.Any())
+                            this.SelectedDatabase = this.Databases.First();
 
                         this.Result = "OK";
                     }
@@ -111,15 +111,10 @@ namespace FrameworkTester.ViewModels
 
         public override string Name => "WinBioEnumDatabases";
 
-        private readonly ObservableCollection<BiometricDatabase> _Databases = new ObservableCollection<BiometricDatabase>();
-
         public ObservableCollection<BiometricDatabase> Databases
         {
-            get
-            {
-                return this._Databases;
-            }
-        }
+            get;
+        } = new ObservableCollection<BiometricDatabase>();
 
         private RelayCommand _RemoveDatabaseCommand;
 
@@ -135,9 +130,9 @@ namespace FrameworkTester.ViewModels
                         this.BiometricService.RemoveDatabase(this.SelectedUnit, databaseId);
                         this.Result = "OK";
 
-                        var database = this._Databases.First(d => d.DatabaseId == databaseId);
+                        var database = this.Databases.First(d => d.DatabaseId == databaseId);
                         if (database != null)
-                            this._Databases.Remove(database);
+                            this.Databases.Remove(database);
 
                         MessageBox.Show($"{databaseId} was removed.");
                     }
@@ -146,7 +141,7 @@ namespace FrameworkTester.ViewModels
                         MessageBox.Show(e.Message);
                         this.Result = "FAIL";
                     }
-                }, () => this._Databases.Any()));
+                }, () => this.Databases.Any()));
             }
         }
 

@@ -24,7 +24,18 @@ namespace FrameworkTester.ViewModels.Interfaces
             get;
         }
 
-        ObservableCollection<string> Logs
+        ObservableCollection<AsyncResult> AsyncResultLogs
+        {
+            get;
+        }
+
+        AsyncResult SelectedAsyncResult
+        {
+            get;
+            set;
+        }
+
+        AsyncResultParameter SelectedAsyncResultParameter
         {
             get;
         }

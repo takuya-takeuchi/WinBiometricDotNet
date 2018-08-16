@@ -3,13 +3,12 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using WinBiometricDotNet;
 
 namespace FrameworkTester.ViewModels
 {
 
-    public sealed class WinBioAsyncEnumServiceProvidersViewModel : WinBioViewModel, IWinBioAsyncEnumServiceProvidersViewModel
+    public sealed class WinBioAsyncEnumServiceProvidersViewModel : WinBioFrameworkViewModel, IWinBioAsyncEnumServiceProvidersViewModel
     {
 
         #region Constructors
@@ -18,12 +17,6 @@ namespace FrameworkTester.ViewModels
         {
             WinBiometric.AsyncCompleted -= this.WinBiometricAsyncCompleted;
             WinBiometric.AsyncCompleted += this.WinBiometricAsyncCompleted;
-
-            this.HandleRepository = SimpleIoc.Default.GetInstance<IHandleRepositoryViewModel<IFrameworkHandleViewModel>>();
-            this.HandleRepository.PropertyChanged += (sender, args) =>
-            {
-                this.ExecuteCommand.RaiseCanExecuteChanged();
-            };
         }
 
         #endregion
@@ -71,11 +64,6 @@ namespace FrameworkTester.ViewModels
         }
 
         public override string Name => "WinBioAsyncEnumServiceProviders";
-
-        public IHandleRepositoryViewModel<IFrameworkHandleViewModel> HandleRepository
-        {
-            get;
-        }
 
         private BiometricServiceProvider _SelectedServiceProvider;
 
