@@ -1,0 +1,2179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WinBiometricDotNet</name>
+    </assembly>
+    <members>
+        <member name="T:WinBiometricDotNet.AntiSpoofPolicy">
+            <summary>
+            Represents the antispoofing policy for a user.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.AntiSpoofPolicy.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:WinBiometricDotNet.AntiSpoofPolicy"/> class.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AntiSpoofPolicy.Action">
+            <summary>
+            Gets or sets the action to take for the antispoofing policy.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AntiSpoofPolicy.Source">
+            <summary>
+            Gets or sets a value for the antispoofing policy.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AntiSpoofPolicyAction">
+            <summary>
+            Specifies the types of actions you take for the antispoofing policy of a user.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.AntiSpoofPolicyAction.Disable">
+            <summary>
+            Turns off the detection of spoofing for a biometric factor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.AntiSpoofPolicyAction.Enable">
+            <summary>
+            Turns on the detection of spoofing for a biometric factor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.AntiSpoofPolicyAction.Remove">
+            <summary>
+            Removes the entire antispoofing policy for the biometric factor from the account.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncCompletedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.AsyncCompleted"/> event handler.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncCompletedEventArgs.Result">
+            <summary>
+            Gets a value that represents the result of an event.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncCompletedHandler">
+            <summary>
+            Represents the method that will handle the <see cref="E:WinBiometricDotNet.WinBiometric.AsyncCompleted"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:WinBiometricDotNet.AsyncCompletedEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncNotificationMethod">
+            <summary>
+            <para>Defines constants that specify how completion notifications for asynchronous operations are to be delivered to the client application.</para>
+            <para>This API supports the product infrastructure and is not intended to be used directly from your code.</para>
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.AsyncNotificationMethod.NotifyNone">
+            <summary>
+            The operation is synchronous.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.AsyncNotificationMethod.NotifyCallback">
+            <summary>
+            The client-implemented PWINBIO_ASYNC_COMPLETION_CALLBACK function is called by the framework.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.AsyncNotificationMethod.NotifyMessage">
+            <summary>
+            The framework sends completion notices to the client application window message queue.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.AsyncNotificationMethod.NotifyMaximumValue">
+            <summary>
+            The maximum enumeration value. This constant is not directly used by the WinBioAsyncOpenFramework and WinBioAsyncOpenSession.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResult">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResult"/> class contains the results of an asynchronous operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.ApiStatus">
+            <summary>
+            Gets the error code returned by the operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.Framework">
+            <summary>
+            Gets the handle of an asynchronous session started by calling the <see cref="M:WinBiometricDotNet.WinBiometric.AsyncOpenFramework(System.IntPtr)"/> function.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.OperationType">
+            <summary>
+            Gets type of the asynchronous operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.Parameter">
+            <summary>
+            Gets the data that contain additional information about the success or failure of asynchronous operations begun by the client application.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.SequenceNumber">
+            <summary>
+            Gets the sequence number of the asynchronous operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.Session">
+            <summary>
+            Gets the handle of an asynchronous session started by calling the <see cref="M:WinBiometricDotNet.WinBiometric.AsyncOpenSession(System.IntPtr)"/> function.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.TimeStamp">
+            <summary>
+            Gets the system date and time at which the biometric operation began.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.UnitId">
+            <summary>
+            Gets the numeric unit identifier of the biometric unit that performed the operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResult.UserData">
+            <summary>
+            Gets the address of an optional buffer supplied by the caller.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultCaptureSample">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultCaptureSample"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.CaptureSample(WinBiometricDotNet.Session)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultCaptureSample.Sample">
+            <summary>
+            Gets the data that contain sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultCaptureSample.SampleSize">
+            <summary>
+            Gets a value that contains the size, in bytes, of <see cref="P:WinBiometricDotNet.AsyncResultCaptureSample.Sample"/> property.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultCaptureSample.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultControlUnit">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultControlUnit"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.ControlUnit(WinBiometricDotNet.Session,System.UInt32,WinBiometricDotNet.Component,System.UInt32,System.Byte[],System.Byte[],System.IntPtr@,System.UInt32@)"/> or <see cref="M:WinBiometricDotNet.WinBiometric.ControlUnitPrivileged(WinBiometricDotNet.Session,System.UInt32,WinBiometricDotNet.Component,System.UInt32,System.Byte[],System.Byte[],System.IntPtr@,System.UInt32@)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultControlUnit.Component">
+            <summary>
+            Gets a value that specifies the component within the biometric unit that performed the operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultControlUnit.ControlCode">
+            <summary>
+            Gets a value that specifies the vendor-defined code recognized by the biometric unit.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultControlUnit.OperationStatus">
+            <summary>
+            Gets a value that specifies the vendor-defined status code that specifies the outcome of the control operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultControlUnit.ReceiveBuffer">
+            <summary>
+            Gets a buffer that receives information sent by the adapter specified by the <see cref="P:WinBiometricDotNet.AsyncResultControlUnit.Component"/> property.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultControlUnit.ReceiveDataSize">
+            <summary>
+            Gets a size, in bytes, of the data written to the buffer specified by the <see cref="P:WinBiometricDotNet.AsyncResultControlUnit.ReceiveBuffer"/> property.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultControlUnit.SendBuffer">
+            <summary>
+            Gets a buffer that contains the control information sent to the adapter by the component.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultDeleteTemplate">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultDeleteTemplate"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.DeleteTemplate(WinBiometricDotNet.Session,System.UInt32,WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.FingerPosition)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultDeleteTemplate.Identity">
+            <summary>
+            Gets the data that contains the GUID or SID of the template to be deleted.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultDeleteTemplate.FingerPosition">
+            <summary>
+            Gets a value that provides additional information about the template to be deleted.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultEnrollBegin">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnrollBegin"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.BeginEnroll(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition,System.UInt32)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnrollBegin.FingerPosition">
+            <summary>
+            Gets a value that provides additional information about the enrollment.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultEnrollCapture">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnrollCapture"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.CaptureEnroll(WinBiometricDotNet.Session)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnrollCapture.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultEnrollCommit">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnrollCommit"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.CommitEnroll(WinBiometricDotNet.Session)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnrollCommit.Identity">
+            <summary>
+            Gets the data that receives the identifier (GUID or SID) of the template.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnrollCommit.IsNewTemplate">
+            <summary>
+            Gets a value indicating whether the template being added to the database is new.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultEnumBiometricUnits">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnumBiometricUnits"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.AsyncEnumBiometricUnits(WinBiometricDotNet.Framework,WinBiometricDotNet.BiometricTypes)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnumBiometricUnits.BiometricUnits">
+            <summary>
+            Get the array of <see cref="T:WinBiometricDotNet.BiometricUnit"/>.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultEnumDatabases">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnumDatabases"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.AsyncEnumDatabases(WinBiometricDotNet.Framework,WinBiometricDotNet.BiometricTypes)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnumDatabases.Databases">
+            <summary>
+            Get the array of <see cref="T:WinBiometricDotNet.BiometricDatabase"/>.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultEnumEnrollments">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnumEnrollments"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnumEnrollments.Identity">
+            <summary>
+            Gets the GUID or SID of the template from which the sub-factors were retrieved.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnumEnrollments.FingerPositions">
+            <summary>
+            Gets the array of <see cref="T:WinBiometricDotNet.FingerPosition"/>.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultEnumServiceProviders">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnumServiceProviders"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.AsyncEnumServiceProviders(WinBiometricDotNet.Framework,WinBiometricDotNet.BiometricTypes)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultEnumServiceProviders.ServiceProviders">
+            <summary>
+            Get the array of <see cref="T:WinBiometricDotNet.BiometricServiceProvider"/>.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultGetProperty">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultGetProperty"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.GetProperty(WinBiometricDotNet.Session,WinBiometricDotNet.PropertyType,WinBiometricDotNet.PropertyId,System.UInt32,WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.FingerPosition,System.Byte[]@)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetProperty.Identity">
+            <summary>
+            Gets the data that contains identity.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetProperty.FingerPosition">
+            <summary>
+            Gets a value that specifies sub-factor.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetProperty.PropertyBuffer">
+            <summary>
+            Get a buffer that contains property value.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetProperty.PropertyId">
+            <summary>
+            Gets a value that specifies the property that was queried.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetProperty.PropertyType">
+            <summary>
+            Gets a value that specifies source of the property information.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultIdentity">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultIdentity"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.Identify(WinBiometricDotNet.Session)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultIdentity.Identity">
+            <summary>
+            Gets the data that receives the GUID or SID of the user providing the biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultIdentity.FingerPosition">
+            <summary>
+            Gets a value that receives the sub-factor associated with the biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultIdentity.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultSetProperty">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultSetProperty"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.SetAntiSpoofPolicyProperty(WinBiometricDotNet.Session,WinBiometricDotNet.PropertyType,WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.AntiSpoofPolicy)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultSetProperty.Identity">
+            <summary>
+            Gets the data that specifies the account for which the property was set.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultSetProperty.FingerPosition">
+            <summary>
+            Gets a value that specifies sub-factor.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultSetProperty.PropertyBuffer">
+            <summary>
+            Gets a buffer that specifies the value to which the property was set.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultSetProperty.PropertyId">
+            <summary>
+            Gets a value that specifies the property that was set.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultSetProperty.PropertyType">
+            <summary>
+            Gets a value that specifies the type of the property that was set.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultVerify">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultVerify"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultVerify.Match">
+            <summary>
+            Gets a value indicating whether the captured sample matched the user identity specified.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultVerify.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricCapabilities">
+            <summary>
+            Specifies the capabilities of biometric sensor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Sensor">
+            <summary>
+            The device can collect biometric data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Matching">
+            <summary>
+            The device can perform match operations.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Database">
+            <summary>
+            The sensor contains an onboard database.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Proccessing">
+            <summary>
+            The device can process samples and turn them into biometric templates.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Encryption">
+            <summary>
+            The device supports encryption of samples and templates.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Navigation">
+            <summary>
+            The device can be used as a navigation device. Some devices and drivers can capture data in a format that can be translated by a user-mode application into navigation events, much like a mouse.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.Indicator">
+            <summary>
+            The device has an indicator that can be turned on or off.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricCapabilities.VirtualSensor">
+            <summary>
+            The sensor adapter manages its own connection to the biometric hardware.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricDatabase">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.BiometricDatabase"/> class describes the capabilities of a biometric storage adapter.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.BiometricFactor">
+            <summary>
+            Gets the type of biometric measurement saved in the database.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.ConnectionString">
+            <summary>
+            Gets a string value that can be sent to a database server to identify the database.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DatabaseFlag">
+            <summary>
+            Gets a flag about the characteristics of the database.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DatabaseId">
+            <summary>
+            Gets a GUID that identifies the database.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DatabaseTypes">
+            <summary>
+            Gets a type about the characteristics of the database.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.DataFormat">
+            <summary>
+            Gets a GUID that identifies the format of the templates in the database.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricDatabase.FilePath">
+            <summary>
+            Gets the path and file name of the database if it resides on the computer disk.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricIdentity">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.BiometricIdentity"/> class contains an identifying value associated with a biometric template.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricIdentity.Type">
+            <summary>
+            Gets the format of the identity information contained in this class.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricIdentity.Sid">
+            <summary>
+            Gets a value that contains an account SID.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricIdentity.TemplateGuid">
+            <summary>
+            Gets a 128-bit GUID value that identifies the template.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricPoolType">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.BiometricPoolType"/> enumeration specifies the type of biometric unit pool to be used in the session.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricPoolType.Unknown">
+            <summary>
+            The pool type is unknown.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricPoolType.System">
+            <summary>
+            Specifies a shared collection of biometric units managed by the service provider.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricPoolType.Private">
+            <summary>
+            Specifies a collection of biometric units that are managed by the caller.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricPoolType.Unassigned">
+            <summary>
+            Reserved.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricSensorSubType">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.BiometricSensorSubType"/> enumeration specifies the onboard sensor capabilities.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricSensorSubType.Unknown">
+            <summary>
+            The sensor sub types is not known.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricSensorSubType.Swipe">
+            <summary>
+            The sensor supports fingerprint swipes.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricSensorSubType.Touch">
+            <summary>
+            The sensor supports finger touches.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricServiceProvider">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.BiometricServiceProvider"/> class describes the capabilities of a biometric service provider.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricServiceProvider.BiometricFactor">
+            <summary>
+            Gets the type of biometric measurement used by this device.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricServiceProvider.Description">
+            <summary>
+            Gets a description of the biometric service provider.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricServiceProvider.Id">
+            <summary>
+            Gets a value that uniquely identifies this biometric service provider component.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricServiceProvider.Vendor">
+            <summary>
+            Gets the name of the vendor supplying the biometric service provider.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricServiceProvider.Version">
+            <summary>
+            Gets the software version of the biometric service provider component.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricTypes">
+            <summary>
+            Represent the standard biometric types defined by National Institute of Standards and Technology Information (NISTIR) 6529-A.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Mask">
+            <summary>
+            Bitmask that specifies the supported set of biometric factors.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.NoAvailable">
+            <summary>
+            No biometric type is available.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Multiple">
+            <summary>
+            Multiple types are specified.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.FacialFeatures">
+            <summary>
+            The biometric sensor captures facial features.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Voice">
+            <summary>
+            The biometric sensor captures voice data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Fingerprint">
+            <summary>
+            The biometric sensor captures fingerprint data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Iris">
+            <summary>
+            The biometric sensor captures iris data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Retina">
+            <summary>
+            The biometric sensor captures retina data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.HandGeometry">
+            <summary>
+            The biometric sensor captures hand data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.SignatureDynamics">
+            <summary>
+            The biometric sensor captures signatures.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.KeystrokeDynamics">
+            <summary>
+            The biometric sensor captures keystrokes.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.LipMovement">
+            <summary>
+            The biometric sensor captures lip data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.ThermalFaceImage">
+            <summary>
+            The biometric sensor captures thermal face imaging.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.ThermalHandImage">
+            <summary>
+            The biometric sensor captures thermal hand imaging.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Gait">
+            <summary>
+            The biometric sensor captures walking gait data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Scent">
+            <summary>
+            The biometric sensor captures scent data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Dna">
+            <summary>
+            The biometric sensor captures DNA data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.EarShape">
+            <summary>
+            The biometric sensor captures ear information.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.FingerGeometry">
+            <summary>
+            The biometric sensor captures finger shape information.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Palmprint">
+            <summary>
+            The biometric sensor captures palm prints.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.VeinPattern">
+            <summary>
+            The biometric sensor captures blood vein pattern data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.FootPrint">
+            <summary>
+            The biometric sensor captures foot prints.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Other">
+            <summary>
+            The supported biometric data is not defined by the current constants.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Password">
+            <summary>
+            The biometric sensor captures password data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.BiometricTypes.Any">
+            <summary>
+            The biometric sensor captures any type of data.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricUnit">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.BiometricUnit"/> class describes the capabilities of a biometric unit.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.BiometricFactor">
+            <summary>
+            Gets the type of the biometric unit.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.SensorSubType">
+            <summary>
+            Gets the onboard sensor capabilities.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.UnitId">
+            <summary>
+            Gets a value that identifies the biometric unit. 
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.DeviceInstanceId">
+            <summary>
+            Gets the device ID.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.Description">
+            <summary>
+            Gets a description of the biometric unit.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.Manufacturer">
+            <summary>
+            Gets the name of the manufacturer.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.Model">
+            <summary>
+            Gets the model number of the biometric unit.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.SerialNumber">
+            <summary>
+            Gets the serial number of the biometric unit. 
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.FirmwareVersion">
+            <summary>
+            Gets the major and minor version numbers for the biometric unit.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.Capabilities">
+            <summary>
+            Gets the capabilities of biometric sensor.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnit.PoolType">
+            <summary>
+            Gets the type of biometric unit pool.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.BiometricUnitVersion">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.BiometricUnitVersion"/> class contains the software version number of a biometric service provider component.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnitVersion.MajorVersion">
+            <summary>
+            Gets the major version number.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.BiometricUnitVersion.MinorVersion">
+            <summary>
+            Gets the minor version number.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.CaptureEnrollResult">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.CaptureEnrollResult"/> class contains a result returned from <see cref="M:WinBiometricDotNet.WinBiometric.CaptureEnroll(WinBiometricDotNet.Session)"/> or <see cref="M:WinBiometricDotNet.WinBiometric.CaptureEnrollWithCallback(WinBiometricDotNet.Session)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureEnrollResult.OperationStatus">
+            <summary>
+            Gets the error code returned by the capture operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureEnrollResult.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureEnrollResult.IsRequiredMoreData">
+            <summary>
+            Gets a value indicating whether enrollment operation requires more biometrics sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.CaptureSample">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.CaptureSample"/> class contains a fingerprint sample data.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSample.Height">
+            <summary>
+            Gets the height, in pixels.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSample.Image">
+            <summary>
+            Gets the pixel data of the captured fingerprint or palm image.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSample.HorizontalImageResolution">
+            <summary>
+            Gets the horizontal resolution of the captured fingerprint or palm image.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSample.HorizontalScanResolution">
+            <summary>
+            Gets the horizontal resolution of the scan.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSample.VerticalImageResolution">
+            <summary>
+            Gets the vertical resolution of the captured fingerprint or palm image.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSample.VerticalScanResolution">
+            <summary>
+            Gets the vertical resolution of the scan.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSample.Width">
+            <summary>
+            Gets the width, in pixels.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.CaptureSampleEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.SampleCaptured"/> event handler.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSampleEventArgs.Result">
+            <summary>
+            Gets a value that represents the result of an event.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.CaptureSampleResult">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.VerifyResult"/> class contains a result returned from <see cref="M:WinBiometricDotNet.WinBiometric.CaptureSample(WinBiometricDotNet.Session)"/> or <see cref="M:WinBiometricDotNet.WinBiometric.CaptureSampleWithCallback(WinBiometricDotNet.Session)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSampleResult.Sample">
+            <summary>
+            Gets the data that contain sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSampleResult.OperationStatus">
+            <summary>
+            Gets the error code returned by the capture operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSampleResult.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSampleResult.SampleSize">
+            <summary>
+            Gets a value that contains the size, in bytes, of <see cref="P:WinBiometricDotNet.CaptureSampleResult.Sample"/> property.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.CaptureSampleResult.UnitId">
+            <summary>
+            Gets a value that contains the ID of the biometric unit that generated the sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.ChangeTypes">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.ChangeTypes"/> enumeration identify the type of change that occurred in the framework.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.ChangeTypes.Unit">
+            <summary>
+            A biometric unit was attached to or detached from the computer.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.Component">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.Component"/> enumeration specifies the type of adapter being used.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Component.Sensor">
+            <summary>
+            Specifies a sensor adapter.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Component.Engine">
+            <summary>
+            Specifies an engine adapter.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Component.Storage">
+            <summary>
+            Specifies a storage adapter.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.CredentialFormat">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.CredentialFormat"/> enumeration specifies the end-user credential format.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.CredentialFormat.Generic">
+            <summary>
+            The password is in a generic format.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.CredentialFormat.Packed">
+            <summary>
+            The password is in a compressed format.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.CredentialFormat.Protected">
+            <summary>
+            The password credential was wrapped with CredProtect.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.CredentialState">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.CredentialState"/> enumeration specifies whether a credential has been associated with the biometric data for an end user.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.CredentialState.NotSet">
+            <summary>
+            A credential has been associated with the end user.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.CredentialState.Set">
+            <summary>
+            A credential has not been associated with the end user.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.CredentialTypes">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.CredentialTypes"/> enumeration filter on the credential type.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.CredentialTypes.Password">
+            <summary>
+            Filters password credentials.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.CredentialTypes.All">
+            <summary>
+            Filters all credentials.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.DatabaseFlags">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.DatabaseFlags"/> enumeration specifies the characteristics of database.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DatabaseFlags.Removable">
+            <summary>
+            The storage medium containing the database can be physically removed from the computer.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DatabaseFlags.Remote">
+            <summary>
+            The database resides on a remote computer.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.DatabaseTypes">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.DatabaseTypes"/> enumeration specifies the type of database.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DatabaseTypes.File">
+            <summary>
+            The database is contained in a file.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DatabaseTypes.DatabaseManagementSystem">
+            <summary>
+            The database is managed by an external database management system (DBMS) component, such as Microsoft SQL Server.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DatabaseTypes.OnChip">
+            <summary>
+            The database resides on the biometric sensor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DatabaseTypes.SmartCard">
+            <summary>
+            The database resides on a smart card.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.EnrollCapturedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.EnrollCaptured"/> event handler.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.EnrollCapturedEventArgs.Result">
+            <summary>
+            Gets a value that represents the result of an event.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.EnrollCapturedHandler">
+            <summary>
+            Represents the method that will handle the <see cref="E:WinBiometricDotNet.WinBiometric.EnrollCaptured"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:WinBiometricDotNet.EnrollCapturedEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.EventMonitoredEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.EventMonitored"/> event handler.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.EventMonitoredEventArgs.OperationStatus">
+            <summary>
+            Gets the error code returned by the capture operation.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.EventMonitoredHandler">
+            <summary>
+            Represents the method that will handle the <see cref="E:WinBiometricDotNet.WinBiometric.EventMonitored"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:WinBiometricDotNet.EventMonitoredEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.EventTypes">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.EventTypes"/> enumeration specifies the types of service provider event notifications to monitor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.EventTypes.Unclaimed">
+            <summary>
+            The sensor detected a finger swipe that was not requested by the application or by the window that currently has focus. The Windows Biometric Framework calls into your callback function to indicate that a finger swipe has occurred but does not try to identify the fingerprint.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.EventTypes.UnclaimedIdentify">
+            <summary>
+            The sensor detected a finger swipe that was not requested by the application or by the window that currently has focus. The Windows Biometric Framework attempts to identify the fingerprint and passes the result of that process to your callback function.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.FingerPosition">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.FingerPosition"/> enumeration specifies the numeric number of finger position.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.Unknown">
+            <summary>
+            Unknown.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.RightThumb">
+            <summary>
+            The thumb finger of right hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.RightIndex">
+            <summary>
+            The index finger of right hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.RightMiddle">
+            <summary>
+            The middle finger of right hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.RightRing">
+            <summary>
+            The ring finger of right hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.RightLittle">
+            <summary>
+            The little finger of right hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.LeftThumb">
+            <summary>
+            The thumb finger of left hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.LeftIndex">
+            <summary>
+            The index finger of left hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.LeftMiddle">
+            <summary>
+            The middle finger of left hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.LeftRing">
+            <summary>
+            The ring finger of left hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.LeftLittle">
+            <summary>
+            The little finger of left hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.RightSlap">
+            <summary>
+            The four-finger slap of right hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.LeftSlap">
+            <summary>
+            The four-finger slap of left hand.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.TwoThumbs">
+            <summary>
+            The two-thumbs.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition01">
+            <summary>
+            The unspecified position 01.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition02">
+            <summary>
+            The unspecified position 02.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition03">
+            <summary>
+            The unspecified position 03.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition04">
+            <summary>
+            The unspecified position 04.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition05">
+            <summary>
+            The unspecified position 05.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition06">
+            <summary>
+            The unspecified position 06.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition07">
+            <summary>
+            The unspecified position 07.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition08">
+            <summary>
+            The unspecified position 08.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition09">
+            <summary>
+            The unspecified position 09.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.FingerPosition.UnspecifiedPosition10">
+            <summary>
+            The unspecified position 10.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.Framework">
+            <summary>
+            Represent the handle to the biometric framework.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.Framework.Handle">
+            <summary>
+            Get the pointer to the handle.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.IdentifiedEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.Identified"/> event handler.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.IdentifiedEventArgs.Result">
+            <summary>
+            Gets a value that represents the result of an event.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.IdentifiedHandler">
+            <summary>
+            Represents the method that will handle the <see cref="E:WinBiometricDotNet.WinBiometric.Identified"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:WinBiometricDotNet.IdentifiedEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.IdentifyResult">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.IdentifyResult"/> class contains a result returned from <see cref="M:WinBiometricDotNet.WinBiometric.Identify(WinBiometricDotNet.Session)"/> or <see cref="M:WinBiometricDotNet.WinBiometric.IdentifyWithCallback(WinBiometricDotNet.Session)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.IdentifyResult.FingerPosition">
+            <summary>
+            Gets a value that receives the sub-factor associated with the biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.IdentifyResult.Identity">
+            <summary>
+            Gets the data that receives the GUID or SID of the user providing the biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.IdentifyResult.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.IdentifyResult.UnitId">
+            <summary>
+            Gets a value that specifies the biometric unit used to perform the identification.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.IdentifyResult.OperationStatus">
+            <summary>
+            Gets the error code returned by the capture operation.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.IdentityType">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.IdentityType"/> enumeration specifies the format of the identity information contained in the <see cref="T:WinBiometricDotNet.BiometricIdentity"/> class.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.IdentityType.Null">
+            <summary>
+            The template has no associated ID. 
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.IdentityType.WildCard">
+            <summary>
+            The class matches all template identities.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.IdentityType.Guid">
+            <summary>
+            A GUID identifies the template.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.IdentityType.Sid">
+            <summary>
+            An account SID identifies the template.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.LocateSensorEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.SensorLocated"/> event handler.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.LocateSensorEventArgs.OperationStatus">
+            <summary>
+            Gets the error code returned by the capture operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.LocateSensorEventArgs.UnitId">
+            <summary>
+            Gets a value that specifies the biometric unit.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.OperationType">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.OperationType"/> enumeration specifies the type of asynchronous operation being performed.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.None">
+            <summary>
+            No operation has been identified.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.Open">
+            <summary>
+            A biometric session was opened.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.Close">
+            <summary>
+            A biometric session was closed.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.Verify">
+            <summary>
+            A biometric sample was verified against a user identity.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.Identify">
+            <summary>
+            A biometric sample was captured and compared to an existing template.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.LocateSensor">
+            <summary>
+            The ID number of a biometric unit was retrieved.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnrollBegin">
+            <summary>
+            A biometric enrollment sequence was initiated.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnrollCapture">
+            <summary>
+            A biometric sample was captured and added to the template.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnrollCommit">
+            <summary>
+            A pending biometric template was finalized.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnrollDiscard">
+            <summary>
+            A pending biometric template was discarded.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnumEnrollments">
+            <summary>
+            The sub-factors for a given template were enumerated.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.DeleteTemplate">
+            <summary>
+            A biometric template was deleted from the store.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.CaptureSample">
+            <summary>
+            A biometric sample was captured.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.GetProperty">
+            <summary>
+            A biometric session, unit, or template property was retrieved.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.SetProperty">
+            <summary>
+            A biometric session, unit, template, or account property was set.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.GetEvent">
+            <summary>
+            Not used.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.LockUnit">
+            <summary>
+            A biometric unit was locked for exclusive use by a session.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.UnlockUnit">
+            <summary>
+            The session lock on a biometric unit was released.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.ControlUnit">
+            <summary>
+            Vendor defined operations were performed on a control unit.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.ControlUnitPrivileged">
+            <summary>
+            Privileged vendor defined operations were performed on a control unit.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.OpenFramework">
+            <summary>
+            A handle to the biometric framework was opened.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.CloseFramework">
+            <summary>
+            A handle to the biometric framework was closed.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnumServiceProviders">
+            <summary>
+            The installed biometric service providers were enumerated.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnumBiometricUnits">
+            <summary>
+            The attached biometric units were enumerated.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.EnumDatabases">
+            <summary>
+            The registered databases were enumerated.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.UnitArrival">
+            <summary>
+            A biometric unit was created.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.OperationType.UnitRemoval">
+            <summary>
+            A biometric unit was deleted.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.PolicySource">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.PolicySource"/> enumeration specifies the possible sources of policy information for the detection of spoofing for biometric factors.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PolicySource.Unknown">
+            <summary>
+            The source of the policy is unknown.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PolicySource.Default">
+            <summary>
+            The policy is the default policy that the Windows Biometric Framework provides.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PolicySource.Local">
+            <summary>
+            The policy that the individual user set for their account by using the Settings app. This policy overrides the default policy.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PolicySource.Admin">
+            <summary>
+            A group policy that the IT administrator set for the enterprise. Individual users cannot override this policy.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.PropertyId">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.PropertyId"/> enumeration specifies the property to be queried.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyId.SampleHint">
+            <summary>
+            Estimates the maximum number of good biometric samples that are required to complete an enrollment template.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyId.ExtendedSensorInfo">
+            <summary>
+            Contains extended information about the capabilities and attributes of the sensor component that is connected to a specific biometric unit.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyId.ExtendedEngineInfo">
+            <summary>
+            Contains extended information about the capabilities and attributes of the engine component that is connected to a specific biometric unit.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyId.ExtendedStorageInfo">
+            <summary>
+            Contains extended information about the capabilities and attributes of the storage component that is connected to a specific biometric unit.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyId.ExtendedEnrollmentStatus">
+            <summary>
+            Contains extended information about the status of an in-progress enrollment on a specific biometric unit.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyId.AntiSpoofPolicy">
+            <summary>
+            Contains the values of the antispoofing policy for a specific user account.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.PropertyType">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.PropertyType"/> enumeration specifies the source of the property information.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyType.Session">
+            <summary>
+            The property applies to a specific biometric session.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyType.Unit">
+            <summary>
+            The property applies to a specific biometric template.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyType.Template">
+            <summary>
+            The property applies to a specific biometric unit.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.PropertyType.Account">
+            <summary>
+            The property applies to a specific user account that has a biometric enrollment.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.RejectDetail">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.RejectDetail"/> enumeration specifies the reason a biometric fingerprint capture or identification procedure did not succeed.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooHigh">
+            <summary>
+            The finger scan began too high on the finger.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooLow">
+            <summary>
+            The finger scan began too low on the finger.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooLeft">
+            <summary>
+            The finger was too far left during scanning.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooRight">
+            <summary>
+            The finger was too far right during scanning.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooFast">
+            <summary>
+            The finger was swiped too quickly on the sensor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooSlow">
+            <summary>
+            The finger was swiped too slowly on the sensor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintPoorQuality">
+            <summary>
+            The scan quality was too poor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooSkewed">
+            <summary>
+            The finger did not pass straight across the sensor.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintTooShort">
+            <summary>
+            Not enough of the finger was scanned.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.RejectDetail.FingerprintMergeFailure">
+            <summary>
+            The fingerprint captures could not be combined.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.Runtime.InteropServices.Marshal">
+            <summary>
+            Provides a collection of methods for converting managed to unmanaged types, as well as other miscellaneous methods used when interacting with unmanaged code.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.Runtime.InteropServices.Marshal.PtrToAsyncResult(System.IntPtr)">
+            <summary>
+            Marshals data from an LPARAM value of windows message to a <see cref="T:WinBiometricDotNet.AsyncResult"/> object.
+            </summary>
+            <param name="ptr">A LPARAM value of windows message.</param>
+            <returns><see cref="T:WinBiometricDotNet.AsyncResult"/>.</returns>
+            <remarks><paramref name="ptr"/> will be released when this method returns.</remarks>
+        </member>
+        <member name="T:WinBiometricDotNet.SampleCapturedHandler">
+            <summary>
+            Represents the method that will handle the <see cref="E:WinBiometricDotNet.WinBiometric.SampleCaptured"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:WinBiometricDotNet.CaptureSampleEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.SensorLocatedHandler">
+            <summary>
+            Represents the method that will handle the <see cref="E:WinBiometricDotNet.WinBiometric.SensorLocated"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:WinBiometricDotNet.LocateSensorEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.SensorStatus">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.SensorStatus"/> enumeration specifies the status of the sensor after the capture has occurred.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SensorStatus.Accept">
+            <summary>
+            The sensor just successfully completed a capture operation.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SensorStatus.Reject">
+            <summary>
+            The sensor rejected the previous capture operation.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SensorStatus.Ready">
+            <summary>
+            The sensor is ready to capture data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SensorStatus.Busy">
+            <summary>
+            The sensor is busy or in a state where it cannot capture data.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SensorStatus.NotCalibrated">
+            <summary>
+            The sensor must be calibrated before it is put into data collection mode.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SensorStatus.Failure">
+            <summary>
+            The sensor device failed.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.Session">
+            <summary>
+            Represent the session handle that connects to a biometric service provider and one or more biometric units.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.Session.Handle">
+            <summary>
+            Get the pointer to the session handle.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.Session.IsAsynchronous">
+            <summary>
+            Gets a value indicating whether the session handle was generated by asynchronous function.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.SettingSourceType">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.SettingSourceType"/> enumeration determine the Windows Biometric Framework is currently enabled.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SettingSourceType.Invalid">
+            <summary>
+            The setting is not valid.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SettingSourceType.Default">
+            <summary>
+            The setting originated from built-in policy.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SettingSourceType.Policy">
+            <summary>
+            The setting was created by Group Policy.
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.SettingSourceType.Local">
+            <summary>
+            The setting originated in the local computer registry.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.VerifyEventArgs">
+            <summary>
+            Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.SensorLocated"/> event handler.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.VerifyEventArgs.Result">
+            <summary>
+            Gets a value that represents the result of an event.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.VerifyHandler">
+            <summary>
+            Represents the method that will handle the <see cref="E:WinBiometricDotNet.WinBiometric.Verified"/> event.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">A <see cref="T:WinBiometricDotNet.VerifyEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.VerifyResult">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.VerifyResult"/> class contains a result returned from <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/> or <see cref="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/>.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.VerifyResult.IsMatch">
+            <summary>
+            Gets a value indicating whether the captured sample matched the user identity specified.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.VerifyResult.OperationStatus">
+            <summary>
+            Gets the error code returned by the capture operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.VerifyResult.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.VerifyResult.UnitId">
+            <summary>
+            Gets a value that specifies the biometric unit that performed the verification.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.WinBiometric">
+            <summary>
+            Provides functionality to execute interface that Windows Biometric Framework exposes.
+            </summary>
+        </member>
+        <member name="E:WinBiometricDotNet.WinBiometric.AsyncCompleted">
+            <summary>
+            Occurs when the operation started by using the session handle completes.
+            </summary>
+        </member>
+        <member name="E:WinBiometricDotNet.WinBiometric.EnrollCaptured">
+            <summary>
+            Occurs when the capture operation succeeds or fails.
+            </summary>
+        </member>
+        <member name="E:WinBiometricDotNet.WinBiometric.EventMonitored">
+            <summary>
+            Occurs when receives the event notifications sent by the Windows Biometric Framework.
+            </summary>
+        </member>
+        <member name="E:WinBiometricDotNet.WinBiometric.Identified">
+            <summary>
+            Occurs when identification succeeds or fails.
+            </summary>
+        </member>
+        <member name="E:WinBiometricDotNet.WinBiometric.SampleCaptured">
+            <summary>
+            Occurs when the capture operation succeeds or fails.
+            </summary>
+        </member>
+        <member name="E:WinBiometricDotNet.WinBiometric.SensorLocated">
+            <summary>
+            Occurs when sensor location succeeds or fails.
+            </summary>
+        </member>
+        <member name="E:WinBiometricDotNet.WinBiometric.Verified">
+            <summary>
+            Occurs when verification succeeds or fails.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AcquireFocus">
+            <summary>
+            Acquires window focus.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncEnumBiometricUnits(WinBiometricDotNet.Framework,WinBiometricDotNet.BiometricTypes)">
+            <summary>
+            Asynchronously enumerates all attached biometric units that match the input biometric type.
+            </summary>
+            <param name="framework">The handle to the biometric framework.</param>
+            <param name="biometricTypes">The bitmask of <see cref="T:WinBiometricDotNet.BiometricTypes"/> flags that specifies the biometric unit types to be enumerated.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncEnumDatabases(WinBiometricDotNet.Framework,WinBiometricDotNet.BiometricTypes)">
+            <summary>
+            Asynchronously enumerates all registered databases that match a specified biometric type.
+            </summary>
+            <param name="framework">The handle to the biometric framework.</param>
+            <param name="biometricTypes">The bitmask of <see cref="T:WinBiometricDotNet.BiometricTypes"/> flags that specifies the biometric database types to be enumerated.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncEnumServiceProviders(WinBiometricDotNet.Framework,WinBiometricDotNet.BiometricTypes)">
+            <summary>
+            Asynchronously returns information about installed biometric service providers.
+            </summary>
+            <param name="framework">The handle to the biometric framework.</param>
+            <param name="biometricTypes">The bitmask of <see cref="T:WinBiometricDotNet.BiometricTypes"/> flags that specifies the biometric service provider types to be enumerated.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncMonitorFrameworkChanges(WinBiometricDotNet.Framework,WinBiometricDotNet.ChangeTypes)">
+            <summary>
+            Starts an asynchronous monitor of changes to the biometric framework.
+            </summary>
+            <param name="framework">The handle to the biometric framework.</param>
+            <param name="changeType">The bitmask of type <see cref="T:WinBiometricDotNet.ChangeTypes"/> flags that indicates the types of events that should generate asynchronous notifications.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncOpenFramework(System.IntPtr)">
+            <summary>
+            Asynchronously opens a handle to the biometric framework.
+            </summary>
+            <param name="userData">The buffer supplied by the caller.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncOpenFramework(System.IntPtr,System.UInt32)">
+            <summary>
+            Asynchronously opens a handle to the biometric framework.
+            </summary>
+            <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+            <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncOpenSession(System.IntPtr)">
+            <summary>
+            Asynchronously connects to a biometric service provider and one or more biometric units.
+            </summary>
+            <param name="userData">The buffer supplied by the caller.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.AsyncOpenSession(System.IntPtr,System.UInt32)">
+            <summary>
+            Asynchronously connects to a biometric service provider and one or more biometric units.
+            </summary>
+            <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+            <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.BeginEnroll(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition,System.UInt32)">
+            <summary>
+            Initiates a biometric enrollment sequence and creates an empty biometric template.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="position">A <see cref="T:WinBiometricDotNet.FingerPosition"/> that provides additional information about the enrollment.</param>
+            <param name="unitId">The value that identifies the biometric unit.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.Cancel(WinBiometricDotNet.Session)">
+            <summary>
+            Cancels all pending biometric operations for a specified session.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.CaptureEnroll(WinBiometricDotNet.Session)">
+            <summary>
+            Captures a biometric sample and adds it to a template.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <returns><see cref="T:WinBiometricDotNet.CaptureEnrollResult"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.CaptureEnrollWithCallback(WinBiometricDotNet.Session)">
+            <summary>
+            Asynchronously captures a biometric sample and adds it to a template.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.CaptureSample(WinBiometricDotNet.Session)">
+            <summary>
+            Captures a biometric sample and fills a biometric information record (BIR) with the raw or processed data.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <returns><see cref="T:WinBiometricDotNet.CaptureSampleResult"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.CaptureSampleWithCallback(WinBiometricDotNet.Session)">
+            <summary>
+            Captures a biometric sample asynchronously and returns the raw or processed data in a biometric information record (BIR).
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.CloseFramework(WinBiometricDotNet.Framework)">
+            <summary>
+            Closes a framework handle previously opened one.
+            </summary>
+            <param name="framework">The handle to the biometric framework.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="framework"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.CloseSession(WinBiometricDotNet.Session)">
+            <summary>
+            Closes a biometric session and releases associated resources.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.CommitEnroll(WinBiometricDotNet.Session)">
+            <summary>
+            Finalizes a pending biometric template and saves it to the database associated with the biometric unit used for enrollment.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <returns><see cref="T:WinBiometricDotNet.BiometricIdentity"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.ControlUnit(WinBiometricDotNet.Session,System.UInt32,WinBiometricDotNet.Component,System.UInt32,System.Byte[],System.Byte[],System.IntPtr@,System.UInt32@)">
+            <summary>
+            Allows the caller to perform vendor-defined control operations on a biometric unit.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unitId">The value that identifies the biometric unit.</param>
+            <param name="component">The value that specifies the component within the biometric unit that should perform the operation.</param>
+            <param name="controlCode">The value that specifies the vendor-defined code recognized by the biometric unit.</param>
+            <param name="sendBuffer">The buffer that contains the control information sent to the adapter by the component.</param>
+            <param name="receiveBuffer">The buffer that receives information sent by the adapter specified by the <paramref name="component"/> parameter.</param>
+            <param name="receiveDataSize">A size, in bytes, of the data written to the buffer specified by the <paramref name="receiveBuffer"/> parameter.</param>
+            <param name="operationStatus">The value that specifies the vendor-defined status code that specifies the outcome of the control operation.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/>, <paramref name="sendBuffer"/> or <paramref name="receiveBuffer"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.ControlUnitPrivileged(WinBiometricDotNet.Session,System.UInt32,WinBiometricDotNet.Component,System.UInt32,System.Byte[],System.Byte[],System.IntPtr@,System.UInt32@)">
+            <summary>
+            Allows the caller to perform privileged vendor-defined control operations on a biometric unit.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unitId">The value that identifies the biometric unit.</param>
+            <param name="component">The value that specifies the component within the biometric unit that should perform the operation.</param>
+            <param name="controlCode">The value that specifies the vendor-defined code recognized by the biometric unit.</param>
+            <param name="sendBuffer">The buffer that contains the control information sent to the adapter by the component.</param>
+            <param name="receiveBuffer">The buffer that receives information sent by the adapter specified by the <paramref name="component"/> parameter.</param>
+            <param name="receiveDataSize">A size, in bytes, of the data written to the buffer specified by the <paramref name="receiveBuffer"/> parameter.</param>
+            <param name="operationStatus">The value that specifies the vendor-defined status code that specifies the outcome of the control operation.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/>, <paramref name="sendBuffer"/> or <paramref name="receiveBuffer"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.DeleteTemplate(WinBiometricDotNet.Session,System.UInt32,WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.FingerPosition)">
+            <summary>
+            Deletes a biometric template from the template store.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unitId">The value that identifies the biometric unit where the template is located.</param>
+            <param name="identity">The the data that contains the GUID or SID of the template to be deleted.</param>
+            <param name="position">The value that provides additional information about the template to be deleted.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> or <paramref name="identity"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.DiscardEnroll(WinBiometricDotNet.Session)">
+            <summary>
+            Ends the enrollment sequence and discards a pending biometric template. 
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.EnumBiometricDatabases(WinBiometricDotNet.BiometricTypes)">
+            <summary>
+            Enumerates all registered databases that match a specified biometric type.
+            </summary>
+            <param name="biometricTypes">The bitmask of <see cref="T:WinBiometricDotNet.BiometricTypes"/> flags that specifies the biometric database types to be enumerated.</param>
+            <returns>An enumerable collection of the <see cref="T:WinBiometricDotNet.BiometricUnit"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.EnumBiometricUnits(WinBiometricDotNet.BiometricTypes)">
+            <summary>
+            Enumerates all attached biometric units that match the input biometric type.
+            </summary>
+            <param name="biometricTypes">The bitmask of <see cref="T:WinBiometricDotNet.BiometricTypes"/> flags that specifies the biometric unit types to be enumerated.</param>
+            <returns>An enumerable collection of the <see cref="T:WinBiometricDotNet.BiometricDatabase"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit)">
+            <summary>
+            Retrieves the biometric sub-factors enrolled for a specified identity and biometric unit.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unit">The value that identifies the biometric unit.</param>
+            <returns>An enumerable collection of the <see cref="T:WinBiometricDotNet.FingerPosition"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.EnumServiceProviders(WinBiometricDotNet.BiometricTypes)">
+            <summary>
+            Retrieves information about installed biometric service providers.
+            </summary>
+            <param name="biometricTypes">The bitmask of <see cref="T:WinBiometricDotNet.BiometricTypes"/> flags that specifies the biometric service provider types to be enumerated.</param>
+            <returns>An enumerable collection of the <see cref="T:WinBiometricDotNet.BiometricServiceProvider"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.GetCredentialState(WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.CredentialTypes)">
+            <summary>
+            Retrieves a value that specifies whether credentials have been set for the specified user.
+            </summary>
+            <param name="identity">The data that contains the SID of the user account for which the credential is being queried.</param>
+            <param name="credentialType">The value that specifies the credential type.</param>
+            <returns>The value that specifies whether user credentials have been set.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="identity"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.GetDomainLogonSetting(System.Boolean@,WinBiometricDotNet.SettingSourceType@)">
+            <summary>
+            Retrieves a value that specifies whether users can log on to a domain by using biometric information.
+            </summary>
+            <param name="value">When this method returns, contains value that specifies whether biometric domain logons are enabled.</param>
+            <param name="source">When this method returns, contains value that specifies the setting source.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.GetEnabledSetting(System.Boolean@,WinBiometricDotNet.SettingSourceType@)">
+            <summary>
+            Retrieves a value that specifies whether the Windows Biometric Framework is currently enabled.
+            </summary>
+            <param name="value">When this method returns, contains value that specifies whether the Windows Biometric Framework is currently enabled.</param>
+            <param name="source">When this method returns, contains value that specifies the setting source.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.GetEnrolledFactors(WinBiometricDotNet.BiometricIdentity)">
+            <summary>
+            Gets information about the biometric enrollments that the specified user has on the computer.
+            </summary>
+            <param name="accountOwner">The data for the user whose biometric enrollments you want to get.</param>
+            <returns>The flags that indicate the biometric enrollments that the specified user has on the computer.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="accountOwner"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.GetLogonSetting(System.Boolean@,WinBiometricDotNet.SettingSourceType@)">
+            <summary>
+            Retrieves a value that indicates whether users can log on by using biometric information.
+            </summary>
+            <param name="value">When this method returns, contains value that specifies whether biometric logons are enabled.</param>
+            <param name="source">When this method returns, contains value that specifies the setting source.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.GetProperty(WinBiometricDotNet.Session,WinBiometricDotNet.PropertyType,WinBiometricDotNet.PropertyId,System.UInt32,WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.FingerPosition,System.Byte[]@)">
+            <summary>
+            Retrieves a session, unit, or template property.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="propertyType">The value that specifies the source of the property information.</param>
+            <param name="propertyId">The value that specifies the property that you want to query.</param>
+            <param name="unitId">The value that identifies the biometric unit.</param>
+            <param name="identity">The data that provides the SID of the account for which you want to get the antispoofing policy, if you specify <see cref="F:WinBiometricDotNet.PropertyId.AntiSpoofPolicy"/> as the value of the <paramref name="propertyId"/> parameter.</param>
+            <param name="position">Reserved.</param>
+            <param name="propertyBuffer">When this method returns, contains the property value.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> or <paramref name="identity"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.Identify(WinBiometricDotNet.Session)">
+            <summary>
+            Captures a biometric sample and determines whether it matches an existing biometric template.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <returns><see cref="T:WinBiometricDotNet.IdentifyResult"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.IdentifyWithCallback(WinBiometricDotNet.Session)">
+            <summary>
+            Asynchronously captures a biometric sample and determines whether it matches an existing biometric template.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.LocateSensor(WinBiometricDotNet.Session)">
+            <summary>
+            Retrieves the ID number of a biometric unit selected interactively by a user.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <returns>The ID number of a biometric unit selected interactively by a user.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.LocateSensorWithCallback(WinBiometricDotNet.Session)">
+            <summary>
+            Asynchronously retrieves the ID number of the biometric unit selected interactively by a user.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.LockUnit(WinBiometricDotNet.Session,System.UInt32)">
+            <summary>
+            Locks a biometric unit for exclusive use by a single session.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unitId">The value that specifies the biometric unit to be locked.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.LogonIdentifiedUser(WinBiometricDotNet.Session)">
+            <summary>
+            Causes a fast user switch to the account associated with the last successful identification operation performed by the biometric session.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <returns>true if the function has the switched to the account associated with the last successful identification operation performed by the biometric session; otherwise, false.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.MonitorPresence(WinBiometricDotNet.Session,System.UInt32)">
+            <summary>
+            Turns on the face-recognition or iris-monitoring mechanism for the specified biometric unit.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unitId">The identifier of the biometric unit for which you want to turn on the face-recognition or iris-monitoring mechanism.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.OpenFramework(System.IntPtr)">
+            <summary>
+            Opens a handle to the biometric framework.
+            </summary>
+            <param name="userData">The buffer supplied by the caller.</param>
+            <returns><see cref="T:WinBiometricDotNet.Framework"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.OpenFramework(System.IntPtr,System.UInt32)">
+            <summary>
+            Opens a handle to the biometric framework.
+            </summary>
+            <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+            <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
+            <returns><see cref="T:WinBiometricDotNet.Framework"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.OpenSession">
+            <summary>
+            Connects to a biometric service provider and one or more biometric units.
+            </summary>
+            <returns><see cref="T:WinBiometricDotNet.Session"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.OpenSession(System.IntPtr)">
+            <summary>
+            Connects to a biometric service provider and one or more biometric units.
+            </summary>
+            <param name="userData">The buffer supplied by the caller.</param>
+            <returns><see cref="T:WinBiometricDotNet.Session"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.OpenSession(System.IntPtr,System.UInt32)">
+            <summary>
+            Connects to a biometric service provider and one or more biometric units.
+            </summary>
+            <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+            <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
+            <returns><see cref="T:WinBiometricDotNet.Session"/>.</returns>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.RegisterEventMonitor(WinBiometricDotNet.Session,WinBiometricDotNet.EventTypes)">
+            <summary>
+            Starts to receive event notifications from the service provider associated with an open session.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="eventType">A value that specifies the types of events to monitor.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.ReleaseFocus">
+            <summary>
+            Releases window focus.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.RemoveAllCredentials">
+            <summary>
+            Removes all credentials from the store.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.RemoveAllDomainCredentials">
+            <summary>
+            Removes all user credentials for the current domain from the store.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.RemoveCredential(WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.CredentialTypes)">
+            <summary>
+            Deletes a biometric logon credential for a specified user.
+            </summary>
+            <param name="identity">A <see cref="T:WinBiometricDotNet.BiometricIdentity"/> that contains the SID of the user account for which the logon credential will be removed.</param>
+            <param name="credentialType">A <see cref="T:WinBiometricDotNet.CredentialTypes"/> that specifies the credential type.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="identity"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.SelectEnroll(WinBiometricDotNet.Session,System.UInt64)">
+            <summary>
+            Specifies the individual that you want to enroll when data that represents multiple individuals is present in the sample buffer.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="selectorValue">The value that identifies that individual that you want to select for enrollment.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.SetCredential(WinBiometricDotNet.CredentialTypes,System.Byte[],WinBiometricDotNet.CredentialFormat)">
+            <summary>
+            Saves a biometric logon credential for the current user.
+            </summary>
+            <param name="credentialType">A <see cref="T:WinBiometricDotNet.CredentialTypes"/> that specifies the credential type.</param>
+            <param name="credential">The buffer that contains the credential.</param>
+            <param name="format">A <see cref="T:WinBiometricDotNet.CredentialFormat"/> that specifies the format of the credential.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="credential"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.UnlockUnit(WinBiometricDotNet.Session,System.UInt32)">
+            <summary>
+            Releases the session lock on the specified biometric unit.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unitId">The value that specifies the biometric unit to unlock.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.UnregisterEventMonitor(WinBiometricDotNet.Session)">
+            <summary>
+            Cancels event notifications from the service provider associated with an open biometric session.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)">
+            <summary>
+            Captures a biometric sample and determines whether the sample corresponds to the specified user identity.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unit"></param>
+            <param name="position">A <see cref="T:WinBiometricDotNet.FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
+            <returns><see cref="T:WinBiometricDotNet.VerifyResult"/>.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)">
+            <summary>
+            Asynchronously captures a biometric sample and determines whether the sample corresponds to the specified user identity.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <param name="unit"></param>
+            <param name="position">A <see cref="T:WinBiometricDotNet.FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometric.Wait(WinBiometricDotNet.Session)">
+            <summary>
+            Blocks caller execution until all pending biometric operations for a session have been completed or canceled.
+            </summary>
+            <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
+        </member>
+        <member name="T:WinBiometricDotNet.WinBiometricException">
+            <summary>
+            The exception is general exception for Windows Biometric Framework. This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometricException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WinBiometricDotNet.WinBiometricException"/> class with a specified error message.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+        </member>
+        <member name="M:WinBiometricDotNet.WinBiometricException.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WinBiometricDotNet.WinBiometricException"/> class with a specified HRESULT, a coded numerical value that is assigned to a specific exception.
+            </summary>
+            <param name="hresult">HRESULT, a coded numerical value that is assigned to a specific exception.</param>
+        </member>
+    </members>
+</doc>

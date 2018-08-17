@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultVerify"/> class contains the results of an asynchronous call to <see cref="WinBiometric.Verify"/>.
+    /// </summary>
     public sealed class AsyncResultVerify : AsyncResultParameter
     {
 
@@ -18,11 +21,17 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value indicating whether the captured sample matched the user identity specified.
+        /// </summary>
         public bool Match
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that contains additional information about the failure to capture a biometric sample.
+        /// </summary>
         public RejectDetail RejectDetail
         {
             get;

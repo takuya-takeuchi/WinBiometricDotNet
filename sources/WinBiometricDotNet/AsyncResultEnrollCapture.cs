@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultEnrollCapture"/> class contains the results of an asynchronous call to <see cref="WinBiometric.CaptureEnroll"/>.
+    /// </summary>
     public sealed class AsyncResultEnrollCapture : AsyncResultParameter
     {
 
@@ -17,6 +20,9 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value that contains additional information about the failure to capture a biometric sample.
+        /// </summary>
         public RejectDetail RejectDetail
         {
             get;

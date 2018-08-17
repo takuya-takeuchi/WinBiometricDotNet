@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Represent the handle to the biometric framework.
+    /// </summary>
     public sealed class Framework
     {
 
@@ -17,6 +20,9 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Get the pointer to the handle.
+        /// </summary>
         public WINBIO_FRAMEWORK_HANDLE Handle
         {
             get;

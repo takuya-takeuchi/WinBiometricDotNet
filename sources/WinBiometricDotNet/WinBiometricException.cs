@@ -5,31 +5,33 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The exception is general exception for Windows Biometric Framework. This class cannot be inherited.
+    /// </summary>
     public sealed class WinBiometricException : Exception
     {
 
-        #region Events
-        #endregion
-
-        #region Fields
-        #endregion
-
         #region Constructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WinBiometricException"/> class with a specified error message.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
         public WinBiometricException(string message)
             : base(message)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WinBiometricException"/> class with a specified HRESULT, a coded numerical value that is assigned to a specific exception.
+        /// </summary>
+        /// <param name="hresult">HRESULT, a coded numerical value that is assigned to a specific exception.</param>
         public WinBiometricException(int hresult) :
             base(ToMessage(hresult))
         {
             this.HResult = hresult;
         }
 
-        #endregion
-
-        #region Properties
         #endregion
 
         #region Methods

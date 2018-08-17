@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Provides data for the <see cref="WinBiometric.EventMonitored"/> event handler.
+    /// </summary>
     public sealed class EventMonitoredEventArgs : EventArgs
     {
 
@@ -30,6 +33,9 @@ namespace WinBiometricDotNet
             get;
         }
 
+        /// <summary>
+        /// Gets the error code returned by the capture operation.
+        /// </summary>
         public OperationStatus OperationStatus
         {
             get;

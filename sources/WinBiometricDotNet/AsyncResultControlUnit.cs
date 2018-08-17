@@ -5,6 +5,9 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultControlUnit"/> class contains the results of a call to <see cref="WinBiometric.ControlUnit"/> or <see cref="WinBiometric.ControlUnitPrivileged"/>.
+    /// </summary>
     public sealed class AsyncResultControlUnit : AsyncResultParameter
     {
 
@@ -34,31 +37,49 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value that specifies the component within the biometric unit that performed the operation.
+        /// </summary>
         public Component Component
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that specifies the vendor-defined code recognized by the biometric unit.
+        /// </summary>
         public uint ControlCode
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that specifies the vendor-defined status code that specifies the outcome of the control operation.
+        /// </summary>
         public OperationStatus OperationStatus
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a buffer that receives information sent by the adapter specified by the <see cref="Component"/> property.
+        /// </summary>
         public byte[] ReceiveBuffer
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a size, in bytes, of the data written to the buffer specified by the <see cref="ReceiveBuffer"/> property.
+        /// </summary>
         public int ReceiveDataSize
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a buffer that contains the control information sent to the adapter by the component.
+        /// </summary>
         public byte[] SendBuffer
         {
             get;
