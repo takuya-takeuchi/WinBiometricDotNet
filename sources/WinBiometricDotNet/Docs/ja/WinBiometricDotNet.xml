@@ -287,6 +287,22 @@
             <see cref="T:WinBiometricDotNet.BiometricServiceProvider"/> の配列を取得します。
             </summary>
         </member>
+        <member name="T:WinBiometricDotNet.AsyncResultGetEvent">
+            <summary>
+            <see cref="T:WinBiometricDotNet.AsyncResultGetEvent"/> クラスは監視するイベントの結果を格納します。
+            </summary>
+            <remarks>このクラスは現在サポートされていません。</remarks>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetEvent.EventType">
+            <summary>            
+            発生したサービス プロバイダ イベント通知の種類を示す値を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetEvent.Parameter">
+            <summary>
+            イベント通知が発生したときにコールバック ルーチンへ送信されるステータス情報を含むデータを取得します。
+            </summary>
+        </member>
         <member name="T:WinBiometricDotNet.AsyncResultGetProperty">
             <summary>
             <see cref="T:WinBiometricDotNet.AsyncResultGetProperty"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.GetProperty(WinBiometricDotNet.Session,WinBiometricDotNet.PropertyType,WinBiometricDotNet.PropertyId,System.UInt32,WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.FingerPosition,System.Byte[]@)"/> への非同期呼び出しの結果を格納します。
@@ -335,6 +351,11 @@
         <member name="P:WinBiometricDotNet.AsyncResultIdentify.RejectDetail">
             <summary>
             バイオメトリックス サンプルをキャプチャした際の失敗に関する追加情報を含む値を取得します。
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultParameter">
+            <summary>
+            非同期操作の結果を提供します。このクラスは抽象クラスです。
             </summary>
         </member>
         <member name="T:WinBiometricDotNet.AsyncResultSetProperty">
@@ -1040,6 +1061,11 @@
             </summary>
             <param name="sender">イベントのソース。</param>
             <param name="e"><see cref="T:WinBiometricDotNet.EventMonitoredEventArgs"/> イベント データを格納します。</param>
+        </member>
+        <member name="T:WinBiometricDotNet.EventParameter">
+            <summary>
+            <see cref="E:WinBiometricDotNet.WinBiometric.EventMonitored"/> からの結果を提供します。このクラスは抽象クラスです。
+            </summary>
         </member>
         <member name="T:WinBiometricDotNet.EventTypes">
             <summary>

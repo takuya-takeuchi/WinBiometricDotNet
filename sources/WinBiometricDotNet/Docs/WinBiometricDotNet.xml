@@ -287,6 +287,22 @@
             Get the array of <see cref="T:WinBiometricDotNet.BiometricServiceProvider"/>.
             </summary>
         </member>
+        <member name="T:WinBiometricDotNet.AsyncResultGetEvent">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.AsyncResultGetEvent"/> class contains the results of events to monitor.
+            </summary>
+            <remarks>This class is not currently supported.</remarks>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetEvent.EventType">
+            <summary>
+            Gets a value that specifies the type of service provider event notice raised.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.AsyncResultGetEvent.Parameter">
+            <summary>
+            Gets the data that contains status information sent to the callback routine when an event notice is raised.
+            </summary>
+        </member>
         <member name="T:WinBiometricDotNet.AsyncResultGetProperty">
             <summary>
             The <see cref="T:WinBiometricDotNet.AsyncResultGetProperty"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.GetProperty(WinBiometricDotNet.Session,WinBiometricDotNet.PropertyType,WinBiometricDotNet.PropertyId,System.UInt32,WinBiometricDotNet.BiometricIdentity,WinBiometricDotNet.FingerPosition,System.Byte[]@)"/>.
@@ -335,6 +351,11 @@
         <member name="P:WinBiometricDotNet.AsyncResultIdentify.RejectDetail">
             <summary>
             Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.AsyncResultParameter">
+            <summary>
+            Provides a results of an asynchronous operation. This is an abstract class.
             </summary>
         </member>
         <member name="T:WinBiometricDotNet.AsyncResultSetProperty">
@@ -1040,6 +1061,11 @@
             </summary>
             <param name="sender">The source of the event.</param>
             <param name="e">A <see cref="T:WinBiometricDotNet.EventMonitoredEventArgs"/> that contains the event data.</param>
+        </member>
+        <member name="T:WinBiometricDotNet.EventParameter">
+            <summary>
+            Provides a result from the <see cref="E:WinBiometricDotNet.WinBiometric.EventMonitored"/> event. This is an abstract class.
+            </summary>
         </member>
         <member name="T:WinBiometricDotNet.EventTypes">
             <summary>
