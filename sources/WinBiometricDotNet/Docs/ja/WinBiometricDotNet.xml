@@ -1589,6 +1589,13 @@
             アンマネージ コードを扱うときに使用できるさまざまなメソッドを提供します。これらのメソッドを使用すると、マネージ型からアンマネージ型への変換などができます。
             </summary>
         </member>
+        <member name="M:WinBiometricDotNet.Runtime.InteropServices.Marshal.GetWinBiometricExceptionFromHR(System.Int32)">
+            <summary>
+            指定した HRESULT エラー コードを対応する <see cref="T:WinBiometricDotNet.WinBiometricException"/> オブジェクトに変換します。
+            </summary>
+            <param name="errorCode">変換される HRESULT。</param>
+            <returns>変換後の HRESULT を表すオブジェクト。</returns>
+        </member>
         <member name="M:WinBiometricDotNet.Runtime.InteropServices.Marshal.PtrToAsyncResult(System.IntPtr)">
             <summary>
             ウィンドウ メッセージの LPARAM 値から <see cref="T:WinBiometricDotNet.AsyncResult"/> オブジェクトにデータをマーシャリングします。

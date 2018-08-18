@@ -1,4 +1,6 @@
-﻿namespace WinBiometricDotNet
+﻿using HRESULT = System.Int32;
+
+namespace WinBiometricDotNet
 {
 
     /// <summary>
@@ -9,7 +11,7 @@
 
         #region Constructors
 
-        internal IdentifyResult(uint unitId, OperationStatus operationStatus, BiometricIdentity identity, FingerPosition fingerPosition, RejectDetail rejectDetail)
+        internal IdentifyResult(uint unitId, HRESULT operationStatus, BiometricIdentity identity, FingerPosition fingerPosition, RejectDetail rejectDetail)
         {
             this.UnitId = unitId;
             this.OperationStatus = operationStatus;
@@ -57,7 +59,7 @@
         /// <summary>
         /// Gets the error code returned by the capture operation.
         /// </summary>
-        public OperationStatus OperationStatus
+        public HRESULT OperationStatus
         {
             get;
         }

@@ -1,4 +1,6 @@
-﻿namespace WinBiometricDotNet
+﻿using HRESULT = System.Int32;
+
+namespace WinBiometricDotNet
 {
 
     /// <summary>
@@ -9,7 +11,7 @@
 
         #region Constructors
 
-        internal VerifyResult(bool match, uint unitId, OperationStatus operationStatus, RejectDetail rejectDetail)
+        internal VerifyResult(bool match, uint unitId, HRESULT operationStatus, RejectDetail rejectDetail)
         {
             this.IsMatch = match;
             this.UnitId = unitId;
@@ -32,7 +34,7 @@
         /// <summary>
         /// Gets the error code returned by the capture operation.
         /// </summary>
-        public OperationStatus OperationStatus
+        public HRESULT OperationStatus
         {
             get;
         }

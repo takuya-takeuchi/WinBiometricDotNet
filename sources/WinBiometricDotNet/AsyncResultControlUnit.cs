@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using WinBiometricDotNet.Interop;
+using ULONG = System.UInt32;
 
 namespace WinBiometricDotNet
 {
@@ -17,7 +18,7 @@ namespace WinBiometricDotNet
         {
             this.Component = (Component)controlUnit->Component;
             this.ControlCode = controlUnit->ControlCode;
-            this.OperationStatus = (OperationStatus)controlUnit->OperationStatus;
+            this.OperationStatus = controlUnit->OperationStatus;
             this.ReceiveDataSize = (int)controlUnit->ReceiveDataSize;
 
             if (controlUnit->SendBuffer != IntPtr.Zero)
@@ -56,7 +57,7 @@ namespace WinBiometricDotNet
         /// <summary>
         /// Gets a value that specifies the vendor-defined status code that specifies the outcome of the control operation.
         /// </summary>
-        public OperationStatus OperationStatus
+        public ULONG OperationStatus
         {
             get;
         }

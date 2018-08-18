@@ -5,6 +5,7 @@ using FrameworkTester.Helpers;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using WinBiometricDotNet;
+using WinBiometricDotNet.Runtime.InteropServices;
 
 namespace FrameworkTester.ViewModels
 {
@@ -135,24 +136,8 @@ namespace FrameworkTester.ViewModels
                         var session = this.HandleRepository.SelectedHandle.Session;
                         var result = this.BiometricService.CaptureSample(session);
 
-                        var text = "OK";
-                        switch (result.OperationStatus)
-                        {
-                            case OperationStatus.OK:
-                                text = "OK";
-                                break;
-                            case OperationStatus.BadCapture:
-                                text = "BadCapture";
-                                break;
-                            case OperationStatus.Canceled:
-                                text = "Canceled";
-                                break;
-                            case OperationStatus.Unknown:
-                                text = "Unknown";
-                                break;
-                        }
+                        this.Result = Marshal.GetWinBiometricExceptionFromHR(result.OperationStatus).Message;
 
-                        this.Result = text;
                         this.RejectDetail = result.RejectDetail;
                         this.SampleSize = result.SampleSize;
                         this.UnitId = result.UnitId;

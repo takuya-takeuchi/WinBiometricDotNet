@@ -1,4 +1,6 @@
-﻿namespace WinBiometricDotNet
+﻿using HRESULT = System.Int32;
+
+namespace WinBiometricDotNet
 {
 
     /// <summary>
@@ -9,12 +11,12 @@
 
         #region Constructors
 
-        internal CaptureEnrollResult(OperationStatus operationStatus, RejectDetail rejectDetail):
+        internal CaptureEnrollResult(HRESULT operationStatus, RejectDetail rejectDetail):
             this(operationStatus, rejectDetail, false)
         {
         }
 
-        internal CaptureEnrollResult(OperationStatus operationStatus, RejectDetail rejectDetail, bool isRequiredMoreData)
+        internal CaptureEnrollResult(HRESULT operationStatus, RejectDetail rejectDetail, bool isRequiredMoreData)
         {
             this.OperationStatus = operationStatus;
             this.RejectDetail = rejectDetail;
@@ -28,7 +30,7 @@
         /// <summary>
         /// Gets the error code returned by the capture operation.
         /// </summary>
-        public OperationStatus OperationStatus
+        public HRESULT OperationStatus
         {
             get;
         }

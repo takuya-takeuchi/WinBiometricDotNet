@@ -1589,6 +1589,13 @@
             Provides a collection of methods for converting managed to unmanaged types, as well as other miscellaneous methods used when interacting with unmanaged code.
             </summary>
         </member>
+        <member name="M:WinBiometricDotNet.Runtime.InteropServices.Marshal.GetWinBiometricExceptionFromHR(System.Int32)">
+            <summary>
+            Converts the specified HRESULT error code to a corresponding <see cref="T:WinBiometricDotNet.WinBiometricException"/> object.
+            </summary>
+            <param name="errorCode">The HRESULT to be converted.</param>
+            <returns>An object that represents the converted HRESULT.</returns>
+        </member>
         <member name="M:WinBiometricDotNet.Runtime.InteropServices.Marshal.PtrToAsyncResult(System.IntPtr)">
             <summary>
             Marshals data from an LPARAM value of windows message to a <see cref="T:WinBiometricDotNet.AsyncResult"/> object.

@@ -1,5 +1,6 @@
 ﻿using System;
 using WinBiometricDotNet.Interop;
+using HRESULT = System.Int32;
 
 namespace WinBiometricDotNet
 {
@@ -13,7 +14,7 @@ namespace WinBiometricDotNet
         #region Constructors
 
         internal unsafe EventMonitoredEventArgs(SafeNativeMethods.WINBIO_EVENT* @event,
-                                                OperationStatus operationStatus)
+                                                HRESULT operationStatus)
         {
             switch (@event->Type)
             {
@@ -59,7 +60,7 @@ namespace WinBiometricDotNet
         /// <summary>
         /// Gets the error code returned by the capture operation.
         /// </summary>
-        public OperationStatus OperationStatus
+        public HRESULT OperationStatus
         {
             get;
         }

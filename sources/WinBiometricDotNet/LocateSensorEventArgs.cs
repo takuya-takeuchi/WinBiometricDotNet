@@ -1,4 +1,5 @@
 ﻿using System;
+using HRESULT = System.Int32;
 
 namespace WinBiometricDotNet
 {
@@ -11,7 +12,7 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal LocateSensorEventArgs(uint unitId, OperationStatus operationStatus)
+        internal LocateSensorEventArgs(uint unitId, HRESULT operationStatus)
         {
             this.UnitId = unitId;
             this.OperationStatus = operationStatus;
@@ -24,7 +25,7 @@ namespace WinBiometricDotNet
         /// <summary>
         /// Gets the error code returned by the capture operation.
         /// </summary>
-        public OperationStatus OperationStatus
+        public HRESULT OperationStatus
         {
             get;
         }
