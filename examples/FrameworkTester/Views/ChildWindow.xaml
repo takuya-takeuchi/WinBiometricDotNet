@@ -964,7 +964,7 @@
                 </ScrollViewer>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="ChildWindowLogTemplateSlectorIdentity" DataType="winBiometricDotNet:AsyncResultIdentity">
+        <DataTemplate x:Key="ChildWindowLogTemplateSlectorIdentify" DataType="winBiometricDotNet:AsyncResultIdentify">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -1102,7 +1102,7 @@
             EnumDatabases="{StaticResource ChildWindowLogTemplateSlectorEnumDatabases}"
             EnumEnrollments="{StaticResource ChildWindowLogTemplateSlectorEnumEnrollments}"
             EnumServiceProviders="{StaticResource ChildWindowLogTemplateSlectorEnumServiceProviders}"
-            Identity="{StaticResource ChildWindowLogTemplateSlectorIdentity}"
+            Identify="{StaticResource ChildWindowLogTemplateSlectorIdentify}"
             Verify="{StaticResource ChildWindowLogTemplateSlectorVerify}" />
     </Window.Resources>
     <Grid Margin="10">

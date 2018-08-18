@@ -72,7 +72,7 @@ namespace FrameworkTester.ViewModels
             this.Result = result;
             this.Session = result.Session;
 
-            if(result.Parameter is AsyncResultIdentity identity)
+            if(result.Parameter is AsyncResultIdentify identity)
             {
                 this.IdentityRepository.Add(identity.Identity);
             }

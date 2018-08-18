@@ -317,22 +317,22 @@
             プロパティ情報のソースを示す値を取得します。
             </summary>
         </member>
-        <member name="T:WinBiometricDotNet.AsyncResultIdentity">
+        <member name="T:WinBiometricDotNet.AsyncResultIdentify">
             <summary>
-            <see cref="T:WinBiometricDotNet.AsyncResultIdentity"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.Identify(WinBiometricDotNet.Session)"/> への非同期呼び出しの結果を格納します。
+            <see cref="T:WinBiometricDotNet.AsyncResultIdentify"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.Identify(WinBiometricDotNet.Session)"/> への非同期呼び出しの結果を格納します。
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultIdentity.Identity">
+        <member name="P:WinBiometricDotNet.AsyncResultIdentify.Identity">
             <summary>
             バイオメトリックス サンプルを提供するユーザの GUID (グローバル一意識別子) または SID (セキュリティ識別子) を受け取るデータを取得します。
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultIdentity.FingerPosition">
+        <member name="P:WinBiometricDotNet.AsyncResultIdentify.FingerPosition">
             <summary>
             バイオメトリックス サンプルに関連付けられたサブファクタを受け取る値を取得します。
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultIdentity.RejectDetail">
+        <member name="P:WinBiometricDotNet.AsyncResultIdentify.RejectDetail">
             <summary>
             バイオメトリックス サンプルをキャプチャした際の失敗に関する追加情報を含む値を取得します。
             </summary>

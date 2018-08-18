@@ -59,7 +59,7 @@ namespace WinBiometricDotNet
                     this.Parameter = new AsyncResultVerify(&result->Parameter.Verify);
                     break;
                 case OperationType.Identify:
-                    this.Parameter = new AsyncResultIdentity(&result->Parameter.Identify);
+                    this.Parameter = new AsyncResultIdentify(&result->Parameter.Identify);
                     break;
                 case OperationType.EnrollBegin:
                     this.Parameter = new AsyncResultEnrollBegin(&result->Parameter.EnrollBegin);

@@ -317,22 +317,22 @@
             Gets a value that specifies source of the property information.
             </summary>
         </member>
-        <member name="T:WinBiometricDotNet.AsyncResultIdentity">
+        <member name="T:WinBiometricDotNet.AsyncResultIdentify">
             <summary>
-            The <see cref="T:WinBiometricDotNet.AsyncResultIdentity"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.Identify(WinBiometricDotNet.Session)"/>.
+            The <see cref="T:WinBiometricDotNet.AsyncResultIdentify"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.Identify(WinBiometricDotNet.Session)"/>.
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultIdentity.Identity">
+        <member name="P:WinBiometricDotNet.AsyncResultIdentify.Identity">
             <summary>
             Gets the data that receives the GUID or SID of the user providing the biometric sample.
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultIdentity.FingerPosition">
+        <member name="P:WinBiometricDotNet.AsyncResultIdentify.FingerPosition">
             <summary>
             Gets a value that receives the sub-factor associated with the biometric sample.
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultIdentity.RejectDetail">
+        <member name="P:WinBiometricDotNet.AsyncResultIdentify.RejectDetail">
             <summary>
             Gets a value that contains additional information about the failure to capture a biometric sample.
             </summary>

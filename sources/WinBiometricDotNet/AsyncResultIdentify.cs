@@ -4,14 +4,14 @@ namespace WinBiometricDotNet
 {
 
     /// <summary>
-    /// The <see cref="AsyncResultIdentity"/> class contains the results of an asynchronous call to <see cref="WinBiometric.Identify"/>.
+    /// The <see cref="AsyncResultIdentify"/> class contains the results of an asynchronous call to <see cref="WinBiometric.Identify"/>.
     /// </summary>
-    public sealed class AsyncResultIdentity : AsyncResultParameter
+    public sealed class AsyncResultIdentify : AsyncResultParameter
     {
 
         #region Constructors
 
-        internal unsafe AsyncResultIdentity(SafeNativeMethods.WINBIO_ASYNC_RESULT_IDENTITY* identity)
+        internal unsafe AsyncResultIdentify(SafeNativeMethods.WINBIO_ASYNC_RESULT_IDENTITY* identity)
         {
             this.Identity = new BiometricIdentity(&identity->Identity);
             this.FingerPosition = (FingerPosition)identity->SubFactor;
