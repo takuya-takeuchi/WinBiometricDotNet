@@ -1004,14 +1004,34 @@
             <param name="sender">The source of the event.</param>
             <param name="e">A <see cref="T:WinBiometricDotNet.EnrollCapturedEventArgs"/> that contains the event data.</param>
         </member>
+        <member name="T:WinBiometricDotNet.ErrorEvent">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.ErrorEvent"/> class contains the data that identifies the success or failure of the operation being monitored.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.ErrorEvent.ErrorCode">
+            <summary>
+            Gets an error code that resulted from computations performed by the Windows Biometric Framework.
+            </summary>
+        </member>
         <member name="T:WinBiometricDotNet.EventMonitoredEventArgs">
             <summary>
             Provides data for the <see cref="E:WinBiometricDotNet.WinBiometric.EventMonitored"/> event handler.
             </summary>
         </member>
+        <member name="P:WinBiometricDotNet.EventMonitoredEventArgs.EventType">
+            <summary>
+            Gets a value that specifies the type of service provider event notice raised.
+            </summary>
+        </member>
         <member name="P:WinBiometricDotNet.EventMonitoredEventArgs.OperationStatus">
             <summary>
             Gets the error code returned by the capture operation.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.EventMonitoredEventArgs.EventParameter">
+            <summary>
+            Gets the data that contains status information sent to the callback routine when an event notice is raised.
             </summary>
         </member>
         <member name="T:WinBiometricDotNet.EventMonitoredHandler">
@@ -1638,6 +1658,46 @@
         <member name="F:WinBiometricDotNet.SettingSourceType.Local">
             <summary>
             The setting originated in the local computer registry.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.UnclaimedEvent">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.UnclaimedEvent"/> class contains the event for biometric sample capture.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedEvent.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedEvent.UnidId">
+            <summary>
+            Gets the biometric unit that generated the sample.
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.UnclaimedIdentifyEvent">
+            <summary>
+            The <see cref="T:WinBiometricDotNet.UnclaimedIdentifyEvent"/> class contains the event for biometric capture and identification.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.FingerPosition">
+            <summary>
+            Gets a value that specifies the sub-factor associated with a biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.Identity">
+            <summary>
+            Gets the data that contains the GUID or SID of the user providing the biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.RejectDetail">
+            <summary>
+            Gets a value that contains additional information about the failure to capture a biometric sample.
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.UnidId">
+            <summary>
+            Gets the biometric unit that generated the sample.
             </summary>
         </member>
         <member name="T:WinBiometricDotNet.VerifyEventArgs">

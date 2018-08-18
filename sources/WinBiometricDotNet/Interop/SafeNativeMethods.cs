@@ -3074,7 +3074,7 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// Retrieves the type and data for the specified registry value.
         /// </summary>
-        /// <param name="hkey">
+        /// <param name="hKey">
         /// <para>A handle to an open <see cref="registry"/> key. The key must have been opened with the <see cref="KEY_QUERY_VALUE"/> access right. For more information, see <see cref="Registry"/> Key Security and Access Rights.</para>
         /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
         /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
@@ -3210,7 +3210,7 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// Retrieves the type and data for the specified registry value.
         /// </summary>
-        /// <param name="hkey">
+        /// <param name="hKey">
         /// <para>A handle to an open <see cref="registry"/> key. The key must have been opened with the <see cref="KEY_QUERY_VALUE"/> access right. For more information, see <see cref="Registry"/> Key Security and Access Rights.</para>
         /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
         /// <para><see cref="HKEY_CLASSES_ROOT"/></para>

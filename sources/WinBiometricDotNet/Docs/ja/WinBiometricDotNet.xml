@@ -1004,14 +1004,34 @@
             <param name="sender">イベントのソース。</param>
             <param name="e"><see cref="T:WinBiometricDotNet.EnrollCapturedEventArgs"/> イベント データを格納します。</param>
         </member>
+        <member name="T:WinBiometricDotNet.ErrorEvent">
+            <summary>
+            <see cref="T:WinBiometricDotNet.ErrorEvent"/> クラスは監視されている操作の成功または失敗を識別するデータを格納します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.ErrorEvent.ErrorCode">
+            <summary>
+            Windows Biometric Framework による演算の結果発生したエラーコードを取得します。
+            </summary>
+        </member>
         <member name="T:WinBiometricDotNet.EventMonitoredEventArgs">
             <summary>
             <see cref="E:WinBiometricDotNet.WinBiometric.EventMonitored"/> イベント ハンドラーのデータを提供します。
             </summary>
         </member>
+        <member name="P:WinBiometricDotNet.EventMonitoredEventArgs.EventType">
+            <summary>
+            発生したサービス プロバイダ イベント通知の種類を示す値を取得します。
+            </summary>
+        </member>
         <member name="P:WinBiometricDotNet.EventMonitoredEventArgs.OperationStatus">
             <summary>
             キャプチャ操作から返ってきたエラーコードを取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.EventMonitoredEventArgs.EventParameter">
+            <summary>
+            イベント通知が発生したときにコールバック ルーチンへ送信されるステータス情報を含むデータを取得します。
             </summary>
         </member>
         <member name="T:WinBiometricDotNet.EventMonitoredHandler">
@@ -1638,6 +1658,46 @@
         <member name="F:WinBiometricDotNet.SettingSourceType.Local">
             <summary>
             設定はローカル コンピュータのレジストリに由来します。
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.UnclaimedEvent">
+            <summary>
+            <see cref="T:WinBiometricDotNet.UnclaimedEvent"/> クラスはバイオメトリックス サンプル キャプチャのイベントを格納します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedEvent.RejectDetail">
+            <summary>
+            バイオメトリックス サンプルをキャプチャした際の失敗に関する追加情報を含む値を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedEvent.UnidId">
+            <summary>
+            サンプルを生成したバイオメトリックス装置を取得します。
+            </summary>
+        </member>
+        <member name="T:WinBiometricDotNet.UnclaimedIdentifyEvent">
+            <summary>
+            <see cref="T:WinBiometricDotNet.UnclaimedIdentifyEvent"/> クラスはバイオメトリックス サンプル キャプチャと本人確認のイベントを格納します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.FingerPosition">
+            <summary>
+            バイオメトリックス サンプルに関連付けられたサブファクタを示す値を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.Identity">
+            <summary>
+            バイオメトリックス サンプルを提供するユーザの GUID (グローバル一意識別子) または SID (セキュリティ識別子) を含むデータを取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.RejectDetail">
+            <summary>
+            バイオメトリックス サンプルをキャプチャした際の失敗に関する追加情報を含む値を取得します。
+            </summary>
+        </member>
+        <member name="P:WinBiometricDotNet.UnclaimedIdentifyEvent.UnidId">
+            <summary>
+            サンプルを生成したバイオメトリックス装置を取得します。
             </summary>
         </member>
         <member name="T:WinBiometricDotNet.VerifyEventArgs">
