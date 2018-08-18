@@ -2161,7 +2161,7 @@ namespace WinBiometricDotNet
             if (!SafeNativeMethods.Macros.FAILED(hresult))
                 return;
 
-            throw Marshal.GetExceptionForHR(hresult);
+            throw Runtime.InteropServices.Marshal.GetWinBiometricExceptionFromHR(hresult);
         }
 
         private static int UnregisterDatabase(Guid databaseId)
