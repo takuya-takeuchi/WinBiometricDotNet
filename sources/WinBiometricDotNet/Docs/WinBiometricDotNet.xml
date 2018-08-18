@@ -264,7 +264,7 @@
         </member>
         <member name="T:WinBiometricDotNet.AsyncResultEnumEnrollments">
             <summary>
-            The <see cref="T:WinBiometricDotNet.AsyncResultEnumEnrollments"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit)"/>.
+            The <see cref="T:WinBiometricDotNet.AsyncResultEnumEnrollments"/> class contains the results of a call to <see cref="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,System.UInt32)"/>.
             </summary>
         </member>
         <member name="P:WinBiometricDotNet.AsyncResultEnumEnrollments.Identity">
@@ -1912,12 +1912,12 @@
             <param name="biometricTypes">The bitmask of <see cref="T:WinBiometricDotNet.BiometricTypes"/> flags that specifies the biometric unit types to be enumerated.</param>
             <returns>An enumerable collection of the <see cref="T:WinBiometricDotNet.BiometricDatabase"/>.</returns>
         </member>
-        <member name="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit)">
+        <member name="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,System.UInt32)">
             <summary>
             Retrieves the biometric sub-factors enrolled for a specified identity and biometric unit.
             </summary>
             <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
-            <param name="unit">The value that identifies the biometric unit.</param>
+            <param name="unitId">The value that identifies the biometric unit.</param>
             <returns>An enumerable collection of the <see cref="T:WinBiometricDotNet.FingerPosition"/>.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
         </member>

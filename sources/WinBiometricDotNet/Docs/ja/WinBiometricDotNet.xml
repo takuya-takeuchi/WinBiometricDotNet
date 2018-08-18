@@ -264,7 +264,7 @@
         </member>
         <member name="T:WinBiometricDotNet.AsyncResultEnumEnrollments">
             <summary>
-            <see cref="T:WinBiometricDotNet.AsyncResultEnumEnrollments"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit)"/> への非同期呼び出しの結果を格納します。
+            <see cref="T:WinBiometricDotNet.AsyncResultEnumEnrollments"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,System.UInt32)"/> への非同期呼び出しの結果を格納します。
             </summary>
         </member>
         <member name="P:WinBiometricDotNet.AsyncResultEnumEnrollments.Identity">
@@ -1912,12 +1912,12 @@
             <param name="biometricTypes">列挙されるバイオメトリックス装置を示す <see cref="T:WinBiometricDotNet.BiometricTypes"/> フラグのビットマスク。</param>
             <returns><see cref="T:WinBiometricDotNet.BiometricDatabase"/> の列挙可能なコレクション。</returns>
         </member>
-        <member name="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit)">
+        <member name="M:WinBiometricDotNet.WinBiometric.EnumEnrollments(WinBiometricDotNet.Session,System.UInt32)">
             <summary>
             指定した識別子とバイオメトリックス装置に登録されているバイオメトリックス サブファクタを取得します。
             </summary>
             <param name="session">オープンされたバイオメトリックス セッションを識別する <see cref="T:WinBiometricDotNet.Session"/>。</param>
-            <param name="unit">テンプレートが位置するバイオメトリックス装置を識別する値。</param>
+            <param name="unitId">テンプレートが位置するバイオメトリックス装置を識別する値。</param>
             <returns><see cref="T:WinBiometricDotNet.FingerPosition"/> の列挙可能なコレクション。</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> パラメータが null です。</exception>
         </member>

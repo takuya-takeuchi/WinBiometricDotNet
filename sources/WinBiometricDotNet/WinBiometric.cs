@@ -717,15 +717,13 @@ namespace WinBiometricDotNet
         /// Retrieves the biometric sub-factors enrolled for a specified identity and biometric unit.
         /// </summary>
         /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
-        /// <param name="unit">The value that identifies the biometric unit.</param>
+        /// <param name="unitId">The value that identifies the biometric unit.</param>
         /// <returns>An enumerable collection of the <see cref="FingerPosition"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
-        public static IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit)
+        public static IEnumerable<FingerPosition> EnumEnrollments(Session session, uint unitId)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
 
             var hr = GetCurrentUserIdentity(out var identity);
             if (hr != 0)
@@ -734,7 +732,7 @@ namespace WinBiometricDotNet
             }
 
             hr = SafeNativeMethods.WinBioEnumEnrollments(session.Handle,
-                                                         unit.UnitId,
+                                                         unitId,
                                                          ref identity,
                                                          out var subFactorArray,
                                                          out var subFactorCount);

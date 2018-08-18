@@ -210,9 +210,9 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumBiometricUnits();
         }
 
-        public IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit)
+        public IEnumerable<FingerPosition> EnumEnrollments(Session session, uint unitId)
         {
-            return WinBiometric.EnumEnrollments(session, unit);
+            return WinBiometric.EnumEnrollments(session, unitId);
         }
 
         public IEnumerable<BiometricServiceProvider> EnumServiceProviders()

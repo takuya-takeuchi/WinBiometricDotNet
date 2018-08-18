@@ -78,7 +78,7 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<BiometricUnit> EnumBiometricUnits();
 
-        IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit);
+        IEnumerable<FingerPosition> EnumEnrollments(Session session, uint unitId);
 
         IEnumerable<BiometricServiceProvider> EnumServiceProviders();
 
