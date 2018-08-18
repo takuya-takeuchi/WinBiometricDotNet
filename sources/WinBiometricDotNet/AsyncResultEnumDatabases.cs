@@ -5,6 +5,9 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultEnumDatabases"/> class contains the results of a call to <see cref="WinBiometric.AsyncEnumDatabases"/>.
+    /// </summary>
     public sealed class AsyncResultEnumDatabases : AsyncResultParameter
     {
 
@@ -29,6 +32,9 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Get the array of <see cref="BiometricDatabase"/>.
+        /// </summary>
         public BiometricDatabase[] Databases
         {
             get;

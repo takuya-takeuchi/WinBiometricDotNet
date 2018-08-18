@@ -210,9 +210,9 @@ namespace FrameworkTester.Services
             return WinBiometric.EnumBiometricUnits();
         }
 
-        public IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit)
+        public IEnumerable<FingerPosition> EnumEnrollments(Session session, uint unitId)
         {
-            return WinBiometric.EnumEnrollments(session, unit);
+            return WinBiometric.EnumEnrollments(session, unitId);
         }
 
         public IEnumerable<BiometricServiceProvider> EnumServiceProviders()
@@ -411,23 +411,17 @@ namespace FrameworkTester.Services
             WinBiometric.UnregisterEventMonitor(session);
         }
 
-        public VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position)
+        public VerifyResult Verify(Session session, FingerPosition position)
         {
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
-
-            return WinBiometric.Verify(session, unit, position);
+            return WinBiometric.Verify(session, position);
         }
 
-        public void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position)
+        public void VerifyWithCallback(Session session, FingerPosition position)
         {
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
-
             WinBiometric.Verified -= Verified;
             WinBiometric.Verified += Verified;
 
-            WinBiometric.VerifyWithCallback(session, unit, position);
+            WinBiometric.VerifyWithCallback(session, position);
         }
 
         public void Wait(Session session)

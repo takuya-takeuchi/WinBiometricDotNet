@@ -226,11 +226,11 @@ namespace FrameworkTester.ViewModels
             switch (e.EventType)
             {
                 case EventTypes.Unclaimed:
-                    var u = e.Unclaimed;
+                    var u = e.EventParameter as UnclaimedEvent;
                     message = $"[{dt}] [{e.OperationStatus}] [Unclaimed] UnidId: {u.UnidId}, RejectDetail: {u.RejectDetail}";
                     break;
                 case EventTypes.UnclaimedIdentify:
-                    var ui = e.UnclaimedIdentify;
+                    var ui = e.EventParameter as UnclaimedIdentifyEvent;
                     message = $"[{dt}] [{e.OperationStatus}] [UnclaimedIdentify] UnidId: {ui.UnidId}, RejectDetail: {ui.RejectDetail}, FingerPosition: {ui.FingerPosition}";
                     
                     string subMessage = null;
@@ -256,7 +256,7 @@ namespace FrameworkTester.ViewModels
                     message = $"{message}, {subMessage}";
                     break;
                 case EventTypes.Error:
-                    var err = e.Error;
+                    var err = e.EventParameter as ErrorEvent;
                     message = $"[{dt}] [{e.OperationStatus}] [Error] ErrorCode: {err.ErrorCode}";
                     break;
             }

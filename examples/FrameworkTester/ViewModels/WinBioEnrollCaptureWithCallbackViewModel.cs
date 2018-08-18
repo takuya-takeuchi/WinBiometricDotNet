@@ -3,6 +3,7 @@ using System.Windows;
 using FrameworkTester.ViewModels.Interfaces;
 using GalaSoft.MvvmLight.Command;
 using WinBiometricDotNet;
+using WinBiometricDotNet.Runtime.InteropServices;
 
 namespace FrameworkTester.ViewModels
 {
@@ -129,24 +130,7 @@ namespace FrameworkTester.ViewModels
                 this.WaitCallback = false;
             });
 
-            switch (e.Result.OperationStatus)
-            {
-                case OperationStatus.OK:
-                    this.Result = "OK";
-                    break;
-                case OperationStatus.BadCapture:
-                    this.Result = "BadCapture";
-                    break;
-                case OperationStatus.Canceled:
-                    this.Result = "Canceled";
-                    break;
-                case OperationStatus.MoreData:
-                    this.Result = "MoreData";
-                    break;
-                case OperationStatus.Unknown:
-                    this.Result = "Unknown";
-                    break;
-            }
+            this.Result = Marshal.GetWinBiometricExceptionFromHR(e.Result.OperationStatus).Message;
 
             this.RejectDetail = e.Result.RejectDetail;
         }

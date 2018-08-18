@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Provides data for the <see cref="WinBiometric.EnrollCaptured"/> event handler.
+    /// </summary>
     public sealed class EnrollCapturedEventArgs : EventArgs
     {
 
@@ -17,6 +20,9 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value that represents the result of an event.
+        /// </summary>
         public CaptureEnrollResult Result
         {
             get;

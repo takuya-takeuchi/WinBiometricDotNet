@@ -5,6 +5,9 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultSetProperty"/> class contains the results of a call to <see cref="WinBiometric.SetAntiSpoofPolicyProperty"/>.
+    /// </summary>
     public sealed class AsyncResultSetProperty : AsyncResultParameter
     {
 
@@ -28,26 +31,41 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets the data that specifies the account for which the property was set.
+        /// </summary>
         public BiometricIdentity Identity
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that specifies sub-factor.
+        /// </summary>
         public FingerPosition FingerPosition
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a buffer that specifies the value to which the property was set.
+        /// </summary>
         public byte[] PropertyBuffer
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that specifies the property that was set.
+        /// </summary>
         public PropertyId PropertyId
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that specifies the type of the property that was set.
+        /// </summary>
         public PropertyType PropertyType
         {
             get;

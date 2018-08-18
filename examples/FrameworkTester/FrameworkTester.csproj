@@ -78,6 +78,7 @@
     </ApplicationDefinition>
     <Compile Include="Controls\ObservableContentControl.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\HResultToStringConveter.cs" />
     <Compile Include="Converters\IntegerToHexStringConveter.cs" />
     <Compile Include="DesignTimes\ChildWindowViewModel.cs" />
     <Compile Include="DesignTimes\WinBioAcquireFocusViewModel.cs" />

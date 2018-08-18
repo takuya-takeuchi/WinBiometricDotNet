@@ -51,7 +51,7 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding ApiStatus}" />
+                    Text="{Binding ApiStatus, Converter={StaticResource HResultToStringConveter}}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -145,7 +145,7 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding ApiStatus}" />
+                    Text="{Binding ApiStatus, Converter={StaticResource HResultToStringConveter}}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -964,7 +964,7 @@
                 </ScrollViewer>
             </Grid>
         </DataTemplate>
-        <DataTemplate x:Key="ChildWindowLogTemplateSlectorIdentity" DataType="winBiometricDotNet:AsyncResultIdentity">
+        <DataTemplate x:Key="ChildWindowLogTemplateSlectorIdentify" DataType="winBiometricDotNet:AsyncResultIdentify">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -1077,7 +1077,7 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding Match}" />
+                    Text="{Binding IsMatch}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
@@ -1102,7 +1102,7 @@
             EnumDatabases="{StaticResource ChildWindowLogTemplateSlectorEnumDatabases}"
             EnumEnrollments="{StaticResource ChildWindowLogTemplateSlectorEnumEnrollments}"
             EnumServiceProviders="{StaticResource ChildWindowLogTemplateSlectorEnumServiceProviders}"
-            Identity="{StaticResource ChildWindowLogTemplateSlectorIdentity}"
+            Identify="{StaticResource ChildWindowLogTemplateSlectorIdentify}"
             Verify="{StaticResource ChildWindowLogTemplateSlectorVerify}" />
     </Window.Resources>
     <Grid Margin="10">

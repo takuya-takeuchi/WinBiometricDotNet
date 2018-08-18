@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
+#pragma warning disable CS0419, CS1574, CS1734
 namespace WinBiometricDotNet.Interop
 {
 
@@ -2936,7 +2937,7 @@ namespace WinBiometricDotNet.Interop
         /// <item>
         /// <term><para><see cref="REG_OPTION_VOLATILE"/></para><para>0x00000001L</para></term>
         /// <description>
-        /// <para>All keys created by the function are volatile. The information is stored in memory and is not p<paramref name="reserved"/> when the corresponding registry hive is unloaded. For <see cref="<paramref name="HKEY"/>_LOCAL_MACHINE"/>, this occurs only when the system initiates a full shutdown. For registry keys loaded by the <see cref="RegLoadKey"/> function, this occurs when the corresponding <see cref="RegUnLoadKey"/> is performed. The <see cref="RegSaveKey"/> function does not save volatile keys. This flag is ignored for keys that already exist.</para>
+        /// <para>All keys created by the function are volatile. The information is stored in memory and is not p<paramref name="reserved"/> when the corresponding registry hive is unloaded. For <see cref="HKEY_LOCAL_MACHINE"/>, this occurs only when the system initiates a full shutdown. For registry keys loaded by the <see cref="RegLoadKey"/> function, this occurs when the corresponding <see cref="RegUnLoadKey"/> is performed. The <see cref="RegSaveKey"/> function does not save volatile keys. This flag is ignored for keys that already exist.</para>
         /// <para>Note  On a user selected shutdown, a fast startup shutdown is the default behavior for the system.</para>
         /// </description>
         /// </item>
@@ -3073,7 +3074,7 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// Retrieves the type and data for the specified registry value.
         /// </summary>
-        /// <param name="hkey">
+        /// <param name="hKey">
         /// <para>A handle to an open <see cref="registry"/> key. The key must have been opened with the <see cref="KEY_QUERY_VALUE"/> access right. For more information, see <see cref="Registry"/> Key Security and Access Rights.</para>
         /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
         /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
@@ -3209,7 +3210,7 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// Retrieves the type and data for the specified registry value.
         /// </summary>
-        /// <param name="hkey">
+        /// <param name="hKey">
         /// <para>A handle to an open <see cref="registry"/> key. The key must have been opened with the <see cref="KEY_QUERY_VALUE"/> access right. For more information, see <see cref="Registry"/> Key Security and Access Rights.</para>
         /// <para>This handle is returned by the <see cref="RegCreateKeyEx"/>, <see cref="RegCreateKeyTransacted"/>, <see cref="RegOpenKeyEx"/>, or <see cref="RegOpenKeyTransacted"/> function. It can also be one of the following predefined keys:</para>
         /// <para><see cref="HKEY_CLASSES_ROOT"/></para>
@@ -4151,7 +4152,7 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// Allows the caller to perform vendor-defined control operations on a biometric unit. This function is provided for access to extended vendor operations for which elevated privileges are not required. If access rights are required, call the <see cref="WinBioControlUnitPrivileged"/> function.
         /// </summary>
-        /// <param name="SessionHandle">A WINBIO_SESSION_HANDLE value that identifies an open biometric session. Open a synchronous session handle by calling <see cref="WinBioOpenSession"/>. Open an asynchronous session handle by calling <seWinBioAsyncOpenSession.</param>
+        /// <param name="SessionHandle">A WINBIO_SESSION_HANDLE value that identifies an open biometric session. Open a synchronous session handle by calling <see cref="WinBioOpenSession"/>. Open an asynchronous session handle by calling <see cref="WinBioAsyncOpenSession"/>.</param>
         /// <param name="UnitId">A <see cref="WINBIO_UNIT_ID"/> value that identifies the biometric unit. This value must correspond to the unit ID used previously in the <see cref="WinBioLockUnit"/> function.</param>
         /// <param name="Component">
         /// <para>A WINBIO_COMPONENT value that specifies the component within the biometric unit that should perform the operation. This can be one of the following values.</para>
@@ -4226,7 +4227,7 @@ namespace WinBiometricDotNet.Interop
         /// <summary>
         /// Allows the caller to perform privileged vendor-defined control operations on a biometric unit. The client must call this function to perform extended vendor operations that require elevated access rights. If no privileges are required, the client can call the <see cref="WinBioControlUnit"/> function.
         /// </summary>
-        /// <param name="SessionHandle">A WINBIO_SESSION_HANDLE value that identifies an open biometric session. Open a synchronous session handle by calling <see cref="WinBioOpenSession"/>. Open an asynchronous session handle by calling <seWinBioAsyncOpenSession.</param>
+        /// <param name="SessionHandle">A WINBIO_SESSION_HANDLE value that identifies an open biometric session. Open a synchronous session handle by calling <see cref="WinBioOpenSession"/>. Open an asynchronous session handle by calling <see cref="WinBioAsyncOpenSession"/>.</param>
         /// <param name="UnitId">A <see cref="WINBIO_UNIT_ID"/> value that identifies the biometric unit. This value must correspond to the unit ID used previously in the <see cref="WinBioLockUnit"/> function.</param>
         /// <param name="Component">
         /// <para>A WINBIO_COMPONENT value that specifies the component within the biometric unit that should perform the operation. This can be one of the following values.</para>
@@ -7227,6 +7228,7 @@ namespace WinBiometricDotNet.Interop
 
             /// <summary>
             /// <para>A ULONG value that contains additional information about the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:</para>
+            /// <list type="bullet">
             /// <item>
             /// <description><see cref="WINBIO_FP_TOO_HIGH"/></description>
             /// </item>
@@ -7826,3 +7828,4 @@ namespace WinBiometricDotNet.Interop
     }
 
 }
+#pragma warning restore CS0419, CS1574, CS1734

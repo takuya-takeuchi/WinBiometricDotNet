@@ -14,6 +14,7 @@
             <viewModels:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 
             <!--  Conveters  -->
+            <converters:HResultToStringConveter x:Key="HResultToStringConveter"/>
             <converters:IntegerToHexStringConveter x:Key="IntegerToHexStringConveter" />
             <converters:BooleanToVisibilityConverter x:Key="HiddenIfFalse"
                                                      IsHidden="True"

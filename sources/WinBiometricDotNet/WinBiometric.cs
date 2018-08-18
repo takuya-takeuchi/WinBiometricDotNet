@@ -29,23 +29,47 @@ using WINBIO_UNIT_ID = System.UInt32;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Provides functionality to execute interface that Windows Biometric Framework exposes.
+    /// </summary>
     public sealed class WinBiometric
     {
 
         #region Events
 
+        /// <summary>
+        /// Occurs when the operation started by using the session handle completes.
+        /// </summary>
         public static event AsyncCompletedHandler AsyncCompleted;
 
+        /// <summary>
+        /// Occurs when the capture operation succeeds or fails.
+        /// </summary>
         public static event EnrollCapturedHandler EnrollCaptured;
 
+        /// <summary>
+        /// Occurs when receives the event notifications sent by the Windows Biometric Framework.
+        /// </summary>
         public static event EventMonitoredHandler EventMonitored;
 
+        /// <summary>
+        /// Occurs when identification succeeds or fails.
+        /// </summary>
         public static event IdentifiedHandler Identified;
 
+        /// <summary>
+        /// Occurs when the capture operation succeeds or fails.
+        /// </summary>
         public static event SampleCapturedHandler SampleCaptured;
 
+        /// <summary>
+        /// Occurs when sensor location succeeds or fails.
+        /// </summary>
         public static event SensorLocatedHandler SensorLocated;
 
+        /// <summary>
+        /// Occurs when verification succeeds or fails.
+        /// </summary>
         public static event VerifyHandler Verified;
 
         #endregion
@@ -88,6 +112,9 @@ namespace WinBiometricDotNet
 
         #region Methods
 
+        /// <summary>
+        /// Acquires window focus.
+        /// </summary>
         public static void AcquireFocus()
         {
             var hr = SafeNativeMethods.WinBioAcquireFocus();
@@ -95,6 +122,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Asynchronously enumerates all attached biometric units that match the input biometric type.
+        /// </summary>
+        /// <param name="framework">The handle to the biometric framework.</param>
+        /// <param name="biometricTypes">The bitmask of <see cref="BiometricTypes"/> flags that specifies the biometric unit types to be enumerated.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
         public static void AsyncEnumBiometricUnits(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
         {
             if (framework == null)
@@ -106,6 +139,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Asynchronously enumerates all registered databases that match a specified biometric type.
+        /// </summary>
+        /// <param name="framework">The handle to the biometric framework.</param>
+        /// <param name="biometricTypes">The bitmask of <see cref="BiometricTypes"/> flags that specifies the biometric database types to be enumerated.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
         public static void AsyncEnumDatabases(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
         {
             if (framework == null)
@@ -117,6 +156,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Asynchronously returns information about installed biometric service providers.
+        /// </summary>
+        /// <param name="framework">The handle to the biometric framework.</param>
+        /// <param name="biometricTypes">The bitmask of <see cref="BiometricTypes"/> flags that specifies the biometric service provider types to be enumerated.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
         public static void AsyncEnumServiceProviders(Framework framework, BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
         {
             if (framework == null)
@@ -128,6 +173,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Starts an asynchronous monitor of changes to the biometric framework.
+        /// </summary>
+        /// <param name="framework">The handle to the biometric framework.</param>
+        /// <param name="changeType">The bitmask of type <see cref="ChangeTypes"/> flags that indicates the types of events that should generate asynchronous notifications.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="framework"/> parameter is null.</exception>
         public static void AsyncMonitorFrameworkChanges(Framework framework, ChangeTypes changeType)
         {
             if (framework == null)
@@ -139,6 +190,10 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Asynchronously opens a handle to the biometric framework.
+        /// </summary>
+        /// <param name="userData">The buffer supplied by the caller.</param>
         public static void AsyncOpenFramework(PVOID userData)
         {
             var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_CALLBACK,
@@ -152,6 +207,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Asynchronously opens a handle to the biometric framework.
+        /// </summary>
+        /// <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+        /// <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
         public static void AsyncOpenFramework(PVOID targetWindow, UINT messageCode)
         {
             var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_MESSAGE,
@@ -165,6 +225,10 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Asynchronously connects to a biometric service provider and one or more biometric units.
+        /// </summary>
+        /// <param name="userData">The buffer supplied by the caller.</param>
         public static void AsyncOpenSession(PVOID userData)
         {
             unsafe
@@ -188,6 +252,11 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Asynchronously connects to a biometric service provider and one or more biometric units.
+        /// </summary>
+        /// <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+        /// <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
         public static void AsyncOpenSession(PVOID targetWindow, UINT messageCode)
         {
             unsafe
@@ -211,6 +280,13 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Initiates a biometric enrollment sequence and creates an empty biometric template.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="position">A <see cref="FingerPosition"/> that provides additional information about the enrollment.</param>
+        /// <param name="unitId">The value that identifies the biometric unit.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void BeginEnroll(Session session, FingerPosition position, uint unitId)
         {
             if (session == null)
@@ -221,6 +297,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Cancels all pending biometric operations for a specified session.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void Cancel(Session session)
         {
             if (session == null)
@@ -230,6 +311,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Captures a biometric sample and adds it to a template.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <returns><see cref="CaptureEnrollResult"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static CaptureEnrollResult CaptureEnroll(Session session)
         {
             if (session == null)
@@ -237,24 +324,24 @@ namespace WinBiometricDotNet
 
             var hr = SafeNativeMethods.WinBioEnrollCapture(session.Handle, out var rejectDetail);
 
-            OperationStatus status;
             switch (hr)
             {
                 case SafeNativeMethods.WINBIO_I_MORE_DATA:
-                    status = OperationStatus.MoreData;
-                    break;
                 case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
-                    status = OperationStatus.BadCapture;
                     break;
                 default:
                     ThrowWinBiometricException(hr);
-                    status = OperationStatus.OK;
                     break;
             }
 
-            return new CaptureEnrollResult(status, (RejectDetail)rejectDetail, status == OperationStatus.MoreData);
+            return new CaptureEnrollResult(SafeNativeMethods.S_OK, (RejectDetail)rejectDetail, hr == SafeNativeMethods.WINBIO_I_MORE_DATA);
         }
 
+        /// <summary>
+        /// Asynchronously captures a biometric sample and adds it to a template.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void CaptureEnrollWithCallback(Session session)
         {
             if (session == null)
@@ -267,6 +354,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Captures a biometric sample and fills a biometric information record (BIR) with the raw or processed data.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <returns><see cref="CaptureSampleResult"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static CaptureSampleResult CaptureSample(Session session)
         {
             if (session == null)
@@ -285,13 +378,18 @@ namespace WinBiometricDotNet
                 ThrowWinBiometricException(hr);
 
                 return CreateCaptureSampleResult(unitId,
-                                                 OperationStatus.OK,
+                                                 SafeNativeMethods.S_OK,
                                                  (SafeNativeMethods.WINBIO_BIR*)sample,
                                                  sampleSize,
                                                  rejectDetail);
             }
         }
 
+        /// <summary>
+        /// Captures a biometric sample asynchronously and returns the raw or processed data in a biometric information record (BIR).
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void CaptureSampleWithCallback(Session session)
         {
             if (session == null)
@@ -306,6 +404,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Closes a framework handle previously opened one.
+        /// </summary>
+        /// <param name="framework">The handle to the biometric framework.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="framework"/> is null.</exception>
         public static void CloseFramework(Framework framework)
         {
             if (framework == null)
@@ -316,6 +419,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Closes a biometric session and releases associated resources.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void CloseSession(Session session)
         {
             if (session == null)
@@ -326,6 +434,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Finalizes a pending biometric template and saves it to the database associated with the biometric unit used for enrollment.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <returns><see cref="BiometricIdentity"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static BiometricIdentity CommitEnroll(Session session)
         {
             if (session == null)
@@ -343,6 +457,18 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Allows the caller to perform vendor-defined control operations on a biometric unit.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="unitId">The value that identifies the biometric unit.</param>
+        /// <param name="component">The value that specifies the component within the biometric unit that should perform the operation.</param>
+        /// <param name="controlCode">The value that specifies the vendor-defined code recognized by the biometric unit.</param>
+        /// <param name="sendBuffer">The buffer that contains the control information sent to the adapter by the component.</param>
+        /// <param name="receiveBuffer">The buffer that receives information sent by the adapter specified by the <paramref name="component"/> parameter.</param>
+        /// <param name="receiveDataSize">A size, in bytes, of the data written to the buffer specified by the <paramref name="receiveBuffer"/> parameter.</param>
+        /// <param name="operationStatus">The value that specifies the vendor-defined status code that specifies the outcome of the control operation.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/>, <paramref name="sendBuffer"/> or <paramref name="receiveBuffer"/> is null.</exception>
         public static void ControlUnit(Session session,
                                        uint unitId,
                                        Component component,
@@ -385,6 +511,18 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Allows the caller to perform privileged vendor-defined control operations on a biometric unit.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="unitId">The value that identifies the biometric unit.</param>
+        /// <param name="component">The value that specifies the component within the biometric unit that should perform the operation.</param>
+        /// <param name="controlCode">The value that specifies the vendor-defined code recognized by the biometric unit.</param>
+        /// <param name="sendBuffer">The buffer that contains the control information sent to the adapter by the component.</param>
+        /// <param name="receiveBuffer">The buffer that receives information sent by the adapter specified by the <paramref name="component"/> parameter.</param>
+        /// <param name="receiveDataSize">A size, in bytes, of the data written to the buffer specified by the <paramref name="receiveBuffer"/> parameter.</param>
+        /// <param name="operationStatus">The value that specifies the vendor-defined status code that specifies the outcome of the control operation.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/>, <paramref name="sendBuffer"/> or <paramref name="receiveBuffer"/> is null.</exception>
         public static void ControlUnitPrivileged(Session session,
                                                  uint unitId,
                                                  Component component,
@@ -466,10 +604,7 @@ namespace WinBiometricDotNet
 
             var hr = CreateCompatibleConfiguration(ref unitSchema, out var configuration);
             if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
-            {
-                var message = ConvertErrorCodeToString(hr);
-                throw new WinBiometricException(message);
-            }
+                throw Marshal.GetExceptionForHR(hr);
 
             var storageSchema = new SafeNativeMethods.WINBIO_STORAGE_SCHEMA
             {
@@ -480,12 +615,17 @@ namespace WinBiometricDotNet
 
             hr = RegisterDatabase(storageSchema);
             if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
-            {
-                var message = ConvertErrorCodeToString(hr);
-                throw new WinBiometricException(message);
-            }
+                throw Marshal.GetExceptionForHR(hr);
         }
 
+        /// <summary>
+        /// Deletes a biometric template from the template store.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="unitId">The value that identifies the biometric unit where the template is located.</param>
+        /// <param name="identity">The the data that contains the GUID or SID of the template to be deleted.</param>
+        /// <param name="position">The value that provides additional information about the template to be deleted.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> or <paramref name="identity"/> is null.</exception>
         public static void DeleteTemplate(Session session, uint unitId, BiometricIdentity identity, FingerPosition position)
         {
             if (session == null)
@@ -505,6 +645,11 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Ends the enrollment sequence and discards a pending biometric template. 
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void DiscardEnroll(Session session)
         {
             if (session == null)
@@ -515,6 +660,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Enumerates all registered databases that match a specified biometric type.
+        /// </summary>
+        /// <param name="biometricTypes">The bitmask of <see cref="BiometricTypes"/> flags that specifies the biometric database types to be enumerated.</param>
+        /// <returns>An enumerable collection of the <see cref="BiometricUnit"/>.</returns>
         public static IEnumerable<BiometricDatabase> EnumBiometricDatabases(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
         {
             var databases = new List<BiometricDatabase>();
@@ -535,6 +685,11 @@ namespace WinBiometricDotNet
             return databases;
         }
 
+        /// <summary>
+        /// Enumerates all attached biometric units that match the input biometric type.
+        /// </summary>
+        /// <param name="biometricTypes">The bitmask of <see cref="BiometricTypes"/> flags that specifies the biometric unit types to be enumerated.</param>
+        /// <returns>An enumerable collection of the <see cref="BiometricDatabase"/>.</returns>
         public static IEnumerable<BiometricUnit> EnumBiometricUnits(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
         {
             var hr = SafeNativeMethods.WinBioEnumBiometricUnits((uint)biometricTypes,
@@ -547,12 +702,17 @@ namespace WinBiometricDotNet
                 yield return new BiometricUnit(schema);
         }
 
-        public static IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit)
+        /// <summary>
+        /// Retrieves the biometric sub-factors enrolled for a specified identity and biometric unit.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="unitId">The value that identifies the biometric unit.</param>
+        /// <returns>An enumerable collection of the <see cref="FingerPosition"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
+        public static IEnumerable<FingerPosition> EnumEnrollments(Session session, uint unitId)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
 
             var hr = GetCurrentUserIdentity(out var identity);
             if (hr != 0)
@@ -561,7 +721,7 @@ namespace WinBiometricDotNet
             }
 
             hr = SafeNativeMethods.WinBioEnumEnrollments(session.Handle,
-                                                         unit.UnitId,
+                                                         unitId,
                                                          ref identity,
                                                          out var subFactorArray,
                                                          out var subFactorCount);
@@ -576,6 +736,11 @@ namespace WinBiometricDotNet
             return array.Select(f => (FingerPosition)f).ToArray();
         }
 
+        /// <summary>
+        /// Retrieves information about installed biometric service providers.
+        /// </summary>
+        /// <param name="biometricTypes">The bitmask of <see cref="BiometricTypes"/> flags that specifies the biometric service provider types to be enumerated.</param>
+        /// <returns>An enumerable collection of the <see cref="BiometricServiceProvider"/>.</returns>
         public static IEnumerable<BiometricServiceProvider> EnumServiceProviders(BiometricTypes biometricTypes = BiometricTypes.Fingerprint)
         {
             var hr = SafeNativeMethods.WinBioEnumServiceProviders((uint)biometricTypes,
@@ -588,6 +753,13 @@ namespace WinBiometricDotNet
                 yield return new BiometricServiceProvider(schema);
         }
 
+        /// <summary>
+        /// Retrieves a value that specifies whether credentials have been set for the specified user.
+        /// </summary>
+        /// <param name="identity">The data that contains the SID of the user account for which the credential is being queried.</param>
+        /// <param name="credentialType">The value that specifies the credential type.</param>
+        /// <returns>The value that specifies whether user credentials have been set.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="identity"/> is null.</exception>
         public static CredentialState GetCredentialState(BiometricIdentity identity, CredentialTypes credentialType)
         {
             if (identity == null)
@@ -602,6 +774,11 @@ namespace WinBiometricDotNet
             return (CredentialState)state;
         }
 
+        /// <summary>
+        /// Retrieves a value that specifies whether users can log on to a domain by using biometric information.
+        /// </summary>
+        /// <param name="value">When this method returns, contains value that specifies whether biometric domain logons are enabled.</param>
+        /// <param name="source">When this method returns, contains value that specifies the setting source.</param>
         public static void GetDomainLogonSetting(out bool value, out SettingSourceType source)
         {
             var hr = SafeNativeMethods.WinBioGetDomainLogonSetting(out value, out var tmp);
@@ -611,6 +788,11 @@ namespace WinBiometricDotNet
             source = (SettingSourceType)tmp;
         }
 
+        /// <summary>
+        /// Retrieves a value that specifies whether the Windows Biometric Framework is currently enabled.
+        /// </summary>
+        /// <param name="value">When this method returns, contains value that specifies whether the Windows Biometric Framework is currently enabled.</param>
+        /// <param name="source">When this method returns, contains value that specifies the setting source.</param>
         public static void GetEnabledSetting(out bool value, out SettingSourceType source)
         {
             var hr = SafeNativeMethods.WinBioGetEnabledSetting(out value, out var tmp);
@@ -620,6 +802,12 @@ namespace WinBiometricDotNet
             source = (SettingSourceType)tmp;
         }
 
+        /// <summary>
+        /// Gets information about the biometric enrollments that the specified user has on the computer.
+        /// </summary>
+        /// <param name="accountOwner">The data for the user whose biometric enrollments you want to get.</param>
+        /// <returns>The flags that indicate the biometric enrollments that the specified user has on the computer.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="accountOwner"/> is null.</exception>
         public static BiometricTypes GetEnrolledFactors(BiometricIdentity accountOwner)
         {
             if (accountOwner == null)
@@ -638,6 +826,11 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Retrieves a value that indicates whether users can log on by using biometric information.
+        /// </summary>
+        /// <param name="value">When this method returns, contains value that specifies whether biometric logons are enabled.</param>
+        /// <param name="source">When this method returns, contains value that specifies the setting source.</param>
         public static void GetLogonSetting(out bool value, out SettingSourceType source)
         {
             var hr = SafeNativeMethods.WinBioGetLogonSetting(out value, out var tmp);
@@ -718,6 +911,17 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Retrieves a session, unit, or template property.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="propertyType">The value that specifies the source of the property information.</param>
+        /// <param name="propertyId">The value that specifies the property that you want to query.</param>
+        /// <param name="unitId">The value that identifies the biometric unit.</param>
+        /// <param name="identity">The data that provides the SID of the account for which you want to get the antispoofing policy, if you specify <see cref="PropertyId.AntiSpoofPolicy"/> as the value of the <paramref name="propertyId"/> parameter.</param>
+        /// <param name="position">Reserved.</param>
+        /// <param name="propertyBuffer">When this method returns, contains the property value.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> or <paramref name="identity"/> is null.</exception>
         public static void GetProperty(Session session,
                                        PropertyType propertyType,
                                        PropertyId propertyId,
@@ -785,6 +989,12 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Captures a biometric sample and determines whether it matches an existing biometric template.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <returns><see cref="IdentifyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static IdentifyResult Identify(Session session)
         {
             if (session == null)
@@ -801,13 +1011,18 @@ namespace WinBiometricDotNet
                 ThrowWinBiometricException(hr);
 
                 return new IdentifyResult(unitId,
-                                          OperationStatus.OK,
+                                          SafeNativeMethods.S_OK,
                                           new BiometricIdentity(&identity),
                                           (FingerPosition)subFactor,
                                           (RejectDetail)rejectDetail);
             }
         }
 
+        /// <summary>
+        /// Asynchronously captures a biometric sample and determines whether it matches an existing biometric template.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void IdentifyWithCallback(Session session)
         {
             if (session == null)
@@ -820,6 +1035,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Retrieves the ID number of a biometric unit selected interactively by a user.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <returns>The ID number of a biometric unit selected interactively by a user.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static WINBIO_UNIT_ID LocateSensor(Session session)
         {
             if (session == null)
@@ -832,6 +1053,11 @@ namespace WinBiometricDotNet
             return unitId;
         }
 
+        /// <summary>
+        /// Asynchronously retrieves the ID number of the biometric unit selected interactively by a user.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void LocateSensorWithCallback(Session session)
         {
             if (session == null)
@@ -844,6 +1070,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Locks a biometric unit for exclusive use by a single session.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="unitId">The value that specifies the biometric unit to be locked.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void LockUnit(Session session, WINBIO_UNIT_ID unitId)
         {
             if (session == null)
@@ -854,6 +1086,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Causes a fast user switch to the account associated with the last successful identification operation performed by the biometric session.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <returns>true if the function has the switched to the account associated with the last successful identification operation performed by the biometric session; otherwise, false.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static bool LogonIdentifiedUser(Session session)
         {
             if (session == null)
@@ -874,6 +1112,12 @@ namespace WinBiometricDotNet
             return false;
         }
 
+        /// <summary>
+        /// Turns on the face-recognition or iris-monitoring mechanism for the specified biometric unit.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="unitId">The identifier of the biometric unit for which you want to turn on the face-recognition or iris-monitoring mechanism.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void MonitorPresence(Session session, uint unitId)
         {
             if (session == null)
@@ -884,6 +1128,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Opens a handle to the biometric framework.
+        /// </summary>
+        /// <param name="userData">The buffer supplied by the caller.</param>
+        /// <returns><see cref="Framework"/>.</returns>
         public static Framework OpenFramework(PVOID userData)
         {
             var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_CALLBACK,
@@ -899,6 +1148,12 @@ namespace WinBiometricDotNet
             return new Framework(frameworkHandle);
         }
 
+        /// <summary>
+        /// Opens a handle to the biometric framework.
+        /// </summary>
+        /// <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+        /// <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
+        /// <returns><see cref="Framework"/>.</returns>
         public static Framework OpenFramework(IntPtr targetWindow, UINT messageCode)
         {
             var hr = SafeNativeMethods.WinBioAsyncOpenFramework(SafeNativeMethods.WINBIO_ASYNC_NOTIFICATION_METHOD.WINBIO_ASYNC_NOTIFY_MESSAGE,
@@ -914,6 +1169,10 @@ namespace WinBiometricDotNet
             return new Framework(frameworkHandle);
         }
 
+        /// <summary>
+        /// Connects to a biometric service provider and one or more biometric units.
+        /// </summary>
+        /// <returns><see cref="Session"/>.</returns>
         public static Session OpenSession()
         {
             unsafe
@@ -934,6 +1193,11 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Connects to a biometric service provider and one or more biometric units.
+        /// </summary>
+        /// <param name="userData">The buffer supplied by the caller.</param>
+        /// <returns><see cref="Session"/>.</returns>
         public static Session OpenSession(PVOID userData)
         {
             unsafe
@@ -959,6 +1223,12 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Connects to a biometric service provider and one or more biometric units.
+        /// </summary>
+        /// <param name="targetWindow">The handle of the window that will receive the completion notices.</param>
+        /// <param name="messageCode">The window message code the framework must send to signify completion notices.</param>
+        /// <returns><see cref="Session"/>.</returns>
         public static Session OpenSession(IntPtr targetWindow, UINT messageCode)
         {
             unsafe
@@ -984,6 +1254,12 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Starts to receive event notifications from the service provider associated with an open session.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="eventType">A value that specifies the types of events to monitor.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void RegisterEventMonitor(Session session, EventTypes eventType)
         {
             if (session == null)
@@ -997,12 +1273,18 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Releases window focus.
+        /// </summary>
         public static void ReleaseFocus()
         {
             var hr = SafeNativeMethods.WinBioReleaseFocus();
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Removes all credentials from the store.
+        /// </summary>
         public static void RemoveAllCredentials()
         {
             var hr = SafeNativeMethods.WinBioRemoveAllCredentials();
@@ -1010,6 +1292,9 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Removes all user credentials for the current domain from the store.
+        /// </summary>
         public static void RemoveAllDomainCredentials()
         {
             var hr = SafeNativeMethods.WinBioRemoveAllDomainCredentials();
@@ -1017,6 +1302,12 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Deletes a biometric logon credential for a specified user.
+        /// </summary>
+        /// <param name="identity">A <see cref="BiometricIdentity"/> that contains the SID of the user account for which the logon credential will be removed.</param>
+        /// <param name="credentialType">A <see cref="CredentialTypes"/> that specifies the credential type.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="identity"/> is null.</exception>
         public static void RemoveCredential(BiometricIdentity identity, CredentialTypes credentialType)
         {
             if (identity == null)
@@ -1059,19 +1350,19 @@ namespace WinBiometricDotNet
 
             var hr = UnregisterPrivateConfiguration(unitSchema, databaseId, out _);
             if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
-            {
-                var message = ConvertErrorCodeToString(hr);
-                throw new WinBiometricException(message);
-            }
+                throw Marshal.GetExceptionForHR(hr);
 
             hr = UnregisterDatabase(databaseId);
             if (!SafeNativeMethods.Macros.SUCCEEDED(hr))
-            {
-                var message = ConvertErrorCodeToString(hr);
-                throw new WinBiometricException(message);
-            }
+                throw Marshal.GetExceptionForHR(hr);
         }
 
+        /// <summary>
+        /// Specifies the individual that you want to enroll when data that represents multiple individuals is present in the sample buffer.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="selectorValue">The value that identifies that individual that you want to select for enrollment.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void SelectEnroll(Session session, ULONGLONG selectorValue)
         {
             if (session == null)
@@ -1121,6 +1412,13 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Saves a biometric logon credential for the current user.
+        /// </summary>
+        /// <param name="credentialType">A <see cref="CredentialTypes"/> that specifies the credential type.</param>
+        /// <param name="credential">The buffer that contains the credential.</param>
+        /// <param name="format">A <see cref="CredentialFormat"/> that specifies the format of the credential.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="credential"/> is null.</exception>
         public static void SetCredential(CredentialTypes credentialType,
                                          byte[] credential,
                                          CredentialFormat format)
@@ -1142,6 +1440,12 @@ namespace WinBiometricDotNet
             }
         }
 
+        /// <summary>
+        /// Releases the session lock on the specified biometric unit.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="unitId">The value that specifies the biometric unit to unlock.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void UnlockUnit(Session session, WINBIO_UNIT_ID unitId)
         {
             if (session == null)
@@ -1152,6 +1456,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Cancels event notifications from the service provider associated with an open biometric session.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void UnregisterEventMonitor(Session session)
         {
             if (session == null)
@@ -1162,12 +1471,17 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
-        public static VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position)
+        /// <summary>
+        /// Captures a biometric sample and determines whether the sample corresponds to the specified user identity.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="position">A <see cref="FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
+        /// <returns><see cref="VerifyResult"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
+        public static VerifyResult Verify(Session session, FingerPosition position)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
 
             var hr = GetCurrentUserIdentity(out var identity);
             if (hr != 0)
@@ -1180,37 +1494,30 @@ namespace WinBiometricDotNet
                                                 out var match,
                                                 out var rejectDetail);
 
-            var status = OperationStatus.OK;
             switch (hr)
             {
-                case SafeNativeMethods.E_HANDLE:
-                case SafeNativeMethods.E_INVALIDARG:
-                case SafeNativeMethods.E_POINTER:
-                    ThrowWinBiometricException(hr);
-                    break;
                 case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
-                    // retrun unitId and rejectDetail
-                    status = OperationStatus.BadCapture;
-                    ThrowWinBiometricException(ConvertErrorCodeToString(hr));
-                    break;
                 case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
-                    ThrowWinBiometricException(ConvertErrorCodeToString(hr));
-                    break;
                 case SafeNativeMethods.WINBIO_E_NO_MATCH:
-                    status = OperationStatus.NoMatch;
-                    ThrowWinBiometricException(ConvertErrorCodeToString(hr));
+                    break;
+                default:
+                    ThrowWinBiometricException(hr);
                     break;
             }
 
-            return new VerifyResult(match, unitId, status, (RejectDetail)rejectDetail);
+            return new VerifyResult(match, unitId, hr, (RejectDetail)rejectDetail);
         }
 
-        public static void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position)
+        /// <summary>
+        /// Asynchronously captures a biometric sample and determines whether the sample corresponds to the specified user identity.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="position">A <see cref="FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
+        public static void VerifyWithCallback(Session session, FingerPosition position)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
 
             var hr = GetCurrentUserIdentity(out var identity);
             if (hr != 0)
@@ -1225,6 +1532,11 @@ namespace WinBiometricDotNet
             ThrowWinBiometricException(hr);
         }
 
+        /// <summary>
+        /// Blocks caller execution until all pending biometric operations for a session have been completed or canceled.
+        /// </summary>
+        /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
         public static void Wait(Session session)
         {
             if (session == null)
@@ -1237,77 +1549,6 @@ namespace WinBiometricDotNet
 
         #region Helpers
 
-        private static string ConvertErrorCodeToString(int errorCode)
-        {
-            var lpMsgBuf = IntPtr.Zero;
-            var messageLength = 0u;
-            var systemPathSize = SafeNativeMethods.GetSystemWindowsDirectory(null, 0);
-            var systemPath = new StringBuilder((int)systemPathSize);
-            SafeNativeMethods.GetSystemWindowsDirectory(systemPath, systemPathSize);
-
-            var libraryPath = Path.Combine(systemPath.ToString(), @"system32\winbio.dll");
-
-            var winbioLibrary = SafeNativeMethods.LoadLibraryExW(libraryPath,
-                                                                 SafeNativeMethods.NULL,
-                                                                 SafeNativeMethods.LOAD_LIBRARY_AS_DATAFILE |
-                                                                 SafeNativeMethods.LOAD_LIBRARY_AS_IMAGE_RESOURCE);
-            if (winbioLibrary != IntPtr.Zero)
-            {
-                var dwFlag = SafeNativeMethods.FORMAT_MESSAGE_ALLOCATE_BUFFER |
-                             SafeNativeMethods.FORMAT_MESSAGE_FROM_HMODULE |
-                             SafeNativeMethods.FORMAT_MESSAGE_FROM_SYSTEM;
-                messageLength = SafeNativeMethods.FormatMessage(dwFlag,
-                                                                winbioLibrary,
-                                                                (uint)errorCode,
-                                                                0,
-                                                                out lpMsgBuf,
-                                                                0,
-                                                                null);
-
-                SafeNativeMethods.FreeLibrary(winbioLibrary);
-            }
-
-            string message = null;
-            unsafe
-            {
-                if (messageLength > 0)
-                    message = Encoding.Default.GetString((byte*)lpMsgBuf, (int)messageLength);
-            }
-
-            SafeNativeMethods.LocalFree(lpMsgBuf);
-
-            // Caller must release buffer with LocalFree()
-            return message;
-        }
-
-        private static OperationStatus ConvertToOperationStatus(int operationStatus)
-        {
-            var status = OperationStatus.OK;
-            if (SafeNativeMethods.Macros.FAILED(operationStatus))
-            {
-                switch (operationStatus)
-                {
-                    case SafeNativeMethods.WINBIO_E_NO_MATCH:
-                        status = OperationStatus.NoMatch;
-                        break;
-                    case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
-                        status = OperationStatus.BadCapture;
-                        break;
-                    case SafeNativeMethods.WINBIO_I_MORE_DATA:
-                        status = OperationStatus.Canceled;
-                        break;
-                    case SafeNativeMethods.WINBIO_E_CANCELED:
-                        status = OperationStatus.MoreData;
-                        break;
-                    default:
-                        status = OperationStatus.Unknown;
-                        break;
-                }
-            }
-
-            return status;
-        }
-
         private static bool ConvertUuidToString(Guid uuid, out StringBuilder uuidStringBuffer, [In] bool includeBraces)
         {
             var str = includeBraces ? $"{{{uuid}}}" : uuid.ToString();
@@ -1316,7 +1557,7 @@ namespace WinBiometricDotNet
         }
 
         private static unsafe CaptureSampleResult CreateCaptureSampleResult(WINBIO_UNIT_ID unitId,
-                                                                            OperationStatus status,
+                                                                            HRESULT status,
                                                                             SafeNativeMethods.WINBIO_BIR* sample,
                                                                             IntPtr sampleSize,
                                                                             WINBIO_REJECT_DETAIL rejectDetail)
@@ -1920,102 +2161,7 @@ namespace WinBiometricDotNet
             if (!SafeNativeMethods.Macros.FAILED(hresult))
                 return;
 
-            switch (hresult)
-            {
-                case SafeNativeMethods.WINBIO_E_ADAPTER_INTEGRITY_FAILURE:
-                case SafeNativeMethods.WINBIO_E_AUTO_LOGON_DISABLED:
-                case SafeNativeMethods.WINBIO_E_BAD_CAPTURE:
-                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_INVALID:
-                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_TOO_LARGE:
-                case SafeNativeMethods.WINBIO_E_CALIBRATION_BUFFER_TOO_SMALL:
-                case SafeNativeMethods.WINBIO_E_CANCELED:
-                case SafeNativeMethods.WINBIO_E_CAPTURE_ABORTED:
-                case SafeNativeMethods.WINBIO_E_CONFIGURATION_FAILURE:
-                case SafeNativeMethods.WINBIO_E_CRED_PROV_DISABLED:
-                case SafeNativeMethods.WINBIO_E_CRED_PROV_NO_CREDENTIAL:
-                case SafeNativeMethods.WINBIO_E_CRED_PROV_SECURITY_LOCKOUT:
-                case SafeNativeMethods.WINBIO_E_DATA_COLLECTION_IN_PROGRESS:
-                case SafeNativeMethods.WINBIO_E_DATA_PROTECTION_FAILURE:
-                case SafeNativeMethods.WINBIO_E_DATABASE_ALREADY_EXISTS:
-                case SafeNativeMethods.WINBIO_E_DATABASE_BAD_INDEX_VECTOR:
-                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CLOSE:
-                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_CREATE:
-                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_ERASE:
-                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_FIND:
-                case SafeNativeMethods.WINBIO_E_DATABASE_CANT_OPEN:
-                case SafeNativeMethods.WINBIO_E_DATABASE_CORRUPTED:
-                case SafeNativeMethods.WINBIO_E_DATABASE_EOF:
-                case SafeNativeMethods.WINBIO_E_DATABASE_FULL:
-                case SafeNativeMethods.WINBIO_E_DATABASE_LOCKED:
-                case SafeNativeMethods.WINBIO_E_DATABASE_NO_MORE_RECORDS:
-                case SafeNativeMethods.WINBIO_E_DATABASE_NO_RESULTS:
-                case SafeNativeMethods.WINBIO_E_DATABASE_NO_SUCH_RECORD:
-                case SafeNativeMethods.WINBIO_E_DATABASE_READ_ERROR:
-                case SafeNativeMethods.WINBIO_E_DATABASE_WRITE_ERROR:
-                case SafeNativeMethods.WINBIO_E_DEADLOCK_DETECTED:
-                case SafeNativeMethods.WINBIO_E_DEVICE_BUSY:
-                case SafeNativeMethods.WINBIO_E_DEVICE_FAILURE:
-                case SafeNativeMethods.WINBIO_E_DISABLED:
-                case SafeNativeMethods.WINBIO_E_DUPLICATE_ENROLLMENT:
-                case SafeNativeMethods.WINBIO_E_DUPLICATE_TEMPLATE:
-                case SafeNativeMethods.WINBIO_E_ENROLLMENT_CANCELED_BY_SUSPEND:
-                case SafeNativeMethods.WINBIO_E_ENROLLMENT_IN_PROGRESS:
-                case SafeNativeMethods.WINBIO_E_EVENT_MONITOR_ACTIVE:
-                case SafeNativeMethods.WINBIO_E_FAST_USER_SWITCH_DISABLED:
-                case SafeNativeMethods.WINBIO_E_INCORRECT_BSP:
-                case SafeNativeMethods.WINBIO_E_INCORRECT_SENSOR_POOL:
-                case SafeNativeMethods.WINBIO_E_INCORRECT_SESSION_TYPE:
-                case SafeNativeMethods.WINBIO_E_INSECURE_SENSOR:
-                case SafeNativeMethods.WINBIO_E_INVALID_BUFFER:
-                case SafeNativeMethods.WINBIO_E_INVALID_BUFFER_ID:
-                case SafeNativeMethods.WINBIO_E_INVALID_CALIBRATION_FORMAT_ARRAY:
-                case SafeNativeMethods.WINBIO_E_INVALID_CONTROL_CODE:
-                case SafeNativeMethods.WINBIO_E_INVALID_DEVICE_STATE:
-                case SafeNativeMethods.WINBIO_E_INVALID_KEY_IDENTIFIER:
-                case SafeNativeMethods.WINBIO_E_INVALID_OPERATION:
-                case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_ID:
-                case SafeNativeMethods.WINBIO_E_INVALID_PROPERTY_TYPE:
-                case SafeNativeMethods.WINBIO_E_INVALID_SENSOR_MODE:
-                case SafeNativeMethods.WINBIO_E_INVALID_SUBFACTOR:
-                case SafeNativeMethods.WINBIO_E_INVALID_TICKET:
-                case SafeNativeMethods.WINBIO_E_INVALID_UNIT:
-                case SafeNativeMethods.WINBIO_E_KEY_CREATION_FAILED:
-                case SafeNativeMethods.WINBIO_E_KEY_IDENTIFIER_BUFFER_TOO_SMALL:
-                case SafeNativeMethods.WINBIO_E_LOCK_VIOLATION:
-                case SafeNativeMethods.WINBIO_E_MAX_ERROR_COUNT_EXCEEDED:
-                case SafeNativeMethods.WINBIO_E_NO_CAPTURE_DATA:
-                case SafeNativeMethods.WINBIO_E_NO_MATCH:
-                case SafeNativeMethods.WINBIO_E_NO_PREBOOT_IDENTITY:
-                case SafeNativeMethods.WINBIO_E_NO_SUPPORTED_CALIBRATION_FORMAT:
-                case SafeNativeMethods.WINBIO_E_NOT_ACTIVE_CONSOLE:
-                case SafeNativeMethods.WINBIO_E_POLICY_PROTECTION_UNAVAILABLE:
-                case SafeNativeMethods.WINBIO_E_PRESENCE_MONITOR_ACTIVE:
-                case SafeNativeMethods.WINBIO_E_PROPERTY_UNAVAILABLE:
-                case SafeNativeMethods.WINBIO_E_SAS_ENABLED:
-                case SafeNativeMethods.WINBIO_E_SELECTION_REQUIRED:
-                case SafeNativeMethods.WINBIO_E_SENSOR_UNAVAILABLE:
-                case SafeNativeMethods.WINBIO_E_SESSION_BUSY:
-                case SafeNativeMethods.WINBIO_E_SESSION_HANDLE_CLOSED:
-                case SafeNativeMethods.WINBIO_E_TICKET_QUOTA_EXCEEDED:
-                case SafeNativeMethods.WINBIO_E_TRUSTLET_INTEGRITY_FAIL:
-                case SafeNativeMethods.WINBIO_E_UNKNOWN_ID:
-                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_FORMAT:
-                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_DATA_TYPE:
-                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_FACTOR:
-                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_POOL_TYPE:
-                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PROPERTY:
-                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_PURPOSE:
-                case SafeNativeMethods.WINBIO_E_UNSUPPORTED_SENSOR_CALIBRATION_FORMAT:
-                    var message = ConvertErrorCodeToString(hresult);
-                    throw new WinBiometricException(message);
-                default:
-                    throw new WinBiometricException(hresult);
-            }
-        }
-
-        private static void ThrowWinBiometricException(string message)
-        {
-            throw new WinBiometricException(message);
+            throw Marshal.GetExceptionForHR(hresult);
         }
 
         private static int UnregisterDatabase(Guid databaseId)
@@ -2176,12 +2322,12 @@ namespace WinBiometricDotNet
                                                   int operationStatus,
                                                   WINBIO_REJECT_DETAIL rejectDetail)
         {
-            var status = ConvertToOperationStatus(operationStatus);
-
             var @event = EnrollCaptured;
             if (@event != null)
             {
-                var result = new CaptureEnrollResult(status, (RejectDetail)rejectDetail, status == OperationStatus.MoreData);
+                var result = new CaptureEnrollResult(operationStatus,
+                                                     (RejectDetail)rejectDetail,
+                                                     operationStatus == SafeNativeMethods.WINBIO_I_MORE_DATA);
                 var args = new EnrollCapturedEventArgs(result);
                 @event.Invoke(null, args);
             }
@@ -2194,14 +2340,12 @@ namespace WinBiometricDotNet
                                                          IntPtr sampleSize,
                                                          WINBIO_REJECT_DETAIL rejectDetail)
         {
-            var status = ConvertToOperationStatus(operationStatus);
-
             try
             {
                 var @event = SampleCaptured;
                 if (@event != null)
                 {
-                    var result = CreateCaptureSampleResult(unitId, status, sample, sampleSize, rejectDetail);
+                    var result = CreateCaptureSampleResult(unitId, operationStatus, sample, sampleSize, rejectDetail);
                     var args = new CaptureSampleEventArgs(result);
                     @event.Invoke(null, args);
                 }
@@ -2228,47 +2372,7 @@ namespace WinBiometricDotNet
                 if (@event == null)
                     return;
 
-                var status = ConvertToOperationStatus(operationStatus);
-
-                EventMonitoredEventArgs args = null;
-                switch (@event->Type)
-                {
-                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED:
-                        var winbioEventUnclaimed = @event->Parameters.Unclaimed;
-                        var unclaimed = new UnclaimedEvent(winbioEventUnclaimed.UnitId,
-                                                           (RejectDetail)winbioEventUnclaimed.RejectDetail);
-
-                        args = new EventMonitoredEventArgs(EventTypes.Unclaimed,
-                                                           status,
-                                                           unclaimed,
-                                                           null,
-                                                           null);
-                        break;
-                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY:
-                        var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
-                        var unclaimedIdentify = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
-                                                                           (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
-                                                                           new BiometricIdentity(&winbioEventUnclaimedidentity.Identity),
-                                                                           (RejectDetail)winbioEventUnclaimedidentity.RejectDetail);
-
-                        args = new EventMonitoredEventArgs(EventTypes.UnclaimedIdentify,
-                                                           status,
-                                                           null,
-                                                           unclaimedIdentify,
-                                                           null);
-                        break;
-                    case SafeNativeMethods.WINBIO_EVENT_ERROR:
-                        var winbioEventError = @event->Parameters.Error;
-                        var error = new ErrorEvent(winbioEventError.ErrorCode);
-
-                        args = new EventMonitoredEventArgs(EventTypes.Error,
-                                                           status,
-                                                           null,
-                                                           null,
-                                                           error);
-                        break;
-                }
-
+                var args = new EventMonitoredEventArgs(@event, operationStatus);
                 e.Invoke(null, args);
             }
             finally
@@ -2288,12 +2392,11 @@ namespace WinBiometricDotNet
                                                     WINBIO_REJECT_DETAIL rejectDetail)
 
         {
-            var status = ConvertToOperationStatus(operationStatus);
-
             var @event = Identified;
             if (@event != null)
             {
-                var result = new IdentifyResult(unitId, status,
+                var result = new IdentifyResult(unitId,
+                                                operationStatus,
                                                 new BiometricIdentity(identity),
                                                 (FingerPosition)subFactor,
                                                 (RejectDetail)rejectDetail);
@@ -2307,12 +2410,10 @@ namespace WinBiometricDotNet
                                                  int operationStatus,
                                                  WINBIO_UNIT_ID unitId)
         {
-            var status = ConvertToOperationStatus(operationStatus);
-
             var @event = SensorLocated;
             if (@event != null)
             {
-                var args = new LocateSensorEventArgs(unitId, status);
+                var args = new LocateSensorEventArgs(unitId, operationStatus);
                 @event.Invoke(null, args);
             }
         }
@@ -2323,12 +2424,10 @@ namespace WinBiometricDotNet
                                            bool match,
                                            WINBIO_REJECT_DETAIL rejectDetail)
         {
-            var status = ConvertToOperationStatus(operationStatus);
-
             var @event = Verified;
             if (@event != null)
             {
-                var args = new VerifyEventArgs(new VerifyResult(match, unitId, status, (RejectDetail)rejectDetail));
+                var args = new VerifyEventArgs(new VerifyResult(match, unitId, operationStatus, (RejectDetail)rejectDetail));
                 @event.Invoke(null, args);
             }
         }

@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Provides data for the <see cref="WinBiometric.SampleCaptured"/> event handler.
+    /// </summary>
     public sealed class CaptureSampleEventArgs : EventArgs
     {
 
@@ -17,6 +20,9 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value that represents the result of an event.
+        /// </summary>
         public CaptureSampleResult Result
         {
             get;

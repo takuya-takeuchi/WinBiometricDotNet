@@ -3,6 +3,10 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultGetEvent"/> class contains the results of events to monitor.
+    /// </summary>
+    /// <remarks>This class is not currently supported.</remarks>
     public sealed class AsyncResultGetEvent : AsyncResultParameter
     {
 
@@ -38,11 +42,17 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value that specifies the type of service provider event notice raised.
+        /// </summary>
         public EventTypes EventType
         {
             get;
         }
 
+        /// <summary>
+        /// Gets the data that contains status information sent to the callback routine when an event notice is raised.
+        /// </summary>
         public EventParameter Parameter
         {
             get;

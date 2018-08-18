@@ -1,14 +1,18 @@
 ﻿using System;
+using HRESULT = System.Int32;
 
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// Provides data for the <see cref="WinBiometric.SensorLocated"/> event handler.
+    /// </summary>
     public sealed class LocateSensorEventArgs : EventArgs
     {
 
         #region Constructors
 
-        internal LocateSensorEventArgs(uint unitId, OperationStatus operationStatus)
+        internal LocateSensorEventArgs(uint unitId, HRESULT operationStatus)
         {
             this.UnitId = unitId;
             this.OperationStatus = operationStatus;
@@ -18,11 +22,17 @@ namespace WinBiometricDotNet
 
         #region Properties
 
-        public OperationStatus OperationStatus
+        /// <summary>
+        /// Gets the error code returned by the capture operation.
+        /// </summary>
+        public HRESULT OperationStatus
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that specifies the biometric unit.
+        /// </summary>
         public uint UnitId
         {
             get;

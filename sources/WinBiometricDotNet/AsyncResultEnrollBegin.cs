@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultEnrollBegin"/> class contains the results of an asynchronous call to <see cref="WinBiometric.BeginEnroll"/>.
+    /// </summary>
     public sealed class AsyncResultEnrollBegin : AsyncResultParameter
     {
 
@@ -17,6 +20,9 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets a value that provides additional information about the enrollment.
+        /// </summary>
         public FingerPosition FingerPosition
         {
             get;

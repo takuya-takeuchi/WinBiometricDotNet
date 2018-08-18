@@ -3,6 +3,9 @@
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultDeleteTemplate"/> class contains the results of an asynchronous call to <see cref="WinBiometric.DeleteTemplate"/>.
+    /// </summary>
     public sealed class AsyncResultDeleteTemplate : AsyncResultParameter
     {
 
@@ -18,11 +21,17 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets the data that contains the GUID or SID of the template to be deleted.
+        /// </summary>
         public BiometricIdentity Identity
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that provides additional information about the template to be deleted.
+        /// </summary>
         public FingerPosition FingerPosition
         {
             get;

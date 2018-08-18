@@ -83,7 +83,7 @@ namespace FrameworkTester.Selectors
             set;
         }
 
-        public DataTemplate Identity
+        public DataTemplate Identify
         {
             get;
             set;
@@ -133,8 +133,8 @@ namespace FrameworkTester.Selectors
                 return this.GetEvent;
             if (item is AsyncResultGetProperty)
                 return this.GetProperty;
-            if (item is AsyncResultIdentity)
-                return this.Identity;
+            if (item is AsyncResultIdentify)
+                return this.Identify;
             if (item is AsyncResultSetProperty)
                 return this.SetProperty;
             if (item is AsyncResultVerify)

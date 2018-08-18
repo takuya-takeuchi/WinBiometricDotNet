@@ -78,7 +78,7 @@ namespace FrameworkTester.Services.Interfaces
 
         IEnumerable<BiometricUnit> EnumBiometricUnits();
 
-        IEnumerable<FingerPosition> EnumEnrollments(Session session, BiometricUnit unit);
+        IEnumerable<FingerPosition> EnumEnrollments(Session session, uint unitId);
 
         IEnumerable<BiometricServiceProvider> EnumServiceProviders();
 
@@ -159,9 +159,9 @@ namespace FrameworkTester.Services.Interfaces
 
         void UnregisterEventMonitor(Session session);
 
-        VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position);
+        VerifyResult Verify(Session session, FingerPosition position);
 
-        void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position);
+        void VerifyWithCallback(Session session, FingerPosition position);
 
         void Wait(Session session);
 

@@ -5,6 +5,9 @@ using WinBiometricDotNet.Interop;
 namespace WinBiometricDotNet
 {
 
+    /// <summary>
+    /// The <see cref="AsyncResultCaptureSample"/> class contains the results of an asynchronous call to <see cref="WinBiometric.CaptureSample"/>.
+    /// </summary>
     public sealed class AsyncResultCaptureSample : AsyncResultParameter
     {
 
@@ -42,16 +45,25 @@ namespace WinBiometricDotNet
 
         #region Properties
 
+        /// <summary>
+        /// Gets the data that contain sample.
+        /// </summary>
         public CaptureSample Sample
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that contains the size, in bytes, of <see cref="Sample"/> property.
+        /// </summary>
         public int SampleSize
         {
             get;
         }
 
+        /// <summary>
+        /// Gets a value that contains additional information about the failure to capture a biometric sample.
+        /// </summary>
         public RejectDetail RejectDetail
         {
             get;
