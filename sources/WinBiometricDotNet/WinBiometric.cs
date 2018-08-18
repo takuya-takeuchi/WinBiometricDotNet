@@ -2570,45 +2570,7 @@ namespace WinBiometricDotNet
 
                 var status = ConvertToOperationStatus(operationStatus);
 
-                EventMonitoredEventArgs args = null;
-                switch (@event->Type)
-                {
-                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED:
-                        var winbioEventUnclaimed = @event->Parameters.Unclaimed;
-                        var unclaimed = new UnclaimedEvent(winbioEventUnclaimed.UnitId,
-                                                           (RejectDetail)winbioEventUnclaimed.RejectDetail);
-
-                        args = new EventMonitoredEventArgs(EventTypes.Unclaimed,
-                                                           status,
-                                                           unclaimed,
-                                                           null,
-                                                           null);
-                        break;
-                    case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY:
-                        var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
-                        var unclaimedIdentify = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
-                                                                           (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
-                                                                           new BiometricIdentity(&winbioEventUnclaimedidentity.Identity),
-                                                                           (RejectDetail)winbioEventUnclaimedidentity.RejectDetail);
-
-                        args = new EventMonitoredEventArgs(EventTypes.UnclaimedIdentify,
-                                                           status,
-                                                           null,
-                                                           unclaimedIdentify,
-                                                           null);
-                        break;
-                    case SafeNativeMethods.WINBIO_EVENT_ERROR:
-                        var winbioEventError = @event->Parameters.Error;
-                        var error = new ErrorEvent(winbioEventError.ErrorCode);
-
-                        args = new EventMonitoredEventArgs(EventTypes.Error,
-                                                           status,
-                                                           null,
-                                                           null,
-                                                           error);
-                        break;
-                }
-
+                var args = new EventMonitoredEventArgs(@event, status);
                 e.Invoke(null, args);
             }
             finally

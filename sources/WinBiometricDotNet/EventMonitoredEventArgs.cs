@@ -1,4 +1,5 @@
 ﻿using System;
+using WinBiometricDotNet.Interop;
 
 namespace WinBiometricDotNet
 {
@@ -11,17 +12,36 @@ namespace WinBiometricDotNet
 
         #region Constructors
 
-        internal EventMonitoredEventArgs(EventTypes eventType,
-                                         OperationStatus operationStatus,
-                                         UnclaimedEvent unclaimed,
-                                         UnclaimedIdentifyEvent unclaimedIdentify,
-                                         ErrorEvent error)
+        internal unsafe EventMonitoredEventArgs(SafeNativeMethods.WINBIO_EVENT* @event,
+                                                OperationStatus operationStatus)
         {
-            this.EventType = eventType;
+            switch (@event->Type)
+            {
+                case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED:
+                    var winbioEventUnclaimed = @event->Parameters.Unclaimed;
+
+                    this.EventParameter = new UnclaimedEvent(winbioEventUnclaimed.UnitId,
+                                                             (RejectDetail)winbioEventUnclaimed.RejectDetail);
+                    this.EventType = EventTypes.Unclaimed;
+                    break;
+                case SafeNativeMethods.WINBIO_EVENT_FP_UNCLAIMED_IDENTIFY:
+                    var winbioEventUnclaimedidentity = @event->Parameters.UnclaimedIdentify;
+
+                    this.EventParameter = new UnclaimedIdentifyEvent(winbioEventUnclaimedidentity.UnitId,
+                                                                     (FingerPosition)winbioEventUnclaimedidentity.SubFactor,
+                                                                     new BiometricIdentity(&winbioEventUnclaimedidentity.Identity),
+                                                                     (RejectDetail)winbioEventUnclaimedidentity.RejectDetail);
+                    this.EventType = EventTypes.UnclaimedIdentify;
+                    break;
+                case SafeNativeMethods.WINBIO_EVENT_ERROR:
+                    var winbioEventError = @event->Parameters.Error;
+
+                    this.EventParameter = new ErrorEvent(winbioEventError.ErrorCode);
+                    this.EventType = EventTypes.Error;
+                    break;
+            }
+
             this.OperationStatus = operationStatus;
-            this.Unclaimed = unclaimed;
-            this.UnclaimedIdentify = unclaimedIdentify;
-            this.Error = error;
         }
 
         #endregion
@@ -41,17 +61,7 @@ namespace WinBiometricDotNet
             get;
         }
 
-        public UnclaimedEvent Unclaimed
-        {
-            get;
-        }
-
-        public UnclaimedIdentifyEvent UnclaimedIdentify
-        {
-            get;
-        }
-
-        public ErrorEvent Error
+        public EventParameter EventParameter
         {
             get;
         }
