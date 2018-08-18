@@ -1494,16 +1494,13 @@ namespace WinBiometricDotNet
         /// Captures a biometric sample and determines whether the sample corresponds to the specified user identity.
         /// </summary>
         /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
-        /// <param name="unit"></param>
         /// <param name="position">A <see cref="FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
         /// <returns><see cref="VerifyResult"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
-        public static VerifyResult Verify(Session session, BiometricUnit unit, FingerPosition position)
+        public static VerifyResult Verify(Session session, FingerPosition position)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
 
             var hr = GetCurrentUserIdentity(out var identity);
             if (hr != 0)
@@ -1545,15 +1542,12 @@ namespace WinBiometricDotNet
         /// Asynchronously captures a biometric sample and determines whether the sample corresponds to the specified user identity.
         /// </summary>
         /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
-        /// <param name="unit"></param>
         /// <param name="position">A <see cref="FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
         /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
-        public static void VerifyWithCallback(Session session, BiometricUnit unit, FingerPosition position)
+        public static void VerifyWithCallback(Session session, FingerPosition position)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
-            if (unit == null)
-                throw new ArgumentNullException(nameof(unit));
 
             var hr = GetCurrentUserIdentity(out var identity);
             if (hr != 0)

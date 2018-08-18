@@ -369,7 +369,7 @@
         </member>
         <member name="T:WinBiometricDotNet.AsyncResultVerify">
             <summary>
-            <see cref="T:WinBiometricDotNet.AsyncResultVerify"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/> への非同期呼び出しの結果を格納します。
+            <see cref="T:WinBiometricDotNet.AsyncResultVerify"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)"/> への非同期呼び出しの結果を格納します。
             </summary>
         </member>
         <member name="P:WinBiometricDotNet.AsyncResultVerify.IsMatch">
@@ -1659,7 +1659,7 @@
         </member>
         <member name="T:WinBiometricDotNet.VerifyResult">
             <summary>
-            <see cref="T:WinBiometricDotNet.VerifyResult"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/> または <see cref="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/> から返ってきた結果を格納します。
+            <see cref="T:WinBiometricDotNet.VerifyResult"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)"/> または <see cref="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)"/> から返ってきた結果を格納します。
             </summary>
         </member>
         <member name="P:WinBiometricDotNet.VerifyResult.IsMatch">
@@ -2137,7 +2137,6 @@
             バイオメトリックス サンプルをキャプチャし、サンプルが指定したユーザ識別子に対応するかどうかを決定します。
             </summary>
             <param name="session">オープンされたバイオメトリックス セッションを識別する <see cref="T:WinBiometricDotNet.Session"/>。</param>
-            <param name="unit"></param>
             <param name="position">バイオメトリックス サンプルに関連付けられたサブファクタを示す <see cref="T:WinBiometricDotNet.FingerPosition"/>。</param>
             <returns><see cref="T:WinBiometricDotNet.VerifyResult"/>。</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> パラメータが null です。</exception>
@@ -2147,7 +2146,6 @@
             非同期にバイオメトリックス サンプルをキャプチャし、サンプルが指定したユーザ識別子に対応するかどうかを決定します。
             </summary>
             <param name="session">オープンされたバイオメトリックス セッションを識別する <see cref="T:WinBiometricDotNet.Session"/>。</param>
-            <param name="unit"></param>
             <param name="position">バイオメトリックス サンプルに関連付けられたサブファクタを示す <see cref="T:WinBiometricDotNet.FingerPosition"/>。</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> パラメータが null です。</exception>
         </member>

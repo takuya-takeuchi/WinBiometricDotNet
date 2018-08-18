@@ -369,10 +369,10 @@
         </member>
         <member name="T:WinBiometricDotNet.AsyncResultVerify">
             <summary>
-            The <see cref="T:WinBiometricDotNet.AsyncResultVerify"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/>.
+            The <see cref="T:WinBiometricDotNet.AsyncResultVerify"/> class contains the results of an asynchronous call to <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)"/>.
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultVerify.Match">
+        <member name="P:WinBiometricDotNet.AsyncResultVerify.IsMatch">
             <summary>
             Gets a value indicating whether the captured sample matched the user identity specified.
             </summary>
@@ -1659,7 +1659,7 @@
         </member>
         <member name="T:WinBiometricDotNet.VerifyResult">
             <summary>
-            The <see cref="T:WinBiometricDotNet.VerifyResult"/> class contains a result returned from <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/> or <see cref="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/>.
+            The <see cref="T:WinBiometricDotNet.VerifyResult"/> class contains a result returned from <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)"/> or <see cref="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)"/>.
             </summary>
         </member>
         <member name="P:WinBiometricDotNet.VerifyResult.IsMatch">
@@ -2132,22 +2132,20 @@
             <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
         </member>
-        <member name="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)">
+        <member name="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)">
             <summary>
             Captures a biometric sample and determines whether the sample corresponds to the specified user identity.
             </summary>
             <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
-            <param name="unit"></param>
             <param name="position">A <see cref="T:WinBiometricDotNet.FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
             <returns><see cref="T:WinBiometricDotNet.VerifyResult"/>.</returns>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
         </member>
-        <member name="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)">
+        <member name="M:WinBiometricDotNet.WinBiometric.VerifyWithCallback(WinBiometricDotNet.Session,WinBiometricDotNet.FingerPosition)">
             <summary>
             Asynchronously captures a biometric sample and determines whether the sample corresponds to the specified user identity.
             </summary>
             <param name="session">A <see cref="T:WinBiometricDotNet.Session"/> that identifies an open biometric session.</param>
-            <param name="unit"></param>
             <param name="position">A <see cref="T:WinBiometricDotNet.FingerPosition"/> that specifies the sub-factor associated with the biometric sample.</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> is null.</exception>
         </member>
