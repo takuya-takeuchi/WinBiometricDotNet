@@ -1077,7 +1077,7 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     Style="{StaticResource ValueTextBlock}"
-                    Text="{Binding Match}" />
+                    Text="{Binding IsMatch}" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"

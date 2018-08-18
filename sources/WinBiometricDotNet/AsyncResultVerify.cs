@@ -13,7 +13,7 @@ namespace WinBiometricDotNet
 
         internal unsafe AsyncResultVerify(SafeNativeMethods.WINBIO_ASYNC_RESULT_VERIFY* verify)
         {
-            this.Match = verify->Match;
+            this.IsMatch = verify->Match;
             this.RejectDetail = (RejectDetail)verify->RejectDetail;
         }
 
@@ -24,7 +24,7 @@ namespace WinBiometricDotNet
         /// <summary>
         /// Gets a value indicating whether the captured sample matched the user identity specified.
         /// </summary>
-        public bool Match
+        public bool IsMatch
         {
             get;
         }

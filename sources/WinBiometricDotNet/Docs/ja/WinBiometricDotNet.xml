@@ -372,7 +372,7 @@
             <see cref="T:WinBiometricDotNet.AsyncResultVerify"/> クラスは <see cref="M:WinBiometricDotNet.WinBiometric.Verify(WinBiometricDotNet.Session,WinBiometricDotNet.BiometricUnit,WinBiometricDotNet.FingerPosition)"/> への非同期呼び出しの結果を格納します。
             </summary>
         </member>
-        <member name="P:WinBiometricDotNet.AsyncResultVerify.Match">
+        <member name="P:WinBiometricDotNet.AsyncResultVerify.IsMatch">
             <summary>
             キャプチャしたサンプルが指定したユーザ識別子と一致したかどうかを示す値を取得します。
             </summary>
