@@ -41,7 +41,7 @@ namespace FrameworkTester.ViewModels
                         this.UpdateUIImmediately();
 
                         var session = this.HandleRepository.SelectedHandle.Session;
-                        var result = this.BiometricService.Verify(session, this.SelectedUnit, this.SelectedFingerPosition);
+                        var result = this.BiometricService.Verify(session, this.SelectedFingerPosition);
 
                         this.Result = "OK";
 
