@@ -67,7 +67,6 @@ namespace FrameworkTester.ViewModels
                         this.SessionHandle = 0;
                         this.UpdateUIImmediately();
 
-                        var session = this.HandleRepository.SelectedHandle.Session;
                         switch (this.SelectedMethod)
                         {
                             case AsyncNotificationMethod.NotifyCallback:
@@ -94,12 +93,6 @@ namespace FrameworkTester.ViewModels
 
                         this.WaitCallback = true;
                         this.Result = "OK";
-
-                        if (this.EnableWait)
-                        {
-                            name = "WinBioWait";
-                            this.BiometricService.Wait(session);
-                        }
                     }
                     catch (Exception e)
                     {
