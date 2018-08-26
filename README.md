@@ -1,12 +1,14 @@
-# ![Alt text](nuget/fingerprint48.png "WinBiometric.Net") WinBiometric.Net
+# ![Alt text](nuget/fingerprint48.png "WinBiometric.Net") WinBiometric.Net [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 Windows Biometric Framework .NET wrapper
 
-[![NuGet version](https://badge.fury.io/nu/WinBiometricDotNet.svg)](https://badge.fury.io/nu/WinBiometricDotNet)
-[![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
-[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-100.0%25%20(52/52)-green.svg)]()
+|Package|NuGet|
+|---|---|
+|WinBiometricDotNet|[![NuGet version](https://img.shields.io/nuget/v/WinBiometricDotNet.svg)](https://www.nuget.org/packages/WinBiometricDotNet)|
 
 ## Support API
+
+[![API Cover Progress](https://img.shields.io/badge/API%20Coverage-100.0%25%20(52/52)-green.svg)]()
 
 |Function|Support|Win 7|Win 8|Win 10|Note|
 |----|:----:|:----:|:----:|:----:|----|
