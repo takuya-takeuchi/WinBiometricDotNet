@@ -2,17 +2,17 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>WinBiometricDotNet</id>
-    <version>0.9.0</version>
+    <version>0.9.1</version>
     <title>WinBiometricDotNet</title>
     <authors>Takuya Takeuchi</authors>
     <owners>Takuya Takeuchi</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+    <license type="file">LICENSE.txt</license>
     <projectUrl>https://github.com/takuya-takeuchi/WinBiometricDotNet</projectUrl>
-    <iconUrl>https://github.com/takuya-takeuchi/WinBiometricDotNet/blob/master/nuget/fingerprint128.png?raw=true</iconUrl>
+    <icon>images\fingerprint128.png</icon>
     <description>Windows Bitometric Framework .NET wrapper</description>
     <releaseNotes></releaseNotes>
-    <copyright>© Takuya Takeuchi 2018</copyright>
+    <copyright>© Takuya Takeuchi 2018-2021</copyright>
     <tags>windowsbiometricframework wbf biometric</tags>
     <serviceable>true</serviceable>
     <dependencies>
@@ -22,8 +22,12 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\sources\WinBiometricDotNet\bin\Release\netstandard2.0\WinBiometricDotNet.dll" target="lib\netstandard2.0" />
-    <file src="..\sources\WinBiometricDotNet\bin\Release\netstandard2.0\WinBiometricDotNet.xml" target="lib\netstandard2.0" />
-    <file src="..\sources\WinBiometricDotNet\docs\ja\*.xml" target="lib\netstandard2.0\ja" /> 
+    <file src="..\fingerprint128.png" target="images\" />
+    <file src="..\..\sources\WinBiometricDotNet\bin\Release\netstandard2.0\WinBiometricDotNet.dll" target="lib\netstandard2.0" />
+    <file src="..\..\sources\WinBiometricDotNet\bin\Release\netstandard2.0\WinBiometricDotNet.xml" target="lib\netstandard2.0" />
+    <file src="..\..\sources\WinBiometricDotNet\docs\ja\*.xml" target="lib\netstandard2.0\ja" /> 
+
+    <!-- license -->
+    <file src="..\..\LICENSE.txt" target="" />
   </files>
 </package>
