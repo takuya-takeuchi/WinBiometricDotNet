@@ -1,6 +1,6 @@
 ﻿using System;
 using WinBiometricDotNet.Interop;
-using WINBIO_BIR_PURPOSE = System.UInt32;
+using WINBIO_BIR_PURPOSE = System.Byte;
 
 namespace WinBiometricDotNet
 {

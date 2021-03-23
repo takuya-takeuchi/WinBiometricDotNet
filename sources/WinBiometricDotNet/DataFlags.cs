@@ -1,12 +1,12 @@
 ﻿using System;
 using WinBiometricDotNet.Interop;
-using WINBIO_BIR_DATA_FLAGS = System.UInt32;
+using WINBIO_BIR_DATA_FLAGS = System.Byte;
 
 namespace WinBiometricDotNet
 {
 
     /// <summary>
-    /// The <see cref="Purpose"/> enumeration specifies the intended use of the sample.
+    /// The <see cref="DataFlags"/> enumeration specifies the type of processing to be applied to the captured sample.
     /// </summary>
     [Flags]
     public enum DataFlags : WINBIO_BIR_DATA_FLAGS
