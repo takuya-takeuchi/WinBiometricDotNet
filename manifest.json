@@ -1,0 +1,1082 @@
+{
+  "homepages": [],
+  "source_base_path": "D:/a/WinBiometricDotNet/WinBiometricDotNet/docfx",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AntiSpoofPolicy.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AntiSpoofPolicy.html",
+          "hash": "3d1Qux6GEsVNU508ogPrMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AntiSpoofPolicyAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AntiSpoofPolicyAction.html",
+          "hash": "O6J3Ti9DT/t6INHyaweqwQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncCompletedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncCompletedEventArgs.html",
+          "hash": "uTTdODPgiEKyXU5yoWDiNg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncCompletedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncCompletedHandler.html",
+          "hash": "sW+JpYpMdiHiybnrod8MPA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncNotificationMethod.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncNotificationMethod.html",
+          "hash": "7jAJ4cSa6drcmKPEKaboeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResult.html",
+          "hash": "zZ/HfhYgRyhWlWETu/i1Qg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultCaptureSample.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultCaptureSample.html",
+          "hash": "hlZtp/R2P6A8hJYel8UWtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultControlUnit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultControlUnit.html",
+          "hash": "y+zU+wdRQMcQCG7z3FzEKg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultDeleteTemplate.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultDeleteTemplate.html",
+          "hash": "3xqTftTpEZ4A7t27e69C+g=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultEnrollBegin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultEnrollBegin.html",
+          "hash": "tXvqperY4XRfpxfgyV4SKg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultEnrollCapture.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultEnrollCapture.html",
+          "hash": "HsAn5g+ENZ52NHvjzXrIsQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultEnrollCommit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultEnrollCommit.html",
+          "hash": "boNJNjrgGCQKZqpdTgVSYA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultEnumBiometricUnits.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultEnumBiometricUnits.html",
+          "hash": "v6svqT8KRrspFKTRv/LdtA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultEnumDatabases.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultEnumDatabases.html",
+          "hash": "yTwBzLTj28qagia9WJBT7Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultEnumEnrollments.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultEnumEnrollments.html",
+          "hash": "ChW0MR+akFdx6HkjkaewlQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultEnumServiceProviders.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultEnumServiceProviders.html",
+          "hash": "PiZesVCxbI670VH8r6smwg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultGetEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultGetEvent.html",
+          "hash": "M2HkFvGc50x1HypHE35zJw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultGetProperty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultGetProperty.html",
+          "hash": "oXO4UfYHrO8FInq89ySviQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultIdentify.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultIdentify.html",
+          "hash": "habHOm2k2pPz0nY9BAiYuw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultParameter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultParameter.html",
+          "hash": "6e/iuWZ/ASrLoEZa7b2YYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultSetProperty.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultSetProperty.html",
+          "hash": "yGitkCjsUSeGPD10ZuKYtw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.AsyncResultVerify.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.AsyncResultVerify.html",
+          "hash": "Z+TLRuy/CkLJfvLRs7qxgw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricCapabilities.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricCapabilities.html",
+          "hash": "CyNgIpwy6Hf+i+f/xLiIMA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricDatabase.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricDatabase.html",
+          "hash": "4YRhKDP6b7osJN1Y9mbpWA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricIdentity.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricIdentity.html",
+          "hash": "XFS7GaRLPdrgK5oXwM7fgQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricPoolType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricPoolType.html",
+          "hash": "APMQeNeu8Pw10gCdgJOFuA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricSensorSubType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricSensorSubType.html",
+          "hash": "dYyDyb+x5g0H+vZyunW1DA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricServiceProvider.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricServiceProvider.html",
+          "hash": "EF6+5YTpiJTvhZR6t3F+Lg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricTypes.html",
+          "hash": "bzFcO4pHhLABIFMeTyzUcg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricUnit.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricUnit.html",
+          "hash": "jfaaap+FWiP5VTfit+oNVg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.BiometricUnitVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.BiometricUnitVersion.html",
+          "hash": "VySoDBVtYj8eQOH3TniwIw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.CaptureEnrollResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.CaptureEnrollResult.html",
+          "hash": "QaamVVgLZPTf+rVY32rGdw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.CaptureSample.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.CaptureSample.html",
+          "hash": "sRPAdJzXECMbGjR78nuwEA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.CaptureSampleEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.CaptureSampleEventArgs.html",
+          "hash": "Jw5v1yu+yPydY85okyfW6Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.CaptureSampleResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.CaptureSampleResult.html",
+          "hash": "rEktu5+zKY15/uoSmkKEAg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.ChangeTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.ChangeTypes.html",
+          "hash": "wb9s1n/ac08CvYeiHdXR4Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Component.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Component.html",
+          "hash": "k+IARtVvf7thfwWa4sJjeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.CredentialFormat.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.CredentialFormat.html",
+          "hash": "rMa6ofPrkjiMtMDykjo2sw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.CredentialState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.CredentialState.html",
+          "hash": "SJ5l7yVcdPS+h67s9RZ5Yw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.CredentialTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.CredentialTypes.html",
+          "hash": "akQq5M9L40JdVAaES3UVQw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.DataFlags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.DataFlags.html",
+          "hash": "s5pCFNPUwIE1ykTgWEsIfQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.DatabaseFlags.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.DatabaseFlags.html",
+          "hash": "KEM17KEI/3dxMcSzWkpoLA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.DatabaseTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.DatabaseTypes.html",
+          "hash": "buc+WfziksYH3dUSWt8HwQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.EnrollCapturedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.EnrollCapturedEventArgs.html",
+          "hash": "VOBcSlszEaNPAfNNX1/9tQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.EnrollCapturedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.EnrollCapturedHandler.html",
+          "hash": "4hD6eSdnFgv4ENNsBLR8Tw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.ErrorEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.ErrorEvent.html",
+          "hash": "b9CuLpkBcZH0ObRjm3vvNA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.EventMonitoredEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.EventMonitoredEventArgs.html",
+          "hash": "SZwrMGDBCwKNGt/zMQuNMQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.EventMonitoredHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.EventMonitoredHandler.html",
+          "hash": "Xap3PRV/VtS2r9uXqYcyVQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.EventParameter.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.EventParameter.html",
+          "hash": "YiPBD99baejLZuZS8xO0Yg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.EventTypes.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.EventTypes.html",
+          "hash": "1gxqpOK/xppnlHnTpXCfWw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.ExtendedUnitStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.ExtendedUnitStatus.html",
+          "hash": "MqtbefX+SsZFLupZY0a/Rg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.FingerPosition.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.FingerPosition.html",
+          "hash": "RjLTzDljr/56fv541Dc8ew=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Framework.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Framework.html",
+          "hash": "s+TxfPR+78gsk9xoheZYkg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Helpers.PoolConfiguration.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Helpers.PoolConfiguration.html",
+          "hash": "jTaj6iirxYH/khjOLWxBfg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Helpers.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Helpers.html",
+          "hash": "FnnZaNHk965cSuGccJ4Swg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.IdentifiedEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.IdentifiedEventArgs.html",
+          "hash": "iQSKtZotCB+2hXBd4k3Jnw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.IdentifiedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.IdentifiedHandler.html",
+          "hash": "boKrCZf+VzcJ42w7ssNiRA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.IdentifyResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.IdentifyResult.html",
+          "hash": "Hp9bybN/9mZ7g7pM2NI1iw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.IdentityType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.IdentityType.html",
+          "hash": "4LK2SpUOKDXgULKhbOWThQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.LocateSensorEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.LocateSensorEventArgs.html",
+          "hash": "kshz1DYbbhugaU2HgaMM8A=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.OperationType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.OperationType.html",
+          "hash": "FOoCYmlxNlQVi+ugCMV94Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.PolicySource.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.PolicySource.html",
+          "hash": "DW1H0tiOczstPIBLutS9iA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.PropertyId.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.PropertyId.html",
+          "hash": "Xcs5jJrrMUGogM2BCWRgmQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.PropertyType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.PropertyType.html",
+          "hash": "s5sK76xCeG2Apz+0N+rRXg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Purpose.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Purpose.html",
+          "hash": "HxT0unwcYM/B6Pkmwfyhhg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.RejectDetail.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.RejectDetail.html",
+          "hash": "8kpCEc70slNBhSS9s/12mA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Runtime.InteropServices.Marshal.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Runtime.InteropServices.Marshal.html",
+          "hash": "CKS9dJoFmZakJPIYPHqFGg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Runtime.InteropServices.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Runtime.InteropServices.html",
+          "hash": "WqS7NvvqyrR33UYMIF6KhQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.SampleCapturedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.SampleCapturedHandler.html",
+          "hash": "S/5tIOW2BFaqv4Znu8n0Iw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.SensorLocatedHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.SensorLocatedHandler.html",
+          "hash": "MWnpqRrU2r73L51zHyBteA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.SensorStatus.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.SensorStatus.html",
+          "hash": "e9EMX9jMHfB+r0as9Dkxgg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.Session.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.Session.html",
+          "hash": "jNQKW+10h5uJRed+g1XQ8Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.SettingSourceType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.SettingSourceType.html",
+          "hash": "5o022oDHqhlvPWJkl92Rxg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.UnclaimedEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.UnclaimedEvent.html",
+          "hash": "/WvQNR7L995SI2cUuLc/9Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.UnclaimedIdentifyEvent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.UnclaimedIdentifyEvent.html",
+          "hash": "o2zf1hbs+jX5iZlJerrVeA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.VerifyEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.VerifyEventArgs.html",
+          "hash": "l6mqmHZa0T6gAQgt/2aPFA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.VerifyHandler.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.VerifyHandler.html",
+          "hash": "WiMC7v7aJkVPV3c6SZFOQA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.VerifyResult.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.VerifyResult.html",
+          "hash": "Ffzl9bexPr9giamXNArICQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.WinBiometric.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.WinBiometric.html",
+          "hash": "ZRueacZwViGUcGTuo09woQ=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.WinBiometricException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.WinBiometricException.html",
+          "hash": "pQ7PBPsj0MRKM4LQKdtwpA=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/WinBiometricDotNet.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/WinBiometricDotNet.html",
+          "hash": "ONW51sACAdHmmdVZ6P4SZw=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "6xaNIIcXJCchXY0dcMpi0Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/logo.png"
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "EFWGwOS3W9Ton4dPpp78/Q=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "Qzxw1dfdV2J2kudf9u/rYg=="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 1,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 81,
+          "skipped_file_count": 0
+        },
+        "ResourceDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor ResourceDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: last post processor info is null.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
