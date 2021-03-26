@@ -1,4 +1,4 @@
-# ![Alt text](nuget/fingerprint48.png "WinBiometric.Net") WinBiometric.Net [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+# ![Alt text](nuget/fingerprint48.png "WinBiometricDotNet") WinBiometricDotNet [![GitHub license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 Windows Biometric Framework .NET wrapper
 
