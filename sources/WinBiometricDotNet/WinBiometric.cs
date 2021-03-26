@@ -16,6 +16,8 @@ using ULONGLONG = System.UInt64;
 using WINBIO_BIOMETRIC_SENSOR_SUBTYPE = System.UInt32;
 using WINBIO_BIOMETRIC_SUBTYPE = System.Byte;
 using WINBIO_BIOMETRIC_TYPE = System.UInt32;
+using WINBIO_BIR_DATA_FLAGS = System.Byte;
+using WINBIO_BIR_PURPOSE = System.Byte;
 using WINBIO_CAPABILITIES = System.UInt32;
 using WINBIO_COMPONENT = System.UInt32;
 using WINBIO_EVENT_TYPE = System.UInt32;
@@ -358,9 +360,11 @@ namespace WinBiometricDotNet
         /// Captures a biometric sample and fills a biometric information record (BIR) with the raw or processed data.
         /// </summary>
         /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="purpose">A <see cref="Purpose"/> bitmask that specifies the intended use of the sample.</param>
+        /// <param name="flags">A <see cref="DataFlags"/> that specifies the type of processing to be applied to the captured sample.</param>
         /// <returns><see cref="CaptureSampleResult"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
-        public static CaptureSampleResult CaptureSample(Session session)
+        public static CaptureSampleResult CaptureSample(Session session, Purpose purpose = Purpose.NoPurposeAvailable, DataFlags flags = DataFlags.Raw)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
@@ -368,8 +372,8 @@ namespace WinBiometricDotNet
             unsafe
             {
                 var hr = SafeNativeMethods.WinBioCaptureSample(session.Handle,
-                                                               SafeNativeMethods.WINBIO_NO_PURPOSE_AVAILABLE,
-                                                               SafeNativeMethods.WINBIO_DATA_FLAG_RAW,
+                                                               (WINBIO_BIR_PURPOSE)purpose,
+                                                               (WINBIO_BIR_DATA_FLAGS)flags,
                                                                out var unitId,
                                                                out var sample,
                                                                out var sampleSize,
@@ -389,15 +393,17 @@ namespace WinBiometricDotNet
         /// Captures a biometric sample asynchronously and returns the raw or processed data in a biometric information record (BIR).
         /// </summary>
         /// <param name="session">A <see cref="Session"/> that identifies an open biometric session.</param>
+        /// <param name="purpose">A <see cref="Purpose"/> bitmask that specifies the intended use of the sample.</param>
+        /// <param name="flags">A <see cref="DataFlags"/> that specifies the type of processing to be applied to the captured sample.</param>
         /// <exception cref="ArgumentNullException"><paramref name="session"/> is null.</exception>
-        public static void CaptureSampleWithCallback(Session session)
+        public static void CaptureSampleWithCallback(Session session, Purpose purpose = Purpose.NoPurposeAvailable, DataFlags flags = DataFlags.Raw)
         {
             if (session == null)
                 throw new ArgumentNullException(nameof(session));
 
             var hr = SafeNativeMethods.WinBioCaptureSampleWithCallback(session.Handle,
-                                                                       SafeNativeMethods.WINBIO_NO_PURPOSE_AVAILABLE,
-                                                                       SafeNativeMethods.WINBIO_DATA_FLAG_RAW,
+                                                                       (WINBIO_BIR_PURPOSE)purpose,
+                                                                       (WINBIO_BIR_DATA_FLAGS)flags,
                                                                        NativeSampleCapturedCallback,
                                                                        IntPtr.Zero);
 
