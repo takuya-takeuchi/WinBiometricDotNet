@@ -1008,6 +1008,47 @@
             データベースはスマートカード上に存在します。
             </summary>
         </member>
+        <member name="T:WinBiometricDotNet.DataFlags">
+            <summary>
+            <see cref="T:WinBiometricDotNet.DataFlags"/> 列挙型は、キャプチャされたサンプルに適用される処理の種別を指定します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DataFlags.Privacy">
+            <summary>
+            データは暗号化されています。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DataFlags.Integrity">
+            <summary>
+            データはデジタル署名されている、またはメッセージ認証コード (MAC) で保護されています。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DataFlags.Signed">
+            <summary>
+            このフラグと <see cref="F:WinBiometricDotNet.DataFlags.Integrity"/> のフラグが設定されている場合、データは署名されています。このフラグが設定されず、<see cref="F:WinBiometricDotNet.DataFlags.Integrity"/> フラグが設定されている場合、メッセージ認証コード (MAC) がデータ上で計算されています。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DataFlags.Raw">
+            <summary>
+            データはキャプチャ時のフォーマットのままです。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DataFlags.Intermediate">
+            <summary>
+            データは RAW 形式ではなく、完全には処理されていません。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DataFlags.Processed">
+            <summary>
+            データが処理されました。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.DataFlags.OptionMaskPresent">
+            <summary>
+            フラグマスクです。
+            </summary>
+            <remarks>このフラグは常に 1 です。</remarks>
+        </member>
         <member name="T:WinBiometricDotNet.EnrollCapturedEventArgs">
             <summary>
             <see cref="E:WinBiometricDotNet.WinBiometric.EnrollCaptured"/> イベント ハンドラーのデータを提供します。
@@ -1529,6 +1570,47 @@
             プロパティをバイオメトリックス登録を持つ特定のユーザ アカウントに適用します。
             </summary>
         </member>
+        <member name="T:WinBiometricDotNet.Purpose">
+            <summary>
+            <see cref="T:WinBiometricDotNet.Purpose"/> 列挙型はサンプルの使用目的を指定します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Purpose.NoPurposeAvailable">
+            <summary>
+            目的が指定されていません。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Purpose.Verify">
+            <summary>
+            ユーザの識別子を照合します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Purpose.Identify">
+            <summary>
+            ユーザを識別します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Purpose.Enroll">
+            <summary>
+            ユーザを登録します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Purpose.EnrollForVerification">
+            <summary>
+            バイオメトリック サンプルをキャプチャし、そのサンプルが指定されたユーザの識別子に対応するかどうかを判断します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Purpose.EnrollForIdentification">
+            <summary>
+            バイオメトリッ クサンプルをキャプチャし、既存のバイオメトリック テンプレートと一致するかどうかを判断します。
+            </summary>
+        </member>
+        <member name="F:WinBiometricDotNet.Purpose.Auidit">
+            <summary>
+            ロギングや表示に使用できる追加情報です。
+            </summary>
+            <remarks>この値は、入力時にはすべての関数で無視されます。出力時には、バイオメトリック ユニットのみがサポートしており、<see cref="M:WinBiometricDotNet.WinBiometric.CaptureSample(WinBiometricDotNet.Session,WinBiometricDotNet.Purpose,WinBiometricDotNet.DataFlags)"/> 関数の Flags パラメータに WINBIO_DATA_FLAG_RAW を指定した場合にのみ利用可能です。</remarks>
+        </member>
         <member name="T:WinBiometricDotNet.RejectDetail">
             <summary>
             <see cref="T:WinBiometricDotNet.RejectDetail"/> 列挙型はバイオメトリックス指紋キャプチャまたは識別処理が成功しなかった理由を指定します。
@@ -1915,6 +1997,8 @@
             </summary>
             <param name="session">オープンされたバイオメトリックス セッションを識別する <see cref="T:WinBiometricDotNet.Session"/>。</param>
             <returns><see cref="T:WinBiometricDotNet.CaptureSampleResult"/>。</returns>
+            <param name="purpose">サンプルの使用目的を指定する <see cref="T:WinBiometricDotNet.Purpose"/> ビットマスク。</param>
+            <param name="flags">キャプチャしたサンプルに適用される処理の種別を指定する <see cref="T:WinBiometricDotNet.DataFlags"/>。</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> パラメータが null です。</exception>
         </member>
         <member name="M:WinBiometricDotNet.WinBiometric.CaptureSampleWithCallback(WinBiometricDotNet.Session)">
@@ -1922,6 +2006,8 @@
             非同期にバイオメトリックス サンプルをキャプチャし、バイオメトリックス情報レコード (BIR) 内の RAW または処理済みのデータを返します。
             </summary>
             <param name="session">オープンされたバイオメトリックス セッションを識別する <see cref="T:WinBiometricDotNet.Session"/>。</param>
+            <param name="purpose">サンプルの使用目的を指定する <see cref="T:WinBiometricDotNet.Purpose"/> ビットマスク。</param>
+            <param name="flags">キャプチャしたサンプルに適用される処理の種別を指定する <see cref="T:WinBiometricDotNet.DataFlags"/>。</param>
             <exception cref="T:System.ArgumentNullException"><paramref name="session"/> パラメータが null です。</exception>
         </member>
         <member name="M:WinBiometricDotNet.WinBiometric.CloseFramework(WinBiometricDotNet.Framework)">
